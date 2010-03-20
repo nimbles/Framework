@@ -38,7 +38,7 @@ class File {
 	 * @return void
 	 */
 	protected function _readConfigFiles($directory, $environment) {
-		$this->_parseConfig = array();
+		$this->_parsedConfig = array();
 		
 		if (is_dir($directory)) {
 			throw new Exception\MissingConfigDirectory('Cannot find config directory : ' . $directory);
