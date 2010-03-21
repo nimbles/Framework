@@ -97,10 +97,7 @@ class Config extends \ArrayObject {
 	 */
 	public function __call($method, $args) {
 		if ('getConfig' === $method) {
-			if (0 === count($args)) {
-				return $this->_getConfig();
-			}
-			return $this->_getConfig($args[0]);	
+			return call_user_func_array(array($this, '_getConfig'), $args);
 		}
 		
 		throw new BadMethodCallException('Invalid method ' . $method . ' on Config');
@@ -116,10 +113,7 @@ class Config extends \ArrayObject {
 		$object = self::getInstance();
 		
 		if ('getConfig' === $method) {
-			if (0 === count($args)) {
-				return $object->_getConfig();
-			}
-			return $object->_getConfig($args[0]);	
+			return call_user_func_array(array($object, '_getConfig'), $args);	
 		}
 		
 		throw new BadMethodCallException('Invalid static method ' . $method . ' on Config');
