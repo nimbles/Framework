@@ -54,7 +54,18 @@ class Config extends \ArrayObject {
 	 * @param array $config
 	 * @return Config
 	 */
-	protected function _setConfig(array $config) {
+	protected function _setConfig(array $config = null, $clear = false) {
+		if (null === $config) {
+			$config = array();
+		}
+		
+		if ($clear) {
+			$this->exchangeArray(array());
+		}
+		
+		/**
+		 * @todo make set the same as get (dot notation)
+		 */
 		foreach ($config as $key => $value) {
 			$this[$key] = $value;
 		}
@@ -66,12 +77,7 @@ class Config extends \ArrayObject {
 	 * @return void
 	 */
 	public function __construct(array $config = null) {
-		if (null === $config) {
-			$fileConfig = new Config\File();
-			$this->_setConfig($fileConfig->getParsedConfig());
-		} else {
-			$this->_setConfig($config);
-		}
+		$this->_setConfig($config);
 	}
 	
 	/**
@@ -100,6 +106,10 @@ class Config extends \ArrayObject {
 			return call_user_func_array(array($this, '_getConfig'), $args);
 		}
 		
+		if ('setConfig' === $method) {
+			return call_user_func_array(array($this, '_setConfig'), $args);
+		}
+		
 		throw new BadMethodCallException('Invalid method ' . $method . ' on Config');
 	}
 	
@@ -114,6 +124,10 @@ class Config extends \ArrayObject {
 		
 		if ('getConfig' === $method) {
 			return call_user_func_array(array($object, '_getConfig'), $args);	
+		}
+		
+		if ('setConfig' === $method) {
+			return call_user_func_array(array($object, '_setConfig'), $args);
 		}
 		
 		throw new BadMethodCallException('Invalid static method ' . $method . ' on Config');
