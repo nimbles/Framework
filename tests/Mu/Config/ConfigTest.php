@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Mu;
+namespace Tests\Mu\Config;
 require_once 'PHPUnit/Framework.php';
 
 /**

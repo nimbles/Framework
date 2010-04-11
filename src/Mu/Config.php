@@ -65,6 +65,24 @@ class Config extends \ArrayObject {
 				$this[$index] = $value;
 			}
 		} else if (null !== $config) {
+			if (is_string($section) && (false !== strpos($section, '.'))) {
+				$parts = explode('.', $section);
+				
+				$tmp = array();
+				$current = &$config;
+				$count = count($parts);
+				
+				for($i = 1; $i < $count; $i++) {
+					$part = $parts[$i];
+					
+					$current[$part] = ($i < ($count - 1)) ? array() : $value;
+					$current = &$current[$part];	
+				}
+				
+				$section = $parts[0];
+				$config = $tmp;
+			}
+			
 			$this[$section] = $config;
 		} else if (null !== $section) {
 			throw new Config\Exception\InvalidConfig('Config must be provided if section is not an array');
@@ -114,35 +132,6 @@ class Config extends \ArrayObject {
 		}
 		
 		return $mixed;
-	}
-	
-	/**
-	 * Overloads the offsetSet to allow assignment of values in dot notation
-	 * @param int|string $index
-	 * @param mixed $value
-	 * @return null
-	 */
-	public function offsetSet($index, $value) {
-		if (is_string($index) && (false !== strpos($index, '.'))) {
-			$parts = explode('.', $index);
-			
-			$config = array();
-			$current = &$config;
-			$count = count($parts);
-			
-			for($i = 1; $i < $count; $i++) {
-				$part = $parts[$i];
-				
-				$current[$part] = ($i < ($count - 1)) ? array() : $value;
-				$current = &$current[$part];	
-			}
-			
-			print_r($config);
-			
-			$index = $parts[0];
-			$value = $config;
-		}
-		parent::offsetSet($index, $value);
 	}
 	
 	/**

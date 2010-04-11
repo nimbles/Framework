@@ -27,31 +27,22 @@ class File {
 	 * @param string $environment The environment of which to load the config data 
 	 * @return void
 	 */
-	public function __construct($directory, $environment) {
-		$this->_readConfigFiles($directory, $environment);
+	public function __construct($file, $environment) {
+		$this->_parsedConfig = array();
+		$this->_readConfigFile($file, $environment);
 	}
 	
 	/**
-	 * Loads in the config files
-	 * @param string $directory   The directory containing the config files
+	 * Loads in the config file
+	 * @param string $file        The file containing the config array
 	 * @param string $environment The environment of which to load the config data 
 	 * @return void
 	 */
-	protected function _readConfigFiles($directory, $environment) {
-		$this->_parsedConfig = array();
+	protected function _readConfigFile($file, $environment) {
+		$section = substr(basename($file), 0, -4);
+		$config = include $file;
 		
-		if (is_dir($directory)) {
-			throw new Exception\MissingConfigDirectory('Cannot find config directory : ' . $directory);
-		}
-		
-		foreach (scandir($directory) as $filename) {
-			if (!is_dir($directory . '/' . $filename)) {			
-				$section = substr($filename, 0, -4);
-				$config = include $directory . '/' . $filename;
-				
-				$this->_parsedConfig[$section] = $this->_parseConfig($config, $environment);
-			}
-		}
+		$this->_parsedConfig[$section] = $this->_parseConfig($config, $environment);
 	}
 	
 	/**
@@ -64,7 +55,7 @@ class File {
 		$configCopy = array();
 		
 		foreach ($config as $section => &$subconfig) {
-			if (preg_match('/^[a-z]+ : [a-z]+$/i', $section)) {
+			if (preg_match('/^[a-z0-9]+ : [a-z0-9]+$/i', $section)) {
 				list($section, $parent) = explode(' : ', $section);
 			
 				if (!isset($configCopy[$parent])) {
