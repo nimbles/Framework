@@ -9,11 +9,10 @@ require_once 'Mock.php';
  *
  */
 class ConfigurableTest extends \PHPUnit_Framework_TestCase {
-	public function testMixinType() {
-		$mock = new Mock();
-		$this->assertType('\Mu\Config', $mock->config);
-	}
-	
+	/**
+	 * Tests the mixin properties are created and behave properly
+	 * @return void
+	 */
 	public function testMixinProperties() {
 		$mock = new Mock();
 		$this->assertType('\Mu\Config', $mock->config);
@@ -22,6 +21,9 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(1, $mock->config->a);
 	}
 	
+	/**
+	 * Tests the mixin methods are created and behave properly
+	 */
 	public function textMixinMethods() {
 		$mock = new Mock();
 		$this->assertType('\Mu\Config', $mock->config);
