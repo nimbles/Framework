@@ -75,11 +75,12 @@ class Config extends \ArrayObject {
 	
 	/**
 	 * Class construct
+	 * @param array|scalar|null $section
 	 * @param array|scalar|null $config
 	 * @return void
 	 */
-	public function __construct($config = null) {
-		$this->_setConfig($config);
+	public function __construct($section = null, $config = null) {
+		$this->_setConfig($section, $config);
 	}
 	
 	/**
