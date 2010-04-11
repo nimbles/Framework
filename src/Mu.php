@@ -1,4 +1,6 @@
 <?php
+require_once 'Mu/Loader.php';
+
 /**
  * @category Mu
  * @package Mu

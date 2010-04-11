@@ -9,13 +9,13 @@ namespace Mu;
 class Config extends \ArrayObject {
 	/**
 	 * Static instance
-	 * @var Config
+	 * @var \Mu\Config
 	 */
 	static protected $_instance;
 	
 	/**
 	 * Gets the instance
-	 * @return Config
+	 * @return \Mu\Config
 	 */
 	public function getInstance() {
 		if (null === self::$_instance) {
@@ -28,7 +28,7 @@ class Config extends \ArrayObject {
 	/**
 	 * Gets the parsed config
 	 * @param string|null $key use dot notation to navigate down sub config values
-	 * @return Config|scalar
+	 * @return \Mu\Config|scalar
 	 */
 	protected function _getConfig($key = null) {
 		if (null !== $key) {
@@ -36,7 +36,7 @@ class Config extends \ArrayObject {
 			$config = $this;
 			
 			while (null !== ($section = array_shift($keys))) {
-				if (!isset($config[$section])) {
+				if (!array_key_exists($section, $config)) {
 					return null;
 				}			 
 				
@@ -50,40 +50,60 @@ class Config extends \ArrayObject {
 	
 	/**
 	 * Sets config
-	 * @param string $section
-	 * @param array $config
-	 * @return Config
+	 * @param string|array $section
+	 * @param scalar|array $config The config values
+	 * @param bool $clear Clears the config if set to true
+	 * @return \Mu\Config
 	 */
-	protected function _setConfig(array $config = null, $clear = false) {
-		if (null === $config) {
-			$config = array();
-		}
-		
+	protected function _setConfig($section, $config = null, $clear = false) {
 		if ($clear) {
 			$this->exchangeArray(array());
 		}
 		
-		/**
-		 * @todo make set the same as get (dot notation)
-		 */
-		foreach ($config as $key => $value) {
-			$this[$key] = $value;
+		if (is_array($section)) {
+			foreach ($section as $index => $value) {
+				$this[$index] = $value;
+			}
+		} else if (null !== $config) {
+			$this[$section] = $config;
+		} else if (null !== $section) {
+			throw new Config\Exception\InvalidConfig('Config must be provided if section is not an array');
 		}
+		
 		return $this;
 	}
 	
 	/**
 	 * Class construct
+	 * @param array|scalar|null $config
 	 * @return void
 	 */
-	public function __construct(array $config = null) {
+	public function __construct($config = null) {
 		$this->_setConfig($config);
 	}
 	
 	/**
-	 * Overrload offsetGet to get arrays as Config
+	 * Magic method __get to allow accesses for config
+	 * @param string $name
+	 * @return mixed|null
+	 */
+	public function __get($name) {
+		return $this->_getConfig($name);
+	}
+	
+	/**
+	 * 
+	 * @param unknown_type $name
+	 * @param unknown_type $value
+	 */
+	public function __set($name, $value) {
+		return $this->_setConfig($name, $value);
+	}
+	
+	/**
+	 * Overload offsetGet to get arrays as Config
 	 * @param mixed $index
-	 * @return Config|scalar
+	 * @return \Mu\Config|scalar
 	 */
 	public function offsetGet($index) {
 		$mixed = parent::offsetGet($index);
@@ -96,10 +116,39 @@ class Config extends \ArrayObject {
 	}
 	
 	/**
+	 * Overloads the offsetSet to allow assignment of values in dot notation
+	 * @param int|string $index
+	 * @param mixed $value
+	 * @return null
+	 */
+	public function offsetSet($index, $value) {
+		if (is_string($index) && (false !== strpos($index, '.'))) {
+			$parts = explode('.', $index);
+			
+			$config = array();
+			$current = &$config;
+			$count = count($parts);
+			
+			for($i = 1; $i < $count; $i++) {
+				$part = $parts[$i];
+				
+				$current[$part] = ($i < ($count - 1)) ? array() : $value;
+				$current = &$current[$part];	
+			}
+			
+			print_r($config);
+			
+			$index = $parts[0];
+			$value = $config;
+		}
+		parent::offsetSet($index, $value);
+	}
+	
+	/**
 	 * Magic method to allow getConfig as a public method
 	 * @param string $name
 	 * @param array $args
-	 * @return Config|scalar
+	 * @return \Mu\Config|scalar
 	 */
 	public function __call($method, $args) {
 		if ('getConfig' === $method) {
@@ -117,7 +166,7 @@ class Config extends \ArrayObject {
 	 * Magic method to allow getConfig as a static method
 	 * @param string $name
 	 * @param array $args
-	 * @return Config|scalar
+	 * @return \Mu\Config|scalar
 	 */
 	static public function __callStatic($method, $args) {
 		$object = self::getInstance();

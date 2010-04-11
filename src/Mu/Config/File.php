@@ -15,10 +15,10 @@ class File {
 	
 	/**
 	 * Gets the parses config
-	 * @return void
+	 * @return \Mu\Config
 	 */
 	public function getParsedConfig() {
-		return $this->_parsedConfig;
+		return new \Mu\Config($this->_parsedConfig);
 	}
 	
 	/**
