@@ -35,8 +35,9 @@ abstract class Mixin {
 				throw new Mixin\Exception\MixinableMissing();
 			}
 			
-			$this->_methods = array_merge($this->_methods, $class::getMethods());
-			$this->_properties = array_merge($this->_properties, $class::getProperties());
+			$class = new $mixin();
+			$this->_methods = array_merge($this->_methods, $class->getMethods());
+			$this->_properties = array_merge($this->_properties, $class->getProperties());
 		}
 	}
 	
@@ -46,8 +47,8 @@ abstract class Mixin {
 	 * @param array $args
 	 */
 	public function __call($method, $args) {
-		if (array_key_exists($name, $this->_methods)) {
-			return call_user_func_array($this->_methods[$name], array_merge(array($this), $args));
+		if (array_key_exists($method, $this->_methods)) {
+			return call_user_func_array($this->_methods[$method], array_merge(array($this), $args));
 		}
 		
 		throw new BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
@@ -59,7 +60,7 @@ abstract class Mixin {
 	 */
 	public function __get($property) {
 		if (array_key_exists($property, $this->_properties)) {
-			return call_user_func_array($this->_properties[$property], array($this));
+			return call_user_func_array($this->_properties[$property], array($this, true));
 		}
 	}
 	
@@ -70,7 +71,7 @@ abstract class Mixin {
 	 */
 	public function __set($property, $value) {
 		if (array_key_exists($property, $this->_properties)) {
-			return call_user_func_array($this->_properties[$property], array($this, $value));
+			return call_user_func_array($this->_properties[$property], array($this, false, $value));
 		}
 	}
 	

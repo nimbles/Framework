@@ -1,13 +1,12 @@
 <?php
 namespace Mu\Config;
-use Mu\Mixin;
 
 /**
  * @category Mu
  * @package Mu\Config\Configurable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
-class Configurable implements IMixinable {
+class Configurable implements \Mu\Mixin\IMixinable {
 	/**
 	 * Gets the properties which can be mixed in
 	 * @return array
@@ -18,7 +17,7 @@ class Configurable implements IMixinable {
 				static $config = null;
 				
 				if (null === $config) {
-					$config = new Mu\Config($get ? null : $value);
+					$config = new \Mu\Config($get ? null : $value);
 				} else if (!$get) {
 					$config->setConfig($value);	
 				}
