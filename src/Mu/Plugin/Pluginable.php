@@ -1,6 +1,11 @@
 <?php
 namespace Mu\Plugin;
 
+/**
+ * @category Mu
+ * @package Mu\Plugin\Pluginable
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ */
 class Pluginable implements \Mu\Mixin\Mixinable {
 	/**
 	 * The plugins
