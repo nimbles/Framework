@@ -26,7 +26,7 @@ class Plugin extends Mixin {
 	 */
 	public function hasPlugin($name) {
 		$plugins = $this->getPlugins();
-		return array_key_exist($name, $plugins);
+		return array_key_exists($name, $plugins);
 	}
 	
 	/**
@@ -37,6 +37,7 @@ class Plugin extends Mixin {
 	public function getPlugin($name) {
 		if ($this->hasPlugin($name)) {
 			if (is_string($this->_plugins[$name])) {
+				$plugin = $this->_plugins[$name]; 
 				$this->_plugins[$name] = new $plugin();
 			}
 			
@@ -63,7 +64,8 @@ class Plugin extends Mixin {
 	 * @param array|\Mu\Config $options
 	 * @return void
 	 */
-	public function __construct($options) {
+	public function __construct($options = null) {
+		parent::__construct();
 		$this->setOptions($options);
 	}
 	
@@ -77,23 +79,40 @@ class Plugin extends Mixin {
 	}
 	
 	/**
+	 * Magic __set to attach a plugin
+	 * @param string $name
+	 * @param object $plugin
+	 */
+	public function __set($name, $plugin) {
+		return $this->attach($name, $plugin);
+	}
+	
+	/**
 	 * Magic __isset for checking if a plugin exists
 	 * @param string $name
 	 * @return bool
 	 */
-	public function __iset($name) {
+	public function __isset($name) {
 		return $this->hasPlugin($name);
 	}
 	
 	/**
-	 * Registers a plugin
+	 * Magic __unset to detach a plugin
+	 * @param string $name
+	 */
+	public function __unset($name) {
+		$this->detach($name);
+	}
+	
+	/**
+	 * Attaches a plugin
 	 * @param string|object $plugin
 	 * @throws \Mu\Plugin\Exception\InvalidAbstract
 	 * @throws \Mu\Plugin\Exception\InvalidInterface
 	 * @throws \Mu\Plugin\Exception\PluginNotFound
 	 * @throws \Mu\Plugin\Exception
 	 */
-	public function register($name, $plugin) {
+	public function attach($name, $plugin) {
 		try {
 			$ref = new \ReflectionClass($plugin);
 			if (null !== ($abstract = $this->getOption('abstract'))) {
@@ -116,7 +135,18 @@ class Plugin extends Mixin {
 				throw new Plugin\Exception\PluginNotFound('Plugin ' . $plugin . ' does not exist');
 			}
 			
-			throw new Plugin\Exception('Unknown error when registering the plugin: ' . $ex->getMessage());
+			throw new Plugin\Exception('Unknown error when attaching the plugin: ' . $ex->getMessage());
+		}
+	}
+	
+	/**
+	 * Detaches a plugin
+	 * @param string $name
+	 * @return void
+	 */
+	public function detach($name) {
+		if ($this->hasPlugin($name)) {
+			unset($this->_plugins[$name]);
 		}
 	}
 	
@@ -125,7 +155,7 @@ class Plugin extends Mixin {
 	 * @param object $object
 	 * @return void
 	 */
-	public function notify($object) {
+	public function notify($object = null) {
 		$plugin_names = array_keys($this->getPlugins());
 		foreach ($plugin_names as $plugin_name) {
 			$plugin = $this->getPlugin($plugin_name);

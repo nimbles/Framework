@@ -33,10 +33,10 @@ abstract class Mixinable {
 		}
 		
 		if (is_array($config)) {
-			$config = new Mu\Config($config);
+			$config = new \Mu\Config($config);
 		}
 		
-		if (!($config instanceof Mu\Config)) {
+		if (!($config instanceof \Mu\Config)) {
 			throw new Exception\InvalidConfig('Config must be either null, an array or an instance of Mu\\Config');
 		}
 		

@@ -6,7 +6,7 @@ namespace Mu\Plugin;
  * @package Mu\Plugin\Pluginable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
-class Pluginable implements \Mu\Mixin\Mixinable {
+class Pluginable extends \Mu\Mixin\Mixinable {
 	/**
 	 * The plugins
 	 * @var \Mu\Plugin
@@ -47,11 +47,15 @@ class Pluginable implements \Mu\Mixin\Mixinable {
 	 */
 	public function getMethods() {
 		return array(
-			'registerPlugin' => function($object, &$plugins, $name, $plugin) {
-				$plugins->register($name, $plugin);
+			'attach' => function($object, &$plugins, $name, $plugin) {
+				$plugins->attach($name, $plugin);
 			},
 			
-			'notifyPlugins' => function($object, &$plugins) {
+			'detach' => function($object, &$plugins, $name) {
+				$plugins->detach($name);
+			},
+			
+			'notify' => function($object, &$plugins) {
 				$plugins->notify($object);
 			}
 		);

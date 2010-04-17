@@ -32,8 +32,10 @@ class Options extends Configurable {
 			},
 			
 			'setOptions' => function($object, &$config, $options) {
-				foreach ($options as $key => $value) {
-					$object->setOption($key, $value);
+				if (is_array($options) || ($options instanceof \Mu\Config)) {
+					foreach ($options as $key => $value) {
+						$object->setOption($key, $value);
+					}
 				}
 			}
 		);
