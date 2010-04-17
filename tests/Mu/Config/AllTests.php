@@ -5,6 +5,7 @@ require_once 'ConfigTest.php';
 require_once 'FileTest.php';
 require_once 'DirectoryTest.php';
 require_once 'ConfigurableTest.php';
+require_once 'OptionsTest.php';
 
 /**
  * All tests file for Mu Framework
@@ -22,6 +23,7 @@ class AllTests {
 		$suite->addTestSuite('\Tests\Mu\Config\FileTest');
 		$suite->addTestSuite('\Tests\Mu\Config\DirectoryTest');
 		$suite->addTestSuite('\Tests\Mu\Config\ConfigurableTest');
+		$suite->addTestSuite('\Tests\Mu\Config\OptionsTest');
 		return $suite;
 	}
 }

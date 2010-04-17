@@ -54,6 +54,7 @@ class Config extends \ArrayObject {
 	 * @param scalar|array $config The config values
 	 * @param bool $clear Clears the config if set to true
 	 * @return \Mu\Config
+	 * @throws \Mu\Config\Exception\InvalidConfig
 	 */
 	protected function _setConfig($section, $config = null, $clear = false) {
 		if ($clear) {
@@ -139,6 +140,7 @@ class Config extends \ArrayObject {
 	 * @param string $name
 	 * @param array $args
 	 * @return \Mu\Config|scalar
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($method, $args) {
 		if ('getConfig' === $method) {
@@ -149,7 +151,7 @@ class Config extends \ArrayObject {
 			return call_user_func_array(array($this, '_setConfig'), $args);
 		}
 		
-		throw new BadMethodCallException('Invalid method ' . $method . ' on Config');
+		throw new \BadMethodCallException('Invalid method ' . $method . ' on Config');
 	}
 	
 	/**
@@ -157,6 +159,7 @@ class Config extends \ArrayObject {
 	 * @param string $name
 	 * @param array $args
 	 * @return \Mu\Config|scalar
+	 * @throws \BadMethodCallException
 	 */
 	static public function __callStatic($method, $args) {
 		$object = self::getInstance();
@@ -169,6 +172,6 @@ class Config extends \ArrayObject {
 			return call_user_func_array(array($object, '_setConfig'), $args);
 		}
 		
-		throw new BadMethodCallException('Invalid static method ' . $method . ' on Config');
+		throw new \BadMethodCallException('Invalid static method ' . $method . ' on Config');
 	}
 }

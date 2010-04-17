@@ -17,27 +17,24 @@ abstract class Mixin {
 	 * The array of properties this mixin supports
 	 * @var array
 	 */
-	protected $_properties = array();
-	
-	/**
-	 * The array of methods this mixin supports
-	 * @var array
-	 */
-	protected $_methods = array();
+	protected $_mixins = array();
 	
 	/**
 	 * Class construct
 	 * @return void
+	 * @throws \Mu\Mixin\Exception\MixinableMissing
 	 */
 	public function __construct() {
-		foreach ($this->_implements as $mixin) {
+		foreach ($this->_implements as $mixin => $options) {
+			if (is_numeric($mixin)) {
+				$mixin = $options;
+				$options = null;
+			}
 			if (!class_exists($mixin)) {
 				throw new Mixin\Exception\MixinableMissing();
 			}
 			
-			$class = new $mixin();
-			$this->_methods = array_merge($this->_methods, $class->getMethods());
-			$this->_properties = array_merge($this->_properties, $class->getProperties());
+			$this->_mixins[$mixin] = new $mixin($options);
 		}
 	}
 	
@@ -45,13 +42,19 @@ abstract class Mixin {
 	 * Magic __call for the mixin'd methods
 	 * @param string $method
 	 * @param array $args
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($method, $args) {
-		if (array_key_exists($method, $this->_methods)) {
-			return call_user_func_array($this->_methods[$method], array_merge(array($this), $args));
+		foreach ($this->_mixins as &$mixin) {
+			if ($mixin->hasMethod($method)) {
+				$object = $mixin->getObject();
+				return call_user_func_array($mixin->getMethod($method), array_merge(array(
+					$this, &$object
+				), $args));
+			}
 		}
 		
-		throw new BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
+		throw new \BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
 	}
 	
 	/**
@@ -59,9 +62,16 @@ abstract class Mixin {
 	 * @param string $property
 	 */
 	public function __get($property) {
-		if (array_key_exists($property, $this->_properties)) {
-			return call_user_func_array($this->_properties[$property], array($this, true));
+		foreach ($this->_mixins as &$mixin) {
+			if ($mixin->hasProperty($property)) {
+				$object = $mixin->getObject();
+				return call_user_func_array($mixin->getProperty($property), array(
+					$this, &$object, true
+				));
+			}
 		}
+		
+		return null;
 	}
 	
 	/**
@@ -70,8 +80,14 @@ abstract class Mixin {
 	 * @param mixed $value
 	 */
 	public function __set($property, $value) {
-		if (array_key_exists($property, $this->_properties)) {
-			return call_user_func_array($this->_properties[$property], array($this, false, $value));
+		foreach ($this->_mixins as &$mixin) {
+			if ($mixin->hasProperty($property)) {
+				$object = $mixin->getObject();
+				
+				return call_user_func_array($mixin->getProperty($property), array(
+					$this, &$object, false, $value
+				));
+			}
 		}
 	}
 	
