@@ -2,6 +2,7 @@
 namespace Tests\Mu\Config;
 require_once 'PHPUnit/Framework.php';
 require_once 'ConfigurableMock.php';
+require_once 'OptionsMock.php';
 
 /**
  * Options Tests

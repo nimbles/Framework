@@ -2,6 +2,7 @@
 namespace Tests\Mu\Plugin;
 require_once 'PHPUnit/Framework.php';
 require_once 'PluginMock.php';
+require_once 'PluginableMock.php';
 
 /**
  * Pluginable Tests
