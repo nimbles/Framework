@@ -75,7 +75,7 @@ abstract class Mixin {
 	}
 	
 	/**
-	 * Masgic __set for the mixin'd properties
+	 * Magic __set for the mixin'd properties
 	 * @param string $property
 	 * @param mixed $value
 	 */
@@ -92,10 +92,11 @@ abstract class Mixin {
 	}
 	
 	/**
-	 * Masgic __isset for the mixin'd properties
+	 * Magic __isset for the mixin'd properties
 	 * @param string $property
 	 */
 	public function __isset($property) {
-		return array_key_exists($property, $this->_properties);
+		$var = $this->$property;
+		return isset($var);
 	}
 }
