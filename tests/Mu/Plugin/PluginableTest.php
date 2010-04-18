@@ -15,13 +15,18 @@ class PluginableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMixnProperties() {
 		$pluginable = new PluginableMock();
-		$this->assertType('\Mu\Plugin', $pluginable->plugins);
+		$this->assertType('\Mu\Plugin\Plugins', $pluginable->plugins);
+		$this->assertType('\Mu\Plugin', $pluginable->plugins->simple);
+		$this->assertType('\Mu\Plugin', $pluginable->plugins->restricted);
 		
-		$pluginable->plugins->plugin = new PluginConcrete();
-		$this->assertType('\Tests\Mu\Plugin\PluginAbstract', $pluginable->plugins->plugin);
+		$pluginable->plugins->simple->plugin = new PluginSingle();
+		$this->assertType('\Tests\Mu\Plugin\PluginSingle', $pluginable->plugins->simple->plugin);
+		
+		$pluginable->plugins->restricted->plugin = new PluginConcrete();
+		$this->assertType('\Tests\Mu\Plugin\PluginAbstract', $pluginable->plugins->restricted->plugin);
 		
 		$this->setExpectedException('\Mu\Plugin\Exception\InvalidAbstract');
-		$pluginable->plugins->plugin = new PluginSingle();
+		$pluginable->plugins->restricted->plugin = new PluginSingle();
 	}
 	
 	/**
@@ -30,11 +35,11 @@ class PluginableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMixinMethods() {
 		$pluginable = new PluginableMock();
-		$pluginable->attach('plugin', new PluginConcrete());
-		$this->assertType('\Tests\Mu\Plugin\PluginConcrete', $pluginable->plugins->plugin);
-		$pluginable->detach('plugin');
+		$pluginable->attach('restricted', 'plugin', new PluginConcrete());
+		$this->assertType('\Tests\Mu\Plugin\PluginAbstract', $pluginable->plugins->restricted->plugin);
+		$pluginable->detach('restricted', 'plugin');
 		
-		$this->assertFalse(isset($pluginable->plugins->plugin));
+		$this->assertFalse(isset($pluginable->plugins->restricted->plugin));
 	}
 	
 	/**
@@ -45,12 +50,16 @@ class PluginableTest extends \PHPUnit_Framework_TestCase {
 		$pluginable = new PluginableMock();
 		
 		$plugin = $this->getMock('\Tests\Mu\Plugin\PluginObserver', array('update'));
-		$plugin->expects($this->once())
+		$plugin->expects($this->exactly(4))
 			->method('update')
 			->with($this->equalTo($pluginable));
 			
 		
-		$pluginable->attach('plugin', $plugin);
+		$pluginable->attach('restricted', 'plugin', $plugin);
+		$pluginable->attach('simple', 'plugin', $plugin);
+		
+		$pluginable->notify('restricted');
+		$pluginable->notify('simple');
 		$pluginable->notify();
 	}
 }

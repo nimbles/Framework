@@ -9,20 +9,20 @@ namespace Mu\Plugin;
 class Pluginable extends \Mu\Mixin\Mixinable {
 	/**
 	 * The plugins
-	 * @var \Mu\Plugin
+	 * @var \Mu\Plugin\Plugins
 	 */
-	protected $_plugin;
+	protected $_plugins;
 	
 	/**
 	 * Gets the object associated with this mixin
 	 * @return \Mu\Plugin
 	 */
 	public function getObject() {
-		if (null === $this->_plugin) {
-			$this->_plugin = new \Mu\Plugin($this->getConfig());
+		if (null === $this->_plugins) {
+			$this->_plugins = new \Mu\Plugin\Plugins($this->getConfig());
 		}
 		
-		return $this->_plugin;
+		return $this->_plugins;
 	}
 	
 	/**
@@ -47,16 +47,31 @@ class Pluginable extends \Mu\Mixin\Mixinable {
 	 */
 	public function getMethods() {
 		return array(
-			'attach' => function($object, &$plugins, $name, $plugin) {
-				$plugins->attach($name, $plugin);
+			'attach' => function($object, &$plugins, $type, $name, $plugin) {
+				if (isset($plugins->{$type})) {
+					return $plugins->{$type}->attach($name, $plugin);
+				}
+				
+				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
 			},
 			
-			'detach' => function($object, &$plugins, $name) {
-				$plugins->detach($name);
+			'detach' => function($object, &$plugins, $type, $name) {
+				if (isset($plugins->{$type})) {
+					return $plugins->{$type}->detach($name);
+				}
+				
+				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
 			},
 			
-			'notify' => function($object, &$plugins) {
-				$plugins->notify($object);
+			'notify' => function($object, &$plugins, $type = null) {
+				if (null !== $type) {
+					if (isset($plugins->{$type})) {
+						return $plugins->{$type}->notify($object);
+					}
+					throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
+				} else {
+					return $plugins->notify($object);	
+				}
 			}
 		);
 	}
