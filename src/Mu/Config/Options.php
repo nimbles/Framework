@@ -8,6 +8,17 @@ namespace Mu\Config;
  */
 class Options extends Configurable {
 	/**
+	 * Geths the object associated with the mixin
+	 */
+	public function getObject() {
+		$config = parent::getObject();
+		if (null !== $this->getConfig()) {
+			$config->setConfig($this->getConfig());
+		}
+		return $config;
+	}
+	
+	/**
 	 * Gets the methods which can be mixed in
 	 * @return array
 	 */

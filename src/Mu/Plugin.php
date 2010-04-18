@@ -6,7 +6,8 @@ namespace Mu;
  * @package Mu\Plugin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
-class Plugin extends Mixin {
+class Plugin extends Mixin
+	implements \IteratorAggregate {
 	/**
 	 * Class implements
 	 * @var array
@@ -15,7 +16,7 @@ class Plugin extends Mixin {
 	
 	/**
 	 * Plugin collection
-	 * @var array
+	 * @var \ArrayObject
 	 */
 	protected $_plugins;
 	
@@ -25,8 +26,7 @@ class Plugin extends Mixin {
 	 * @return bool
 	 */
 	public function hasPlugin($name) {
-		$plugins = $this->getPlugins();
-		return array_key_exists($name, $plugins);
+		return $this->getPlugins()->offsetExists($name);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class Plugin extends Mixin {
 	 */
 	public function getPlugins() {
 		if (!is_array($this->_plugins)) {
-			$this->_plugins = array();
+			$this->_plugins = \ArrayObject();
 		}
 		
 		return $this->_plugins;
@@ -105,6 +105,14 @@ class Plugin extends Mixin {
 	}
 	
 	/**
+	 * Get iteractor method to allow foreach
+	 * @return \Traversable
+	 */
+	public function getIterator() {
+		return $this->getPlugins()->getIterator();
+	}
+	
+	/**
 	 * Attaches a plugin
 	 * @param string|object $plugin
 	 * @throws \Mu\Plugin\Exception\InvalidAbstract
@@ -126,7 +134,7 @@ class Plugin extends Mixin {
 			}
 			
 			if (!is_array($this->_plugins)) {
-				$this->_plugins = array();
+				$this->_plugins = \ArrayObject();
 			}
 			
 			$this->_plugins[$name] = $plugin;

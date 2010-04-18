@@ -61,7 +61,7 @@ class Config extends \ArrayObject {
 			$this->exchangeArray(array());
 		}
 		
-		if (is_array($section)) {
+		if (is_array($section) || ($section instanceof Config)) {
 			foreach ($section as $index => $value) {
 				$this[$index] = $value;
 			}
