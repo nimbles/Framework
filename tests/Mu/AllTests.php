@@ -3,6 +3,7 @@ namespace Tests\Mu;
 require_once 'PHPUnit/Framework.php';
 require_once 'Config/AllTests.php';
 require_once 'Plugin/AllTests.php';
+require_once 'Log/AllTests.php';
 
 /**
  * All tests file for Mu Framework
@@ -18,6 +19,7 @@ class AllTests {
 		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework');
 		$suite->addTest(Config\AllTests::suite());
 		$suite->addTest(Plugin\AllTests::suite());
+		$suite->addTest(Log\AllTests::suite());
 		return $suite;
 	}
 }

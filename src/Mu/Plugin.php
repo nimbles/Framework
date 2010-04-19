@@ -52,8 +52,8 @@ class Plugin extends Mixin
 	 * @return array
 	 */
 	public function getPlugins() {
-		if (!is_array($this->_plugins)) {
-			$this->_plugins = \ArrayObject();
+		if (!($this->_plugins instanceof \ArrayObject)) {
+			$this->_plugins = new \ArrayObject();
 		}
 		
 		return $this->_plugins;
@@ -134,7 +134,7 @@ class Plugin extends Mixin
 			}
 			
 			if (!is_array($this->_plugins)) {
-				$this->_plugins = \ArrayObject();
+				$this->_plugins = new \ArrayObject();
 			}
 			
 			$this->_plugins[$name] = $plugin;
@@ -164,7 +164,7 @@ class Plugin extends Mixin
 	 * @return void
 	 */
 	public function notify($object = null) {
-		$plugin_names = array_keys($this->getPlugins());
+		$plugin_names = array_keys($this->getPlugins()->getArrayCopy());
 		foreach ($plugin_names as $plugin_name) {
 			$plugin = $this->getPlugin($plugin_name);
 			if (method_exists($plugin, 'update')) {
