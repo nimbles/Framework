@@ -46,7 +46,7 @@ class Log extends Mixin {
 			$entry = new Log\Entry($entry);
 		}
 		
-		foreach($this->writers as $writer) {
+		foreach($this->plugins->writers as $writer) {
 			$write->write($entry);
 		}
 	}
