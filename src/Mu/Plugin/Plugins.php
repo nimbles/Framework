@@ -94,6 +94,7 @@ class Plugins extends \Mu\Mixin {
 	 */
 	public function notify($object = null) {
 		$types = $this->getOption('types');
+		
 		if (!($types instanceof \Mu\Config)) {
 			$types = new \Mu\Config($types);
 		}

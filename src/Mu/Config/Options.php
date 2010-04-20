@@ -30,7 +30,7 @@ class Options extends Configurable {
 					return $object->$method();
 				}
 				
-				return $config->getConfig($key);
+				return $config->{$key};
 			},
 			
 			'setOption' => function($object, &$config, $key, $value) {
@@ -39,7 +39,7 @@ class Options extends Configurable {
 					return $object->$method($value);
 				}
 				
-				return $config->setConfig($key, $value);
+				return $config->{$key} = $value;
 			},
 			
 			'setOptions' => function($object, &$config, $options) {

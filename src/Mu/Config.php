@@ -117,7 +117,7 @@ class Config extends \ArrayObject {
 	 * @param unknown_type $value
 	 */
 	public function __set($name, $value) {
-		return $this->_setConfig($name, $value);
+		return $this->_setConfig(array($name => $value));
 	}
 	
 	/**
