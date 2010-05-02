@@ -27,7 +27,7 @@ abstract class Formatter extends \Mu\Mixin {
 		if (is_string($options)) { // options is just the class name
 			$type = $options;
 			$options = array();
-		} else if (is_array($options)) { // options is an array of name pointing to a array of options
+		} else if (is_array($options) || ($options instanceof \ArrayObject)) { // options is an array of name pointing to a array of options
 			reset($options);
 			
 			$type = key($options);

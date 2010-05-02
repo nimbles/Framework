@@ -21,4 +21,11 @@ class SimpleTest extends \PHPUnit_Framework_TestCase {
 				$this->_entry->getOption('timestamp')->format(\Mu\DateTime::ISO8601), getmypid())
 			, $formatter->format($this->_entry));
 	}
+	
+	public function testCustomFormat() {
+		$formatter = new \Mu\Log\Formatter\Simple(array(
+			'format' => '%message%'
+		));
+		$this->assertEquals('This is a test message', $formatter->format($this->_entry));
+	}
 }

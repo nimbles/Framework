@@ -1,8 +1,7 @@
 <?php
-namespace Tests\Mu\Log;
+namespace Tests\Mu\Log\Writer;
 require_once 'PHPUnit/Framework.php';
-require_once 'Formatter/AllTests.php';
-require_once 'Writer/AllTests.php';
+require_once 'StreamTest.php';
 
 /**
  * All tests file for Mu Framework
@@ -15,9 +14,8 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log');
-		$suite->addTest(Formatter\AllTests::suite());
-		$suite->addTest(Writer\AllTests::suite());
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log - Writer');
+		$suite->addTestSuite('\Tests\Mu\Log\Writer\StreamTest');
 		return $suite;
 	}
 }
