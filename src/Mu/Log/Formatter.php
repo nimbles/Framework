@@ -24,10 +24,18 @@ abstract class Formatter extends \Mu\Mixin {
 			return $options; 
 		}
 		
+		if (!(is_string($options) || is_array($options) || ($options instanceof \ArrayObject))) {
+			throw new Formatter\Exception\InvalidOptions('Options must be a string or array, recieved : ' . gettype($options));
+		}
+		
 		if (is_string($options)) { // options is just the class name
 			$type = $options;
 			$options = array();
 		} else if (is_array($options) || ($options instanceof \ArrayObject)) { // options is an array of name pointing to a array of options
+			if ((is_array($options) && !count($options)) || (($options instanceof \ArrayObject) && !$options->count())) {
+				throw new Formatter\Exception\InvalidOptions('Options must not be empty');
+			}
+			
 			reset($options);
 			
 			$type = key($options);
