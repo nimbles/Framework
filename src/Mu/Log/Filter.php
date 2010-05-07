@@ -26,5 +26,5 @@ abstract class Filter extends \Mu\Mixin {
 	 * Filters the entry
 	 * @param \Mu\Log\Entry $entry
 	 */
-	abstract public function filter(Entry $entry);
+	abstract public function apply(Entry $entry);
 }

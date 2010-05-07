@@ -11,11 +11,11 @@ class Category extends \Mu\Log\Filter {
 	 * Filters based on category
 	 * @param \Mu\Log\Entry $entry
 	 */
-	public function filter(\Mu\Log\Entry $entry) {
+	public function apply(\Mu\Log\Entry $entry) {
 		if (!is_string($this->getOption('category'))) {
 			throw new Exception\InvalidCategory('Category must be specified');
 		}
 		
-		return ($entry->getCategory() === $this->getOption('category'));
+		return ($entry->getOption('category') === $this->getOption('category'));
 	}
 }

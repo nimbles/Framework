@@ -30,46 +30,47 @@ class Level extends \Mu\Log\Filter {
 	 * Filters based on level
 	 * @param \Mu\Log\Entry $entry
 	 */
-	public function filter(\Mu\Log\Entry $entry) {
+	public function apply(\Mu\Log\Entry $entry) {
 		$levels = $this->getOption('level');
 		
 		switch ($this->getOption('type')) {
 			case self::LEVEL_ABOVE :
 				if (!is_int($levels) || ($levels < 0) || ($levels > 7)) {
-					throw Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
+					throw new Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
 				}
 				
-				return $entry->getLevel() <= $this->getOption('level');
+				return $entry->getOption('level') <= $this->getOption('level');
 				break;
 				
 			case self::LEVEL_BELOW :
 				if (!is_int($levels) || ($levels < 0) || ($levels > 7)) {
-					throw Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
+					throw new Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
 				}
 				
-				return $entry->getLevel() >= $this->getOption('level');
+				return $entry->getOption('level') >= $this->getOption('level');
 				break;
 				
 			case self::LEVEL_INCLUDE :
 			case self::LEVEL_EXCLUDE :
 				if (!is_array($levels) && !($levels instanceof \ArrayObject)) {
 					$levels = array($levels);
+				} else if($levels instanceof \ArrayObject) {
+					$levels = $levels->getArrayCopy();
 				}
 				
-				foreach ($levels as $level) {
-					if (!is_int($level) || ($level < 0) || ($level > 7)) {
-						throw Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
-					}
-					
-					if (self::LEVEL_INCLUDE === $this->getOption('type')) {
-						if ($entry->getLevel() !== $level) {
-							return false;
-						}
-					} else {
-						if ($entry->getLevel() === $level) {
-							return false;
-						}
-					}
+				sort($levels, SORT_NUMERIC);
+				if (0 === count($levels)) {
+					throw Exception\InvalidLevel('Levels must not be empty');
+				} else if (($levels[0] < 0) || ($levels[count($levels) - 1] > 7)) {
+					throw new Exception\InvalidLevel('Level must be a valid level between LOG_DEBUG and LOG_EMERG');
+				}
+				
+				if ((self::LEVEL_INCLUDE === $this->getOption('type')) && in_array($entry->getOption('level'), $levels)) {
+					return true;
+				}
+				
+				if ((self::LEVEL_EXCLUDE === $this->getOption('type')) && !in_array($entry->getOption('level'), $levels)) {
+					return true;
 				}
 				
 				break;
