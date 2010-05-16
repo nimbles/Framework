@@ -14,7 +14,7 @@ class Stream extends \Mu\Log\Writer {
 	protected $_stream;
 	
 	/**
-	 * Writes an to a stream
+	 * Writes an entry to a stream
 	 * @param string $entry
 	 * @return void
 	 * @throws Mu\Log\Writer\Exception\MissingStreamOption
@@ -37,7 +37,7 @@ class Stream extends \Mu\Log\Writer {
 	 * Closes the stream connection
 	 * @return void
 	 */
-	public function __desctruct() {
+	public function __destruct() {
 		try {
 			if (is_resource($this->_stream)) {
 				@fclose($this->_stream); // surpress warning for destruct

@@ -133,7 +133,7 @@ class Plugin extends Mixin
 				}
 			}
 			
-			if (!is_array($this->_plugins)) {
+			if (!is_array($this->_plugins) && !($this->_plugins instanceof \ArrayObject)) {
 				$this->_plugins = new \ArrayObject();
 			}
 			
