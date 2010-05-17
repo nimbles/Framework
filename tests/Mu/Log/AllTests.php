@@ -6,6 +6,7 @@ require_once 'Writer/AllTests.php';
 require_once 'Filter/AllTests.php';
 require_once 'EntryTest.php';
 require_once 'LogTest.php';
+require_once 'LoggableTest.php';
 
 /**
  * All tests file for Mu Framework
@@ -25,6 +26,7 @@ class AllTests {
 		
 		$suite->addTestSuite('\Tests\Mu\Log\EntryTest');
 		$suite->addTestSuite('\Tests\Mu\Log\LogTest');
+		$suite->addTestSuite('\Tests\Mu\Log\LoggableTest');
 		return $suite;
 	}
 }
