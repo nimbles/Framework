@@ -11,7 +11,7 @@ class Plugins extends \Mu\Mixin {
 	
 	/**
 	 * Plugin types, lazy loaded
-	 * @var array
+	 * @var ArrayObject
 	 */
 	protected $_types;
 	
@@ -21,17 +21,15 @@ class Plugins extends \Mu\Mixin {
 	 * @return \Mu\Plugin|null
 	 */
 	public function getType($type) {
-		if (!is_array($this->_types)) {
-			$this->_types = array();
+		if (!($this->_types instanceof \ArrayObject)) {
+			$this->_types = new \ArrayObject();
 		}
 		
-		if (array_key_exists($type, $this->_types)) {
+		if ($this->_types->offsetExists($type)) {
 			return $this->_types[$type];
 		}
 		
 		$types = $this->getOption('types');
-		
-		//print_r($types);
 		
 		if (!($types instanceof \Mu\Config)) {
 			$types = new \Mu\Config($types);
@@ -53,8 +51,9 @@ class Plugins extends \Mu\Mixin {
 	}
 	
 	/**
-	 * 
-	 * @param unknown_type $type
+	 * Checks if the plugin has the types
+	 * @param string $type
+	 * @return bool
 	 */
 	public function hasType($type) {
 		return (null !== $this->getType($type));
@@ -95,6 +94,7 @@ class Plugins extends \Mu\Mixin {
 	 */
 	public function notify($object = null) {
 		$types = $this->getOption('types');
+		
 		if (!($types instanceof \Mu\Config)) {
 			$types = new \Mu\Config($types);
 		}

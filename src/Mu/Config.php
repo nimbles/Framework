@@ -61,7 +61,7 @@ class Config extends \ArrayObject {
 			$this->exchangeArray(array());
 		}
 		
-		if (is_array($section)) {
+		if (is_array($section) || ($section instanceof Config)) {
 			foreach ($section as $index => $value) {
 				$this[$index] = $value;
 			}
@@ -117,7 +117,7 @@ class Config extends \ArrayObject {
 	 * @param unknown_type $value
 	 */
 	public function __set($name, $value) {
-		return $this->_setConfig($name, $value);
+		return $this->_setConfig(array($name => $value));
 	}
 	
 	/**
