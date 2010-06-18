@@ -1,5 +1,5 @@
 <?php
-require_once 'Mu/Loader.php';
+require_once 'Mu/Core/Loader.php';
 
 /**
  * @category Mu
@@ -12,6 +12,6 @@ class Mu {
 	 * @return void
 	 */
 	public function __construct() {
-		Mu\Loader::register();
+		Mu\Core\Loader::register();
 	}
 }
