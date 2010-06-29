@@ -2,7 +2,7 @@
 namespace Mu\Core\Log\Writer;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Log\Writer\Mock
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

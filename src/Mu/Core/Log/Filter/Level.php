@@ -2,7 +2,7 @@
 namespace Mu\Core\Log\Filter;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Log\Filter\Level
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

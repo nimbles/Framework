@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Plugin;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'PluginMock.php';
 
 /**
@@ -8,7 +8,7 @@ require_once 'PluginMock.php';
  * @author rob
  *
  */
-class PluginTest extends \PHPUnit_Framework_TestCase {
+class PluginTest extends \Mu\Core\TestCase {
 	/**
 	 * Tests that the plugin system implements the observer pattern
 	 * @return void

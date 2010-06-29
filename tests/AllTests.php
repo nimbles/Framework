@@ -2,7 +2,7 @@
 namespace Tests;
 
 require_once 'PHPUnit/Framework.php';
-require_once 'Mu/Core/AllTests.php';
+require_once 'Mu/AllTests.php';
 
 /**
  * All tests file, exists so that can be part of wider system
@@ -16,7 +16,7 @@ class AllTests {
 	 */
 	static public function suite() {
 		$suite = new \PHPUnit_Framework_TestSuite('All Tests');
-		$suite->addTest(Mu\Core\AllTests::suite());
+		$suite->addTest(Mu\AllTests::suite());
 		return $suite;
 	}
 }

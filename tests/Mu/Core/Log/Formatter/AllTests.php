@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log\Formatter;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'SimpleTest.php';
 require_once 'FormatterTest.php';
 
@@ -15,7 +15,7 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log - Formatter');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Formatter');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Formatter\SimpleTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Formatter\FormatterTest');
 		return $suite;

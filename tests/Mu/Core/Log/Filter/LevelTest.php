@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log\Filter;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Level Filter Tests
  * @author rob
  *
  */
-class LevelTest extends \PHPUnit_Framework_TestCase {
+class LevelTest extends \Mu\Core\TestCase {
 	public function testIncludeSingle() {
 		$filter = new \Mu\Core\Log\Filter\Level(array(
 			'type' => \Mu\Core\Log\Filter\Level::LEVEL_INCLUDE,

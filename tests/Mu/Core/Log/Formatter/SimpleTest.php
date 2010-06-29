@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log\Formatter;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Simple Tests
  * @author rob
  *
  */
-class SimpleTest extends \PHPUnit_Framework_TestCase {
+class SimpleTest extends \Mu\Core\TestCase {
 	protected $_entry;
 	
 	public function setUp() {

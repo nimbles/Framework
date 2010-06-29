@@ -2,7 +2,7 @@
 namespace Mu\Core\Config;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Config\File
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

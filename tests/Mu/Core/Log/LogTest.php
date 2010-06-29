@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Log Tests
  * @author rob
  *
  */
-class LogTest extends \PHPUnit_Framework_TestCase {
+class LogTest extends \Mu\Core\TestCase {
 	public function testGetInstance() {
 		$instance = \Mu\Core\Log::getInstance();
 		$this->assertType('\Mu\Core\Log', $instance);

@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Config;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'ConfigTest.php';
 require_once 'FileTest.php';
 require_once 'DirectoryTest.php';
@@ -18,7 +18,7 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Config');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Config');
 		$suite->addTestSuite('\Tests\Mu\Core\Config\ConfigTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Config\FileTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Config\DirectoryTest');

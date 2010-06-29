@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log\Writer;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'StreamTest.php';
 require_once 'MockTest.php';
 
@@ -15,7 +15,7 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log - Writer');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Writer');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Writer\StreamTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Writer\MockTest');
 		return $suite;

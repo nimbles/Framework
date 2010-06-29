@@ -2,7 +2,7 @@
 namespace Mu\Core\Log\Formatter;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Log\Formatter\Exception
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

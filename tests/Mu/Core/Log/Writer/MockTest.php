@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log\Writer;
-require_once 'PHPUnit/Framework.php';
+
 require_once '_files/GlobalStream.php';
 
 /**
@@ -8,7 +8,7 @@ require_once '_files/GlobalStream.php';
  * @author rob
  *
  */
-class MockTest extends \PHPUnit_Framework_TestCase {	
+class MockTest extends \Mu\Core\TestCase {	
 	public function testGetEntries() {
 		$writer = new \Mu\Core\Log\Writer\Mock(array(
 			'formatter' => array(

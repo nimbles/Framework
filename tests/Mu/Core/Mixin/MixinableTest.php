@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Mu\Core\Mixin;
 
-require_once 'PHPUnit/Framework.php';
+
 require_once 'MixinableMock.php';
 
 /**
@@ -9,7 +9,7 @@ require_once 'MixinableMock.php';
  * @author marc
  *
  */
-class MixinableTest extends \PHPUnit_Framework_TestCase {
+class MixinableTest extends \Mu\Core\TestCase {
 
 	public function mockProperties() {
 		return array(

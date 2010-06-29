@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Mixin;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'MixinMock.php';
 
 /**
@@ -8,7 +8,7 @@ require_once 'MixinMock.php';
  * @author marc
  *
  */
-class MixinTest extends \PHPUnit_Framework_TestCase {
+class MixinTest extends \Mu\Core\TestCase {
 
 	public function testInvalidMixin() {
 		$this->setExpectedException('\Mu\Core\Mixin\Exception\MixinableMissing');

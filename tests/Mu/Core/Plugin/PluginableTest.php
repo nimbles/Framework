@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Plugin;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'PluginMock.php';
 require_once 'PluginableMock.php';
 
@@ -9,7 +9,7 @@ require_once 'PluginableMock.php';
  * @author rob
  *
  */
-class PluginableTest extends \PHPUnit_Framework_TestCase {
+class PluginableTest extends \Mu\Core\TestCase {
 	/**
 	 * Tests that the pluginable mixin adds a plugins property that behaves as expected
 	 * @return true

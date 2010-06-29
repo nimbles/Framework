@@ -2,7 +2,7 @@
 namespace Mu\Core\Plugin;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Plugin\Plugins
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Plugin;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'PluginMock.php';
 
 /**
@@ -8,7 +8,7 @@ require_once 'PluginMock.php';
  * @author rob
  *
  */
-class PluginsTest extends \PHPUnit_Framework_TestCase {
+class PluginsTest extends \Mu\Core\TestCase {
 	public function testSingleSimpleType() {
 		$plugins = new \Mu\Core\Plugin\Plugins(array(
 			'types' => array(

@@ -2,7 +2,7 @@
 namespace Mu\Core\Plugin\Exception;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Plugin\Exception\InvalidInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

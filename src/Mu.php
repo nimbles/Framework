@@ -2,7 +2,7 @@
 require_once 'Mu/Core/Loader.php';
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

@@ -2,7 +2,7 @@
 namespace Mu\Core;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Loader
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */

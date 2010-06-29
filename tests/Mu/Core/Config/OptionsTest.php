@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Config;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'ConfigurableMock.php';
 require_once 'OptionsMock.php';
 
@@ -9,7 +9,7 @@ require_once 'OptionsMock.php';
  * @author rob
  *
  */
-class OptionsTest extends \PHPUnit_Framework_TestCase {
+class OptionsTest extends \Mu\Core\TestCase {
 	/**
 	 * Tests the mixin properties are created and behave properly
 	 * @return void

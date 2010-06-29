@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'Formatter/AllTests.php';
 require_once 'Writer/AllTests.php';
 require_once 'Filter/AllTests.php';
@@ -19,11 +19,11 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log');
 		$suite->addTest(Formatter\AllTests::suite());
 		$suite->addTest(Writer\AllTests::suite());
 		$suite->addTest(Filter\AllTests::suite());
-		
+
 		$suite->addTestSuite('\Tests\Mu\Core\Log\EntryTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\LogTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\LoggableTest');

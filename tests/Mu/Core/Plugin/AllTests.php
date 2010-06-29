@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Plugin;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'PluginTest.php';
 require_once 'PluginsTest.php';
 require_once 'PluginableTest.php';
@@ -16,7 +16,7 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Plugin');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Plugin');
 		$suite->addTestSuite('\Tests\Mu\Core\Plugin\PluginTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Plugin\PluginsTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Plugin\PluginableTest');

@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log\Filter;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'LevelTest.php';
 require_once 'CategoryTest.php';
 
@@ -15,7 +15,7 @@ class AllTests {
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Log - Filter');
+		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Filter');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Filter\LevelTest');
 		$suite->addTestSuite('\Tests\Mu\Core\Log\Filter\CategoryTest');
 		return $suite;

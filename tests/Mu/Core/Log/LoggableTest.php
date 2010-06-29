@@ -1,6 +1,6 @@
 <?php
 namespace Tests\Mu\Core\Log;
-require_once 'PHPUnit/Framework.php';
+
 require_once 'LoggableMock.php';
 
 /**
@@ -8,7 +8,7 @@ require_once 'LoggableMock.php';
  * @author rob
  *
  */
-class LoggableTest extends \PHPUnit_Framework_TestCase {
+class LoggableTest extends \Mu\Core\TestCase {
 	public function testMixinMethods() {
 		$instance = \Mu\Core\Log::getInstance();
 		$writer = new \Mu\Core\Log\Writer\Mock(array(

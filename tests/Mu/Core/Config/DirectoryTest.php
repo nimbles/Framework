@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Config;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Directory Tests
  * @author rob
  *
  */
-class DirectoryTest extends \PHPUnit_Framework_TestCase {
+class DirectoryTest extends \Mu\Core\TestCase {
 	/**
 	 * Tests reading a directory of config files for level 1
 	 * @return void

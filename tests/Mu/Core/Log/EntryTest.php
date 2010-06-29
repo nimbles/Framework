@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Entry Tests
  * @author rob
  *
  */
-class EntryTest extends \PHPUnit_Framework_TestCase {
+class EntryTest extends \Mu\Core\TestCase {
 	public function testConstructJustMessage() {
 		$entry = new \Mu\Core\Log\Entry('Hello world');
 		

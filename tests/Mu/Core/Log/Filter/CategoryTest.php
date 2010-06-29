@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log\Filter;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Category Filter Tests
  * @author rob
  *
  */
-class CategoryTest extends \PHPUnit_Framework_TestCase {
+class CategoryTest extends \Mu\Core\TestCase {
 	public function testCategory() {
 		$filter = new \Mu\Core\Log\Filter\Category(array(
 			'category' => 'hit'

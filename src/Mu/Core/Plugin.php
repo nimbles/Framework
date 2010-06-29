@@ -2,24 +2,25 @@
 namespace Mu\Core;
 
 /**
- * @category Mu
+ * @category Mu\Core
  * @package Mu\Core\Plugin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
 class Plugin extends Mixin
 	implements \IteratorAggregate {
+
 	/**
 	 * Class implements
 	 * @var array
 	 */
 	protected $_implements = array('Mu\Core\Config\Options');
-	
+
 	/**
 	 * Plugin collection
 	 * @var \ArrayObject
 	 */
 	protected $_plugins;
-	
+
 	/**
 	 * Checks if a plugin exists
 	 * @param string $name
@@ -28,7 +29,7 @@ class Plugin extends Mixin
 	public function hasPlugin($name) {
 		return $this->getPlugins()->offsetExists($name);
 	}
-	
+
 	/**
 	 * Gets a plugin by name
 	 * @param string $name
@@ -37,16 +38,16 @@ class Plugin extends Mixin
 	public function getPlugin($name) {
 		if ($this->hasPlugin($name)) {
 			if (is_string($this->_plugins[$name])) {
-				$plugin = $this->_plugins[$name]; 
+				$plugin = $this->_plugins[$name];
 				$this->_plugins[$name] = new $plugin();
 			}
-			
+
 			return $this->_plugins[$name];
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Gets the plugin collection
 	 * @return array
@@ -55,10 +56,10 @@ class Plugin extends Mixin
 		if (!($this->_plugins instanceof \ArrayObject)) {
 			$this->_plugins = new \ArrayObject();
 		}
-		
+
 		return $this->_plugins;
 	}
-	
+
 	/**
 	 * Class construct
 	 * @param array|\Mu\Core\Config $options
@@ -68,7 +69,7 @@ class Plugin extends Mixin
 		parent::__construct();
 		$this->setOptions($options);
 	}
-	
+
 	/**
 	 * Magic __get for getting a plugin by name
 	 * @param string $name
@@ -77,7 +78,7 @@ class Plugin extends Mixin
 	public function __get($name) {
 		return $this->getPlugin($name);
 	}
-	
+
 	/**
 	 * Magic __set to attach a plugin
 	 * @param string $name
@@ -86,7 +87,7 @@ class Plugin extends Mixin
 	public function __set($name, $plugin) {
 		return $this->attach($name, $plugin);
 	}
-	
+
 	/**
 	 * Magic __isset for checking if a plugin exists
 	 * @param string $name
@@ -95,7 +96,7 @@ class Plugin extends Mixin
 	public function __isset($name) {
 		return $this->hasPlugin($name);
 	}
-	
+
 	/**
 	 * Magic __unset to detach a plugin
 	 * @param string $name
@@ -103,7 +104,7 @@ class Plugin extends Mixin
 	public function __unset($name) {
 		$this->detach($name);
 	}
-	
+
 	/**
 	 * Get iteractor method to allow foreach
 	 * @return \Traversable
@@ -111,7 +112,7 @@ class Plugin extends Mixin
 	public function getIterator() {
 		return $this->getPlugins()->getIterator();
 	}
-	
+
 	/**
 	 * Attaches a plugin
 	 * @param string|object $plugin
@@ -132,21 +133,21 @@ class Plugin extends Mixin
 					throw new Plugin\Exception\InvalidInterface('Plugin does not implement interface ' . $interface);
 				}
 			}
-			
+
 			if (!is_array($this->_plugins) && !($this->_plugins instanceof \ArrayObject)) {
 				$this->_plugins = new \ArrayObject();
 			}
-			
+
 			$this->_plugins[$name] = $plugin;
 		} catch (\ReflectionException $ex) {
 			if (is_string($plugin)) {
 				throw new Plugin\Exception\PluginNotFound('Plugin ' . $plugin . ' does not exist');
 			}
-			
+
 			throw new Plugin\Exception('Unknown error when attaching the plugin: ' . $ex->getMessage());
 		}
 	}
-	
+
 	/**
 	 * Detaches a plugin
 	 * @param string $name
@@ -157,7 +158,7 @@ class Plugin extends Mixin
 			unset($this->_plugins[$name]);
 		}
 	}
-	
+
 	/**
 	 * Notifies the plugins, following the observer pattern
 	 * @param object $object

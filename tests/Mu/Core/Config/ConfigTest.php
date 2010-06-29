@@ -1,19 +1,19 @@
 <?php
 namespace Tests\Mu\Core\Config;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Config Tests
  * @author rob
  *
  */
-class ConfigTest extends \PHPUnit_Framework_TestCase {
+class ConfigTest extends \Mu\Core\TestCase {
 	/**
 	 * The test data
 	 * @var array
 	 */
 	protected $_testData;
-	
+
 	/**
 	 * Set up the test data
 	 * @return void
@@ -32,7 +32,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 			)
 		);
 	}
-	
+
 	/**
 	 * Tests construct of config without any parameters
 	 * @return void
@@ -41,7 +41,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$config = new \Mu\Core\Config();
 		$this->assertType('\Mu\Core\Config', $config);
 	}
-	
+
 	/**
 	 * Tests construct of config with an empty array as first parameter
 	 * @return void
@@ -50,7 +50,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$config = new \Mu\Core\Config(array());
 		$this->assertType('\Mu\Core\Config', $config);
 	}
-	
+
 	/**
 	 * Tests construct with a string as first parameter and no config
 	 * @return void
@@ -59,7 +59,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$this->setExpectedException('\Mu\Core\Config\Exception\InvalidConfig');
 		$config = new \Mu\Core\Config('test');
 	}
-	
+
 	/**
 	 * Tests construct with a string as first and second parameter
 	 * @return void
@@ -68,7 +68,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$config = new \Mu\Core\Config('section', 'value');
 		$this->assertEquals('value', $config->section);
 	}
-	
+
 	/**
 	 * Tests accesses with a string as first and second parameter
 	 * @return void
@@ -76,11 +76,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	public function testAccessesWithSectionAndValue() {
 		$config = new \Mu\Core\Config('section', 'value');
 		$this->assertEquals('value', $config->section);
-		
+
 		$config->section = 'value2';
 		$this->assertEquals('value2', $config->section);
 	}
-	
+
 	/**
 	 * Tests array access with a string as first and second parameter
 	 * @return void
@@ -88,11 +88,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	public function testArrayAccessWithSectionAndValue() {
 		$config = new \Mu\Core\Config('section', 'value');
 		$this->assertEquals('value', $config['section']);
-		
+
 		$config['section'] = 'value2';
 		$this->assertEquals('value2', $config['section']);
 	}
-	
+
 	/**
 	 * Tests getConfig and setConfig with a string as first and second parameter
 	 * @return void
@@ -100,11 +100,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	public function testGetSetConfigWithSectionAndValue() {
 		$config = new \Mu\Core\Config('section', 'value');
 		$this->assertEquals('value', $config->getConfig('section'));
-		
+
 		$config->setConfig('section', 'value2');
 		$this->assertEquals('value2', $config->section);
 	}
-	
+
 	/**
 	 * Tests construct with a populated array as first parameter
 	 * @return void
@@ -113,7 +113,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$config = new \Mu\Core\Config($this->_testData);
 		$this->assertType('\Mu\Core\Config', $config);
 	}
-	
+
 	/**
 	 * Tests the accesses with a populated array as first parameter
 	 * @return void
@@ -121,7 +121,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	public function testAccessesPopulatedArray() {
 		$config = new \Mu\Core\Config($this->_testData);
 		$this->assertType('\Mu\Core\Config', $config);
-		
+
 		$this->assertEquals(1, $config->a);
 		$this->assertEquals(2, $config->b);
 		$this->assertEquals(3, $config->c);
@@ -136,7 +136,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(6, $config->{'d.g.h'});
 		$this->assertNull($config->e);
 	}
-	
+
 	/**
 	 * Tests the getConfig with a populated array as first parameter
 	 * @return void
@@ -144,7 +144,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 	public function testGetSetConfigPopulatedArray() {
 		$config = new \Mu\Core\Config($this->_testData);
 		$this->assertType('\Mu\Core\Config', $config);
-		
+
 		$this->assertEquals(1, $config->getConfig('a'));
 		$this->assertEquals(2, $config->getConfig('b'));
 		$this->assertEquals(3, $config->getConfig('c'));

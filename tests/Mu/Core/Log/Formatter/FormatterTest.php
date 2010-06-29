@@ -1,13 +1,13 @@
 <?php
 namespace Tests\Mu\Core\Log\Formatter;
-require_once 'PHPUnit/Framework.php';
+
 
 /**
  * Formatter Tests
  * @author rob
  *
  */
-class FormatterTest extends \PHPUnit_Framework_TestCase {
+class FormatterTest extends \Mu\Core\TestCase {
 	public function testFactoryEmptyArray() {
 		$this->setExpectedException('\Mu\Core\Log\Formatter\Exception\InvalidOptions');
 		\Mu\Core\Log\Formatter::factory(array());
