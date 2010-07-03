@@ -98,7 +98,9 @@ class Request extends \Mu\Core\Request {
 	 */
 	static public function build() {
 		if ('cli' === PHP_SAPI) {
-			return new self();
+			return new self(array(
+				'server' => $_SERVER
+			));
 		}
 
 		return null;
