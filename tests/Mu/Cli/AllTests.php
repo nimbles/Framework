@@ -18,7 +18,7 @@ class AllTests {
 	static public function suite() {
 		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
 		$suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-		//$suite->addTestSuite('\Tests\Mu\Cli\RequestTest'); // need to work out how
+		$suite->addTestSuite('\Tests\Mu\Cli\RequestTest'); // need to work out how
 		return $suite;
 	}
 }

@@ -7,9 +7,10 @@ namespace Tests\Mu\Cli;
  *
  */
 class RequestTest extends \Mu\Cli\TestCase {
-	public function setUp() {
-		$this->markTestSkipped(
-              'Need to determine how to simulate Cli Requests during unit tests'
-        );
+	public function testStdin() {
+		self::setStdin('hello world');
+
+		$request = new \Mu\Cli\Request();
+		$this->assertEquals('hello world', $request->getStdin());
 	}
 }

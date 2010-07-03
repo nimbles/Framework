@@ -31,7 +31,15 @@ class Request extends \Mu\Core\Request {
 	 */
 	public function getStdin() {
 		if (null === $this->_stdin) {
-			$this->_stdin = file_get_contents('php://stdin');
+			/**
+			 * Use simulated stdin from \Mu\Cli\TestCase if in test mode as php on the
+			 * command line will just prompt for user input if none piped in
+			 */
+			if (defined('APPLICATION_ENV') && ('test' === APPLICATION_ENV)) {
+				$this->_stdin = TestCase::getStdin();
+			} else {
+				$this->_stdin = file_get_contents('php://stdin');
+			}
 		}
 		return $this->_stdin;
 	}

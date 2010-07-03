@@ -1,4 +1,5 @@
 <?php
+define('APPLICATION_ENV', 'test');
 define('LIB_PATH', realpath(dirname(__FILE__) . '/../src/'));
 
 set_include_path(
