@@ -91,4 +91,16 @@ class Request extends \Mu\Core\Request {
 	public function getOpt($opt) {
 		return is_string($opt) ? $this->getOpts()->$opt : null;
 	}
+
+	/**
+	 * Builds the request, used by factory
+	 * @return \Mu\Cli\Request|null
+	 */
+	static public function build() {
+		if ('cli' === PHP_SAPI) {
+			return new self();
+		}
+
+		return null;
+	}
 }
