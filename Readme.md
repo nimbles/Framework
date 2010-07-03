@@ -14,7 +14,7 @@ Design Principles
 ### Reusable
 
 - component / package based
-- using the (DRY principle)[http://en.wikipedia.org/wiki/Don%27t_repeat_yourself] by supporting basic mixins
+- using the [DRY principle](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) by supporting basic mixins
 
 ### Flexible
 
