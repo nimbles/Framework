@@ -56,6 +56,7 @@ class Request extends \Mu\Core\Request {
 
 	/**
 	 * Gets the options to be used by getopts
+	 * @return \Mu\Cli\Opt\Collection
 	 */
 	public function getOpts() {
 		return $this->_opts;
@@ -85,9 +86,9 @@ class Request extends \Mu\Core\Request {
 	/**
 	 * Gets an option parsed by getopts
 	 * @param string $opt
-	 * @return \Mu\Cli\Request\Opt
+	 * @return \Mu\Cli\Opt|null
 	 */
 	public function getOpt($opt) {
-
+		return is_string($opt) ? $this->getOpts()->$opt : null;
 	}
 }

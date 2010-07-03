@@ -8,6 +8,18 @@ namespace Mu\Cli\Opt;
  */
 class Collection extends \ArrayObject {
 	/**
+	 * The short opts index
+	 * @var array
+	 */
+	protected $_shortopts;
+
+	/**
+	 * The long opts index
+	 * @var array
+	 */
+	protected $_longopts;
+
+	/**
 	 * Class construct
 	 * @param array|null $opts
 	 * @return void
@@ -18,6 +30,9 @@ class Collection extends \ArrayObject {
 		} else {
 			parent::__construct(array_map(array('Mu\Cli\Opt', 'factory'), $opts));
 		}
+
+		$this->_shortopts = array();
+		$this->_longopts = array();
 	}
 
 	/**
@@ -26,7 +41,34 @@ class Collection extends \ArrayObject {
 	 * @param string $value
 	 */
 	public function offsetSet($index, $value) {
-		return parent::offsetSet($index, \Mu\Cli\Opt::factory($value));
+		$value = \Mu\Cli\Opt::factory($value);
+
+		if (null !== ($c = $value->getCharacter())) {
+			$this->_shortopts[$c] = $this->count();
+		}
+
+		if (null !== ($a = $value->getAlias())) {
+			$this->_longopts[$a] = $this->count();
+		}
+
+		parent::offsetSet($index, $value);
+	}
+
+	/**
+	 * Gets an opt by character or alias
+	 * @param string $name
+	 * @return \Mu\Cli\Opt|null
+	 */
+	public function __get($name) {
+		if ((strlen($name) === 1) && array_key_exists($name, $this->_shortopts)){
+			return $this[$this->_shortopts[$name]];
+		}
+
+		if (array_key_exists($name, $this->_longopts)) {
+			return $this[$this->_longopts[$name]];
+		}
+
+		return null;
 	}
 
 	/**
@@ -55,14 +97,27 @@ class Collection extends \ArrayObject {
 		);
 	}
 
+	/**
+	 * Parse the options
+	 * @return void
+	 */
 	public function parse() {
 		if (0 === $this->count()) {
 			return;
 		}
 
-		/**
-		 * @todo map to Opts
-		 */
 		$options = getopt($this->getOptionString(), $this->getAliasArray());
+
+		foreach ($options as $key => $value) {
+			foreach ($this as &$opt) {
+				if (($key === $opt->getCharacter()) || ($key === $opt->getAlias())) {
+					if (false === $value) {
+						$opt->isFlagged(true);
+					} else if (is_string($value)) {
+						$opt->setValue($value);
+					}
+				}
+			}
+		}
 	}
 }
