@@ -6,11 +6,16 @@ A framework design for and written in PHP 5.3, taking advantages of the latest f
 Design Principles
 -----------------
 
-1. Fast
- * light weight
- * minimal amount of bootstrapping
-2. Reusable
- * component / package based
- * using the (DRY principle)[http://en.wikipedia.org/wiki/Don%27t_repeat_yourself] by supporting basic mixins
-3. Flexible
- * MVC approach to multiple request types; Http, Cli etc.
+### Fast
+
+- light weight
+- minimal amount of bootstrapping
+
+### Reusable
+
+- component / package based
+- using the (DRY principle)[http://en.wikipedia.org/wiki/Don%27t_repeat_yourself] by supporting basic mixins
+
+### Flexible
+
+ - MVC approach to multiple request types; Http, Cli etc.
