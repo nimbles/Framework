@@ -22,19 +22,11 @@ abstract class Request extends Mixin
 
 	/**
 	 * Gets a server variable by its key
-	 * @param string $key
-	 * @return string
+	 * @param string|null $key
+	 * @return array|string|null
 	 */
-	public function getServer($key) {
-		if (!is_array($this->_server)) {
-			$this->setServer();
-		}
-
-		if (!array_key_exists($key, $this->_server)) {
-			return null;
-		}
-
-		return $this->_server[$key];
+	public function getServer($key = null) {
+		return $this->_getGlobal($this->_server, $key);
 	}
 
 	/**
@@ -45,6 +37,24 @@ abstract class Request extends Mixin
 	public function setServer(array $server = null) {
 		$this->_server = (null === $server) ? $_SERVER : $server;
 		return $this;
+	}
+
+	/**
+	 * Gets from a global variable
+	 * @param array $global
+	 * @param string|null $key
+	 * @return array|string|null
+	 */
+	protected function _getGlobal(array $global, $key = null) {
+		if (null === $key) {
+			return $global;
+		}
+
+		if (is_string($key) && array_key_exists($key, $global)) {
+			return $global[$key];
+		}
+
+		return null;
 	}
 
 	/**
