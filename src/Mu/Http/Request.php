@@ -161,7 +161,8 @@ class Request extends \Mu\Core\Request {
 	}
 
 	/**
-	 * Builds a
+	 * Builds the request, used by factory
+	 * @return \Mu\Http\Request|null
 	 */
 	static public function build() {
 	    if ('cli' !== PHP_SAPI) {
