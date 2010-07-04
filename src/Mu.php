@@ -12,6 +12,9 @@ class Mu {
 	 * @return void
 	 */
 	public function __construct() {
-		Mu\Core\Loader::register();
+	    if (!defined('MU_PATH')) {
+	        define('MU_PATH', realpath(dirname(__FILE__) . '/'));
+	    }
+        Mu\Core\Loader::register();
 	}
 }

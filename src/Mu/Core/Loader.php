@@ -12,6 +12,15 @@ class Loader {
 	 * @return void
 	 */
 	static public function register() {
+	    $includepaths = explode(PATH_SEPARATOR, get_include_path());
+
+	    if (!in_array(MU_PATH, $includepaths)) {
+	        set_include_path(
+	            MU_PATH . PATH_SEPARATOR .
+	            get_include_path()
+	        );
+	    }
+
 		spl_autoload_register(__NAMESPACE__ . '\Loader::autoload');
 	}
 

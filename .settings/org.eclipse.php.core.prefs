@@ -1,0 +1,7 @@
+#Sun Jul 04 00:30:43 BST 2010
+eclipse.preferences.version=1
+include_path=0;/Mu Framework\u00051;/usr/lib/php
+org.eclipse.php.core.phpForamtterIndentationSize=4
+org.eclipse.php.core.phpForamtterUseTabs=false
+phpVersion=php5.3
+use_asp_tags_as_php=false
