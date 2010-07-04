@@ -44,11 +44,21 @@ class Request extends \Mu\Core\Request {
 	protected $_headers;
 
 	/**
+	 * The request body
+	 * @var string
+	 */
+	protected $_body;
+
+	/**
 	 * Gets a query variable
 	 * @param string|null $key
 	 * @return array|string|null
 	 */
 	public function getQuery($key = null) {
+	    if (null === $this->_query) {
+	        $this->setQuery();
+	    }
+
 		return $this->_getGlobal($this->_query, $key);
 	}
 
@@ -68,6 +78,10 @@ class Request extends \Mu\Core\Request {
 	 * @return array|string|null
 	 */
 	public function getPost($key = null) {
+	    if (null === $this->_post) {
+	        $this->setPost();
+	    }
+
 		return $this->_getGlobal($this->_post, $key);
 	}
 
@@ -87,6 +101,10 @@ class Request extends \Mu\Core\Request {
 	 * @return array|null
 	 */
 	public function getFiles($key = null) {
+	    if (null === $this->_files) {
+	        $this->setFiles();
+	    }
+
 		return $this->_getGlobal($this->_files, $key);
 	}
 
@@ -106,6 +124,9 @@ class Request extends \Mu\Core\Request {
 	 * @return mixed
 	 */
 	public function getSession($key = null) {
+	    if (null === $this->_session) {
+	        $this->setSession();
+	    }
 	    return $this->_getGlobal($this->_session, $key);
 	}
 
@@ -134,6 +155,10 @@ class Request extends \Mu\Core\Request {
 	 * @return mixed
 	 */
 	public function getCookie($key = null) {
+	    if (null === $this->_cookie) {
+	        $this->setCookie();
+	    }
+
 	    return $this->_getGlobal($this->_cookie, $key);
 	}
 
@@ -149,6 +174,43 @@ class Request extends \Mu\Core\Request {
 	}
 
 	/**
+	 * Gets the array of headers for this request
+	 * @return array
+	 */
+	public function getHeaders() {
+	    if (null === $this->_headers) {
+	        $this->_headers = array_map(array(
+	            'Mu\Http\Header',
+	            'factory'
+	        ), $this->getServer());
+	    }
+
+	    return $this->_headers;
+	}
+
+	/**
+	 * Gets the request body
+	 * @return string
+	 */
+	public function getBody() {
+	    if (null === $this->_body) {
+	        $this->setBody();
+	    }
+
+	    return $this->_body;
+	}
+
+	/**
+	 * Sets the request body
+	 * @param string|null $body if null then body is set from php://input
+	 * @return \Mu\http\Request
+	 */
+	public function setBody($body = null) {
+	    $this->_body = (null === $body) ? file_get_contents('php://input') : $body;
+	    return $this;
+	}
+
+	/**
 	 * Gets the scheme of the request, http or https
 	 * @return string
 	 */
@@ -158,6 +220,83 @@ class Request extends \Mu\Core\Request {
 	    }
 
 	    return 'http';
+	}
+
+	/**
+	 * Gets the hostname
+	 * @return string
+	 */
+	public function getHost() {
+	    return $this->getServer('SERVER_NAME');
+	}
+
+	/**
+	 * Gets the port
+	 * @return int
+	 */
+	public function getPort() {
+	    return intval($this->getServer('SERVER_PORT'));
+	}
+
+	/**
+	 * Gets the request uri
+	 * @return string
+	 * @todo check against different OS/WebServer/PHP Installation combinations
+	 */
+	public function getRequestUri() {
+	    if (null !== ($requestUri = $this->getServer('HTTP_X_REWRITE_URL'))) {
+	        return $requestUri;
+	    }
+
+	    return $this->getServer('REQUEST_URI');
+	}
+
+	/**
+	 * Gets the http method
+	 * @return string
+	 */
+	public function getMethod() {
+	    return strtoupper($this->getServer('REQUEST_METHOD'));
+	}
+
+	/**
+	 * Indicates that the http request is a GET request
+	 * @return bool
+	 */
+	public function isGet() {
+	    return 'GET' === $this->getMethod();
+	}
+
+	/**
+	 * Indicates that the http request is a POST request
+	 * @return bool
+	 */
+	public function isPost() {
+	    return 'POST' === $this->getMethod();
+	}
+
+	/**
+	 * Indicates that the http request is a PUT request
+	 * @return bool
+	 */
+	public function isPut() {
+	    return 'PUT' === $this->getMethod();
+	}
+
+	/**
+	 * Indicates that the http request is a DELETE request
+	 * @return bool
+	 */
+	public function isDelete() {
+	    return 'DELETE' === $this->getMethod();
+	}
+
+	/**
+	 * Indicates that the http request is a OPTIONS request
+	 * @return bool
+	 */
+	public function isOptions() {
+	    return 'OPTIONS' === $this->getMethod();
 	}
 
 	/**
