@@ -26,6 +26,10 @@ abstract class Request extends Mixin
 	 * @return array|string|null
 	 */
 	public function getServer($key = null) {
+	    if (null === $this->_server) {
+	        $this->_server = $_SERVER;
+	    }
+
 		return $this->_getGlobal($this->_server, $key);
 	}
 
