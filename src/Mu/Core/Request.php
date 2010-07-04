@@ -78,6 +78,10 @@ abstract class Request extends Mixin
 
 		$mu = dir(MU_PATH);
 		while ($path = $mu->read()) {
+		    if ('Core' === $path) {
+		        continue;
+		    }
+
 			if (is_dir(MU_PATH . '/' . $path) && class_exists(($class = 'Mu\\' . $path . '\\Request'))) {
 				if (null !== ($request = $class::build())) {
 					return $request;
