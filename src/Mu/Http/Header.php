@@ -6,7 +6,7 @@ namespace Mu\Http;
  * @package Mu\Http\Header
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
-class Header extends \Mu\Mixin {
+class Header extends \Mu\Core\Mixin {
     /**
 	 * Class implements
 	 * @var array
@@ -71,7 +71,7 @@ class Header extends \Mu\Mixin {
 	/**
 	 * Sets the value
 	 *
-	 * @param string|array $value
+	 * @param array|string|null $value if null, clears value
 	 * @param bool $append
 	 * @return \Mu\Http\Header
 	 */
@@ -80,7 +80,9 @@ class Header extends \Mu\Mixin {
 	        $this->_values = array();
 	    }
 
-	    if (!is_array($value)) {
+	    if (empty($value)) {
+	        $this->_values = array();
+	    } else if (!is_array($value)) {
 	        if ($append) {
 	            $this->_values[] = $value;
 	        } else {
@@ -112,11 +114,11 @@ class Header extends \Mu\Mixin {
 	 */
 	static public function factory($name, $string) {
 	    if (0 === strpos($name, 'HTTP_')) {
-	        $name = implode('-', array_map('ucfirst', explode('_', strtolower(substr($name, 5)))));
+	        $name = substr($name, 5);
 	    }
 
 	    return new self(array(
-	        'name' => $name,
+	        'name' => implode('-', array_map('ucfirst', preg_split('/[_\-]/', strtolower($name)))),
 	        'value' => array_map('trim', explode(',', $string))
 	    ));
 	}
@@ -128,9 +130,9 @@ class Header extends \Mu\Mixin {
 	public function __toString() {
 	    $value = $this->getValue();
 
-	    if (is_array($value)) {
+	    if (is_array($value) && (0 < count($value))) {
 	        return sprintf('%s: %s', $this->getName(), implode(', ', $value));
-	    } else if (is_string($value)) {
+	    } else if (is_string($value) && (0 < strlen($value))) {
 	        return sprintf('%s: %s', $this->getName(), $value);
 	    }
 
