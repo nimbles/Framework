@@ -205,6 +205,10 @@ class Opt extends \Mu\Core\Mixin {
 		if ($option instanceof Opt) {
 			return $option;
 		}
+		
+		if (is_array($option)) {
+			return new self($option);
+		}
 
 		if (!is_string($option)) {
 			throw new Opt\Exception\Parse('Cannot parse, format not a string');
