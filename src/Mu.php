@@ -15,6 +15,9 @@ class Mu {
 	    if (!defined('MU_PATH')) {
 	        define('MU_PATH', realpath(dirname(__FILE__) . '/'));
 	    }
+        if (!defined('MU_LIBRARY')) {
+            define('MU_LIBRARY', realpath(MU_PATH . '/Mu/'));
+        }
         Mu\Core\Loader::register();
 	}
 }

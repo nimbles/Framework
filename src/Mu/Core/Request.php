@@ -76,17 +76,17 @@ abstract class Request extends Mixin
 	 * @return \Mu\Core\Request|null
 	 */
 	static public function factory() {
-		if (!defined('MU_PATH')) {
-			throw new Request\Exception\MuPathUndefined('MU_PATH constant is not defined');
+		if (!defined('MU_LIBRARY')) {
+			throw new Request\Exception\MuPathUndefined('MU_LIBRARY constant is not defined');
 		}
 
-		$mu = dir(MU_PATH);
+		$mu = dir(MU_LIBRARY);
 		while ($path = $mu->read()) {
 		    if ('Core' === $path) {
 		        continue;
 		    }
 
-			if (is_dir(MU_PATH . '/' . $path) && class_exists(($class = 'Mu\\' . $path . '\\Request'))) {
+			if (is_dir(MU_LIBRARY . '/' . $path) && class_exists(($class = 'Mu\\' . $path . '\\Request'))) {
 				if (null !== ($request = $class::build())) {
 					return $request;
 				}
