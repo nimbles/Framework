@@ -4,24 +4,24 @@ require_once 'Mu/Core/Loader.php';
 /**
  * Mu Framework
  *
- * LICENCE
+ * LICENSE
  *
- * This shouce file is subject to the MIT licence that is bundled
- * with the package in the file LICENCE.md.
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
  * It is also available at this URL:
- * http://mu-framework.com/licence/mit
+ * http://mu-framework.com/license/mit
  *
  * @category  Mu
  * @package   Mu
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/licence/mit MIT Licence
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 
 /**
  * @category  Mu
  * @package   Mu
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/licence/mit MIT Licence
+ * @license   http://mu-framework.com/license/mit MIT Licesce
  */
 class Mu {
 	/**
