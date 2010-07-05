@@ -25,33 +25,63 @@ class Collection extends \ArrayObject {
 	 * @return void
 	 */
 	public function __construct(array $opts = null) {
-		if (null === $opts) {
-			parent::__construct();
-		} else {
-			parent::__construct(array_map(array('Mu\Cli\Opt', 'factory'), $opts));
-		}
+		parent::__construct();
 
 		$this->_shortopts = array();
 		$this->_longopts = array();
+
+        if (null !== $opts) {
+            $opts = array_map(array('\Mu\Cli\Opt', 'factory'), $opts);
+            foreach ($opts as $opt) {
+                $this->append($opt);
+            }
+		}
 	}
 
 	/**
-	 * Overrides offsetSet so that value is passed through \Mu\Cli\Opt::factory
+	 * Overrides append so that value the can passed through \Mu\Cli\Opt::factory, if required
+	 * @param mixed $value
+	 */
+	public function append ($value) {
+		if (null !== ($value = $this->_parseOpt($value))) {
+			parent::append($value);
+		}
+	}
+
+	/**
+	 * Overrides offsetSet so that value is passed through \Mu\Cli\Opt::factory, if required
 	 * @param string|int $index
 	 * @param string $value
 	 */
 	public function offsetSet($index, $value) {
-		$value = \Mu\Cli\Opt::factory($value);
-
-		if (null !== ($c = $value->getCharacter())) {
-			$this->_shortopts[$c] = $this->count();
+		if (null !== ($value = $this->_parseOpt($value))) {
+            parent::offsetSet($index, $value);
 		}
+	}
 
-		if (null !== ($a = $value->getAlias())) {
-			$this->_longopts[$a] = $this->count();
-		}
+    /**
+     * Parsed the value and populate shortopts and longopts arrays
+     * @param mixed $value
+     * @return \Mu\Cli\Opt|null
+     */
+	protected function _parseOpt($value) {
+        if (is_array($value)) {
+            $value = \Mu\Cli\Opt::factory($value);
+        }
 
-		parent::offsetSet($index, $value);
+        if (null === $value || false === ($value instanceof \Mu\Cli\Opt)) {
+            return null;
+        }
+
+        if (null !== ($c = $value->getCharacter())) {
+            $this->_shortopts[$c] = $this->count();
+        }
+
+        if (null !== ($a = $value->getAlias())) {
+            $this->_longopts[$a] = $this->count();
+        }
+
+        return $value;
 	}
 
 	/**
