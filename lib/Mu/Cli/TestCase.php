@@ -1,10 +1,26 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu\Cli
+ * @package   Mu\Cli\TestCase
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
 namespace Mu\Cli;
+
 require_once 'PHPUnit/Framework.php';
 
 /**
- * @category Mu\Cli
- * @package Mu\Cli\TestCase
+ * @category  Mu\Cli
+ * @package   Mu\Cli\TestCase
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
 class TestCase extends \Mu\Core\TestCase {
