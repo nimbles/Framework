@@ -1,10 +1,27 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu\Core
+ * @package   Mu\Core\Mixin\Mixinable
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Mu\Core\Mixin;
 
 /**
- * @category Mu\Core
- * @package Mu\Core\Mixin\Mixinable
+ * @category  Mu\Core
+ * @package   Mu\Core\Mixin\Mixinable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 abstract class Mixinable {
 	/**
@@ -12,7 +29,7 @@ abstract class Mixinable {
 	 * @var \Mu\Core\Config
 	 */
 	protected $_config;
-	
+
 	/**
 	 * Gets the config
 	 * @return \Mu\Core\Config
@@ -20,7 +37,7 @@ abstract class Mixinable {
 	public function getConfig() {
 		return $this->_config;
 	}
-	
+
 	/**
 	 * Sets the config
 	 * @param null|array|Mu\Core\Config $config
@@ -31,19 +48,19 @@ abstract class Mixinable {
 		if (null === $config) {
 			return $this;
 		}
-		
+
 		if (is_array($config)) {
 			$config = new \Mu\Core\Config($config);
 		}
-		
+
 		if (!($config instanceof \Mu\Core\Config)) {
 			throw new Exception\InvalidConfig('Config must be either null, an array or an instance of Mu\Core\\Config');
 		}
-		
+
 		$this->_config = $config;
 		return $this;
 	}
-	
+
 	/**
 	 * Class construct
 	 * @param null|array|Mu\Core\Config $config
@@ -51,7 +68,7 @@ abstract class Mixinable {
 	public function __construct($config = null) {
 		$this->setConfig($config);
 	}
-	
+
 	/**
 	 * Gets the object associated with this mixin
 	 * @return null|object
@@ -59,7 +76,7 @@ abstract class Mixinable {
 	public function getObject() {
 		return null;
 	}
-	
+
 	/**
 	 * Gets the properties which can be mixed in
 	 * @return array
@@ -67,7 +84,7 @@ abstract class Mixinable {
 	public function getProperties() {
 		return array();
 	}
-	
+
 	/**
 	 * Checks if the mixin provides the given property
 	 * @param string $property
@@ -76,7 +93,7 @@ abstract class Mixinable {
 	public function hasProperty($property) {
 		return array_key_exists($property, $this->getProperties());
 	}
-	
+
 	/**
 	 * Gets the requested property from the mixin
 	 * @param string $property
@@ -86,15 +103,15 @@ abstract class Mixinable {
 	public function getProperty($property) {
 		if ($this->hasProperty($property)) {
 			$properties = $this->getProperties();
-			
+
 			if (!($properties[$property] instanceof \Closure)) {
 				throw new Exception\InvalidProperty('Property ' . $property . ' is not a closure');
 			}
-			
+
 			return $properties[$property];
 		}
 	}
-	
+
 	/**
 	 * Gets the methods which can be mixed in
 	 * @return array
@@ -102,7 +119,7 @@ abstract class Mixinable {
 	public function getMethods() {
 		return array();
 	}
-	
+
 	/**
 	 * Checks if the mixin provides the given method
 	 * @param string $method
@@ -111,7 +128,7 @@ abstract class Mixinable {
 	public function hasMethod($method) {
 		return array_key_exists($method, $this->getMethods());
 	}
-	
+
 	/**
 	 * Gets the requested method
 	 * @param string $method
@@ -121,12 +138,12 @@ abstract class Mixinable {
 	public function getMethod($method) {
 		if ($this->hasMethod($method)) {
 			$methods = $this->getMethods();
-			
+
 			if (!($methods[$method] instanceof \Closure)) {
 				throw new Exception\InvalidMethod('Method ' . $method . ' is not a closure');
 			}
-			
+
 			return $methods[$method];
 		}
 	}
-} 
+}

@@ -21,6 +21,7 @@ namespace Mu\Cli;
  * @category  Mu\Cli
  * @package   Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Opt extends \Mu\Core\Mixin {
 	/**

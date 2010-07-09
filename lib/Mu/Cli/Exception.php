@@ -21,5 +21,6 @@ namespace Mu\Cli;
  * @category  Mu\Cli
  * @package   Mu\Cli\Exception
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Exception extends \Mu\Core\Exception {}
