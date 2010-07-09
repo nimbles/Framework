@@ -1,10 +1,27 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu\Core
+ * @package   Mu\Core\Log\Writer\Mock
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Mu\Core\Log\Writer;
 
 /**
- * @category Mu\Core
- * @package Mu\Core\Log\Writer\Mock
+ * @category  Mu\Core
+ * @package   Mu\Core\Log\Writer\Mock
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Mock extends \Mu\Core\Log\Writer {
 	/**
@@ -12,7 +29,7 @@ class Mock extends \Mu\Core\Log\Writer {
 	 * @var array
 	 */
 	protected $_entries;
-	
+
 	/**
 	 * Gets the array of written entries
 	 * @return array
@@ -21,10 +38,10 @@ class Mock extends \Mu\Core\Log\Writer {
 		if (!is_array($this->_entries)) {
 			$this->_entries = array();
 		}
-		
+
 		return $this->_entries;
 	}
-	
+
 	/**
 	 * Writes an entry to an array
 	 * @param string $entry
@@ -34,7 +51,7 @@ class Mock extends \Mu\Core\Log\Writer {
 		if (!is_array($this->_entries)) {
 			$this->_entries = array();
 		}
-		
+
 		$this->_entries[] = $entry;
 	}
 }

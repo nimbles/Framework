@@ -21,5 +21,6 @@ namespace Mu\Http\Header;
  * @category  Mu\Http
  * @package   Mu\Http\Header\Exception
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Exception extends \Mu\Http\Exception {}

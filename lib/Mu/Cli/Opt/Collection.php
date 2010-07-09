@@ -21,6 +21,7 @@ namespace Mu\Cli\Opt;
  * @category  Mu\Cli
  * @package   Mu\Cli\Opt\Collection
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Collection extends \ArrayObject {
 	/**
