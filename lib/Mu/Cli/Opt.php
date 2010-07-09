@@ -1,9 +1,25 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu\Cli
+ * @package   Mu\Cli\Opt
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Mu\Cli;
 
 /**
- * @category Mu\Cli
- * @package Mu\Cli\Opt
+ * @category  Mu\Cli
+ * @package   Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  */
 class Opt extends \Mu\Core\Mixin {
@@ -205,7 +221,7 @@ class Opt extends \Mu\Core\Mixin {
 		if ($option instanceof Opt) {
 			return $option;
 		}
-		
+
 		if (is_array($option)) {
 			return new self($option);
 		}
