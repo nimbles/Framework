@@ -1,6 +1,4 @@
 <?php
-require_once 'Mu/Core/Loader.php';
-
 /**
  * Mu Framework
  *
@@ -16,6 +14,8 @@ require_once 'Mu/Core/Loader.php';
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
+
+require_once 'Mu/Core/Loader.php';
 
 /**
  * @category  Mu
