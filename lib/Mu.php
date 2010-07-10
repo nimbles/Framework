@@ -24,17 +24,46 @@ require_once 'Mu/Core/Loader.php';
  * @license   http://mu-framework.com/license/mit MIT Licesce
  */
 class Mu {
+
+    /**
+     * Mu instance
+     * @var Mu
+     */
+    static protected $_instance;
+
+    /**
+     * Gets and instance of Mu
+     * @return Mu
+     */
+    static public function getInstance() {
+        if (null === self::$_instance) {
+            new Mu();
+        }
+        return self::$_instance;
+    }
+
 	/**
 	 * Class construct
 	 * @return void
 	 */
 	public function __construct() {
-	    if (!defined('MU_PATH')) {
-	        define('MU_PATH', realpath(dirname(__FILE__) . '/'));
+	    if (null === self::$_instance) {
+	        $this->_setupEnvironmentVars();
+            Mu\Core\Loader::register();
+            self::$_instance = $this;
 	    }
+	}
+
+	/**
+	 * Setup environment variables
+	 * @return void
+	 */
+	protected function _setupEnvironmentVars() {
+        if (!defined('MU_PATH')) {
+            define('MU_PATH', realpath(dirname(__FILE__) . '/'));
+        }
         if (!defined('MU_LIBRARY')) {
             define('MU_LIBRARY', realpath(MU_PATH . '/Mu/'));
         }
-        Mu\Core\Loader::register();
 	}
 }
