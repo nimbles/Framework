@@ -1,10 +1,27 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu\Core
+ * @package   Mu\Core\Plugin\Pluginable
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Mu\Core\Plugin;
 
 /**
- * @category Mu\Core
- * @package Mu\Core\Plugin\Pluginable
+ * @category  Mu\Core
+ * @package   Mu\Core\Plugin\Pluginable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class Pluginable extends \Mu\Core\Mixin\Mixinable {
 	/**
@@ -12,7 +29,7 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 	 * @var \Mu\Core\Plugin\Plugins
 	 */
 	protected $_plugins;
-	
+
 	/**
 	 * Gets the object associated with this mixin
 	 * @return \Mu\Core\Plugin
@@ -21,10 +38,10 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 		if (null === $this->_plugins) {
 			$this->_plugins = new \Mu\Core\Plugin\Plugins($this->getConfig());
 		}
-		
+
 		return $this->_plugins;
 	}
-	
+
 	/**
 	 * Gets the properties available for this mixin
 	 * @return array
@@ -35,12 +52,12 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 				if (!$get) {
 					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
 				}
-				
+
 				return $plugins;
 			}
 		);
 	}
-	
+
 	/**
 	 * Gets the method available for this mixin
 	 * @return array
@@ -51,18 +68,18 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 				if (isset($plugins->{$type})) {
 					return $plugins->{$type}->attach($name, $plugin);
 				}
-				
+
 				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
 			},
-			
+
 			'detach' => function($object, &$plugins, $type, $name) {
 				if (isset($plugins->{$type})) {
 					return $plugins->{$type}->detach($name);
 				}
-				
+
 				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
 			},
-			
+
 			'notify' => function($object, &$plugins, $type = null) {
 				if (null !== $type) {
 					if (isset($plugins->{$type})) {
@@ -70,7 +87,7 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 					}
 					throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
 				} else {
-					return $plugins->notify($object);	
+					return $plugins->notify($object);
 				}
 			}
 		);
