@@ -192,17 +192,24 @@ class Request extends \Mu\Core\Request {
 
 	/**
 	 * Gets the array of headers for this request
-	 * @return array
+	 * @param string|null $key
+	 * @return array|\Mu\Http\Header
 	 */
-	public function getHeaders() {
+	public function getHeader($key = null) {
 	    if (null === $this->_headers) {
-	        $this->_headers = array_map(array(
-	            'Mu\Http\Header',
-	            'factory'
-	        ), $this->getServer());
+	        $this->_headers = array();
+	        foreach($this->getServer() as $name => $string) {
+	            if (null !== ($header = \Mu\Http\Header::factory($name, $string, true))) {
+	                $this->_headers[$header->getName()] = $header;
+	            }
+	        }
 	    }
 
-	    return $this->_headers;
+	    if (null === $key) {
+	        return $this->_headers;
+	    }
+
+	    return array_key_exists($key, $this->_headers) ? $this->_headers[$key] : null;
 	}
 
 	/**
@@ -273,6 +280,9 @@ class Request extends \Mu\Core\Request {
 	 * @return string
 	 */
 	public function getMethod() {
+	    if (null !== ($header = $this->getHeader('X-Http-Method-Override'))) {
+	        return $header->getValue();
+	    }
 	    return strtoupper($this->getServer('REQUEST_METHOD'));
 	}
 
