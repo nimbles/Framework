@@ -281,8 +281,13 @@ class Request extends \Mu\Core\Request {
 	 */
 	public function getMethod() {
 	    if (null !== ($header = $this->getHeader('X-Http-Method-Override'))) {
-	        return $header->getValue();
+	        return strtoupper($header->getValue());
 	    }
+
+	    if (null !== ($query = $this->getQuery('method_override'))) {
+	        return strtoupper($query);
+	    }
+
 	    return strtoupper($this->getServer('REQUEST_METHOD'));
 	}
 

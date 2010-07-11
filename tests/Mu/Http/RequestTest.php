@@ -38,56 +38,78 @@ class RequestTest extends \Mu\Http\TestCase {
         );
     }
 
-    /**
-     * @dataProvider putWithBodyProvider
+	/**
+     * @dataProvider requestUriProvider
      */
-    public function testRequestPutWithBody(array $options) {
+    public function testGetRequestUri($options) {
         $request = new \Mu\Http\Request($options);
-
         $this->assertEquals('/module/controller/action', $request->getRequestUri());
-        $this->assertEquals('PUT', $request->getMethod());
-
-        $this->assertTrue($request->isPut());
-        $this->assertFalse($request->isGet());
-        $this->assertFalse($request->isPost());
-        $this->assertFalse($request->isDelete());
-        $this->assertFalse($request->isOptions());
-
-        $this->assertEquals('test', $request->getBody());
     }
 
-    public function putWithBodyProvider() {
+    public function requestUriProvider() {
         return array(
-            array(array(  // apache and lighttpd, server accepts PUT
+            array(array(  // apache and lighttpd
             	'server' => array(
 	                'REQUEST_URI' => '/module/controller/action',
-	                'REQUEST_METHOD' => 'PUT'
                 ),
-                'body' => 'test'
             )),
-            array(array( // iis, server accepts PUT
+            array(array( // iis
                 'server' => array(
                 	'HTTP_X_REWRITE_URL' => '/module/controller/action',
-	                'REQUEST_METHOD' => 'PUT'
                 ),
-                'body' => 'test'
-            )),
-            array(array(  // apache and lighttpd, server does not accept PUT, header used with POST
-            	'server' => array(
-	                'REQUEST_URI' => '/module/controller/action',
-	                'REQUEST_METHOD' => 'POST',
-                    'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT'
-                ),
-                'body' => 'test'
-            )),
-            array(array( // iis, server accepts PUT, server does not accept PUT, header used with POST
-                'server' => array(
-                	'HTTP_X_REWRITE_URL' => '/module/controller/action',
-	                'REQUEST_METHOD' => 'POST',
-                    'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT'
-                ),
-                'body' => 'test'
             )),
         );
+    }
+
+    /**
+     * @dataProvider methodProvider
+     */
+    public function testGetMethod($options) {
+        $request = new \Mu\Http\Request($options);
+        $this->assertEquals('PUT', $request->getMethod());
+    }
+
+    public function methodProvider() {
+        return array(
+            array(array(  // standard PUT support
+            	'server' => array(
+	                'REQUEST_METHOD' => 'PUT',
+                ),
+            )),
+            array(array( //
+                'server' => array( // X-Http-Method-Override header support
+                	'REQUEST_METHOD' => 'POST',
+                    'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT',
+                ),
+            )),
+            array(array( //
+                'server' => array( // method_override querystring support
+                	'REQUEST_METHOD' => 'POST',
+                ),
+                'query' => array(
+                    'method_override' => 'PUT'
+                )
+            )),
+        );
+    }
+
+    public function testGetPort() {
+        $request = new \Mu\Http\Request(array(
+            'server' => array(
+                'SERVER_PORT' => 80
+            )
+        ));
+
+        $this->assertEquals(80, $request->getPort());
+    }
+
+    public function testGetHost() {
+        $request = new \Mu\Http\Request(array(
+            'server' => array(
+                'SERVER_NAME' => 'mu-framework.com'
+            )
+        ));
+
+        $this->assertEquals('mu-framework.com', $request->getHost());
     }
 }
