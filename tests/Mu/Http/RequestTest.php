@@ -37,4 +37,57 @@ class RequestTest extends \Mu\Http\TestCase {
             array('cookie'),
         );
     }
+
+    /**
+     * @dataProvider putWithBodyProvider
+     */
+    public function testRequestPutWithBody(array $options) {
+        $request = new \Mu\Http\Request($options);
+
+        $this->assertEquals('/module/controller/action', $request->getRequestUri());
+        $this->assertEquals('PUT', $request->getMethod());
+
+        $this->assertTrue($request->isPut());
+        $this->assertFalse($request->isGet());
+        $this->assertFalse($request->isPost());
+        $this->assertFalse($request->isDelete());
+        $this->assertFalse($request->isOptions());
+
+        $this->assertEquals('test', $request->getBody());
+    }
+
+    public function putWithBodyProvider() {
+        return array(
+            array(array(  // apache and lighttpd, server accepts PUT
+            	'server' => array(
+	                'REQUEST_URI' => '/module/controller/action',
+	                'REQUEST_METHOD' => 'PUT'
+                ),
+                'body' => 'test'
+            )),
+            array(array( // iis, server accepts PUT
+                'server' => array(
+                	'HTTP_X_REWRITE_URL' => '/module/controller/action',
+	                'REQUEST_METHOD' => 'PUT'
+                ),
+                'body' => 'test'
+            )),
+            array(array(  // apache and lighttpd, server does not accept PUT, header used with POST
+            	'server' => array(
+	                'REQUEST_URI' => '/module/controller/action',
+	                'REQUEST_METHOD' => 'POST',
+                    'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT'
+                ),
+                'body' => 'test'
+            )),
+            array(array( // iis, server accepts PUT, server does not accept PUT, header used with POST
+                'server' => array(
+                	'HTTP_X_REWRITE_URL' => '/module/controller/action',
+	                'REQUEST_METHOD' => 'POST',
+                    'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT'
+                ),
+                'body' => 'test'
+            )),
+        );
+    }
 }

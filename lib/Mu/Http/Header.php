@@ -127,11 +127,14 @@ class Header extends \Mu\Core\Mixin {
 	 *
 	 * @param string $name
 	 * @param string $string
+	 * @param bool   $fromServerVars indicates that the name and string came from the $_SERVER variables
 	 * @return \Mu\Http\Header
 	 */
-	static public function factory($name, $string) {
+	static public function factory($name, $string, $fromServerVars = false) {
 	    if (0 === strpos($name, 'HTTP_')) {
 	        $name = substr($name, 5);
+	    } else if ($fromServerVars) {
+	        return null;
 	    }
 
 	    return new self(array(
