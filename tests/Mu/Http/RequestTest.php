@@ -37,5 +37,4 @@ class RequestTest extends \Mu\Http\TestCase {
             array('cookie'),
         );
     }
-
 }
