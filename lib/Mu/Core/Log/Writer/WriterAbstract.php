@@ -54,7 +54,7 @@ abstract class WriterAbstract extends \Mu\Core\Mixin {
 	 */
 	public function getFormatterObject() {
 		if (null === $this->_formatter) {
-			$this->_formatter = \Mu\Core\Log\Formatter::factory($this->getOption('formatter'));
+			$this->_formatter = \Mu\Core\Log\Formatter\FormatterAbstract::factory($this->getOption('formatter'));
 		}
 		return $this->_formatter;
 	}

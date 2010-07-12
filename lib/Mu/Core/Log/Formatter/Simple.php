@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Formatter;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Simple extends \Mu\Core\Log\Formatter {
+class Simple extends FormatterAbstract {
 	/**
 	 * Mixin implements
 	 * @var array
