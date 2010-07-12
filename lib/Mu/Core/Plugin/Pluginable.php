@@ -23,7 +23,7 @@ namespace Mu\Core\Plugin;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Pluginable extends \Mu\Core\Mixin\Mixinable {
+class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	/**
 	 * The plugins
 	 * @var \Mu\Core\Plugin\Plugins

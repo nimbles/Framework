@@ -5,7 +5,7 @@ class MixinPropertiesMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('tests\Mu\Core\Mixin\MixinableProperties');
 }
 
-class MixinableProperties extends \Mu\Core\Mixin\Mixinable {
+class MixinableProperties extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	public $readOnly = 'readonly';
 	public $readAndWrite = null;
 
@@ -36,7 +36,7 @@ class MixinMethodsMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('Tests\Mu\Core\Mixin\MixinableMethods');
 }
 
-class MixinableMethods extends \Mu\Core\Mixin\Mixinable {
+class MixinableMethods extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	public function getObject() {
 		return $this;
 	}
