@@ -16,18 +16,19 @@ class PluginableTest extends \Mu\Core\TestCase {
 	 */
 	public function testMixnProperties() {
 		$pluginable = new PluginableMock();
-		$this->assertType('\Mu\Core\Plugin\Plugins', $pluginable->plugins);
-		$this->assertType('\Mu\Core\Plugin', $pluginable->plugins->simple);
-		$this->assertType('\Mu\Core\Plugin', $pluginable->plugins->restricted);
+		//$this->assertType('\Mu\Core\Plugin\Plugins', $pluginable->plugins);
 		
-		$pluginable->plugins->simple->plugin = new PluginSingle();
-		$this->assertType('\Tests\Mu\Core\Plugin\PluginSingle', $pluginable->plugins->simple->plugin);
+		$this->assertType('\Mu\Core\Plugin', $pluginable->simple);
+		$this->assertType('\Mu\Core\Plugin', $pluginable->restricted);
 		
-		$pluginable->plugins->restricted->plugin = new PluginConcrete();
-		$this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->plugins->restricted->plugin);
+		$pluginable->simple->plugin = new PluginSingle();
+		$this->assertType('\Tests\Mu\Core\Plugin\PluginSingle', $pluginable->simple->plugin);
+		
+		$pluginable->restricted->plugin = new PluginConcrete();
+		$this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
 		
 		$this->setExpectedException('\Mu\Core\Plugin\Exception\InvalidAbstract');
-		$pluginable->plugins->restricted->plugin = new PluginSingle();
+		$pluginable->restricted->plugin = new PluginSingle();
 	}
 	
 	/**
@@ -37,7 +38,7 @@ class PluginableTest extends \Mu\Core\TestCase {
 	public function testMixinMethods() {
 		$pluginable = new PluginableMock();
 		$pluginable->attach('restricted', 'plugin', new PluginConcrete());
-		$this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->plugins->restricted->plugin);
+		$this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
 		$pluginable->detach('restricted', 'plugin');
 		
 		$this->assertFalse(isset($pluginable->plugins->restricted->plugin));

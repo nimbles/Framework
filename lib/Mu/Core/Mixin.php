@@ -82,8 +82,17 @@ abstract class Mixin {
 		foreach ($this->_mixins as &$mixin) {
 			if ($mixin->hasProperty($property)) {
 				$object = $mixin->getObject();
+				
+				/**
+				 * Getters and setters use the same Closure with the signature
+				 * @param \Mu\Core\Mixin $this     Reference to $this as it doesn't exist within the Closure
+				 * @param mixed          $object   The object turned by the getObject method, passed in by reference
+				 * @param bool			 $get      Indicates if a get (true) or set (false) is being called
+				 * @param string         $property The property name being called, useful for dynamic properties
+				 * @param mixed          $value    The value to set to, not passed by magic __get
+				 */ 				
 				return call_user_func_array($mixin->getProperty($property), array(
-					$this, &$object, true
+					$this, &$object, true, $property
 				));
 			}
 		}
@@ -101,8 +110,16 @@ abstract class Mixin {
 			if ($mixin->hasProperty($property)) {
 				$object = $mixin->getObject();
 
+				/**
+				 * Getters and setters use the same Closure with the signature
+				 * @param \Mu\Core\Mixin $this     Reference to $this as it doesn't exist within the Closure
+				 * @param mixed          $object   The object turned by the getObject method, passed in by reference
+				 * @param bool			 $get      Indicates if a get (true) or set (false) is being called
+				 * @param string         $property The property name being called, useful for dynamic properties
+				 * @param mixed          $value    The value to set to, not passed by magic __get
+				 */ 
 				return call_user_func_array($mixin->getProperty($property), array(
-					$this, &$object, false, $value
+					$this, &$object, false, $property, $value
 				));
 			}
 		}

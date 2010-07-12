@@ -29,6 +29,12 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 	 * @var \Mu\Core\Plugin\Plugins
 	 */
 	protected $_plugins;
+	
+	/**
+	 * The properties
+	 * @var array
+	 */
+	protected $_properties;
 
 	/**
 	 * Gets the object associated with this mixin
@@ -46,16 +52,92 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable {
 	 * Gets the properties available for this mixin
 	 * @return array
 	 */
+//	public function getProperties() {
+//		$types = $this->getObject()->getOption('types');
+//		
+//		if ($types instanceof \ArrayObject) {
+//			$types = $types->getArrayCopy();
+//		} else if (!is_array($types)) {
+//			$types = array();
+//		}
+//		
+//		$types = array_keys($types);
+//		$plugins = array();
+//		
+//		foreach ($types as $type) {
+//			$plugins[$type] = function($object, &$plugins, $get, $property) {
+//				if (!$get) {
+//					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
+//				}
+//				
+//				print_r($plugins);
+//
+//				return $plugins->$property;
+//			};
+//		}
+//		
+//		return $plugins;
+//		
+//		return array(
+//			'plugins' => function($object, &$plugins, $get) {
+//				if (!$get) {
+//					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
+//				}
+//
+//				return $plugins;
+//			}
+//		);
+//	}
+	
+	/**
+	 * Gets the properties which can be mixed in
+	 * @return array
+	 */
 	public function getProperties() {
-		return array(
-			'plugins' => function($object, &$plugins, $get) {
-				if (!$get) {
-					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
-				}
+		if (!is_array($this->_properties)) {
+			$this->_properties = array();
+		}
+		
+		return $this->_properties; 
+	}
 
-				return $plugins;
+	/**
+	 * Checks if the mixin provides the given property
+	 * @param string $property
+	 * @return bool
+	 */
+	public function hasProperty($property) {
+		if (!array_key_exists($property, $this->getProperties())) {
+			if (null !== ($value = $this->getObject()->getType($property))) {
+				$this->_properties[$property] = function($object, &$plugins, $get, $property) {
+					if (!$get) {
+						throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
+					}
+	
+					return $plugins->$property;
+				};
 			}
-		);
+		}
+		
+		return array_key_exists($property, $this->getProperties());
+	}
+
+	/**
+	 * Gets the requested property from the mixin
+	 * @param string $property
+	 * @return \Closure
+	 * @throws \Mu\Core\Mixin\Exception\InvalidProperty
+	 */
+	public function getProperty($property) {
+		if ($this->hasProperty($property)) {		
+			if (!($this->_properties[$property] instanceof \Closure)) {
+				throw new Exception\InvalidProperty('Property ' . $property . ' is not a closure');
+			}
+			
+			return $this->_properties[$property];
+		}
+		
+		return null;
 	}
 
 	/**
