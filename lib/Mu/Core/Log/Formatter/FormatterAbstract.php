@@ -15,7 +15,7 @@
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Log;
+namespace Mu\Core\Log\Formatter;
 
 /**
  * @category  Mu\Core
@@ -23,12 +23,12 @@ namespace Mu\Core\Log;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Formatter extends \Mu\Core\Mixin {
+abstract class FormatterAbstract extends \Mu\Core\Mixin {
 	/**
 	 * Abstract method to format the entry
 	 * @param Entry $entry
 	 */
-	abstract public function format(Entry $entry);
+	abstract public function format(\Mu\Core\Log\Entry $entry);
 
 	/**
 	 * Factory method for formatters
@@ -42,7 +42,7 @@ abstract class Formatter extends \Mu\Core\Mixin {
 		}
 
 		if (!(is_string($options) || is_array($options) || ($options instanceof \ArrayObject))) {
-			throw new Formatter\Exception\InvalidOptions('Options must be a string or array, recieved : ' . gettype($options));
+			throw new Exception\InvalidOptions('Options must be a string or array, recieved : ' . gettype($options));
 		}
 
 		if (is_string($options)) { // options is just the class name
@@ -50,14 +50,14 @@ abstract class Formatter extends \Mu\Core\Mixin {
 			$options = array();
 		} else if (is_array($options) || ($options instanceof \ArrayObject)) { // options is an array of name pointing to a array of options
 			if ((is_array($options) && !count($options)) || (($options instanceof \ArrayObject) && !$options->count())) {
-				throw new Formatter\Exception\InvalidOptions('Options must not be empty');
+				throw new Exception\InvalidOptions('Options must not be empty');
 			}
 
 			reset($options);
 
 			$type = key($options);
 			if (is_numeric($type)) {
-				throw new Formatter\Exception\InvalidFormatterType('Formatter type passed into factory must be a string');
+				throw new Exception\InvalidFormatterType('Formatter type passed into factory must be a string');
 			}
 
 			$options = current($options);
@@ -66,9 +66,9 @@ abstract class Formatter extends \Mu\Core\Mixin {
 			}
 		}
 
-		$class = __NAMESPACE__ . '\\Formatter\\' . ucfirst($type);
+		$class = __NAMESPACE__ . '\\' . ucfirst($type);
 		if (!class_exists($class)) {
-			throw new Formatter\Exception\InvalidFormatterType('Unknown formatter type: ' . $type);
+			throw new Exception\InvalidFormatterType('Unknown formatter type: ' . $type);
 		}
 
 		return new $class($options);
@@ -80,7 +80,7 @@ abstract class Formatter extends \Mu\Core\Mixin {
 	 * @param string $option
 	 * @return null|string
 	 */
-	public function getFormattedOption(Entry $entry, $option) {
+	public function getFormattedOption(\Mu\Core\Log\Entry $entry, $option) {
 		$value = $entry->getOption($option);
 
 		switch ($option) {
