@@ -25,7 +25,7 @@ class LogTest extends \Mu\Core\TestCase {
 		));
 		
 		$instance->attach('writers', 'mock', $writer);
-		$this->assertEquals($writer, $instance->plugins->writers->mock);
+		$this->assertEquals($writer, $instance->writers->mock);
 		
 		$instance->write('Hello world');
 		$entries = $writer->getEntries();
@@ -44,8 +44,8 @@ class LogTest extends \Mu\Core\TestCase {
 			)
 		));
 		
-		$instance->plugins->writers->mock = $writer;
-		$this->assertEquals($writer, $instance->plugins->writers->mock);
+		$instance->writers->mock = $writer;
+		$this->assertEquals($writer, $instance->writers->mock);
 		
 		$instance->write('Hello world');
 		$entries = $writer->getEntries();
@@ -56,7 +56,7 @@ class LogTest extends \Mu\Core\TestCase {
 	public function testMultipleWritersSameFormat() {
 		$instance = new \Mu\Core\Log();
 		
-		$instance->plugins->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
+		$instance->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
 			'formatter' => array(
 				'simple' => array(
 					'format' => '%message%'
@@ -64,7 +64,7 @@ class LogTest extends \Mu\Core\TestCase {
 			)
 		));
 		
-		$instance->plugins->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
+		$instance->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
 			'formatter' => array(
 				'simple' => array(
 					'format' => '%message%'
@@ -74,17 +74,17 @@ class LogTest extends \Mu\Core\TestCase {
 		
 		$instance->write('Hello world');
 		
-		$entries1 = $instance->plugins->writers->mock1->getEntries();
+		$entries1 = $instance->writers->mock1->getEntries();
 		$this->assertEquals('Hello world', $entries1[0]);
 		
-		$entries2 = $instance->plugins->writers->mock2->getEntries();
+		$entries2 = $instance->writers->mock2->getEntries();
 		$this->assertEquals('Hello world', $entries2[0]);
 	}
 	
 	public function testMultipleWritersDifferentFormat() {
 		$instance = new \Mu\Core\Log();
 		
-		$instance->plugins->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
+		$instance->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
 			'formatter' => array(
 				'simple' => array(
 					'format' => '%message%'
@@ -92,7 +92,7 @@ class LogTest extends \Mu\Core\TestCase {
 			)
 		));
 		
-		$instance->plugins->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
+		$instance->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
 			'formatter' => array(
 				'simple' => array(
 					'format' => '%pid% - %message%'
@@ -102,10 +102,10 @@ class LogTest extends \Mu\Core\TestCase {
 		
 		$instance->write('Hello world');
 		
-		$entries1 = $instance->plugins->writers->mock1->getEntries();
+		$entries1 = $instance->writers->mock1->getEntries();
 		$this->assertEquals('Hello world', $entries1[0]);
 		
-		$entries2 = $instance->plugins->writers->mock2->getEntries();
+		$entries2 = $instance->writers->mock2->getEntries();
 		$this->assertEquals(getmypid() . ' - Hello world', $entries2[0]);
 	}
 }

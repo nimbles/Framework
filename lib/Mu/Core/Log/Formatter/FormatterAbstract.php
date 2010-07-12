@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Formatter;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class FormatterAbstract extends \Mu\Core\Mixin {
+abstract class FormatterAbstract extends \Mu\Core\Mixin\MixinAbstract {
 	/**
 	 * Abstract method to format the entry
 	 * @param Entry $entry

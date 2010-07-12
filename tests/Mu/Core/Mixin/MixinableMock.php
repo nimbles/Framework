@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Mu\Core\Mixin;
 
-class MixinPropertiesMock extends \Mu\Core\Mixin {
+class MixinPropertiesMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('tests\Mu\Core\Mixin\MixinableProperties');
 }
 
@@ -15,13 +15,13 @@ class MixinableProperties extends \Mu\Core\Mixin\Mixinable {
 
 	public function getProperties() {
 		return array(
-			'readOnly' => function($object, &$mixinable, $get) {
+			'readOnly' => function($object, &$mixinable, $get, $property) {
 				if (!$get) {
 					throw new \Mu\Core\Mixin\Exception\ReadOnly('readOnly property is read only');
 				}
 				return $mixinable->readOnly;
 			},
-			'readAndWrite' => function($object, &$mixinable, $get, $value = null) {
+			'readAndWrite' => function($object, &$mixinable, $get, $property, $value = null) {
 				if ($get) {
 					return $mixinable->readAndWrite;
 				} else {
@@ -32,7 +32,7 @@ class MixinableProperties extends \Mu\Core\Mixin\Mixinable {
 	}
 }
 
-class MixinMethodsMock extends \Mu\Core\Mixin {
+class MixinMethodsMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('Tests\Mu\Core\Mixin\MixinableMethods');
 }
 
@@ -53,6 +53,6 @@ class MixinableMethods extends \Mu\Core\Mixin\Mixinable {
 	}
 }
 
-class MixinPropertiesAndMethodsMock extends \Mu\Core\Mixin {
+class MixinPropertiesAndMethodsMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('Tests\Mu\Core\Mixin\MixinableProperties', 'Tests\Mu\Core\Mixin\MixinableMethods');
 }

@@ -23,7 +23,7 @@ namespace Mu\Cli;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Opt extends \Mu\Core\Mixin {
+class Opt extends \Mu\Core\Mixin\MixinAbstract {
 	/**
 	 * Class implements
 	 * @var array

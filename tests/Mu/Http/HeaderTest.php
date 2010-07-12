@@ -4,7 +4,7 @@ namespace Tests\Mu\Http;
 class HeaderTest extends \Mu\Http\TestCase {
     public function testConstruct() {
         $header = new \Mu\Http\Header();
-        $this->assertType('\Mu\Core\Mixin', $header);
+        $this->assertType('\Mu\Core\Mixin\MixinAbstract', $header);
     }
 
     public function testConstructFromOptions() {

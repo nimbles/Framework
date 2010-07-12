@@ -18,7 +18,7 @@ class LoggableTest extends \Mu\Core\TestCase {
 				)
 			)
 		));
-		$instance->plugins->writers->mock = $writer;
+		$instance->writers->mock = $writer;
 		
 		$loggable = new LoggableMock();
 		$loggable->log('Hello world');

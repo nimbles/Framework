@@ -22,7 +22,7 @@ class MixinableTest extends \Mu\Core\TestCase {
      * @dataProvider mockProperties
      */
 	public function testReadOnlyProperties($mock) {
-		$this->assertEquals($mock->readOnly, 'readonly');
+		$this->assertEquals('readonly', $mock->readOnly);
 
 		$this->assertTrue(isset($mock->readOnly));
 		$this->setExpectedException('\Mu\Core\Mixin\Exception\ReadOnly');
@@ -37,12 +37,12 @@ class MixinableTest extends \Mu\Core\TestCase {
 		$this->assertFalse(isset($mock->readAndWrite));
 
 		$mock->readAndWrite = 'New Value';
-		$this->assertEquals($mock->readAndWrite, 'New Value');
+		$this->assertEquals('New Value', $mock->readAndWrite);
 		$this->assertTrue(isset($mock->readAndWrite));
 
 		$newValue = new \StdClass();
 		$mock->readAndWrite = $newValue;
-		$this->assertEquals($mock->readAndWrite, $newValue);
+		$this->assertEquals($newValue,$mock->readAndWrite);
 		$this->assertTrue(isset($mock->readAndWrite));
 	}
 
@@ -58,10 +58,10 @@ class MixinableTest extends \Mu\Core\TestCase {
      * @dataProvider mockMethods
      */
 	public function testMethods($mock) {
-		$this->assertSame($mock->testMethod(), array());
-		$this->assertSame($mock->testMethod('Hello'), array('Hello'));
-		$this->assertSame($mock->testMethod('Hello', 'World'), array('Hello', 'World'));
+		$this->assertSame(array(), $mock->testMethod());
+		$this->assertSame(array('Hello'), $mock->testMethod('Hello'));
+		$this->assertSame(array('Hello', 'World'), $mock->testMethod('Hello', 'World'));
 		$object =  new \StdClass();
-		$this->assertSame($mock->testMethod('Hello', 'World', $object), array('Hello', 'World', $object));
+		$this->assertSame( array('Hello', 'World', $object), $mock->testMethod('Hello', 'World', $object));
 	}
 }

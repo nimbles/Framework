@@ -23,7 +23,7 @@ namespace Mu\Core\Log;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Entry extends \Mu\Core\Mixin {
+class Entry extends \Mu\Core\Mixin\MixinAbstract {
 	/**
 	 * Mixin implements
 	 * @var array
