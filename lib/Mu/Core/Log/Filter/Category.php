@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Filter;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Category extends \Mu\Core\Log\Filter {
+class Category extends FilterAbstract {
 	/**
 	 * Filters based on category
 	 * @param \Mu\Core\Log\Entry $entry

@@ -31,7 +31,7 @@ class Log extends Mixin {
 	protected $_implements = array(
 		'Mu\Core\Plugin\Pluginable' => array(
 			'types' => array(
-				'writers' => array('abstract' => 'Mu\Core\Log\Writer')
+				'writers' => array('abstract' => 'Mu\Core\Log\Writer\WriterAbstract')
 			)
 		)
 	);

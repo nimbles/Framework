@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Writer;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Stream extends \Mu\Core\Log\Writer {
+class Stream extends WriterAbstract {
 	/**
 	 * Stream resource
 	 * @var resource

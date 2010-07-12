@@ -15,7 +15,7 @@
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Log;
+namespace Mu\Core\Log\Writer;
 
 /**
  * @category  Mu\Core
@@ -23,7 +23,7 @@ namespace Mu\Core\Log;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Writer extends \Mu\Core\Mixin {
+abstract class WriterAbstract extends \Mu\Core\Mixin {
 	/**
 	 * Implements for this mixin
 	 * @var array
@@ -32,7 +32,7 @@ abstract class Writer extends \Mu\Core\Mixin {
 		'Mu\Core\Plugin\Pluginable' => array(
 			'types' => array(
 				'filters' => array(
-					'abstract' => 'Mu\Core\Log\Filter',
+					'abstract' => 'Mu\Core\Log\Filter\FilterAbstract',
 				)
 			),
 		),
@@ -54,7 +54,7 @@ abstract class Writer extends \Mu\Core\Mixin {
 	 */
 	public function getFormatterObject() {
 		if (null === $this->_formatter) {
-			$this->_formatter = Formatter::factory($this->getOption('formatter'));
+			$this->_formatter = \Mu\Core\Log\Formatter::factory($this->getOption('formatter'));
 		}
 		return $this->_formatter;
 	}
@@ -73,7 +73,7 @@ abstract class Writer extends \Mu\Core\Mixin {
 	 * Method which writes the log entry
 	 * @param \Mu\Core\Log\Entry $entry
 	 */
-	public function write(Entry $entry) {
+	public function write(\Mu\Core\Log\Entry $entry) {
 		foreach ($this->plugins->filters as $filter) {
 			if ($filter->filter($entry)) { // stop if the filter removes the log entry from being written
 				return;
