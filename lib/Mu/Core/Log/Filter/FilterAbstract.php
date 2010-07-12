@@ -15,7 +15,7 @@
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Log;
+namespace Mu\Core\Log\Filter;
 
 /**
  * @category  Mu\Core
@@ -23,7 +23,7 @@ namespace Mu\Core\Log;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Filter extends \Mu\Core\Mixin {
+abstract class FilterAbstract extends \Mu\Core\Mixin {
 	/**
 	 * Mixin implements
 	 * @var array
@@ -43,5 +43,5 @@ abstract class Filter extends \Mu\Core\Mixin {
 	 * Filters the entry
 	 * @param \Mu\Core\Log\Entry $entry
 	 */
-	abstract public function apply(Entry $entry);
+	abstract public function apply(\Mu\Core\Log\Entry $entry);
 }

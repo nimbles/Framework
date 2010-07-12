@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Writer;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Mock extends \Mu\Core\Log\Writer {
+class Mock extends WriterAbstract {
 	/**
 	 * Array of entries
 	 * @var array

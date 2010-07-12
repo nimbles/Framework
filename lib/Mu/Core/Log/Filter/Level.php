@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Filter;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT Licesce
  */
-class Level extends \Mu\Core\Log\Filter {
+class Level extends FilterAbstract {
 	/**
 	 * level filter types
 	 */
