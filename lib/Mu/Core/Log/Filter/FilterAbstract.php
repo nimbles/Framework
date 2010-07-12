@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Filter;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class FilterAbstract extends \Mu\Core\Mixin {
+abstract class FilterAbstract extends \Mu\Core\Mixin\MixinAbstract {
 	/**
 	 * Mixin implements
 	 * @var array

@@ -10,20 +10,20 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu\Core
- * @package   Mu\Core\Mixin
+ * @package   Mu\Core\Mixin\MixinAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core;
+namespace Mu\Core\Mixin;
 
 /**
  * @category  Mu\Core
- * @package   Mu\Core\Mixin
+ * @package   Mu\Core\Mixin\MixinAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Mixin {
+abstract class MixinAbstract {
 	/**
 	 * The array of implements for this mixin
 	 * @var array
@@ -48,7 +48,7 @@ abstract class Mixin {
 				$options = null;
 			}
 			if (!class_exists($mixin)) {
-				throw new Mixin\Exception\MixinableMissing();
+				throw new Exception\MixinableMissing();
 			}
 
 			$this->_mixins[$mixin] = new $mixin($options);
@@ -85,11 +85,11 @@ abstract class Mixin {
 				
 				/**
 				 * Getters and setters use the same Closure with the signature
-				 * @param \Mu\Core\Mixin $this     Reference to $this as it doesn't exist within the Closure
-				 * @param mixed          $object   The object turned by the getObject method, passed in by reference
-				 * @param bool			 $get      Indicates if a get (true) or set (false) is being called
-				 * @param string         $property The property name being called, useful for dynamic properties
-				 * @param mixed          $value    The value to set to, not passed by magic __get
+				 * @param \Mu\Core\Mixin\MixinAbstract $this     Reference to $this as it doesn't exist within the Closure
+				 * @param mixed                        $object   The object turned by the getObject method, passed in by reference
+				 * @param bool			               $get      Indicates if a get (true) or set (false) is being called
+				 * @param string                       $property The property name being called, useful for dynamic properties
+				 * @param mixed                        $value    The value to set to, not passed by magic __get
 				 */ 				
 				return call_user_func_array($mixin->getProperty($property), array(
 					$this, &$object, true, $property
@@ -112,11 +112,11 @@ abstract class Mixin {
 
 				/**
 				 * Getters and setters use the same Closure with the signature
-				 * @param \Mu\Core\Mixin $this     Reference to $this as it doesn't exist within the Closure
-				 * @param mixed          $object   The object turned by the getObject method, passed in by reference
-				 * @param bool			 $get      Indicates if a get (true) or set (false) is being called
-				 * @param string         $property The property name being called, useful for dynamic properties
-				 * @param mixed          $value    The value to set to, not passed by magic __get
+				 * @param \Mu\Core\Mixin\MixinAbstract $this     Reference to $this as it doesn't exist within the Closure
+				 * @param mixed                        $object   The object turned by the getObject method, passed in by reference
+				 * @param bool			               $get      Indicates if a get (true) or set (false) is being called
+				 * @param string                       $property The property name being called, useful for dynamic properties
+				 * @param mixed                        $value    The value to set to, not passed by magic __get
 				 */ 
 				return call_user_func_array($mixin->getProperty($property), array(
 					$this, &$object, false, $property, $value

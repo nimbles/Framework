@@ -23,7 +23,7 @@ namespace Mu\Core;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Log extends Mixin {
+class Log extends Mixin\MixinAbstract {
 	/**
 	 * Mixin implements
 	 * @var array
@@ -63,7 +63,7 @@ class Log extends Mixin {
 			$entry = new Log\Entry($entry);
 		}
 
-		foreach($this->plugins->writers as $writer) {
+		foreach($this->writers as $writer) {
 			$writer->write($entry);
 		}
 	}

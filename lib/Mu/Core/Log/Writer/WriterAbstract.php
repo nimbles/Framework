@@ -23,7 +23,7 @@ namespace Mu\Core\Log\Writer;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class WriterAbstract extends \Mu\Core\Mixin {
+abstract class WriterAbstract extends \Mu\Core\Mixin\MixinAbstract {
 	/**
 	 * Implements for this mixin
 	 * @var array
@@ -74,7 +74,7 @@ abstract class WriterAbstract extends \Mu\Core\Mixin {
 	 * @param \Mu\Core\Log\Entry $entry
 	 */
 	public function write(\Mu\Core\Log\Entry $entry) {
-		foreach ($this->plugins->filters as $filter) {
+		foreach ($this->filters as $filter) {
 			if ($filter->filter($entry)) { // stop if the filter removes the log entry from being written
 				return;
 			}

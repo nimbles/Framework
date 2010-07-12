@@ -23,7 +23,7 @@ namespace Mu\Http;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Header extends \Mu\Core\Mixin {
+class Header extends \Mu\Core\Mixin\MixinAbstract {
     /**
 	 * Class implements
 	 * @var array

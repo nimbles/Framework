@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Mu\Core\Plugin;
 
-class PluginableMock extends \Mu\Core\Mixin {
+class PluginableMock extends \Mu\Core\Mixin\MixinAbstract {
 	protected $_implements = array('Mu\Core\Plugin\Pluginable' => array(
 		'types' => array(
 			'simple',

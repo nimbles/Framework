@@ -23,7 +23,7 @@ namespace Mu\Core;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Request extends Mixin
+abstract class Request extends Mixin\MixinAbstract
 	implements Request\IRequest {
 	/**
 	 * Class implements
