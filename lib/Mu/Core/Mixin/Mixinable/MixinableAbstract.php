@@ -10,7 +10,7 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu\Core
- * @package   Mu\Core\Mixin\Mixinable
+ * @package   Mu\Core\Mixin\Mixinable\MixinableAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

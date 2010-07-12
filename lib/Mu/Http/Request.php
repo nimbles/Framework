@@ -23,7 +23,7 @@ namespace Mu\Http;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Request extends \Mu\Core\Request {
+class Request extends \Mu\Core\Request\RequestAbstract {
 	/**
 	 * The query string variables
 	 * @var array
