@@ -11,7 +11,7 @@ class RequestTest extends \Mu\Cli\TestCase {
 		self::setStdin('hello world');
 
 		$request = new \Mu\Cli\Request();
-		$this->assertType('Mu\Core\Request', $request);
+		$this->assertType('Mu\Core\Request\RequestAbstract', $request);
 		$this->assertEquals('hello world', $request->getStdin());
 	}
 }

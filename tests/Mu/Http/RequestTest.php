@@ -5,7 +5,7 @@ class RequestTest extends \Mu\Http\TestCase {
     public function testConstruct() {
         $request = new \Mu\Http\Request();
 
-        $this->assertType('Mu\Core\Request', $request);
+        $this->assertType('Mu\Core\Request\RequestAbstract', $request);
     }
 
     /**

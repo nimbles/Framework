@@ -10,21 +10,21 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu\Core
- * @package   Mu\Core\Request
+ * @package   Mu\Core\Request\RequestAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core;
+namespace Mu\Core\Request;
 
 /**
  * @category  Mu\Core
- * @package   Mu\Core\Request
+ * @package   Mu\Core\Request\RequestAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-abstract class Request extends Mixin\MixinAbstract
-	implements Request\IRequest {
+abstract class RequestAbstract extends \Mu\Core\Mixin\MixinAbstract
+	implements RequestInterface {
 	/**
 	 * Class implements
 	 * @var array

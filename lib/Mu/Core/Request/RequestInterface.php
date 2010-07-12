@@ -10,7 +10,7 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu\Core
- * @package   Mu\Core\Request\IRequest
+ * @package   Mu\Core\Request\RequestInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -19,11 +19,11 @@ namespace Mu\Core\Request;
 
 /**
  * @category  Mu\Core
- * @package   Mu\Core\Request\IRequest
+ * @package   Mu\Core\Request\RequestInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-interface IRequest {
+interface RequestInterface {
 	/**
 	 * Builds the request, used by factory
 	 * @return \Mu\Core\Request|null
