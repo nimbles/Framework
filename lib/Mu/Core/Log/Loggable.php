@@ -23,7 +23,7 @@ namespace Mu\Core\Log;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Loggable extends \Mu\Core\Mixin\Mixinable {
+class Loggable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	/**
 	 * Gets the object associated with this mixin
 	 * @return \Mu\Core\Log

@@ -23,7 +23,7 @@ namespace Mu\Core\Config;
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
-class Configurable extends \Mu\Core\Mixin\Mixinable {
+class Configurable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	/**
 	 * The config for this mixinable
 	 * @var \Mu\Core\Config
