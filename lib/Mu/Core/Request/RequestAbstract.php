@@ -80,8 +80,7 @@ abstract class RequestAbstract extends \Mu\Core\Mixin\MixinAbstract
 
 	/**
 	 * Class construct
-	 * @param array $server
-	 * @param array $env
+	 * @param array|null $options
 	 */
 	public function __construct($options = null) {
 		parent::__construct();
