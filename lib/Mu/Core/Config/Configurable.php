@@ -47,14 +47,18 @@ class Configurable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	 * @return array
 	 */
 	public function getProperties() {
-		return array(
-			'config' => function($object, &$config, $get, $property, array $value = null) {
-				if (!$get) {
-					return $config->setConfig($value);
+		if (null === $this->_properties) {
+			$this->_properties = array(
+				'config' => function($object, &$config, $get, $property, array $value = null) {
+					if (!$get) {
+						return $config->setConfig($value);
+					}
+	
+					return $config;
 				}
-
-				return $config;
-			}
-		);
+			);
+		}
+		
+		return $this->_properties;
 	}
 }

@@ -31,12 +31,6 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	protected $_plugins;
 	
 	/**
-	 * The properties
-	 * @var array
-	 */
-	protected $_properties;
-
-	/**
 	 * Gets the object associated with this mixin
 	 * @return \Mu\Core\Plugin
 	 */
@@ -46,59 +40,6 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 		}
 
 		return $this->_plugins;
-	}
-
-	/**
-	 * Gets the properties available for this mixin
-	 * @return array
-	 */
-//	public function getProperties() {
-//		$types = $this->getObject()->getOption('types');
-//		
-//		if ($types instanceof \ArrayObject) {
-//			$types = $types->getArrayCopy();
-//		} else if (!is_array($types)) {
-//			$types = array();
-//		}
-//		
-//		$types = array_keys($types);
-//		$plugins = array();
-//		
-//		foreach ($types as $type) {
-//			$plugins[$type] = function($object, &$plugins, $get, $property) {
-//				if (!$get) {
-//					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
-//				}
-//				
-//				print_r($plugins);
-//
-//				return $plugins->$property;
-//			};
-//		}
-//		
-//		return $plugins;
-//		
-//		return array(
-//			'plugins' => function($object, &$plugins, $get) {
-//				if (!$get) {
-//					throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
-//				}
-//
-//				return $plugins;
-//			}
-//		);
-//	}
-	
-	/**
-	 * Gets the properties which can be mixed in
-	 * @return array
-	 */
-	public function getProperties() {
-		if (!is_array($this->_properties)) {
-			$this->_properties = array();
-		}
-		
-		return $this->_properties; 
 	}
 
 	/**
@@ -123,55 +64,41 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	}
 
 	/**
-	 * Gets the requested property from the mixin
-	 * @param string $property
-	 * @return \Closure
-	 * @throws \Mu\Core\Mixin\Exception\InvalidProperty
-	 */
-	public function getProperty($property) {
-		if ($this->hasProperty($property)) {		
-			if (!($this->_properties[$property] instanceof \Closure)) {
-				throw new Exception\InvalidProperty('Property ' . $property . ' is not a closure');
-			}
-			
-			return $this->_properties[$property];
-		}
-		
-		return null;
-	}
-
-	/**
 	 * Gets the method available for this mixin
 	 * @return array
 	 */
 	public function getMethods() {
-		return array(
-			'attach' => function($object, &$plugins, $type, $name, $plugin) {
-				if (isset($plugins->{$type})) {
-					return $plugins->{$type}->attach($name, $plugin);
-				}
-
-				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
-			},
-
-			'detach' => function($object, &$plugins, $type, $name) {
-				if (isset($plugins->{$type})) {
-					return $plugins->{$type}->detach($name);
-				}
-
-				throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
-			},
-
-			'notify' => function($object, &$plugins, $type = null) {
-				if (null !== $type) {
+		if (null === $this->_methods) {
+			$this->_methods = array(
+				'attach' => function($object, &$plugins, $type, $name, $plugin) {
 					if (isset($plugins->{$type})) {
-						return $plugins->{$type}->notify($object);
+						return $plugins->{$type}->attach($name, $plugin);
 					}
+	
 					throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
-				} else {
-					return $plugins->notify($object);
+				},
+	
+				'detach' => function($object, &$plugins, $type, $name) {
+					if (isset($plugins->{$type})) {
+						return $plugins->{$type}->detach($name);
+					}
+	
+					throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
+				},
+	
+				'notify' => function($object, &$plugins, $type = null) {
+					if (null !== $type) {
+						if (isset($plugins->{$type})) {
+							return $plugins->{$type}->notify($object);
+						}
+						throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
+					} else {
+						return $plugins->notify($object);
+					}
 				}
-			}
-		);
+			);
+		}
+		
+		return $this->_methods;
 	}
 }

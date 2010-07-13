@@ -29,6 +29,18 @@ abstract class MixinableAbstract {
 	 * @var \Mu\Core\Config
 	 */
 	protected $_config;
+	
+	/**
+	 * The properties cache
+	 * @var array
+	 */
+	protected $_properties;
+	
+	/**
+	 * The methods cache
+	 * @var array
+	 */
+	protected $_methods;
 
 	/**
 	 * Gets the config
@@ -82,7 +94,10 @@ abstract class MixinableAbstract {
 	 * @return array
 	 */
 	public function getProperties() {
-		return array();
+		if (null === $this->_properties) {
+			$this->_properties = array();
+		}
+		return $this->_properties;
 	}
 
 	/**
@@ -117,7 +132,10 @@ abstract class MixinableAbstract {
 	 * @return array
 	 */
 	public function getMethods() {
-		return array();
+		if (null === $this->_methods) {
+			$this->_methods = array();
+		}
+		return $this->_methods;
 	}
 
 	/**

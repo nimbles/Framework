@@ -136,6 +136,14 @@ class Config extends \ArrayObject {
 	public function __set($name, $value) {
 		return $this->_setConfig(array($name => $value));
 	}
+	
+	/**
+	 * Magic method __isset to allow accesses for config
+	 * @param string $name
+	 */
+	public function __isset($name) {
+		return (null !== $this->_getConfig($name));
+	}
 
 	/**
 	 * Overload offsetGet to get arrays as Config

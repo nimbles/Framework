@@ -37,10 +37,13 @@ class Loggable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
 	 * @return array
 	 */
 	public function getMethods() {
-		return array(
-			'log' => function($object, &$log, $entry) {
-				return $log->write($entry);
-			}
-		);
+		if (null === $this->_methods) {
+			$this->_methods = array(
+				'log' => function($object, &$log, $entry) {
+					return $log->write($entry);
+				}
+			);
+		}
+		return $this->_methods;
 	}
 }

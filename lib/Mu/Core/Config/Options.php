@@ -41,32 +41,35 @@ class Options extends Configurable {
 	 * @return array
 	 */
 	public function getMethods() {
-		return array(
-			'getOption' => function($object, &$config, $key) {
-				$method = 'get' . ucfirst($key);
-				if (method_exists($object, $method)) {
-					return $object->$method();
-				}
-
-				return $config->{$key};
-			},
-
-			'setOption' => function($object, &$config, $key, $value) {
-				$method = 'set' . ucfirst($key);
-				if (method_exists($object, $method)) {
-					return $object->$method($value);
-				}
-
-				return $config->{$key} = $value;
-			},
-
-			'setOptions' => function($object, &$config, $options) {
-				if (is_array($options) || ($options instanceof \Mu\Core\Config)) {
-					foreach ($options as $key => $value) {
-						$object->setOption($key, $value);
+		if (null === $this->_methods) {
+			$this->_methods = array(
+				'getOption' => function($object, &$config, $key) {
+					$method = 'get' . ucfirst($key);
+					if (method_exists($object, $method)) {
+						return $object->$method();
+					}
+	
+					return $config->{$key};
+				},
+	
+				'setOption' => function($object, &$config, $key, $value) {
+					$method = 'set' . ucfirst($key);
+					if (method_exists($object, $method)) {
+						return $object->$method($value);
+					}
+	
+					return $config->{$key} = $value;
+				},
+	
+				'setOptions' => function($object, &$config, $options) {
+					if (is_array($options) || ($options instanceof \Mu\Core\Config)) {
+						foreach ($options as $key => $value) {
+							$object->setOption($key, $value);
+						}
 					}
 				}
-			}
-		);
+			);
+		}
+		return $this->_methods;
 	}
 }
