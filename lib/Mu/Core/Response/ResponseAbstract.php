@@ -29,7 +29,31 @@ abstract class ResponseAbstract extends \Mu\Core\Mixin\MixinAbstract {
 	 * @var array
 	 */
 	protected $_implements = array('Mu\Core\Config\Options');
-	
+
+	/**
+	 * The response body
+	 * @var string
+	 */
+	protected $_body;
+
+	/**
+	 * Gets the response body
+	 * @return string
+	 */
+	public function getBody() {
+		return $this->_body;
+	}
+
+	/**
+	 * Sets the response body
+	 * @param string $body
+	 * @return \Mu\Core\Response\ResponseAbstract
+	 */
+	public function setBody($body) {
+		$this->_body = is_string($body) ? $body : $this->_body;
+		return $this;
+	}
+
 	/**
 	 * Class construct
 	 * @param array|null $options
@@ -38,9 +62,10 @@ abstract class ResponseAbstract extends \Mu\Core\Mixin\MixinAbstract {
 		parent::__construct();
 		$this->setOptions($options);
 	}
-	
+
 	/**
 	 * Sends the response
+	 * @return void
 	 */
 	abstract public function send();
 }

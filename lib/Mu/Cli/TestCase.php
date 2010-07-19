@@ -32,6 +32,12 @@ class TestCase extends \Mu\Core\TestCase {
 	static protected $_stdin = '';
 
 	/**
+	 * Stdout to be used during test cases
+	 * @var string
+	 */
+	static protected $_stdout = '';
+
+	/**
 	 * Argv to be used during test cases
 	 * @var array
 	 */
@@ -52,6 +58,22 @@ class TestCase extends \Mu\Core\TestCase {
 	 */
 	static public function setStdin($stdin) {
 		self::$_stdin = is_string($stdin) ? $stdin : self::$_stdin;
+	}
+
+	/**
+	 * Gets stdout to be used during test cases
+	 * @return string
+	 */
+	static public function getStdout() {
+		return self::$_stdout;
+	}
+
+	/**
+	 * Sets stdout to be used during test cases
+	 * @param string $stdout
+	 */
+	static public function setStdout($stdout) {
+		self::$_stdout = is_string($stdout) ? $stdout : self::$_stdout;
 	}
 
 	/**

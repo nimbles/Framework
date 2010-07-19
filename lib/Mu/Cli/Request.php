@@ -54,7 +54,7 @@ class Request extends \Mu\Core\Request\RequestAbstract {
 			if (defined('APPLICATION_ENV') && ('test' === APPLICATION_ENV)) {
 				$this->_stdin = TestCase::getStdin();
 			} else {
-				$this->_stdin = file_get_contents('php://stdin');
+				$this->_stdin = file_get_contents(STDIN);
 			}
 		}
 		return $this->_stdin;
