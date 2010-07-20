@@ -104,6 +104,11 @@ class HeaderTest extends \Mu\Http\TestCase {
     /**
      * Tests the factory of headers
      * @dataProvider factoryProvider
+     * @param string $name
+     * @param string $string
+     * @param string $expectedName
+     * @param string $expectedValue
+     * @param string $expectedValue
      * @return void
      */
     public function testFactory($name, $string, $expectedName, $expectedValue, $expectedToString) {
