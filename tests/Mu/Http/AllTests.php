@@ -30,7 +30,7 @@ require_once 'RequestTest.php';
  */
 class AllTests {
 	/**
-	 * Creates the Test Suite for Mu Framework
+	 * Creates the Test Suite for Mu Framework - Http
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
