@@ -13,6 +13,7 @@
  * @package   Mu\Http
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Http
  */
 
 namespace Tests\Mu\Http;

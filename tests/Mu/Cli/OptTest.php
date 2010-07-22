@@ -1,12 +1,35 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Cli
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Cli
+ */
+
 namespace Tests\Mu\Cli;
 
 /**
- * Request Tests
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Cli
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Cli
  */
 class OptTest extends \Mu\Cli\TestCase {
+	/**
+	 * Tests creating an new empty Opt object
+	 * @return void
+	 */
 	public function testEmptyConstruct() {
 		$opt = new \Mu\Cli\Opt();
 
@@ -21,6 +44,10 @@ class OptTest extends \Mu\Cli\TestCase {
 		$this->assertEquals('', $opt->getFormattedAlias());
 	}
 
+	/**
+	 * Tests creating an new Opt object from an array of data
+	 * @return void
+	 */
 	public function testPopulatedConstruct() {
 		$opt = new \Mu\Cli\Opt(array(
 			'character' => 'a',
@@ -42,7 +69,11 @@ class OptTest extends \Mu\Cli\TestCase {
 	}
 
 	/**
+	 * Tests that the Mu\Cli\Opt\Exception\InvalidCharacter exception is thrown when
+	 * creating an Opt object from invalid character
 	 * @dataProvider invalidCharacterProvider
+	 * @param mixed $character
+	 * @return void
 	 */
 	public function testInvalidCharacter($character) {
 		$this->setExpectedException('\Mu\Cli\Opt\Exception\InvalidCharacter');
@@ -51,17 +82,12 @@ class OptTest extends \Mu\Cli\TestCase {
 		$opt->setCharacter($character);
 	}
 
-	public function invalidCharacterProvider() {
-		return array(
-			array('abc'),
-			array(1),
-			array(''),
-			array(null)
-		);
-	}
-
 	/**
+	 * Tests that the Mu\Cli\Opt\Exception\InvalidAlias exception is thrown when creating
+	 * an Opt object with an invalid alias
 	 * @dataProvider invalidAliasProvider
+	 * @param mixed $alias
+	 * @return void
 	 */
 	public function testInvalidAlias($alias) {
 		$this->setExpectedException('\Mu\Cli\Opt\Exception\InvalidAlias');
@@ -70,15 +96,12 @@ class OptTest extends \Mu\Cli\TestCase {
 		$opt->setAlias($alias);
 	}
 
-	public function invalidAliasProvider() {
-		return array(
-			array(1),
-			array(null)
-		);
-	}
-
 	/**
+	 * Tests that the Mu\Cli\Opt\Exception\InvalidParameterType exception is thrown when
+	 * creating an Opt object with an invalid paramater
 	 * @dataProvider invalidParameterTypeProvider
+	 * @param mixed $type
+	 * @return void
 	 */
 	public function testInvalidParameterType($type) {
 		$this->setExpectedException('\Mu\Cli\Opt\Exception\InvalidParameterType');
@@ -87,16 +110,10 @@ class OptTest extends \Mu\Cli\TestCase {
 		$opt->setParameterType($type);
 	}
 
-	public function invalidParameterTypeProvider() {
-		return array(
-			array(3),
-			array(null),
-			array(''),
-			array(':'),
-			array('::')
-		);
-	}
-
+	/**
+	 * Tests the flagging of an option
+	 * @return void
+	 */
 	public function testFlagged() {
 		$opt = new \Mu\Cli\Opt();
 
@@ -109,6 +126,10 @@ class OptTest extends \Mu\Cli\TestCase {
 		$this->assertFalse($opt->isFlagged());
 	}
 
+	/**
+	 * Test getting a value of an option
+	 * @return void
+	 */
 	public function testValue() {
 		$opt = new \Mu\Cli\Opt();
 
@@ -118,7 +139,13 @@ class OptTest extends \Mu\Cli\TestCase {
 	}
 
 	/**
+	 * Tests creating an Opt object via the factory method
 	 * @dataProvider factoryProvider
+	 * @param string $opt
+	 * @param string $character
+	 * @param string $alias
+	 * @param string $parameterType
+	 * @return void
 	 */
 	public function testFactory($opt, $character, $alias, $parameterType) {
 		$opt = \Mu\Cli\Opt::factory($opt);
@@ -128,6 +155,48 @@ class OptTest extends \Mu\Cli\TestCase {
 		$this->assertEquals($parameterType, $opt->getParameterType());
 	}
 
+	/**
+	 * Data provider for invalid characters
+	 * @return array
+	 */
+	public function invalidCharacterProvider() {
+		return array(
+			array('abc'),
+			array(1),
+			array(''),
+			array(null)
+		);
+	}
+
+	/**
+	 * Data provider for invalid alias
+	 * @return array
+	 */
+	public function invalidAliasProvider() {
+		return array(
+			array(1),
+			array(null)
+		);
+	}
+
+	/**
+	 * Data provider for invalid parameter types
+	 * @return array
+	 */
+	public function invalidParameterTypeProvider() {
+		return array(
+			array(3),
+			array(null),
+			array(''),
+			array(':'),
+			array('::')
+		);
+	}
+
+	/**
+	 * Data provider for Opt factory
+	 * @return array
+	 */
 	public function factoryProvider() {
 		return array(
 			array('a', 'a', null, \Mu\Cli\Opt::PARAM_TYPE_NOT_ACCEPTED),
