@@ -13,7 +13,6 @@
  * @package   Mu\Core\Plugin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Plugin
  */
 
 namespace Tests\Mu\Core\Plugin;
