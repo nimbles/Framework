@@ -162,13 +162,10 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 		    return; // no body should be sent
 		}
 
-		if ($this->getCompressed()) {
-		    if (!ob_start("ob_gzhandler")) ob_start(); // start compression if possible
-		} else {
-		    ob_start();
+		if ($this->getCompressed() && extension_loaded('zlib')) {
+		    ini_set('zlib.output_compression', '1');
 		}
 
 		echo $this->getBody();
-		ob_end_flush();
 	}
 }
