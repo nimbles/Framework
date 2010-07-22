@@ -1,11 +1,30 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Core\Config
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Config
+ */
+
 namespace Tests\Mu\Core\Config;
 
 
 /**
- * Directory Tests
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Core\Config
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Config
  */
 class DirectoryTest extends \Mu\Core\TestCase {
 	/**
@@ -14,52 +33,52 @@ class DirectoryTest extends \Mu\Core\TestCase {
 	 */
 	public function testLoadConfigFileLevel1() {
 		$dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level1');
-		
+
 		$config = $dir->getParsedConfig();
 		$this->assertType('\Mu\Core\Config', $config);
-		
+
 		$this->assertEquals(1, $config->config->a);
 		$this->assertEquals(4, $config->config->d->e);
 		$this->assertEquals(null, $config->config->j);
-		
+
 		$this->assertEquals(1, $config->additional->a);
 		$this->assertEquals(2, $config->additional->b);
 		$this->assertEquals(null, $config->additional->c);
 	}
-	
+
 	/**
 	 * Tests reading a directory of config files for level 2 extending level 1
 	 * @return void
 	 */
 	public function testLoadConfigFileLevel2() {
 		$dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level2');
-		
+
 		$config = $dir->getParsedConfig();
 		$this->assertType('\Mu\Core\Config', $config);
-		
+
 		$this->assertEquals('one', $config->config->a);
 		$this->assertEquals('four', $config->config->d->e);
 		$this->assertEquals(null, $config->config->j);
-		
+
 		$this->assertEquals('one', $config->additional->a);
 		$this->assertEquals('two', $config->additional->b);
 		$this->assertEquals(null, $config->additional->c);
 	}
-	
+
 	/**
 	 * Tests reading a directory of config files for level 3 extending level 2
 	 * @return void
 	 */
 	public function testLoadConfigFileLevel3() {
 		$dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level3');
-		
+
 		$config = $dir->getParsedConfig();
 		$this->assertType('\Mu\Core\Config', $config);
-		
+
 		$this->assertEquals('one', $config->config->a);
 		$this->assertEquals('four', $config->config->d->e);
 		$this->assertEquals(8, $config->config->j);
-		
+
 		$this->assertEquals('one', $config->additional->a);
 		$this->assertEquals('two', $config->additional->b);
 		$this->assertEquals(3, $config->additional->c);

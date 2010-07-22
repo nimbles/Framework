@@ -1,38 +1,32 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Core\Config
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Config
+ */
+
 namespace Tests\Mu\Core\Config;
 
 
 /**
- * Config Tests
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Core\Config
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Config
  */
 class ConfigTest extends \Mu\Core\TestCase {
-	/**
-	 * The test data
-	 * @var array
-	 */
-	protected $_testData;
-
-	/**
-	 * Set up the test data
-	 * @return void
-	 */
-	public function setUp() {
-		$this->_testData = array(
-			'a' => 1,
-			'b' => 2,
-			'c' => 3,
-			'd' => array(
-				'e' => 4,
-				'f' => 5,
-				'g' => array(
-					'h' => 6
-				)
-			)
-		);
-	}
-
 	/**
 	 * Tests construct of config without any parameters
 	 * @return void
@@ -107,19 +101,23 @@ class ConfigTest extends \Mu\Core\TestCase {
 
 	/**
 	 * Tests construct with a populated array as first parameter
+	 * @dataProvider configArrayProvider
+	 * @param array $testdata
 	 * @return void
 	 */
-	public function testConstructWithPopulatedArray() {
-		$config = new \Mu\Core\Config($this->_testData);
+	public function testConstructWithPopulatedArray(array $testdata) {
+		$config = new \Mu\Core\Config($testdata);
 		$this->assertType('\Mu\Core\Config', $config);
 	}
 
 	/**
 	 * Tests the accesses with a populated array as first parameter
+	 * @dataProvider configArrayProvider
+	 * @param array $testdata
 	 * @return void
 	 */
-	public function testAccessesPopulatedArray() {
-		$config = new \Mu\Core\Config($this->_testData);
+	public function testAccessesPopulatedArray(array $testdata) {
+		$config = new \Mu\Core\Config($testdata);
 		$this->assertType('\Mu\Core\Config', $config);
 
 		$this->assertEquals(1, $config->a);
@@ -139,10 +137,12 @@ class ConfigTest extends \Mu\Core\TestCase {
 
 	/**
 	 * Tests the getConfig with a populated array as first parameter
+	 * @dataProvider configArrayProvider
+	 * @param array $testdata
 	 * @return void
 	 */
-	public function testGetSetConfigPopulatedArray() {
-		$config = new \Mu\Core\Config($this->_testData);
+	public function testGetSetConfigPopulatedArray(array $testdata) {
+		$config = new \Mu\Core\Config($testdata);
 		$this->assertType('\Mu\Core\Config', $config);
 
 		$this->assertEquals(1, $config->getConfig('a'));
@@ -154,5 +154,24 @@ class ConfigTest extends \Mu\Core\TestCase {
 		$this->assertType('\Mu\Core\Config', $config->getConfig('d.g'));
 		$this->assertEquals(6, $config->getConfig('d.g.h'));
 		$this->assertNull($config->getConfig('e'));
+	}
+
+	/**
+	 * Gets the array data for tests
+	 * @return array
+	 */
+	public function configArrayProvider() {
+		return array(array(array(
+			'a' => 1,
+			'b' => 2,
+			'c' => 3,
+			'd' => array(
+				'e' => 4,
+				'f' => 5,
+				'g' => array(
+					'h' => 6
+				)
+			)
+		)));
 	}
 }

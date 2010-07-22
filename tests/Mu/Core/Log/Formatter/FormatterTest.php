@@ -1,38 +1,81 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Core\Log\Formatter
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Log
+ * @group     Mu\Core\Log\Formatter
+ */
+
 namespace Tests\Mu\Core\Log\Formatter;
 
 
 /**
- * Formatter Tests
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Core\Log\Formatter
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Log
+ * @group     Mu\Core\Log\Formatter
  */
 class FormatterTest extends \Mu\Core\TestCase {
-	public function testFactoryEmptyArray() {
+	/**
+	 * Tests that the Mu\Core\Log\Formatter\Exception\InvalidOptions exception is thrown
+	 * when passing invalid options into the formatter factory
+	 * @dataProvider invalidOptionsProvider
+	 * @param mixed $options
+	 * @return void
+	 */
+	public function testInvalidOptionsFactory($options) {
 		$this->setExpectedException('\Mu\Core\Log\Formatter\Exception\InvalidOptions');
-		\Mu\Core\Log\Formatter\FormatterAbstract::factory(array());
+		\Mu\Core\Log\Formatter\FormatterAbstract::factory($options);
 	}
 
-	public function testFactoryInvalidOptions() {
-		$this->setExpectedException('\Mu\Core\Log\Formatter\Exception\InvalidOptions');
-		\Mu\Core\Log\Formatter\FormatterAbstract::factory(1);
-	}
-
-	public function testFactoryStreamString() {
-		$formatter = \Mu\Core\Log\Formatter\FormatterAbstract::factory('simple');
-		$this->assertType('\Mu\Core\Log\Formatter\Simple', $formatter);
-	}
-
-	public function testFactoryStreamArray() {
-		$formatter = \Mu\Core\Log\Formatter\FormatterAbstract::factory(array('simple' => array()));
-		$this->assertType('\Mu\Core\Log\Formatter\Simple', $formatter);
-	}
-
-	public function testFactoryStreamArrayObject() {
-		$options = new \ArrayObject(
-			array('simple' => array())
-		);
+	/**
+	 * Tests creating a formatter from valid options
+	 * @dataProvider validOptionsProvider
+	 * @param string|array $options
+	 * @return void
+	 */
+	public function testValidOptionsFactory($options) {
 		$formatter = \Mu\Core\Log\Formatter\FormatterAbstract::factory($options);
 		$this->assertType('\Mu\Core\Log\Formatter\Simple', $formatter);
+	}
+
+	/**
+	 * Data provider for invalid factory options
+	 * @retun array
+	 */
+	public function invalidOptionsProvider() {
+		return array(
+			array(array()),
+			array(1),
+			array(new \stdClass()),
+			array(null)
+		);
+	}
+
+	/**
+	 * Data provider for valid options
+	 * @return array
+	 */
+	public function validOptionsProvider() {
+		return array(
+			array('simple'),
+			array(array('simple' => array())),
+			array(new \ArrayObject(
+				array('simple' => array())
+			)),
+		);
 	}
 }

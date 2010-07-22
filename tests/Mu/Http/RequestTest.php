@@ -1,16 +1,44 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Http\Request
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Tests\Mu\Http;
 
+/**
+ * @category  Mu
+ * @package   Mu\Http\Request
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Http
+ */
 class RequestTest extends \Mu\Http\TestCase {
+	/**
+	 * Test that the request object extends the abstract
+	 * @return void
+	 */
     public function testConstruct() {
         $request = new \Mu\Http\Request();
-
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
     }
 
     /**
      * Tests over the getters which should have the same behavior
      * @dataProvider getterProvider
+     * @param string $getter
+     * @return void
      */
     public function testGetter($getter) {
         $request = new \Mu\Http\Request(array(
@@ -29,6 +57,10 @@ class RequestTest extends \Mu\Http\TestCase {
         $this->assertNull($request->$method('quux'));
     }
 
+    /**
+     * The getter provider
+     * @return array
+     */
     public function getterProvider() {
         return array(
             array('query'),
@@ -39,13 +71,20 @@ class RequestTest extends \Mu\Http\TestCase {
     }
 
 	/**
+	 * Tests that the request uri is detected for multiple platforms
      * @dataProvider requestUriProvider
+     * @param array $options
+     * @return void
      */
     public function testGetRequestUri($options) {
         $request = new \Mu\Http\Request($options);
         $this->assertEquals('/module/controller/action', $request->getRequestUri());
     }
 
+    /**
+     * The uri provider
+     * @return array
+     */
     public function requestUriProvider() {
         return array(
             array(array(  // apache and lighttpd
@@ -62,27 +101,41 @@ class RequestTest extends \Mu\Http\TestCase {
     }
 
     /**
+     * Tests the http method is detected
      * @dataProvider methodProvider
+     * @param string $method
+     * @param array  $options
+     * @return void
      */
-    public function testGetMethod($options) {
+    public function testGetMethod($method, $options) {
         $request = new \Mu\Http\Request($options);
-        $this->assertEquals('PUT', $request->getMethod());
+        $this->assertEquals($method, $request->getMethod());
     }
 
     public function methodProvider() {
         return array(
-            array(array(  // standard PUT support
+        	array('GET', array(  // standard GET support
+            	'server' => array(
+	                'REQUEST_METHOD' => 'GET',
+                ),
+            )),
+            array('POST', array(  // standard POST support
+            	'server' => array(
+	                'REQUEST_METHOD' => 'POST',
+                ),
+            )),
+            array('PUT', array(  // standard PUT support
             	'server' => array(
 	                'REQUEST_METHOD' => 'PUT',
                 ),
             )),
-            array(array( //
+            array('PUT', array( //
                 'server' => array( // X-Http-Method-Override header support
                 	'REQUEST_METHOD' => 'POST',
                     'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT',
                 ),
             )),
-            array(array( //
+            array('PUT', array( //
                 'server' => array( // method_override querystring support
                 	'REQUEST_METHOD' => 'POST',
                 ),
@@ -93,6 +146,10 @@ class RequestTest extends \Mu\Http\TestCase {
         );
     }
 
+    /**
+     * Tests getting the port
+     * @return void
+     */
     public function testGetPort() {
         $request = new \Mu\Http\Request(array(
             'server' => array(
@@ -103,6 +160,10 @@ class RequestTest extends \Mu\Http\TestCase {
         $this->assertEquals(80, $request->getPort());
     }
 
+    /**
+     * Tests getting the host
+     * @return void
+     */
     public function testGetHost() {
         $request = new \Mu\Http\Request(array(
             'server' => array(

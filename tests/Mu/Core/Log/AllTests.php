@@ -1,4 +1,21 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Core\Log
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Log
+ */
+
 namespace Tests\Mu\Core\Log;
 
 require_once 'Formatter/AllTests.php';
@@ -9,13 +26,15 @@ require_once 'LogTest.php';
 require_once 'LoggableTest.php';
 
 /**
- * All tests file for Mu Framework
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Core\Log
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Log
  */
 class AllTests {
 	/**
-	 * Creates the Test Suite for Mu Framework
+	 * Creates the Test Suite for Mu Framework - Core - Log
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {

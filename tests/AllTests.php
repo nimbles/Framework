@@ -1,13 +1,30 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ */
+
 namespace Tests;
 
 require_once 'PHPUnit/Framework.php';
 require_once 'Mu/AllTests.php';
 
 /**
- * All tests file, exists so that can be part of wider system
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
  */
 class AllTests {
 	/**

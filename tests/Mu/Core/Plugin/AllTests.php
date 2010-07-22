@@ -1,4 +1,21 @@
 <?php
+/**
+ * Mu Framework
+ *
+ * LICENSE
+ *
+ * This shouce file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://mu-framework.com/license/mit
+ *
+ * @category  Mu
+ * @package   Mu\Core\Plugin
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Plugin
+ */
+
 namespace Tests\Mu\Core\Plugin;
 
 require_once 'PluginTest.php';
@@ -6,13 +23,15 @@ require_once 'PluginsTest.php';
 require_once 'PluginableTest.php';
 
 /**
- * All tests file for Mu Framework
- * @author rob
- *
+ * @category  Mu
+ * @package   Mu\Core\Plugin
+ * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core\Plugin
  */
 class AllTests {
 	/**
-	 * Creates the Test Suite for Mu Framework
+	 * Creates the Test Suite for Mu Framework - Core - Plugin
 	 * @return \PHPUnit_Framework_TestSuite
 	 */
 	static public function suite() {
