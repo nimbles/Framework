@@ -147,12 +147,12 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	 */
 	public function send() {
 		if (!headers_sent()) {
-			// set the status, first
-			header((string) $this->getStatus());
-
 			foreach ($this->getHeaders() as $header) {
 				header((string) $header);
 			}
+
+			// set the status last due to php changing the status if a location header has been sent
+			header((string) $this->getStatus());
 		}
 
 		if (

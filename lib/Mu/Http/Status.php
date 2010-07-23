@@ -25,10 +25,14 @@ namespace Mu\Http;
  */
 class Status {
 	/**
-	 * Class constants for http statuses
+	 * Informational
 	 */
 	const STATUS_CONTINUE = 100;
 	const STATUS_SWITCHING_PROTOCOLS = 101;
+
+	/**
+	 * Successfull
+	 */
 	const STATUS_OK = 200;
 	const STATUS_CREATED = 201;
 	const STATUS_ACCEPTED = 202;
@@ -36,6 +40,10 @@ class Status {
 	const STATUS_NO_CONTENT = 204;
 	const STATUS_RESET_CONTENT = 205;
 	const STATUS_PARTIAL_CONTENT = 206;
+
+	/**
+	 * Redirectional
+	 */
 	const STATUS_MULTIPLE_CHOICES = 300;
 	const STATUS_MOVED_PERMANENTLY = 301;
 	const STATUS_FOUND = 302;
@@ -44,6 +52,10 @@ class Status {
 	const STATUS_USE_PROXY = 305;
 	const STATUS_SWITCH_PROXY = 306;
 	const STATUS_TEMPORARY_REDIRECT = 307;
+
+	/**
+	 * Client Error
+	 */
 	const STATUS_BAD_REQUEST = 400;
 	const STATUS_UNAUTHORIZED = 401;
 	const STATUS_PAYMENT_REQUIRED = 402;
@@ -62,6 +74,10 @@ class Status {
 	const STATUS_UNSUPPORTED_MEDIA_TYPE = 415;
 	const STATUS_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
 	const STATUS_EXPECTATION_FAILED = 417;
+
+	/**
+	 * Server Error
+	 */
 	const STATUS_INTERNAL_SERVER_ERROR = 500;
 	const STATUS_NOT_IMPLEMENTED = 501;
 	const STATUS_BAD_GATEWAY = 502;
@@ -69,6 +85,7 @@ class Status {
 	const STATUS_GATEWAY_TIMEOUT = 504;
 	const STATUS_HTTP_VERSION_NOT_SUPPORTED = 505;
 	const STATUS_VARIANT_ALSO_NEGOTIATES = 506;
+	const STATUS_BANDWIDTH_LIMIT_EXCEEDED = 509;
 	const STATUS_NOT_EXTENDED = 510;
 	const STATUS_USER_ACCESS_DENIED = 530;
 
@@ -125,6 +142,7 @@ class Status {
 		504 => 'Gateway Timeout',
 		505 => 'HTTP Version Not Supported',
 		506 => 'Variant Also Negotiates',
+		509 => 'Bandwidth Limit Exceeded',
 		510 => 'Not Extended',
 		530 => 'User access denied',
 	);
@@ -146,21 +164,8 @@ class Status {
 		if (is_string($status) && in_array($status, $this->_headers)) {
 			$headers = array_flip($this->_headers);
 			$this->_status = $headers[$status];
-		} else if (is_int($status)) {
-			$supportedCodes = array_merge(
-				range(100, 101),
-				range(200, 206),
-				range(300, 307),
-				range(400, 417),
-				range(500, 506),
-				array(510, 530)
-			);
-
-			if (in_array($status, $supportedCodes)) {
-				$this->_status = $status;
-			}
-		} else {
-
+		} else if (is_int($status) && array_key_exists($status, $this->_headers)) {
+			$this->_status = $status;
 		}
 
 		return $this;
@@ -179,7 +184,7 @@ class Status {
 	 * @return bool
 	 */
 	public function isInformation() {
-		return round($this->_status / 100) === 1;
+		return floor($this->_status / 100) === 1;
 	}
 
 	/**
@@ -187,7 +192,7 @@ class Status {
 	 * @return bool
 	 */
 	public function isSuccessful() {
-		return round($this->_status / 100) === 2;
+		return floor($this->_status / 100) === 2;
 	}
 
 	/**
@@ -195,7 +200,7 @@ class Status {
 	 * @return bool
 	 */
 	public function isRedirection() {
-		return round($this->_status / 100) === 3;
+		return floor($this->_status / 100) === 3;
 	}
 
 	/**
@@ -203,7 +208,7 @@ class Status {
 	 * @return bool
 	 */
 	public function isClientError() {
-		return round($this->_status / 100) === 4;
+		return floor($this->_status / 100) === 4;
 	}
 
 	/**
@@ -211,7 +216,7 @@ class Status {
 	 * @return bool
 	 */
 	public function isServerError() {
-		return round($this->_status / 100) === 4;
+		return floor($this->_status / 100) === 4;
 	}
 
 	/**
