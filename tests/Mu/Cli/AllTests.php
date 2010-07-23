@@ -31,7 +31,6 @@ require_once 'ResponseTest.php';
  * @group     Mu\Cli
  */
 class AllTests {
-<<<<<<< HEAD
 	/**
 	 * Creates the Test Suite for Mu Framework - Cli
 	 * @return \PHPUnit_Framework_TestSuite
@@ -44,16 +43,3 @@ class AllTests {
 		return $suite;
 	}
 }
-=======
-    /**
-     * Creates the Test Suite for Mu Framework - Cli
-     * @return \PHPUnit_Framework_TestSuite
-     */
-    static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
-        $suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-        $suite->addTestSuite('\Tests\Mu\Cli\RequestTest'); // need to work out how
-        return $suite;
-    }
-}
->>>>>>> master
