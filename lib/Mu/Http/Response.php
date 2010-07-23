@@ -55,52 +55,72 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	}
 
 	/**
-	 * Sets the headers
+	 * Sets the headers, clears out any existing
 	 * @param array $headers
 	 * @return \Mu\Http\Response
 	 */
 	public function setHeaders(array $headers) {
-		$this->_headers = $headers;
+	    $this->_headers = array();
+	    foreach ($headers as $name => $header) {
+	        if (is_string($name)) {
+	            $this->setHeader($name, $header);
+	        } else {
+	            $this->setHeader($header);
+	        }
+	    }
+
 		return $this;
 	}
 
 	/**
+	 * Gets a header by its name
+	 * @param string $name
+	 * @return \Mu\Http\Header|null
+	 */
+	public function getHeader($name) {
+	    if (array_key_exists($name, ($headers = $this->getHeaders()))) {
+	        return $headers[$name];
+	    }
+
+	    return null;
+	}
+
+	/**
 	 * Sets a header
-	 * @param string|array|\ArrayObject $name
-	 * @param string|null               $value
+	 * @param string|\Mu\Http\Header		     $name
+	 * @param string|\Mu\Http\Header|array|null  $value
+	 * @param bool							     $append
 	 * @return \Mu\Http\Response
 	 */
-	public function setHeader($name, $value = null) {
-		if (is_array($name) || ($name instanceof \ArrayObject)) {
-			foreach ($name as $index => $value) {
-				if (is_numeric($index)) {
-					$this->setHeader($value);
-				} else {
-					$this->setHeader($index, $value);
-				}
-			}
-		} else if (null === $value) {
-			list ($name, $value) = explode(':', $name, 2);
-			if (null !== $value) {
-				$this->setHeader($name, $value);
-			}
-		} else {
-			if (null === $this->_headers) {
-				$this->_headers = array();
-			}
+	public function setHeader($name, $value = null, $append = false) {
+	    if (!is_array($this->_headers)) {
+	        $this->_headers = array();
+	    }
 
-			/**
-			 * @todo auto case the header name and use throughout to give consistent array key
-			 */
-			$name = trim($name);
-			if (array_key_exists($name, $this->_headers) &&
-				($this->_headers[$name] instanceof \Mu\Http\Header)
-			) {
-				$this->_headers[$name]->setValue($value, true);
-			} else {
-				$this->_headers[trim($name)] = \Mu\Http\Header::factory($name, $value);
-			}
-		}
+	    if ($name instanceof Header) {
+	        $this->setHeader($name->getName(), $name->getValue());
+	    } else if (is_string($name)) {
+	        if ($value instanceof Header) {
+	            $name = $value->getName(); // sync to the headers name
+	            $value = $value->getValue(); // converts to null, string or array
+	        }
+
+	        if (is_string($value) || (null === $value)) {
+	            $value = array($value);
+	        }
+
+	        foreach ($value as $string) {
+	            $header = Header::factory($name, $string);
+	            $name = $header->getName();
+
+	            if (array_key_exists($name, $this->_headers)) {
+		            $this->_headers[$name]->merge($header);
+		        } else {
+		            $this->_headers[$name] = $header;
+		        }
+	        }
+	    }
+
 
 		return $this;
 	}
@@ -110,6 +130,9 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	 * @return \Mu\Http\Status
 	 */
 	public function getStatus() {
+	    if (null === $this->_status) {
+	        $this->_status = new Status(Status::STATUS_OK);
+	    }
 		return $this->_status;
 	}
 

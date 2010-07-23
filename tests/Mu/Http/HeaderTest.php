@@ -99,6 +99,9 @@ class HeaderTest extends \Mu\Http\TestCase {
         $header->setValue('text/xml', false);
         $this->assertEquals('text/xml', $header->getValue());
         $this->assertEquals('Accept: text/xml', (string) $header);
+
+        $header->setValue(null);
+        $this->assertSame(null, $header->getValue());
     }
 
     /**
