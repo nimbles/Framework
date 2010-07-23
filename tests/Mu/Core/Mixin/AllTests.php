@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -29,14 +29,14 @@ require_once 'MixinableTest.php';
  * @group     Mu\Core\Mixin
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Core - Mixin
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Mixin');
-		$suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinTest');
-		$suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinableTest');
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for Mu Framework - Core - Mixin
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Mixin');
+        $suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinTest');
+        $suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinableTest');
+        return $suite;
+    }
 }

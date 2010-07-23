@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -25,10 +25,10 @@ namespace Tests\Mu\Http;
  * @group     Mu\Http
  */
 class RequestTest extends \Mu\Http\TestCase {
-	/**
-	 * Test that the request object extends the abstract
-	 * @return void
-	 */
+    /**
+     * Test that the request object extends the abstract
+     * @return void
+     */
     public function testConstruct() {
         $request = new \Mu\Http\Request();
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
@@ -70,8 +70,8 @@ class RequestTest extends \Mu\Http\TestCase {
         );
     }
 
-	/**
-	 * Tests that the request uri is detected for multiple platforms
+    /**
+     * Tests that the request uri is detected for multiple platforms
      * @dataProvider requestUriProvider
      * @param array $options
      * @return void
@@ -88,13 +88,13 @@ class RequestTest extends \Mu\Http\TestCase {
     public function requestUriProvider() {
         return array(
             array(array(  // apache and lighttpd
-            	'server' => array(
-	                'REQUEST_URI' => '/module/controller/action',
+                'server' => array(
+                    'REQUEST_URI' => '/module/controller/action',
                 ),
             )),
             array(array( // iis
                 'server' => array(
-                	'HTTP_X_REWRITE_URL' => '/module/controller/action',
+                    'HTTP_X_REWRITE_URL' => '/module/controller/action',
                 ),
             )),
         );
@@ -114,30 +114,30 @@ class RequestTest extends \Mu\Http\TestCase {
 
     public function methodProvider() {
         return array(
-        	array('GET', array(  // standard GET support
-            	'server' => array(
-	                'REQUEST_METHOD' => 'GET',
+            array('GET', array(  // standard GET support
+                'server' => array(
+                    'REQUEST_METHOD' => 'GET',
                 ),
             )),
             array('POST', array(  // standard POST support
-            	'server' => array(
-	                'REQUEST_METHOD' => 'POST',
+                'server' => array(
+                    'REQUEST_METHOD' => 'POST',
                 ),
             )),
             array('PUT', array(  // standard PUT support
-            	'server' => array(
-	                'REQUEST_METHOD' => 'PUT',
+                'server' => array(
+                    'REQUEST_METHOD' => 'PUT',
                 ),
             )),
             array('PUT', array( //
                 'server' => array( // X-Http-Method-Override header support
-                	'REQUEST_METHOD' => 'POST',
+                    'REQUEST_METHOD' => 'POST',
                     'HTTP_X_HTTP_METHOD_OVERRIDE' => 'PUT',
                 ),
             )),
             array('PUT', array( //
                 'server' => array( // method_override querystring support
-                	'REQUEST_METHOD' => 'POST',
+                    'REQUEST_METHOD' => 'POST',
                 ),
                 'query' => array(
                     'method_override' => 'PUT'

@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -24,34 +24,34 @@ namespace Mu\Core\Log\Writer;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Mock extends WriterAbstract {
-	/**
-	 * Array of entries
-	 * @var array
-	 */
-	protected $_entries;
+    /**
+     * Array of entries
+     * @var array
+     */
+    protected $_entries;
 
-	/**
-	 * Gets the array of written entries
-	 * @return array
-	 */
-	public function getEntries() {
-		if (!is_array($this->_entries)) {
-			$this->_entries = array();
-		}
+    /**
+     * Gets the array of written entries
+     * @return array
+     */
+    public function getEntries() {
+        if (!is_array($this->_entries)) {
+            $this->_entries = array();
+        }
 
-		return $this->_entries;
-	}
+        return $this->_entries;
+    }
 
-	/**
-	 * Writes an entry to an array
-	 * @param string $entry
-	 * @return void
-	 */
-	protected function _write($entry) {
-		if (!is_array($this->_entries)) {
-			$this->_entries = array();
-		}
+    /**
+     * Writes an entry to an array
+     * @param string $entry
+     * @return void
+     */
+    protected function _write($entry) {
+        if (!is_array($this->_entries)) {
+            $this->_entries = array();
+        }
 
-		$this->_entries[] = $entry;
-	}
+        $this->_entries[] = $entry;
+    }
 }

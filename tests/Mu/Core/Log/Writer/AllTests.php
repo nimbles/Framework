@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -31,14 +31,14 @@ require_once 'MockTest.php';
  * @group     Mu\Core\Log\Writer
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Core - Log - Writer
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Writer');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\Writer\StreamTest');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\Writer\MockTest');
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for Mu Framework - Core - Log - Writer
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Writer');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\Writer\StreamTest');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\Writer\MockTest');
+        return $suite;
+    }
 }

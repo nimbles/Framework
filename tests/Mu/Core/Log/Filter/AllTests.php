@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -31,14 +31,14 @@ require_once 'CategoryTest.php';
  * @group     Mu\Core\Log\Filter
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Core - Log - Filter
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Filter');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\Filter\LevelTest');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\Filter\CategoryTest');
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for Mu Framework - Core - Log - Filter
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Filter');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\Filter\LevelTest');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\Filter\CategoryTest');
+        return $suite;
+    }
 }

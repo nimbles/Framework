@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -24,26 +24,26 @@ namespace Mu\Core\Log;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Loggable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
-	/**
-	 * Gets the object associated with this mixin
-	 * @return \Mu\Core\Log
-	 */
-	public function getObject() {
-		return \Mu\Core\Log::getInstance();
-	}
+    /**
+     * Gets the object associated with this mixin
+     * @return \Mu\Core\Log
+     */
+    public function getObject() {
+        return \Mu\Core\Log::getInstance();
+    }
 
-	/**
-	 * Gets the method available for this mixin
-	 * @return array
-	 */
-	public function getMethods() {
-		if (null === $this->_methods) {
-			$this->_methods = array(
-				'log' => function($object, &$log, $entry) {
-					return $log->write($entry);
-				}
-			);
-		}
-		return $this->_methods;
-	}
+    /**
+     * Gets the method available for this mixin
+     * @return array
+     */
+    public function getMethods() {
+        if (null === $this->_methods) {
+            $this->_methods = array(
+                'log' => function($object, &$log, $entry) {
+                    return $log->write($entry);
+                }
+            );
+        }
+        return $this->_methods;
+    }
 }

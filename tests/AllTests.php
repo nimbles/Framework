@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -27,13 +27,13 @@ require_once 'Mu/AllTests.php';
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for All Tests
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('All Tests');
-		$suite->addTest(Mu\AllTests::suite());
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for All Tests
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('All Tests');
+        $suite->addTest(Mu\AllTests::suite());
+        return $suite;
+    }
 }

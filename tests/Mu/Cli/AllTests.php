@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -30,14 +30,14 @@ require_once 'RequestTest.php';
  * @group     Mu\Cli
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Cli
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
-		$suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-		$suite->addTestSuite('\Tests\Mu\Cli\RequestTest'); // need to work out how
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for Mu Framework - Cli
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
+        $suite->addTestSuite('\Tests\Mu\Cli\OptTest');
+        $suite->addTestSuite('\Tests\Mu\Cli\RequestTest'); // need to work out how
+        return $suite;
+    }
 }

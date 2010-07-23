@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -24,9 +24,9 @@ namespace Mu\Core\Request;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 interface RequestInterface {
-	/**
-	 * Builds the request, used by factory
-	 * @return \Mu\Core\Request|null
-	 */
-	static public function build();
+    /**
+     * Builds the request, used by factory
+     * @return \Mu\Core\Request|null
+     */
+    static public function build();
 }

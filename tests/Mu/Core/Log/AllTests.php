@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -33,19 +33,19 @@ require_once 'LoggableTest.php';
  * @group     Mu\Core\Log
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Core - Log
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log');
-		$suite->addTest(Formatter\AllTests::suite());
-		$suite->addTest(Writer\AllTests::suite());
-		$suite->addTest(Filter\AllTests::suite());
+    /**
+     * Creates the Test Suite for Mu Framework - Core - Log
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log');
+        $suite->addTest(Formatter\AllTests::suite());
+        $suite->addTest(Writer\AllTests::suite());
+        $suite->addTest(Filter\AllTests::suite());
 
-		$suite->addTestSuite('\Tests\Mu\Core\Log\EntryTest');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\LogTest');
-		$suite->addTestSuite('\Tests\Mu\Core\Log\LoggableTest');
-		return $suite;
-	}
+        $suite->addTestSuite('\Tests\Mu\Core\Log\EntryTest');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\LogTest');
+        $suite->addTestSuite('\Tests\Mu\Core\Log\LoggableTest');
+        return $suite;
+    }
 }
