@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -25,10 +25,10 @@ namespace Tests\Mu\Http;
  * @group     Mu\Http
  */
 class HeaderTest extends \Mu\Http\TestCase {
-	/**
-	 * Tests the construct of a http header with no options
-	 * @return void
-	 */
+    /**
+     * Tests the construct of a http header with no options
+     * @return void
+     */
     public function testConstruct() {
         $header = new \Mu\Http\Header();
         $this->assertType('\Mu\Core\Mixin\MixinAbstract', $header);

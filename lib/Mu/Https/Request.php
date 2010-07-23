@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -24,21 +24,21 @@ namespace Mu\Https;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Request extends \Mu\Http\Request {
-	/**
-	 * Builds the request, used by factory
-	 * @return \Mu\Https\Request|null
-	 */
-	static public function build() {
-	    if ('cli' !== PHP_SAPI) {
-	        $request = new self();
+    /**
+     * Builds the request, used by factory
+     * @return \Mu\Https\Request|null
+     */
+    static public function build() {
+        if ('cli' !== PHP_SAPI) {
+            $request = new self();
 
-	        if (('http' === $request->getScheme)) {
-	            return null;
-	        }
+            if (('http' === $request->getScheme)) {
+                return null;
+            }
 
-	        return $request;
-	    }
+            return $request;
+        }
 
-	    return null;
-	}
+        return null;
+    }
 }

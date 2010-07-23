@@ -4,7 +4,7 @@
  *
  * LICENSE
  *
- * This shouce file is subject to the MIT license that is bundled
+ * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
@@ -28,15 +28,15 @@ require_once 'ConfigurableMock.php';
  * @group     Mu\Core\Config
  */
 class ConfigurableTest extends \Mu\Core\TestCase {
-	/**
-	 * Tests the mixin properties are created and behave properly
-	 * @return void
-	 */
-	public function testMixinProperties() {
-		$mock = new ConfigurableMock();
-		$this->assertType('\Mu\Core\Config', $mock->config);
+    /**
+     * Tests the mixin properties are created and behave properly
+     * @return void
+     */
+    public function testMixinProperties() {
+        $mock = new ConfigurableMock();
+        $this->assertType('\Mu\Core\Config', $mock->config);
 
-		$mock->config->a = 1;
-		$this->assertEquals(1, $mock->config->a);
-	}
+        $mock->config->a = 1;
+        $this->assertEquals(1, $mock->config->a);
+    }
 }
