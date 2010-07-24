@@ -111,12 +111,8 @@ class Delegates extends \Mu\Core\Mixin\MixinAbstract {
             throw new Delegates\Exception\DelegateCreationNotAllowed('Delegate name can only be declared in options');
         }
 
-        if (!is_string($name) || is_numeric($name)) {
-            throw new Delegates\Exception\InvalidDelegateName('Delegate name must be a string and non numeric');
-        }
-
         if (!is_callable($delegate)) {
-            throw new Delegates\Exception\InvalidDelegateName('Delegate must be callable');
+            throw new Delegates\Exception\InvalidDelegate('Delegate must be callable');
         }
 
         $this->_delegates[$name] = $delegate;

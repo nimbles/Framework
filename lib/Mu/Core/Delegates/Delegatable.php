@@ -69,6 +69,10 @@ class Delegatable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
     public function getMethods() {
         if (null === $this->_methods) {
             $this->_methods = array(
+                'hasDelegate' => function($object, &$delegates, $name) {
+                    return $delegates->hasDelegate($name);
+                },
+
                 'getDelegate' => function($object, &$delegates, $name) {
                     return $delegates->getDelegate($name);
                 },

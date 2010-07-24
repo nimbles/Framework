@@ -13,16 +13,18 @@
  * @package   Mu\Core\Delegates
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core
  * @group     Mu\Core\Delegates
  */
 
-namespace Tests\Mu\Core\Plugin;
+namespace Tests\Mu\Core;
 
 /**
  * @category  Mu
  * @package   Mu\Core\Delegates
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @group     Mu\Core
  * @group     Mu\Core\Delegates
  */
 class DelegatesTest extends \Mu\Core\TestCase {
