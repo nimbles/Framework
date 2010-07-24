@@ -24,6 +24,10 @@ namespace Mu\Core\Plugin;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Plugins extends \Mu\Core\Mixin\MixinAbstract {
+    /**
+     * Plugins implements options
+     * @var array
+     */
     protected $_implements = array('Mu\Core\Config\Options');
 
     /**

@@ -22,13 +22,16 @@ require_once 'Config/AllTests.php';
 require_once 'Mixin/AllTests.php';
 require_once 'Plugin/AllTests.php';
 require_once 'Log/AllTests.php';
+require_once 'Delegates/AllTests.php';
+
+require_once 'DelegatesTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Http
+ * @package   Mu\Core
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Http
+ * @group     Mu\Core
  */
 class AllTests {
     /**
@@ -37,10 +40,16 @@ class AllTests {
      */
     static public function suite() {
         $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core');
+
         $suite->addTest(Config\AllTests::suite());
         $suite->addTest(Mixin\AllTests::suite());
         $suite->addTest(Plugin\AllTests::suite());
         $suite->addTest(Log\AllTests::suite());
+
+        $suite->addTestSuite('\Tests\Mu\Core\DelegatesTest');
+        $suite->addTest(Delegates\AllTests::suite());
+
+
         return $suite;
     }
 }
