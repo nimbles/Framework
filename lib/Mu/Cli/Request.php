@@ -24,10 +24,23 @@ namespace Mu\Cli;
  */
 class Request extends \Mu\Core\Request\RequestAbstract {
     /**
+	 * Class implements
+	 * @var array
+	 */
+	protected $_implements = array(
+		'Mu\Core\Config\Options',
+	    'Mu\Core\Delegates\Delegatable' => array(
+	        'delegates' => array(
+	            'getInput' => array('\Mu\Cli\Request', 'getStdin')
+	        )
+	    )
+	);
+
+    /**
      * Gets the input from stdin
      * @var string
      */
-    protected $_stdin;
+    static protected $_stdin;
 
     /**
      * The command line options
@@ -45,29 +58,11 @@ class Request extends \Mu\Core\Request\RequestAbstract {
      * Gets the stdin
      * @return string
      */
-    public function getStdin() {
-        if (null === $this->_stdin) {
-            /**
-             * Use simulated stdin from \Mu\Cli\TestCase if in test mode as php on the
-             * command line will just prompt for user input if none piped in
-             */
-            if (defined('APPLICATION_ENV') && ('test' === APPLICATION_ENV)) {
-                $this->_stdin = TestCase::getStdin();
-            } else {
-                $this->_stdin = file_get_contents('php://stdin');
-            }
+    static public function getStdin() {
+        if (null === self::$_stdin) {
+            self::$_stdin = file_get_contents('php://stdin');
         }
-        return $this->_stdin;
-    }
-
-    /**
-     * Sets the stdin
-     * @param string|null $stdin
-     * @return \Mu\Cli\Request
-     */
-    public function setStdin($stdin = null) {
-        $this->_stdin = $stdin;
-        return $this;
+        return self::$_stdin;
     }
 
     /**
@@ -106,6 +101,14 @@ class Request extends \Mu\Core\Request\RequestAbstract {
      */
     public function getOpt($opt) {
         return is_string($opt) ? $this->getOpts()->$opt : null;
+    }
+
+    /**
+     * Gets the request body
+     * @return string
+     */
+    public function getBody() {
+        return $this->getInput();
     }
 
     /**

@@ -79,6 +79,11 @@ abstract class RequestAbstract extends \Mu\Core\Mixin\MixinAbstract
     }
 
     /**
+     * Abstract function for getting the request body
+     */
+    abstract function getBody();
+
+    /**
      * Class construct
      * @param array|null $options
      */

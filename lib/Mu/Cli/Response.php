@@ -24,19 +24,34 @@ namespace Mu\Cli;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Response extends \Mu\Core\Response\ResponseAbstract {
+    /**
+	 * Class implements
+	 * @var array
+	 */
+	protected $_implements = array(
+		'Mu\Core\Config\Options',
+	    'Mu\Core\Delegates\Delegatable' => array(
+	        'delegates' => array(
+	            'write' => array('\Mu\Cli\Response', 'writeBody')
+	        )
+	    )
+	);
+
 	/**
 	 * Sends the response
 	 * @return void
 	 */
 	public function send() {
-		/**
-		 * Use simulated stdin from \Mu\Cli\TestCase if in test mode as php on the
-		 * command line will just prompt for user input if none piped in
-		 */
-		if (defined('APPLICATION_ENV') && ('test' === APPLICATION_ENV)) {
-			$this->_stdin = TestCase::setStdout($this->getBody());
-		} else {
-			file_put_contents(STDOUT, $this->getBody());
-		}
+	    $this->write($this->getBody());
+	}
+
+	/**
+	 * Writes the body to stdout
+	 *
+	 * @param string $body
+	 * @return void
+	 */
+	static public function writeBody($body) {
+        file_put_contents('php://stdout', $body);
 	}
 }

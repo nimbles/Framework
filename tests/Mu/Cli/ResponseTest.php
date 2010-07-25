@@ -27,32 +27,33 @@ namespace Tests\Mu\Cli;
  */
 class ResponseTest extends \Mu\Cli\TestCase {
 	/**
-	 * Tests the stdout is given from the options
+	 * Tests the body is given from the options
 	 * @return void
 	 */
-	public function testStdoutFromOptions() {
-		$response = new \Mu\Cli\Response(array(
+	public function testBodyFromOptions() {
+		$response = $this->createResponse(array(
 			'body' => 'hello world'
 		));
+
 		$response->send();
 
 		$this->assertType('Mu\Core\Response\ResponseAbstract', $response);
-		$this->assertEquals('hello world', self::getStdout());
+		$this->assertEquals('hello world', $this->getOutput());
 		$this->assertEquals('hello world', $response->getBody());
 	}
 
 	/**
-	 * Tests the stdout is given from the setter
+	 * Tests the body is given from the setter
 	 * @return void
 	 */
-	public function testStdoutFromSetter() {
-		$response = new \Mu\Cli\Response();
+	public function testBodyFromSetter() {
+		$response = $this->createResponse();
 		$response->setBody('hello world');
 
 		$response->send();
 
 		$this->assertType('Mu\Core\Response\ResponseAbstract', $response);
-		$this->assertEquals('hello world', self::getStdout());
+		$this->assertEquals('hello world', $this->getOutput());
 		$this->assertEquals('hello world', $response->getBody());
 	}
 }

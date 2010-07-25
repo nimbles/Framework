@@ -24,6 +24,21 @@ namespace Mu\Http;
  * @license   http://mu-framework.com/license/mit MIT License
  */
 class Response extends \Mu\Core\Response\ResponseAbstract {
+    /**
+	 * Class implements
+	 * @var array
+	 */
+	protected $_implements = array(
+		'Mu\Core\Config\Options',
+	    'Mu\Core\Delegates\Delegatable' => array(
+	        'delegates' => array(
+				'headers_sent' => array('\Mu\Http\Response', 'headersSent'),
+				'header' => array('\Mu\Http\Response', 'sendHeader'),
+	            'write' => array('\Mu\Http\Response', 'writeBody')
+	        )
+	    )
+	);
+
 	/**
 	 * The collection of headers
 	 * @var array
@@ -169,13 +184,13 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	 * @return void
 	 */
 	public function send() {
-		if (!headers_sent()) {
+		if (!$this->headers_sent()) {
 			foreach ($this->getHeaders() as $header) {
-				header((string) $header);
+				$this->header((string) $header);
 			}
 
 			// set the status last due to php changing the status if a location header has been sent
-			header((string) $this->getStatus());
+			$this->header((string) $this->getStatus());
 		}
 
 		if (
@@ -189,6 +204,34 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 		    ini_set('zlib.output_compression', '1');
 		}
 
-		echo $this->getBody();
+		$this->write($this->getBody());
+	}
+
+	/**
+	 * Detects if headers have been sent
+	 * @return bool
+	 */
+	static public function headersSent() {
+	    return headers_sent();
+	}
+
+	/**
+	 * Send a header
+	 * @param string $string
+	 * @param bool|null $replace
+	 * @param int|null $statusCode
+	 * @return void
+	 */
+	static public function sendHeader($string, $replace = null, $statusCode = null) {
+	    return header($string, $replace, $statusCode);
+	}
+
+	/**
+	 * Writes the body
+	 * @param string $body
+	 * @return void
+	 */
+	static public function writeBody($body) {
+	    echo $body;
 	}
 }

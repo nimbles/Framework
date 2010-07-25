@@ -27,14 +27,14 @@ namespace Tests\Mu\Cli;
  */
 class RequestTest extends \Mu\Cli\TestCase {
     /**
-     * Tests the stdin for an Cli Request
+     * Tests the body for an Cli Request
      * @return void
      */
-    public function testStdin() {
-        self::setStdin('hello world');
+    public function testBody() {
+        $this->setInput('hello world');
 
-        $request = new \Mu\Cli\Request();
+        $request = $this->createRequest();
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
-        $this->assertEquals('hello world', $request->getStdin());
+        $this->assertEquals('hello world', $request->getBody());
     }
 }
