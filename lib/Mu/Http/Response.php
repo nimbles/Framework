@@ -32,8 +32,8 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 		'Mu\Core\Config\Options',
 	    'Mu\Core\Delegates\Delegatable' => array(
 	        'delegates' => array(
-				'headers_sent' => array('\Mu\Http\Response', 'headersSent'),
-				'header' => array('\Mu\Http\Response', 'sendHeader'),
+				'headers_sent' => 'headers_sent',
+				'header' => 'header',
 	            'write' => array('\Mu\Http\Response', 'writeBody')
 	        )
 	    )
@@ -205,25 +205,6 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 		}
 
 		$this->write($this->getBody());
-	}
-
-	/**
-	 * Detects if headers have been sent
-	 * @return bool
-	 */
-	static public function headersSent() {
-	    return headers_sent();
-	}
-
-	/**
-	 * Send a header
-	 * @param string $string
-	 * @param bool|null $replace
-	 * @param int|null $statusCode
-	 * @return void
-	 */
-	static public function sendHeader($string, $replace = null, $statusCode = null) {
-	    return header($string, $replace, $statusCode);
 	}
 
 	/**
