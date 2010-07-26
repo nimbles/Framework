@@ -10,7 +10,7 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Cli
+ * @package   Mu\Cli\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @group     Mu\Cli
@@ -20,21 +20,21 @@ namespace Tests\Mu\Cli;
 
 /**
  * @category  Mu
- * @package   Mu\Cli
+ * @package   Mu\Cli\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @group     Mu\Cli
  */
 class RequestTest extends \Mu\Cli\TestCase {
     /**
-     * Tests the stdin for an Cli Request
+     * Tests the body for an Cli Request
      * @return void
      */
-    public function testStdin() {
-        self::setStdin('hello world');
+    public function testBody() {
+        $this->setInput('hello world');
 
-        $request = new \Mu\Cli\Request();
+        $request = $this->createRequest();
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
-        $this->assertEquals('hello world', $request->getStdin());
+        $this->assertEquals('hello world', $request->getBody());
     }
 }

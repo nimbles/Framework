@@ -25,6 +25,19 @@ namespace Mu\Http;
  */
 class Request extends \Mu\Core\Request\RequestAbstract {
     /**
+	 * Class implements
+	 * @var array
+	 */
+	protected $_implements = array(
+		'Mu\Core\Config\Options',
+	    'Mu\Core\Delegates\Delegatable' => array(
+	        'delegates' => array(
+	            'getInput' => array('\Mu\Http\Request', 'getRequestInput')
+	        )
+	    )
+	);
+
+    /**
      * The query string variables
      * @var array
      */
@@ -61,10 +74,10 @@ class Request extends \Mu\Core\Request\RequestAbstract {
     protected $_headers;
 
     /**
-     * The request body
+     * The request input
      * @var string
      */
-    protected $_body;
+    static protected $_input;
 
     /**
      * Gets a query variable
@@ -217,21 +230,28 @@ class Request extends \Mu\Core\Request\RequestAbstract {
      * @return string
      */
     public function getBody() {
-        if (null === $this->_body) {
-            $this->setBody();
-        }
-
-        return $this->_body;
+        return $this->getInput();
     }
 
     /**
-     * Sets the request body
-     * @param string|null $body if null then body is set from php://input
-     * @return \Mu\http\Request
+     * Gets the request input
+     * @return string
      */
-    public function setBody($body = null) {
-        $this->_body = (null === $body) ? file_get_contents('php://input') : $body;
-        return $this;
+    static public function getRequestInput() {
+        if (null === self::$_body) {
+            self:setRequestInput();
+        }
+
+        return self::$_body;
+    }
+
+    /**
+     * Sets the request input
+     * @param string|null $body if null then body is set from php://input
+     * @return \Mu\Http\Request
+     */
+    static public function setRequestInput($body = null) {
+        self::$_body = (null === $body) ? file_get_contents('php://input') : $body;
     }
 
     /**

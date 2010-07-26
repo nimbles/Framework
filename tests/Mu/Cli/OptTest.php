@@ -10,7 +10,7 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Cli
+ * @package   Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @group     Mu\Cli
@@ -20,7 +20,7 @@ namespace Tests\Mu\Cli;
 
 /**
  * @category  Mu
- * @package   Mu\Cli
+ * @package   Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @group     Mu\Cli

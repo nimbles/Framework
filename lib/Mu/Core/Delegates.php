@@ -66,7 +66,7 @@ class Delegates extends \Mu\Core\Mixin\MixinAbstract {
             }
 
             if (!is_callable($delegate)) {
-                throw new Delegates\Exception\InvalidDelegate('Delegate must be callable');
+                throw new Delegates\Exception\InvalidDelegate('Delegate ' . $name . ' must be callable');
             }
 
             $this->_delegates[$name] = $delegate;
