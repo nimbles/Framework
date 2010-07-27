@@ -17,13 +17,19 @@
 
 namespace Mu\Core\Response;
 
+use \Mu\Core\Mixin\MixinAbstract;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Response\ResponseAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Mixin\MixinAbstract
+ * @uses      \Mu\Core\Config\Options
  */
-abstract class ResponseAbstract extends \Mu\Core\Mixin\MixinAbstract {
+abstract class ResponseAbstract extends MixinAbstract {
 	/**
 	 * Class implements
 	 * @var array

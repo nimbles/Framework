@@ -17,13 +17,18 @@
 
 namespace Mu\Core;
 
+use \PHPUnit_Framework_TestCase;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\TestCase
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \PHPUnit_Framework_TestCase
  */
-class TestCase extends \PHPUnit_Framework_TestCase {
+class TestCase extends PHPUnit_Framework_TestCase {
 	/**
      * Input to be used during test cases
      * @var string

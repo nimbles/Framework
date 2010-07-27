@@ -17,13 +17,23 @@
 
 namespace Mu\Core;
 
+use \ArrayObject,
+    \BadMethodCallException,
+    Mu\Core\Config\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \ArrayObject
+ * @uses      \BadMethodCallException
+ *
+ * @uses      \Mu\Core\Config\Exception\InvalidConfig
  */
-class Config extends \ArrayObject {
+class Config extends ArrayObject {
     /**
      * Static instance
      * @var \Mu\Core\Config
@@ -103,7 +113,7 @@ class Config extends \ArrayObject {
 
             $this[$section] = $config;
         } else if (null !== $section) {
-            throw new Config\Exception\InvalidConfig('Config must be provided if section is not an array');
+            throw new Exception\InvalidConfig('Config must be provided if section is not an array');
         }
 
         return $this;
@@ -136,7 +146,7 @@ class Config extends \ArrayObject {
     public function __set($name, $value) {
         return $this->_setConfig(array($name => $value));
     }
-    
+
     /**
      * Magic method __isset to allow accesses for config
      * @param string $name
@@ -176,7 +186,7 @@ class Config extends \ArrayObject {
             return call_user_func_array(array($this, '_setConfig'), $args);
         }
 
-        throw new \BadMethodCallException('Invalid method ' . $method . ' on Config');
+        throw new BadMethodCallException('Invalid method ' . $method . ' on Config');
     }
 
     /**
@@ -197,6 +207,6 @@ class Config extends \ArrayObject {
             return call_user_func_array(array($object, '_setConfig'), $args);
         }
 
-        throw new \BadMethodCallException('Invalid static method ' . $method . ' on Config');
+        throw new BadMethodCallException('Invalid static method ' . $method . ' on Config');
     }
 }

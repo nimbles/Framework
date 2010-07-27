@@ -22,6 +22,9 @@ namespace Mu\Core\Config;
  * @package   Mu\Core\Config\Options
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Config\Configurable
  */
 class Options extends Configurable {
     /**
@@ -48,19 +51,19 @@ class Options extends Configurable {
                     if (method_exists($object, $method)) {
                         return $object->$method();
                     }
-    
+
                     return $config->{$key};
                 },
-    
+
                 'setOption' => function($object, &$config, $key, $value) {
                     $method = 'set' . ucfirst($key);
                     if (method_exists($object, $method)) {
                         return $object->$method($value);
                     }
-    
+
                     return $config->{$key} = $value;
                 },
-    
+
                 'setOptions' => function($object, &$config, $options) {
                     if (is_array($options) || ($options instanceof \Mu\Core\Config)) {
                         foreach ($options as $key => $value) {
