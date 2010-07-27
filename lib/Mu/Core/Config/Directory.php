@@ -22,6 +22,10 @@ namespace Mu\Core\Config;
  * @package   Mu\Core\Config\Directory
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Config\File
+ * @uses      \Mu\Core\Config\Exception\MissingConfigDirectory
  */
 class Directory extends File {
     /**

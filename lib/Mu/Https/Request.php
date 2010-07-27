@@ -17,13 +17,18 @@
 
 namespace Mu\Https;
 
+use \Mu\Http\Request;
+
 /**
- * @category Mu\Https
- * @package Mu\Https\Request
+ * @category  Mu\Https
+ * @package   Mu\Https\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Http\Request
  */
-class Request extends \Mu\Http\Request {
+class Request extends Request {
     /**
      * Builds the request, used by factory
      * @return \Mu\Https\Request|null

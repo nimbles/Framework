@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Config\Exception;
 
+use \Mu\Core\Config\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Config\Exception\MissingConfigDirectory
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Config\Exception
  */
-class MissingConfigDirectory extends \Mu\Core\Config\Exception {}
+class MissingConfigDirectory extends Exception {}
