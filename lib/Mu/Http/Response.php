@@ -17,26 +17,37 @@
 
 namespace Mu\Http;
 
+use \Mu\Core\Response\ResponseAbstract,
+    \Mu\Http\Status;
+
 /**
  * @category  Mu\Http
  * @package   Mu\Http\Response
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Response\ResponseAbstract
+ * @uses      \Mu\Core\Delegates\Delegatable
+ * @uses      \Mu\Core\Config\Options
+ *
+ * @uses      \Mu\Http\Header
+ * @uses      \Mu\Http\Status
  */
-class Response extends \Mu\Core\Response\ResponseAbstract {
+class Response extends ResponseAbstract {
     /**
 	 * Class implements
 	 * @var array
 	 */
 	protected $_implements = array(
-		'Mu\Core\Config\Options',
 	    'Mu\Core\Delegates\Delegatable' => array(
 	        'delegates' => array(
 				'headers_sent' => 'headers_sent',
 				'header' => 'header',
 	            'write' => array('\Mu\Http\Response', 'writeBody')
 	        )
-	    )
+	    ),
+	    'Mu\Core\Config\Options'
 	);
 
 	/**
@@ -157,7 +168,7 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	 * @return \Mu\Http\Response
 	 */
 	public function setStatus($status) {
-		$this->_status = ($status instanceof \Mu\Http\Status) ? $status : new \Mu\Http\Status($status);
+		$this->_status = ($status instanceof Status) ? $status : new Status($status);
 		return $this;
 	}
 
@@ -184,7 +195,7 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	 * @return void
 	 */
 	public function send() {
-		if (!$this->headers_sent()) {
+	    if (!$this->headers_sent()) {
 			foreach ($this->getHeaders() as $header) {
 				$this->header((string) $header);
 			}
@@ -208,7 +219,8 @@ class Response extends \Mu\Core\Response\ResponseAbstract {
 	}
 
 	/**
-	 * Writes the body
+	 * Writes the body, this function exists as a delegate as
+	 * echo and print are language constructs and are not classes as callable
 	 * @param string $body
 	 * @return void
 	 */
