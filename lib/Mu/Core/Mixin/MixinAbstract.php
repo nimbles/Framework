@@ -17,11 +17,17 @@
 
 namespace Mu\Core\Mixin;
 
+use \BadMethodCallException;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Mixin\MixinAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \BadMethodCallException
+ * @uses      \Mu\Core\Mixin\Exception\MixinableMissing
  */
 abstract class MixinAbstract {
     /**
@@ -71,7 +77,7 @@ abstract class MixinAbstract {
             }
         }
 
-        throw new \BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
+        throw new BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
     }
 
     /**
