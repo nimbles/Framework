@@ -15,15 +15,15 @@
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Http\Header;
+namespace Mu\Http\Cookie;
 
 /**
  * @category  Mu\Http
- * @package   Mu\Http\Header\Exception
+ * @package   Mu\Http\Cookie\Exception
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$
  *
- * @uses      \Mu\Http\Exception
+ * @uses      \Mu\Cookie\Exception
  */
-class Exception extends \Mu\Http\Exception {}
+class Exception extends \Mu\Cookie\Exception {}
