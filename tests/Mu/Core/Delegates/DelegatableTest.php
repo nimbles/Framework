@@ -52,7 +52,7 @@ class DelegatableTest extends \Mu\Core\TestCase {
         $this->assertEquals('test', $mock->method1());
     }
 
-	/**
+    /**
      * Tests that the Mu\Core\Delegates\Exception\InvalidDelegate exception is thrown
      * when setting an invalid delegate
      * @return void

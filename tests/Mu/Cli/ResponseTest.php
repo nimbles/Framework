@@ -26,34 +26,34 @@ namespace Tests\Mu\Cli;
  * @group     Mu\Cli
  */
 class ResponseTest extends \Mu\Cli\TestCase {
-	/**
-	 * Tests the body is given from the options
-	 * @return void
-	 */
-	public function testBodyFromOptions() {
-		$response = $this->createResponse(array(
-			'body' => 'hello world'
-		));
+    /**
+     * Tests the body is given from the options
+     * @return void
+     */
+    public function testBodyFromOptions() {
+        $response = $this->createResponse(array(
+            'body' => 'hello world'
+        ));
 
-		$response->send();
+        $response->send();
 
-		$this->assertType('Mu\Core\Response\ResponseAbstract', $response);
-		$this->assertEquals('hello world', $this->getOutput());
-		$this->assertEquals('hello world', $response->getBody());
-	}
+        $this->assertType('Mu\Core\Response\ResponseAbstract', $response);
+        $this->assertEquals('hello world', $this->getOutput());
+        $this->assertEquals('hello world', $response->getBody());
+    }
 
-	/**
-	 * Tests the body is given from the setter
-	 * @return void
-	 */
-	public function testBodyFromSetter() {
-		$response = $this->createResponse();
-		$response->setBody('hello world');
+    /**
+     * Tests the body is given from the setter
+     * @return void
+     */
+    public function testBodyFromSetter() {
+        $response = $this->createResponse();
+        $response->setBody('hello world');
 
-		$response->send();
+        $response->send();
 
-		$this->assertType('Mu\Core\Response\ResponseAbstract', $response);
-		$this->assertEquals('hello world', $this->getOutput());
-		$this->assertEquals('hello world', $response->getBody());
-	}
+        $this->assertType('Mu\Core\Response\ResponseAbstract', $response);
+        $this->assertEquals('hello world', $this->getOutput());
+        $this->assertEquals('hello world', $response->getBody());
+    }
 }

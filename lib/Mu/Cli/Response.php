@@ -25,33 +25,33 @@ namespace Mu\Cli;
  */
 class Response extends \Mu\Core\Response\ResponseAbstract {
     /**
-	 * Class implements
-	 * @var array
-	 */
-	protected $_implements = array(
-		'Mu\Core\Config\Options',
-	    'Mu\Core\Delegates\Delegatable' => array(
-	        'delegates' => array(
-	            'write' => array('\Mu\Cli\Response', 'writeBody')
-	        )
-	    )
-	);
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array(
+        'Mu\Core\Config\Options',
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'write' => array('\Mu\Cli\Response', 'writeBody')
+            )
+        )
+    );
 
-	/**
-	 * Sends the response
-	 * @return void
-	 */
-	public function send() {
-	    $this->write($this->getBody());
-	}
+    /**
+     * Sends the response
+     * @return void
+     */
+    public function send() {
+        $this->write($this->getBody());
+    }
 
-	/**
-	 * Writes the body to stdout
-	 *
-	 * @param string $body
-	 * @return void
-	 */
-	static public function writeBody($body) {
+    /**
+     * Writes the body to stdout
+     *
+     * @param string $body
+     * @return void
+     */
+    static public function writeBody($body) {
         file_put_contents('php://stdout', $body);
-	}
+    }
 }

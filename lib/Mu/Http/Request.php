@@ -25,17 +25,17 @@ namespace Mu\Http;
  */
 class Request extends \Mu\Core\Request\RequestAbstract {
     /**
-	 * Class implements
-	 * @var array
-	 */
-	protected $_implements = array(
-		'Mu\Core\Config\Options',
-	    'Mu\Core\Delegates\Delegatable' => array(
-	        'delegates' => array(
-	            'getInput' => array('\Mu\Http\Request', 'getRequestInput')
-	        )
-	    )
-	);
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array(
+        'Mu\Core\Config\Options',
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'getInput' => array('\Mu\Http\Request', 'getRequestInput')
+            )
+        )
+    );
 
     /**
      * The query string variables

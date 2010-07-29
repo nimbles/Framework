@@ -31,15 +31,15 @@ require_once 'ResponseTest.php';
  * @group     Mu\Cli
  */
 class AllTests {
-	/**
-	 * Creates the Test Suite for Mu Framework - Cli
-	 * @return \PHPUnit_Framework_TestSuite
-	 */
-	static public function suite() {
-		$suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
-		$suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-		$suite->addTestSuite('\Tests\Mu\Cli\RequestTest');
-		$suite->addTestSuite('\Tests\Mu\Cli\ResponseTest');
-		return $suite;
-	}
+    /**
+     * Creates the Test Suite for Mu Framework - Cli
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
+        $suite->addTestSuite('\Tests\Mu\Cli\OptTest');
+        $suite->addTestSuite('\Tests\Mu\Cli\RequestTest');
+        $suite->addTestSuite('\Tests\Mu\Cli\ResponseTest');
+        return $suite;
+    }
 }

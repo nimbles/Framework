@@ -30,7 +30,7 @@ abstract class Singleton {
      *
      * @var Singleton[]
      */
-	private static $_instances = array();
+    private static $_instances = array();
 
     /**
      * Class constructor
@@ -51,18 +51,18 @@ abstract class Singleton {
      *
      * @return void
      */
-	final private function __wakeup() {}
+    final private function __wakeup() {}
 
-	/**
-	 * Get an instance of the class
-	 *
-	 * @return Singleton
+    /**
+     * Get an instance of the class
+     *
+     * @return Singleton
      * @todo Consider constructor arguments
-	 */
-	final public static function getInstance() {
-		$class = get_called_class();
+     */
+    final public static function getInstance() {
+        $class = get_called_class();
 
-		if (!isset(self::$_instances[$class])) {
+        if (!isset(self::$_instances[$class])) {
             self::$_instances[$class] = new static();
         }
 
