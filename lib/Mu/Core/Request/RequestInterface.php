@@ -22,6 +22,7 @@ namespace Mu\Core\Request;
  * @package   Mu\Core\Request\RequestInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
  */
 interface RequestInterface {
     /**

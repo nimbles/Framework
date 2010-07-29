@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Request\Exception;
 
+use Mu\Core\Request\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Request\Exception\MuPathUndefined
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Request\Exception
  */
-class MuPathUndefined extends \Mu\Core\Request\Exception {}
+class MuPathUndefined extends Exception {}
