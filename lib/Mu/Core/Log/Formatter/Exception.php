@@ -22,5 +22,8 @@ namespace Mu\Core\Log\Formatter;
  * @package   Mu\Core\Log\Formatter\Exception
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Exception
  */
 class Exception extends \Mu\Core\Log\Exception {}

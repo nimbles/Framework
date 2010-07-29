@@ -17,13 +17,22 @@
 
 namespace Mu\Core\Log;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\DateTime;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Entry
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Mixin\MixinAbstract
+ * @uses      Mu\Core\Log\Config\Options
+ * @uses      Mu\Core\DateTime
+ * @uses      Mu\Core\Log\Exception\MissingMessage
  */
-class Entry extends \Mu\Core\Mixin\MixinAbstract {
+class Entry extends MixinAbstract {
     /**
      * Mixin implements
      * @var array
@@ -34,6 +43,7 @@ class Entry extends \Mu\Core\Mixin\MixinAbstract {
      * Class construct
      * @param string|array $entry
      * @return void
+     * @throws Mu\Core\Log\Exception\MissingMessage
      */
     public function __construct($entry) {
         parent::__construct();
@@ -41,7 +51,7 @@ class Entry extends \Mu\Core\Mixin\MixinAbstract {
         $options = array();
         if (is_string($entry)) {
             $options = array(
-                'timestamp' => new \Mu\Core\DateTime(),
+                'timestamp' => new DateTime(),
                 'pid' => getmypid(),
                 'level' => LOG_INFO,
                 'category' => null,
@@ -53,7 +63,7 @@ class Entry extends \Mu\Core\Mixin\MixinAbstract {
             }
 
             $options = array(
-                'timestamp' => array_key_exists('timestamp', $entry) ? $entry['timestamp'] : new \Mu\Core\DateTime(),
+                'timestamp' => array_key_exists('timestamp', $entry) ? $entry['timestamp'] : new DateTime(),
                 'pid' =>  array_key_exists('pid', $entry) ? $entry['pid'] : getmypid(),
                 'level' =>  array_key_exists('level', $entry) ? $entry['level'] : LOG_INFO,
                 'category' =>  array_key_exists('category', $entry) ? $entry['category'] : null

@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Log\Formatter\Exception;
 
+use Mu\Core\Log\Formatter\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Formatter\Exception\InvalidFormatterType
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Formatter\Exception
  */
-class InvalidFormatterType extends \Mu\Core\Log\Formatter\Exception {}
+class InvalidFormatterType extends Exception {}

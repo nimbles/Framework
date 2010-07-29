@@ -17,13 +17,21 @@
 
 namespace Mu\Core\Log\Filter;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Filter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Mixin\MixinAbstract
+ * @uses      Mu\Core\Config\Options
+ * @uses      Mu\Core\Log\Entry
  */
-abstract class FilterAbstract extends \Mu\Core\Mixin\MixinAbstract {
+abstract class FilterAbstract extends MixinAbstract {
     /**
      * Mixin implements
      * @var array
@@ -33,6 +41,7 @@ abstract class FilterAbstract extends \Mu\Core\Mixin\MixinAbstract {
     /**
      * Class construct
      * @param array|\ArrayObject $options
+     * @return void
      */
     public function __construct($options) {
         parent::__construct();
@@ -42,6 +51,7 @@ abstract class FilterAbstract extends \Mu\Core\Mixin\MixinAbstract {
     /**
      * Filters the entry
      * @param \Mu\Core\Log\Entry $entry
+     * @return bool
      */
-    abstract public function apply(\Mu\Core\Log\Entry $entry);
+    abstract public function apply(Entry $entry);
 }

@@ -17,13 +17,21 @@
 
 namespace Mu\Core;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Mixin\MixinAbstract
+ * @uses      Mu\Core\Plugin\Pluginable
+ * @uses      Mu\Core\Log\Entry
  */
-class Log extends Mixin\MixinAbstract {
+class Log extends MixinAbstract {
     /**
      * Mixin implements
      * @var array
@@ -57,10 +65,11 @@ class Log extends Mixin\MixinAbstract {
     /**
      * Writes a log entry
      * @param string|array|\Mu\Core\Log\Entry $entry
+     * @return void
      */
     public function write($entry) {
-        if (!($entry instanceof Log\Entry)) {
-            $entry = new Log\Entry($entry);
+        if (!($entry instanceof Entry)) {
+            $entry = new Entry($entry);
         }
 
         foreach($this->writers as $writer) {

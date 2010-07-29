@@ -17,27 +17,39 @@
 
 namespace Mu\Core\Log\Formatter;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry,
+    Mu\Core\DateTime;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Formatter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Mixin\MixinAbstract
+ * @uses      Mu\Core\DateTime
+ * @uses      Mu\Core\Log\Entry
+ * @uses      Mu\Core\Log\Formatter\Exception\InvalidOptions
+ * @uses      Mu\Core\Log\Formatter\Exception\InvalidFormatterType
  */
-abstract class FormatterAbstract extends \Mu\Core\Mixin\MixinAbstract {
+abstract class FormatterAbstract extends MixinAbstract {
     /**
      * Abstract method to format the entry
      * @param Entry $entry
      */
-    abstract public function format(\Mu\Core\Log\Entry $entry);
+    abstract public function format(Entry $entry);
 
     /**
      * Factory method for formatters
      * @param string|array $options
      * @return \Mu\Core\Log\Formatter
+     * @throws \Mu\Core\Log\Formatter\Exception\InvalidOptions
      * @throws \Mu\Core\Log\Formatter\Exception\InvalidFormatterType
      */
     static public function factory($options) {
-        if ($options instanceof Formatter) { // already a formatter so just return it
+        if ($options instanceof self) { // already a formatter so just return it
             return $options;
         }
 
@@ -80,16 +92,16 @@ abstract class FormatterAbstract extends \Mu\Core\Mixin\MixinAbstract {
      * @param string $option
      * @return null|string
      */
-    public function getFormattedOption(\Mu\Core\Log\Entry $entry, $option) {
+    public function getFormattedOption(Entry $entry, $option) {
         $value = $entry->getOption($option);
 
         switch ($option) {
             case 'timestamp' :
-                if (!($value instanceof \Mu\Core\DateTime)) {
+                if (!($value instanceof DateTime)) {
                     return null;
                 }
 
-                return $value->format(\Mu\Core\DateTime::ISO8601);
+                return $value->format(DateTime::ISO8601);
                 break;
 
             case 'level' :

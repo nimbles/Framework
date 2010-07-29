@@ -17,11 +17,19 @@
 
 namespace Mu\Core\Log\Filter;
 
+use Mu\Core\Log\Entry;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Filter\Level
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT Licesce
+ * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Filter\FilterAbstract
+ * @uses      Mu\Core\Config\Options
+ * @uses      Mu\Core\Log\Entry
+ * @uses      Mu\Core\Log\Filter\Exception\InvalidLevel
  */
 class Level extends FilterAbstract {
     /**
@@ -46,8 +54,9 @@ class Level extends FilterAbstract {
     /**
      * Filters based on level
      * @param \Mu\Core\Log\Entry $entry
+     * @throws Mu\Core\Log\Filter\Exception\InvalidLevel
      */
-    public function apply(\Mu\Core\Log\Entry $entry) {
+    public function apply(Entry $entry) {
         $levels = $this->getOption('level');
 
         switch ($this->getOption('type')) {

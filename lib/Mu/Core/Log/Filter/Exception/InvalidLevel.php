@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Log\Filter\Exception;
 
+use Mu\Core\Log\Filter\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Formatter\Exception\InvalidLevel
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Filter\Exception
  */
-class InvalidLevel extends \Mu\Core\Log\Filter\Exception {}
+class InvalidLevel extends Exception {}

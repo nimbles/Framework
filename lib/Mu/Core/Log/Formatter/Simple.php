@@ -17,11 +17,18 @@
 
 namespace Mu\Core\Log\Formatter;
 
+use Mu\Core\Log\Entry;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Formatter\Simple
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Formatter\FormatterAbstract
+ * @uses      Mu\Core\Config\Options
+ * @uses      Mu\Core\Log\Entry
  */
 class Simple extends FormatterAbstract {
     /**
@@ -49,7 +56,7 @@ class Simple extends FormatterAbstract {
      * @param \Mu\Core\Log\Entry $entry
      * @return string
      */
-    public function format(\Mu\Core\Log\Entry $entry) {
+    public function format(Entry $entry) {
         $formatString = $this->getOption('format');
 
         preg_match_all('/%([^%]+)%/', $formatString, $matches);

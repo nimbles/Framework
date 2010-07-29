@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Log\Exception;
 
+use Mu\Core\Log\Exception;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Log\Exception\MissingMessage
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      Mu\Core\Log\Exception
  */
-class MissingMessage extends \Mu\Core\Log\Exception {}
+class MissingMessage extends Exception {}
