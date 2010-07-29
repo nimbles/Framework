@@ -10,31 +10,32 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Cli\Request
+ * @package   Mu\Core\Delegates
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     Mu\Core\Delegates
  */
 
-namespace Tests\Mu\Cli;
+namespace Tests\Mu\Core\Delegates;
+
+require_once 'DelegatableTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Cli\Request
+ * @package   Mu\Core\Delegates
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     Mu\Core\Delegates
  */
-class RequestTest extends \Mu\Cli\TestCase {
+class AllTests {
     /**
-     * Tests the body for an Cli Request
-     * @return void
+     * Creates the Test Suite for Mu Framework - Core - Delegates
+     * @return \PHPUnit_Framework_TestSuite
      */
-    public function testBody() {
-        $this->setInput('hello world');
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Delegates');
 
-        $request = $this->createRequest();
-        $this->assertType('Mu\Core\Request\RequestAbstract', $request);
-        $this->assertEquals('hello world', $request->getBody());
+        $suite->addTestSuite('\Tests\Mu\Core\Delegates\DelegatableTest');
+        return $suite;
     }
 }

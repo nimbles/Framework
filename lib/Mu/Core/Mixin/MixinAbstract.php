@@ -17,11 +17,17 @@
 
 namespace Mu\Core\Mixin;
 
+use \BadMethodCallException;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Mixin\MixinAbstract
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \BadMethodCallException
+ * @uses      \Mu\Core\Mixin\Exception\MixinableMissing
  */
 abstract class MixinAbstract {
     /**
@@ -71,7 +77,7 @@ abstract class MixinAbstract {
             }
         }
 
-        throw new \BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
+        throw new BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
     }
 
     /**
@@ -82,7 +88,7 @@ abstract class MixinAbstract {
         foreach ($this->_mixins as &$mixin) {
             if ($mixin->hasProperty($property)) {
                 $object = $mixin->getObject();
-                
+
                 /**
                  * Getters and setters use the same Closure with the signature
                  * @param \Mu\Core\Mixin\MixinAbstract $this     Reference to $this as it doesn't exist within the Closure
@@ -90,7 +96,7 @@ abstract class MixinAbstract {
                  * @param bool                           $get      Indicates if a get (true) or set (false) is being called
                  * @param string                       $property The property name being called, useful for dynamic properties
                  * @param mixed                        $value    The value to set to, not passed by magic __get
-                 */                 
+                 */
                 return call_user_func_array($mixin->getProperty($property), array(
                     $this, &$object, true, $property
                 ));
@@ -117,7 +123,7 @@ abstract class MixinAbstract {
                  * @param bool                           $get      Indicates if a get (true) or set (false) is being called
                  * @param string                       $property The property name being called, useful for dynamic properties
                  * @param mixed                        $value    The value to set to, not passed by magic __get
-                 */ 
+                 */
                 return call_user_func_array($mixin->getProperty($property), array(
                     $this, &$object, false, $property, $value
                 ));

@@ -17,13 +17,20 @@
 
 namespace Mu\Core\Config;
 
+use \Mu\Core\Mixin\Mixinable\MixinableAbstract,
+    \Mu\Core\Config;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Config\Configurable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ * @uses      \Mu\Core\Config
  */
-class Configurable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
+class Configurable extends MixinableAbstract {
     /**
      * The config for this mixinable
      * @var \Mu\Core\Config
@@ -36,7 +43,7 @@ class Configurable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
      */
     public function getObject() {
         if (null === $this->_config) {
-            $this->_config = new \Mu\Core\Config();
+            $this->_config = new Config();
         }
 
         return $this->_config;
@@ -53,12 +60,12 @@ class Configurable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
                     if (!$get) {
                         return $config->setConfig($value);
                     }
-    
+
                     return $config;
                 }
             );
         }
-        
+
         return $this->_properties;
     }
 }

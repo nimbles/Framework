@@ -29,7 +29,7 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
      * @var \Mu\Core\Plugin\Plugins
      */
     protected $_plugins;
-    
+
     /**
      * Gets the object associated with this mixin
      * @return \Mu\Core\Plugin
@@ -54,12 +54,12 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
                     if (!$get) {
                         throw new \Mu\Core\Mixin\Exception\ReadOnly('plugins property is read only');
                     }
-    
+
                     return $plugins->$property;
                 };
             }
         }
-        
+
         return array_key_exists($property, $this->getProperties());
     }
 
@@ -74,18 +74,18 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
                     if (isset($plugins->{$type})) {
                         return $plugins->{$type}->attach($name, $plugin);
                     }
-    
+
                     throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
                 },
-    
+
                 'detach' => function($object, &$plugins, $type, $name) {
                     if (isset($plugins->{$type})) {
                         return $plugins->{$type}->detach($name);
                     }
-    
+
                     throw new Exception\UndefinedType('Plugin type ' . $type . ' is undefined');
                 },
-    
+
                 'notify' => function($object, &$plugins, $type = null) {
                     if (null !== $type) {
                         if (isset($plugins->{$type})) {
@@ -98,7 +98,7 @@ class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
                 }
             );
         }
-        
+
         return $this->_methods;
     }
 }

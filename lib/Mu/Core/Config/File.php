@@ -17,11 +17,17 @@
 
 namespace Mu\Core\Config;
 
+use \Mu\Core\Config;
+
 /**
  * @category  Mu\Core
  * @package   Mu\Core\Config\File
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Config
+ * @uses      \Mu\Core\Config\Exception\InvalidConfig
  */
 class File {
     /**
@@ -35,7 +41,7 @@ class File {
      * @return \Mu\Core\Config
      */
     public function getParsedConfig() {
-        return new \Mu\Core\Config($this->_parsedConfig);
+        return new Config($this->_parsedConfig);
     }
 
     /**

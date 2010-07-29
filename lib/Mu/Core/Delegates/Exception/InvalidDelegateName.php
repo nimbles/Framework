@@ -10,20 +10,17 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu\Core
- * @package   Mu\Core\Mixin\Exception
+ * @package   Mu\Core\Mixin\Exception\InvalidMethod
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Mixin;
+namespace Mu\Core\Delegates\Exception;
 
 /**
  * @category  Mu\Core
- * @package   Mu\Core\Mixin\Exception
+ * @package   Mu\Core\Delegates\Exception\InvalidDelegateName
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
- *
- * @uses      \Mu\Core\Exception
  */
-class Exception extends \Mu\Core\Exception {}
+class InvalidDelegateName extends \Mu\Core\Delegates\Exception {}

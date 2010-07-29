@@ -30,7 +30,7 @@ class RequestTest extends \Mu\Http\TestCase {
      * @return void
      */
     public function testConstruct() {
-        $request = new \Mu\Http\Request();
+        $request = $this->createRequest();
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
     }
 
@@ -41,7 +41,7 @@ class RequestTest extends \Mu\Http\TestCase {
      * @return void
      */
     public function testGetter($getter) {
-        $request = new \Mu\Http\Request(array(
+        $request = $this->createRequest(array(
             $getter => array(
                 'foo' => 'bar',
                 'baz' => 'qux'
@@ -58,7 +58,65 @@ class RequestTest extends \Mu\Http\TestCase {
     }
 
     /**
-     * The getter provider
+     * Tests that the request uri is detected for multiple platforms
+     * @dataProvider requestUriProvider
+     * @param array $options
+     * @return void
+     */
+    public function testGetRequestUri($options) {
+        $request = $this->createRequest($options);
+        $this->assertEquals('/module/controller/action', $request->getRequestUri());
+    }
+
+    /**
+     * Tests the http method is detected
+     * @dataProvider methodProvider
+     * @param string $method
+     * @param array  $options
+     * @return void
+     */
+    public function testGetMethod($method, $options) {
+        $request = $this->createRequest($options);
+        $this->assertEquals($method, $request->getMethod());
+    }
+
+    /**
+     * Tests getting the port
+     * @return void
+     */
+    public function testGetPort() {
+        $request = $this->createRequest(array(
+            'server' => array(
+                'SERVER_PORT' => 80
+            )
+        ));
+
+        $this->assertEquals(80, $request->getPort());
+    }
+
+    /**
+     * Tests getting the host
+     * @return void
+     */
+    public function testGetHost() {
+        $request = $this->createRequest(array(
+            'server' => array(
+                'SERVER_NAME' => 'mu-framework.com'
+            )
+        ));
+
+        $this->assertEquals('mu-framework.com', $request->getHost());
+    }
+
+    public function testGetBody() {
+        $request = $this->createRequest();
+
+        $this->setInput('hello world');
+        $this->assertEquals('hello world', $request->getBody());
+    }
+
+    /**
+     * Data provider for getter methods
      * @return array
      */
     public function getterProvider() {
@@ -71,18 +129,7 @@ class RequestTest extends \Mu\Http\TestCase {
     }
 
     /**
-     * Tests that the request uri is detected for multiple platforms
-     * @dataProvider requestUriProvider
-     * @param array $options
-     * @return void
-     */
-    public function testGetRequestUri($options) {
-        $request = new \Mu\Http\Request($options);
-        $this->assertEquals('/module/controller/action', $request->getRequestUri());
-    }
-
-    /**
-     * The uri provider
+     * Data provider for request uri
      * @return array
      */
     public function requestUriProvider() {
@@ -100,18 +147,11 @@ class RequestTest extends \Mu\Http\TestCase {
         );
     }
 
-    /**
-     * Tests the http method is detected
-     * @dataProvider methodProvider
-     * @param string $method
-     * @param array  $options
-     * @return void
-     */
-    public function testGetMethod($method, $options) {
-        $request = new \Mu\Http\Request($options);
-        $this->assertEquals($method, $request->getMethod());
-    }
 
+    /**
+     * Data provider for request methods
+     * @return array
+     */
     public function methodProvider() {
         return array(
             array('GET', array(  // standard GET support
@@ -144,33 +184,5 @@ class RequestTest extends \Mu\Http\TestCase {
                 )
             )),
         );
-    }
-
-    /**
-     * Tests getting the port
-     * @return void
-     */
-    public function testGetPort() {
-        $request = new \Mu\Http\Request(array(
-            'server' => array(
-                'SERVER_PORT' => 80
-            )
-        ));
-
-        $this->assertEquals(80, $request->getPort());
-    }
-
-    /**
-     * Tests getting the host
-     * @return void
-     */
-    public function testGetHost() {
-        $request = new \Mu\Http\Request(array(
-            'server' => array(
-                'SERVER_NAME' => 'mu-framework.com'
-            )
-        ));
-
-        $this->assertEquals('mu-framework.com', $request->getHost());
     }
 }

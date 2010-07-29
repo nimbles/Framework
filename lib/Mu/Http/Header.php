@@ -60,6 +60,21 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
             throw new Header\Exception\InvalidHeaderName('Header name must be a string');
         }
 
+        $name = implode('-', array_map('ucfirst', preg_split('/[_\-]/', strtolower(trim($name)))));
+        switch ($name) { // apply corrections
+            case 'Etag' :
+                $name = 'ETag';
+                break;
+
+            case 'Te' :
+                $name = 'TE';
+                break;
+
+            case 'Www-Authenticate' :
+                $name = 'WWW-Authenticate';
+                break;
+        }
+
         $this->_name = $name;
         return $this;
     }
@@ -113,6 +128,22 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
     }
 
     /**
+     * Merges one header values into another
+     * @param Header $header
+     * @return void
+     */
+    public function merge(Header $header) {
+        if ($this->getName() !== $header->getName()) {
+            throw new Header\Exception\InvalidHeaderName('Cannot merge headers of different name');
+        }
+
+        $values = $header->getValue(); // for header to create an array
+        foreach ($header->_values as $value) {
+            $this->setValue($value, true);
+        }
+    }
+
+    /**
      * Class Construct
      * @param array|null $options
      * @return void
@@ -125,21 +156,31 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
     /**
      * Factory method for creating a header
      *
-     * @param string $name
-     * @param string $string
-     * @param bool   $fromServerVars indicates that the name and string came from the $_SERVER variables
+     * @param string            $name
+     * @param string|null|array $value
+     * @param bool              $fromServerVars indicates that the name and string came from the $_SERVER variables
      * @return \Mu\Http\Header
      */
-    static public function factory($name, $string, $fromServerVars = false) {
+    static public function factory($name, $value = null, $fromServerVars = false) {
         if (0 === strpos($name, 'HTTP_')) {
             $name = substr($name, 5);
         } else if ($fromServerVars) {
             return null;
         }
 
+        if ((null === $value) && (false !== strpos($name, ':'))) {
+            list($name, $value) = explode(':', $name, 2);
+        }
+
+        if (is_string($value)) {
+            $value = explode(',', $value);
+        } else if (null === $value) {
+            $value = array('');
+        }
+
         return new self(array(
-            'name' => implode('-', array_map('ucfirst', preg_split('/[_\-]/', strtolower($name)))),
-            'value' => array_map('trim', explode(',', $string))
+            'name' => $name,
+            'value' => array_map('trim', $value)
         ));
     }
 
