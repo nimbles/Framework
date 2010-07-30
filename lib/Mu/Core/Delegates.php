@@ -17,13 +17,26 @@
 
 namespace Mu\Core;
 
+use Mu\Core\Mixin\MixinAbstract;
+
 /**
  * @category  \Mu\Core
  * @package   \Mu\Core\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Mixin\MixinAbstract
+ * @uses      \Mu\Core\Config\Options
+ *
+ * @uses      \ArrayObject
+ *
+ * @uses      \Mu\Core\Delegates\Exception\InvalidDelegate
+ * @uses      \Mu\Core\Delegates\Exception\InvalidDelegateName
+ * @uses      \Mu\Core\Delegates\Exception\DelegateCreationNotAllowed
+ * @uses      \Mu\Core\Config
  */
-class Delegates extends \Mu\Core\Mixin\MixinAbstract {
+class Delegates extends MixinAbstract {
     /**
      * Delegates implements options
      * @var array

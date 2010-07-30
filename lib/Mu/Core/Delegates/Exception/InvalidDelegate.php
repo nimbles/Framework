@@ -17,10 +17,15 @@
 
 namespace Mu\Core\Delegates\Exception;
 
+use Mu\Core\Delegates\Exception;
+
 /**
  * @category  \Mu\Core
  * @package   \Mu\Core\Delegates\Exception\InvalidDelegate
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Delegates\Exception
  */
-class InvalidDelegate extends \Mu\Core\Delegates\Exception {}
+class InvalidDelegate extends Exception {}

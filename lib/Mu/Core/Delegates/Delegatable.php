@@ -17,13 +17,19 @@
 
 namespace Mu\Core\Delegates;
 
+use Mu\Core\Mixin\Mixinable\MixinableAbstract;
+
 /**
  * @category  \Mu\Core
  * @package   \Mu\Core\Delegates\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ * @uses      \Mu\Core\Delegates
  */
-class Delegatable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
+class Delegatable extends MixinableAbstract {
     /**
      * The delegates
      * @var \Mu\Core\Delegates
