@@ -17,13 +17,22 @@
 
 namespace Mu\Http;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Http\Header\Exception;
+
 /**
  * @category  \Mu\Http
  * @package   \Mu\Http\Header
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Mixin\MixinAbstract
+ * @uses      \Mu\Core\Config\Options
+ *
+ * @uses      \Mu\Http\Header\Exception\InvalidHeaderName
  */
-class Header extends \Mu\Core\Mixin\MixinAbstract {
+class Header extends MixinAbstract {
     /**
      * Class implements
      * @var array
@@ -54,10 +63,11 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
      * Sets the header name
      * @param string $name
      * @return \Mu\Http\Header
+     * @throws \Mu\Http\Header\Exception\InvalidHeaderName
      */
     public function setName($name) {
         if (!is_string($name)) {
-            throw new Header\Exception\InvalidHeaderName('Header name must be a string');
+            throw new Exception\InvalidHeaderName('Header name must be a string');
         }
 
         $name = implode('-', array_map('ucfirst', preg_split('/[_\-]/', strtolower(trim($name)))));
@@ -131,10 +141,11 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
      * Merges one header values into another
      * @param \Mu\Core\Http\Header $header
      * @return void
+     * @throws \Mu\Http\Header\Exception\InvalidHeaderName
      */
     public function merge(Header $header) {
         if ($this->getName() !== $header->getName()) {
-            throw new Header\Exception\InvalidHeaderName('Cannot merge headers of different name');
+            throw new Exception\InvalidHeaderName('Cannot merge headers of different name');
         }
 
         $values = $header->getValue(); // for header to create an array

@@ -17,13 +17,22 @@
 
 namespace Mu\Http;
 
+use Mu\Core\Request\RequestAbstract;
+
 /**
  * @category  \Mu\Http
  * @package   \Mu\Http\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\Request\RequestAbstract
+ * @uses      \Mu\Core\Config\Options
+ * @uses      \Mu\Core\Delegates\Delegatable
+ *
+ * @uses      \Mu\Http\Header
  */
-class Request extends \Mu\Core\Request\RequestAbstract {
+class Request extends RequestAbstract {
     /**
      * Class implements
      * @var array
@@ -163,7 +172,7 @@ class Request extends \Mu\Core\Request\RequestAbstract {
     /**
      * Sets the session variables, will start session if not already
      * @param array|null $session if null will be set to $_SESSION
-     * @return \Mu\Cli\Http
+     * @return \Mu\Http\Request
      * @todo set to \Mu\Http\Session instead of $_SESSION
      */
     public function setSession(array $session = null) {

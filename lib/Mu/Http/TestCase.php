@@ -24,6 +24,9 @@ require_once 'PHPUnit/Framework.php';
  * @package   \Mu\Http\TestCase
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
+ * @version   $Id$
+ *
+ * @uses      \Mu\Core\TestCase
  */
 class TestCase extends \Mu\Core\TestCase {
     /**
