@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\TestCase
+ * @category  \Mu\Core
+ * @package   \Mu\Core\TestCase
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -20,8 +20,8 @@ namespace Mu\Core;
 use \PHPUnit_Framework_TestCase;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\TestCase
+ * @category  \Mu\Core
+ * @package   \Mu\Core\TestCase
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$

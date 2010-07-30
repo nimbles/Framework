@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Config
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -22,8 +22,8 @@ use \ArrayObject,
     Mu\Core\Config\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Config
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$

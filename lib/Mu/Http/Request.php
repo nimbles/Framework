@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Http
- * @package   Mu\Http\Request
+ * @category  \Mu\Http
+ * @package   \Mu\Http\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,8 +18,8 @@
 namespace Mu\Http;
 
 /**
- * @category  Mu\Http
- * @package   Mu\Http\Request
+ * @category  \Mu\Http
+ * @package   \Mu\Http\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

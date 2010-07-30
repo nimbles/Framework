@@ -10,20 +10,20 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Cli\Opt
+ * @package   \Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     \Mu\Cli
  */
 
 namespace Tests\Mu\Cli;
 
 /**
  * @category  Mu
- * @package   Mu\Cli\Opt
+ * @package   \Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     \Mu\Cli
  */
 class OptTest extends \Mu\Cli\TestCase {
     /**

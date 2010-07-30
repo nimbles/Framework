@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Http
- * @package   Mu\Http\Response
+ * @category  \Mu\Http
+ * @package   \Mu\Http\Response
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -21,8 +21,8 @@ use \Mu\Core\Response\ResponseAbstract,
     \Mu\Http\Status;
 
 /**
- * @category  Mu\Http
- * @package   Mu\Http\Response
+ * @category  \Mu\Http
+ * @package   \Mu\Http\Response
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$

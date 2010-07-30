@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Delegates\Delegatable
+ * @package   \Mu\Core\Delegates\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Delegates
+ * @group     \Mu\Core\Delegates
  */
 
 namespace Tests\Mu\Core\Delegates;
@@ -22,10 +22,10 @@ require_once 'DelegatableMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Delegates\Delegatable
+ * @package   \Mu\Core\Delegates\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Delegates
+ * @group     \Mu\Core\Delegates
  */
 class DelegatableTest extends \Mu\Core\TestCase {
     /**

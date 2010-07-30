@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Plugin\Exception\InvalidInterface
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Plugin\Exception\InvalidInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,8 +18,8 @@
 namespace Mu\Core\Plugin\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Plugin\Exception\InvalidInterface
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Plugin\Exception\InvalidInterface
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

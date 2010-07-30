@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Writer\Stream
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Writer\Stream
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,14 +18,14 @@
 namespace Mu\Core\Log\Writer;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Writer\Stream
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Writer\Stream
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$
  *
- * @uses      Mu\Core\Log\Writer\WriterAbstract
- * @uses      Mu\Core\Log\Writer\Exception\MissingStreamOption
+ * @uses      \Mu\Core\Log\Writer\WriterAbstract
+ * @uses      \Mu\Core\Log\Writer\Exception\MissingStreamOption
  */
 class Stream extends WriterAbstract {
     /**
@@ -38,7 +38,7 @@ class Stream extends WriterAbstract {
      * Writes an entry to a stream
      * @param string $entry
      * @return void
-     * @throws Mu\Core\Log\Writer\Exception\MissingStreamOption
+     * @throws \Mu\Core\Log\Writer\Exception\MissingStreamOption
      */
     protected function _write($entry) {
         if (null === $this->_stream) {

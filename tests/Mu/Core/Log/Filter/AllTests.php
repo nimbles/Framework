@@ -10,11 +10,11 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Log\Filter
+ * @package   \Mu\Core\Log\Filter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Filter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Filter
  */
 
 namespace Tests\Mu\Core\Log\Filter;
@@ -24,11 +24,11 @@ require_once 'CategoryTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Log\Filter
+ * @package   \Mu\Core\Log\Filter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Filter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Filter
  */
 class AllTests {
     /**

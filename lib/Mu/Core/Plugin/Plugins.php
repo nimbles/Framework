@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Plugin\Plugins
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Plugin\Plugins
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,8 +18,8 @@
 namespace Mu\Core\Plugin;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Plugin\Plugins
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Plugin\Plugins
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

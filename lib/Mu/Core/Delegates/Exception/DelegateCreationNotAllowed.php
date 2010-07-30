@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Mixin\Exception\DelegateCreationNotAllowed
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Mixin\Exception\DelegateCreationNotAllowed
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,8 +18,8 @@
 namespace Mu\Core\Delegates\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Delegates\Exception\DelegateCreationNotAllowed
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Delegates\Exception\DelegateCreationNotAllowed
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

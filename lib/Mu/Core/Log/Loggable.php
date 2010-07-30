@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Loggable
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Loggable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -21,14 +21,14 @@ use Mu\Core\Mixin\Mixinable\MixinableAbstract,
     Mu\Core\Log;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Loggable
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Loggable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$
  *
- * @uses      Mu\Core\Mixinable\MixinableAbstract
- * @uses      Mu\Core\Log
+ * @uses      \Mu\Core\Mixinable\MixinableAbstract
+ * @uses      \Mu\Core\Log
  */
 class Loggable extends MixinableAbstract {
     /**

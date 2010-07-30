@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core
+ * @package   \Mu\Core
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core
+ * @group     \Mu\Core
  */
 
 namespace Tests\Mu\Core;
@@ -28,10 +28,10 @@ require_once 'DelegatesTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core
+ * @package   \Mu\Core
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core
+ * @group     \Mu\Core
  */
 class AllTests {
     /**

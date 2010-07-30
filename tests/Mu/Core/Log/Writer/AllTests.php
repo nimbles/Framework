@@ -10,11 +10,11 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Log\Writer
+ * @package   \Mu\Core\Log\Writer
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Writer
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Writer
  */
 
 namespace Tests\Mu\Core\Log\Writer;
@@ -24,11 +24,11 @@ require_once 'MockTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Log\Writer
+ * @package   \Mu\Core\Log\Writer
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Writer
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Writer
  */
 class AllTests {
     /**

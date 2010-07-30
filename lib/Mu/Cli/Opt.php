@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Cli
- * @package   Mu\Cli\Opt
+ * @category  \Mu\Cli
+ * @package   \Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -18,8 +18,8 @@
 namespace Mu\Cli;
 
 /**
- * @category  Mu\Cli
- * @package   Mu\Cli\Opt
+ * @category  \Mu\Cli
+ * @package   \Mu\Cli\Opt
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */

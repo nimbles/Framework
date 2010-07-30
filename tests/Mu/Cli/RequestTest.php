@@ -10,20 +10,20 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Cli\Request
+ * @package   \Mu\Cli\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     \Mu\Cli
  */
 
 namespace Tests\Mu\Cli;
 
 /**
  * @category  Mu
- * @package   Mu\Cli\Request
+ * @package   \Mu\Cli\Request
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Cli
+ * @group     \Mu\Cli
  */
 class RequestTest extends \Mu\Cli\TestCase {
     /**

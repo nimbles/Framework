@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter\Exception\InvalidOptions
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Formatter\Exception\InvalidOptions
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -20,12 +20,12 @@ namespace Mu\Core\Log\Formatter\Exception;
 use Mu\Core\Log\Formatter\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter\Exception\InvalidOptions
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Formatter\Exception\InvalidOptions
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$
  *
- * @uses      Mu\Core\Log\Formatter\Exception
+ * @uses      \Mu\Core\Log\Formatter\Exception
  */
 class InvalidOptions extends Exception {}

@@ -9,8 +9,8 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Formatter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -22,17 +22,17 @@ use Mu\Core\Mixin\MixinAbstract,
     Mu\Core\DateTime;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter
+ * @category  \Mu\Core
+ * @package   \Mu\Core\Log\Formatter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  * @version   $Id$
  *
- * @uses      Mu\Core\Mixin\MixinAbstract
- * @uses      Mu\Core\DateTime
- * @uses      Mu\Core\Log\Entry
- * @uses      Mu\Core\Log\Formatter\Exception\InvalidOptions
- * @uses      Mu\Core\Log\Formatter\Exception\InvalidFormatterType
+ * @uses      \Mu\Core\Mixin\MixinAbstract
+ * @uses      \Mu\Core\DateTime
+ * @uses      \Mu\Core\Log\Entry
+ * @uses      \Mu\Core\Log\Formatter\Exception\InvalidOptions
+ * @uses      \Mu\Core\Log\Formatter\Exception\InvalidFormatterType
  */
 abstract class FormatterAbstract extends MixinAbstract {
     /**

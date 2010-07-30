@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Http
+ * @package   \Mu\Http
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Http
+ * @group     \Mu\Http
  */
 
 namespace Tests\Mu\Http;
@@ -26,10 +26,10 @@ require_once 'ResponseTest.php';
 
 /**
  * @category  Mu
- * @package   Mu\Http
+ * @package   \Mu\Http
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Http
+ * @group     \Mu\Http
  */
 class AllTests {
     /**
