@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Mixin\Mixinable;
 
-use \Mu\Core\Config,
-    \Mu\Core\Mixin\Exception;
+use Mu\Core\Config,
+    Mu\Core\Mixin\Exception;
 
 /**
  * @category  \Mu\Core

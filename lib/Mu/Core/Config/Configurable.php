@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Config;
 
-use \Mu\Core\Mixin\Mixinable\MixinableAbstract,
-    \Mu\Core\Config;
+use Mu\Core\Mixin\Mixinable\MixinableAbstract,
+    Mu\Core\Config;
 
 /**
  * @category  \Mu\Core

@@ -32,7 +32,7 @@ class Plugins extends \Mu\Core\Mixin\MixinAbstract {
 
     /**
      * Plugin types, lazy loaded
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     protected $_types;
 

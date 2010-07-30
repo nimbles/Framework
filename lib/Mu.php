@@ -27,13 +27,14 @@ class Mu {
 
     /**
      * Mu instance
-     * @var Mu
+     * @var \Mu
      */
     static protected $_instance;
 
     /**
      * Gets and instance of Mu
-     * @return Mu
+     * @return \Mu
+     * @todo require and use \Mu\Core\Singleton
      */
     static public function getInstance() {
         if (null === self::$_instance) {

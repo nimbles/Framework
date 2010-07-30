@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Mixin;
 
-use \BadMethodCallException;
+use BadMethodCallException;
 
 /**
  * @category  \Mu\Core

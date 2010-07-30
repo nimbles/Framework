@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Config\Exception;
 
-use \Mu\Core\Config\Exception;
+use Mu\Core\Config\Exception;
 
 /**
  * @category  \Mu\Core

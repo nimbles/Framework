@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Mixin\Exception;
 
-use \Mu\Core\Mixin\Exception;
+use Mu\Core\Mixin\Exception;
 
 /**
  * @category  \Mu\Core

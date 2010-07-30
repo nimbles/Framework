@@ -17,9 +17,9 @@
 
 namespace Mu\Core;
 
-use \ArrayObject,
-    \BadMethodCallException,
-    \Mu\Core\Config\Exception;
+use ArrayObject,
+    BadMethodCallException,
+    Mu\Core\Config\Exception;
 
 /**
  * @category  \Mu\Core

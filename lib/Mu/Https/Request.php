@@ -17,7 +17,7 @@
 
 namespace Mu\Https;
 
-use \Mu\Http\Request;
+use Mu\Http\Request;
 
 /**
  * @category  \Mu\Https

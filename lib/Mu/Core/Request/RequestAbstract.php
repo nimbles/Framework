@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Request;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Core\Request\Exception;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Request\Exception;
 
 /**
  * @category  \Mu\Core

@@ -17,7 +17,7 @@
 
 namespace Mu\Core;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @category  \Mu\Core

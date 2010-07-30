@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Log\Filter;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Core\Log\Entry;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry;
 
 /**
  * @category  \Mu\Core

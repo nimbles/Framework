@@ -28,7 +28,7 @@ abstract class Singleton {
     /**
      * Instances of each singleton
      *
-     * @var Singleton[]
+     * @var \Mu\Core\Singleton[]
      */
     private static $_instances = array();
 
@@ -56,7 +56,7 @@ abstract class Singleton {
     /**
      * Get an instance of the class
      *
-     * @return Singleton
+     * @return \Mu\Core\Singleton
      * @todo Consider constructor arguments
      */
     final public static function getInstance() {

@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Response;
 
-use \Mu\Core\Mixin\MixinAbstract;
+use Mu\Core\Mixin\MixinAbstract;
 
 /**
  * @category  \Mu\Core

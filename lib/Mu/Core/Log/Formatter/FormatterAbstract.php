@@ -17,9 +17,9 @@
 
 namespace Mu\Core\Log\Formatter;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Core\Log\Entry,
-    \Mu\Core\DateTime;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry,
+    Mu\Core\DateTime;
 
 /**
  * @category  \Mu\Core
@@ -37,7 +37,7 @@ use \Mu\Core\Mixin\MixinAbstract,
 abstract class FormatterAbstract extends MixinAbstract {
     /**
      * Abstract method to format the entry
-     * @param Entry $entry
+     * @param \Mu\Core\Log\Entry $entry
      */
     abstract public function format(Entry $entry);
 

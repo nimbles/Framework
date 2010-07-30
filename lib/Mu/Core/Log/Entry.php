@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Log;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Core\DateTime;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\DateTime;
 
 /**
  * @category  \Mu\Core

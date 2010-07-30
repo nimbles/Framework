@@ -17,8 +17,8 @@
 
 namespace Mu\Http;
 
-use \Mu\Core\Response\ResponseAbstract,
-    \Mu\Http\Status;
+use Mu\Core\Response\ResponseAbstract,
+    Mu\Http\Status;
 
 /**
  * @category  \Mu\Http

@@ -129,7 +129,7 @@ class Header extends \Mu\Core\Mixin\MixinAbstract {
 
     /**
      * Merges one header values into another
-     * @param Header $header
+     * @param \Mu\Core\Http\Header $header
      * @return void
      */
     public function merge(Header $header) {

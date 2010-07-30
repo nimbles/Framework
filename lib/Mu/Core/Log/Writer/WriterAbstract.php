@@ -17,9 +17,9 @@
 
 namespace Mu\Core\Log\Writer;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Core\Log\Formatter\FormatterAbstract,
-    \Mu\Core\Log\Entry;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Formatter\FormatterAbstract,
+    Mu\Core\Log\Entry;
 
 /**
  * @category  \Mu\Core

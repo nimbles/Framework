@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Config;
 
-use \Mu\Core\Config;
+use Mu\Core\Config;
 
 /**
  * @category  \Mu\Core
