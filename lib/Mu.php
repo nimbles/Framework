@@ -22,6 +22,7 @@ require_once 'Mu/Core/Loader.php';
  * @package   Mu
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT Licesce
+ * @version   $Id$
  */
 class Mu {
 
