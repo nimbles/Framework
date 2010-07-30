@@ -220,7 +220,7 @@ class Request extends RequestAbstract {
     public function getHeader($key = null) {
         if (null === $this->_headers) {
             $this->_headers = array();
-            foreach($this->getServer() as $name => $string) {
+            foreach ($this->getServer() as $name => $string) {
                 if (null !== ($header = \Mu\Http\Header::factory($name, $string, true))) {
                     $this->_headers[$header->getName()] = $header;
                 }

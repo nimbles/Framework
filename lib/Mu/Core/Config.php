@@ -100,7 +100,7 @@ class Config extends ArrayObject {
                 $current = &$config;
                 $count = count($parts);
 
-                for($i = 1; $i < $count; $i++) {
+                for ($i = 1; $i < $count; $i++) {
                     $part = $parts[$i];
 
                     $current[$part] = ($i < ($count - 1)) ? array() : $value;

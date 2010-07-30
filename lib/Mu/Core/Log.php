@@ -72,7 +72,7 @@ class Log extends MixinAbstract {
             $entry = new Entry($entry);
         }
 
-        foreach($this->writers as $writer) {
+        foreach ($this->writers as $writer) {
             $writer->write($entry);
         }
     }

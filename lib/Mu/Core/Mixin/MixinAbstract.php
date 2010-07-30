@@ -71,9 +71,13 @@ abstract class MixinAbstract {
         foreach ($this->_mixins as &$mixin) {
             if ($mixin->hasMethod($method)) {
                 $object = $mixin->getObject();
-                return call_user_func_array($mixin->getMethod($method), array_merge(array(
-                    $this, &$object
-                ), $args));
+                return call_user_func_array(
+                    $mixin->getMethod($method),
+                    array_merge(
+                        array($this, &$object),
+                        $args
+                    )
+                );
             }
         }
 
@@ -97,9 +101,12 @@ abstract class MixinAbstract {
                  * @param string                       $property The property name being called, useful for dynamic properties
                  * @param mixed                        $value    The value to set to, not passed by magic __get
                  */
-                return call_user_func_array($mixin->getProperty($property), array(
-                    $this, &$object, true, $property
-                ));
+                return call_user_func_array(
+                    $mixin->getProperty($property),
+                    array(
+                        $this, &$object, true, $property
+                    )
+                );
             }
         }
 
@@ -124,9 +131,12 @@ abstract class MixinAbstract {
                  * @param string                       $property The property name being called, useful for dynamic properties
                  * @param mixed                        $value    The value to set to, not passed by magic __get
                  */
-                return call_user_func_array($mixin->getProperty($property), array(
-                    $this, &$object, false, $property, $value
-                ));
+                return call_user_func_array(
+                    $mixin->getProperty($property),
+                    array(
+                        $this, &$object, false, $property, $value
+                    )
+                );
             }
         }
     }

@@ -80,7 +80,7 @@ class Level extends FilterAbstract {
             case self::LEVEL_EXCLUDE :
                 if (!is_array($levels) && !($levels instanceof \ArrayObject)) {
                     $levels = array($levels);
-                } else if($levels instanceof \ArrayObject) {
+                } else if ($levels instanceof \ArrayObject) {
                     $levels = $levels->getArrayCopy();
                 }
 

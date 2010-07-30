@@ -107,7 +107,7 @@ class Collection extends \ArrayObject {
      * @return \Mu\Cli\Opt|null
      */
     public function __get($name) {
-        if ((strlen($name) === 1) && array_key_exists($name, $this->_shortopts)){
+        if ((strlen($name) === 1) && array_key_exists($name, $this->_shortopts)) {
             return $this[$this->_shortopts[$name]];
         }
 
@@ -123,12 +123,15 @@ class Collection extends \ArrayObject {
      * @return string
      */
     public function getOptionString() {
-        return implode('', array_map(
-            function($option) {
-                return $option->getFormattedOpt();
-            },
-            $this->getArrayCopy()
-        ));
+        return implode(
+            '',
+            array_map(
+                function($option) {
+                    return $option->getFormattedOpt();
+                },
+                $this->getArrayCopy()
+            )
+        );
     }
 
     /**
