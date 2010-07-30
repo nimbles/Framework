@@ -75,7 +75,7 @@ abstract class MixinableAbstract {
         }
 
         if (!($config instanceof \Mu\Core\Config)) {
-            throw new Exception\InvalidConfig('Config must be either null, an array or an instance of Mu\Core\\Config');
+            throw new Exception\InvalidConfig('Config must be either null, an array or an instance of \Mu\Core\Config');
         }
 
         $this->_config = $config;

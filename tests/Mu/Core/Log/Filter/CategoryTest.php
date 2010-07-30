@@ -54,7 +54,7 @@ class CategoryTest extends \Mu\Core\TestCase {
     }
 
     /**
-     * Tests that the Mu\Core\Log\Filter\Exception\InvalidCategory exception is thrown
+     * Tests that the \Mu\Core\Log\Filter\Exception\InvalidCategory exception is thrown
      * when no category is given
      * @return void
      */

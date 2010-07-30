@@ -53,7 +53,7 @@ class DelegatableTest extends \Mu\Core\TestCase {
     }
 
     /**
-     * Tests that the Mu\Core\Delegates\Exception\InvalidDelegate exception is thrown
+     * Tests that the \Mu\Core\Delegates\Exception\InvalidDelegate exception is thrown
      * when setting an invalid delegate
      * @return void
      */

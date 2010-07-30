@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Request\Exception;
 
-use Mu\Core\Request\Exception;
+use \Mu\Core\Request\Exception;
 
 /**
  * @category  \Mu\Core

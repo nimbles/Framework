@@ -29,7 +29,7 @@ require_once 'MixinMock.php';
  */
 class MixinTest extends \Mu\Core\TestCase {
     /**
-     * Tests that the Mu\Core\Mixin\Exception\MixinableMissing exception is thrown
+     * Tests that the \Mu\Core\Mixin\Exception\MixinableMissing exception is thrown
      * when trying to add a mixinable that does not exist
      * @return void
      */

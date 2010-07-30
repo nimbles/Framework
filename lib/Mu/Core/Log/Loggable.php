@@ -17,8 +17,8 @@
 
 namespace Mu\Core\Log;
 
-use Mu\Core\Mixin\Mixinable\MixinableAbstract,
-    Mu\Core\Log;
+use \Mu\Core\Mixin\Mixinable\MixinableAbstract,
+    \Mu\Core\Log;
 
 /**
  * @category  \Mu\Core

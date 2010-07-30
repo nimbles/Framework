@@ -69,7 +69,7 @@ class OptTest extends \Mu\Cli\TestCase {
     }
 
     /**
-     * Tests that the Mu\Cli\Opt\Exception\InvalidCharacter exception is thrown when
+     * Tests that the \Mu\Cli\Opt\Exception\InvalidCharacter exception is thrown when
      * creating an Opt object from invalid character
      * @dataProvider invalidCharacterProvider
      * @param mixed $character
@@ -83,7 +83,7 @@ class OptTest extends \Mu\Cli\TestCase {
     }
 
     /**
-     * Tests that the Mu\Cli\Opt\Exception\InvalidAlias exception is thrown when creating
+     * Tests that the \Mu\Cli\Opt\Exception\InvalidAlias exception is thrown when creating
      * an Opt object with an invalid alias
      * @dataProvider invalidAliasProvider
      * @param mixed $alias
@@ -97,7 +97,7 @@ class OptTest extends \Mu\Cli\TestCase {
     }
 
     /**
-     * Tests that the Mu\Cli\Opt\Exception\InvalidParameterType exception is thrown when
+     * Tests that the \Mu\Cli\Opt\Exception\InvalidParameterType exception is thrown when
      * creating an Opt object with an invalid paramater
      * @dataProvider invalidParameterTypeProvider
      * @param mixed $type

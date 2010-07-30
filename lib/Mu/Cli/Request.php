@@ -85,7 +85,7 @@ class Request extends \Mu\Core\Request\RequestAbstract {
         }
 
         if (!($opts instanceof \Mu\Cli\Opt\Collection)) {
-            throw new Request\Exception\InvalidOpts('Opts must be an array or Mu\Cli\Opt\Collection');
+            throw new Request\Exception\InvalidOpts('Opts must be an array or \Mu\Cli\Opt\Collection');
         }
 
         $opts->parse();

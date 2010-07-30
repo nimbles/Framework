@@ -30,7 +30,7 @@ namespace Tests\Mu\Core\Log\Formatter;
  */
 class FormatterTest extends \Mu\Core\TestCase {
     /**
-     * Tests that the Mu\Core\Log\Formatter\Exception\InvalidOptions exception is thrown
+     * Tests that the \Mu\Core\Log\Formatter\Exception\InvalidOptions exception is thrown
      * when passing invalid options into the formatter factory
      * @dataProvider invalidOptionsProvider
      * @param mixed $options

@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Log\Formatter\Exception;
 
-use Mu\Core\Log\Formatter\Exception;
+use \Mu\Core\Log\Formatter\Exception;
 
 /**
  * @category  \Mu\Core

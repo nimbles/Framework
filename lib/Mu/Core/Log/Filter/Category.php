@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Log\Filter;
 
-use Mu\Core\Log\Entry;
+use \Mu\Core\Log\Entry;
 
 /**
  * @category  \Mu\Core

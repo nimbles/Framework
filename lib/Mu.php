@@ -49,7 +49,7 @@ class Mu {
     public function __construct() {
         if (null === self::$_instance) {
             $this->_setupEnvironmentVars();
-            Mu\Core\Loader::register();
+            \Mu\Core\Loader::register();
             self::$_instance = $this;
         }
     }

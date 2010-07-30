@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Log\Filter\Exception;
 
-use Mu\Core\Log\Filter\Exception;
+use \Mu\Core\Log\Filter\Exception;
 
 /**
  * @category  \Mu\Core

@@ -17,9 +17,9 @@
 
 namespace Mu\Core\Log\Formatter;
 
-use Mu\Core\Mixin\MixinAbstract,
-    Mu\Core\Log\Entry,
-    Mu\Core\DateTime;
+use \Mu\Core\Mixin\MixinAbstract,
+    \Mu\Core\Log\Entry,
+    \Mu\Core\DateTime;
 
 /**
  * @category  \Mu\Core

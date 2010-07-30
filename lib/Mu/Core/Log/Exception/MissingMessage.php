@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Log\Exception;
 
-use Mu\Core\Log\Exception;
+use \Mu\Core\Log\Exception;
 
 /**
  * @category  \Mu\Core

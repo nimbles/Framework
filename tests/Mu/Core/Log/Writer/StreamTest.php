@@ -75,7 +75,7 @@ class StreamTest extends \Mu\Core\TestCase {
     }
 
     /**
-     * Tests that the Mu\Core\Log\Writer\Exception\MissingStreamOption exception is thrown
+     * Tests that the \Mu\Core\Log\Writer\Exception\MissingStreamOption exception is thrown
      * when the stream option is not given when creating the stream writer
      * @return void
      */

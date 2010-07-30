@@ -17,7 +17,7 @@
 
 namespace Mu\Core\Log\Writer\Exception;
 
-use Mu\Core\Log\Writer\Exception;
+use \Mu\Core\Log\Writer\Exception;
 
 /**
  * @category  \Mu\Core

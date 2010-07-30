@@ -206,7 +206,7 @@ class LevelTest extends \Mu\Core\TestCase {
     }
 
     /**
-     * Tests that the Mu\Core\Log\Filter\Exception\InvalidLevel exception is thrown
+     * Tests that the \Mu\Core\Log\Filter\Exception\InvalidLevel exception is thrown
      * when invalid levels are given
      * @dataProvider invalidProvider
      * @param int $type
