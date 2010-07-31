@@ -9,23 +9,25 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Writer\Stream
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Log\Writer;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Writer\Stream
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Log\Writer\WriterAbstract
- * @uses      \Mu\Core\Log\Writer\Exception\MissingStreamOption
+ * @uses       \Mu\Core\Log\Writer\WriterAbstract
+ * @uses       \Mu\Core\Log\Writer\Exception\MissingStreamOption
  */
 class Stream extends WriterAbstract {
     /**
@@ -63,6 +65,6 @@ class Stream extends WriterAbstract {
             if (is_resource($this->_stream)) {
                 @fclose($this->_stream); // surpress warning for destruct
             }
-        } catch (\Exception $ex) {} // desctruct cannot throw exceptions
+        } catch (\Exception $exception) {} // desctruct cannot throw exceptions
     }
 }

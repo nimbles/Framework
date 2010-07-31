@@ -9,21 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Plugin\Plugins
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Plugin;
 
+use Mu\Core\Mixin\MixinAbstract;
+
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Plugin\Plugins
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
+ *
+ * @uses       \ArrayObject
+ *
+ * @uses       \Mu\Core\Config
+ * @uses       \Mu\Core\Plugin
  */
-class Plugins extends \Mu\Core\Mixin\MixinAbstract {
+class Plugins extends MixinAbstract {
     /**
      * Plugins implements options
      * @var array

@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Request\RequestAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Request;
@@ -21,16 +22,17 @@ use Mu\Core\Mixin\MixinAbstract,
     Mu\Core\Request\Exception;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Request\RequestAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\MixinAbstract
- * @uses      \Mu\Core\Request\RequestInterface
- * @uses      \Mu\Core\Config\Options
- * @uses      \Mu\Core\Request\Exception\MuPathUndefined
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Request\RequestInterface
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Request\Exception\MuPathUndefined
  */
 abstract class RequestAbstract extends MixinAbstract
     implements RequestInterface {

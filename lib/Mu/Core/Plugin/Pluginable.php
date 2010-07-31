@@ -9,21 +9,31 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Plugin\Pluginable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Plugin;
 
+use Mu\Core\Mixin\Mixinable\MixinableAbstract;
+
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Plugin\Pluginable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ *
+ * @uses       \Mu\Core\Plugin\Plugins
+ * @uses       \Mu\Core\Plugin\Exception\UndefinedType
  */
-class Pluginable extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
+class Pluginable extends MixinableAbstract {
     /**
      * The plugins
      * @var \Mu\Core\Plugin\Plugins

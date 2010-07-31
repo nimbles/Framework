@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Delegates
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core;
@@ -20,21 +21,22 @@ namespace Mu\Core;
 use Mu\Core\Mixin\MixinAbstract;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Delegatable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\MixinAbstract
- * @uses      \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
  *
- * @uses      \ArrayObject
+ * @uses       \ArrayObject
  *
- * @uses      \Mu\Core\Delegates\Exception\InvalidDelegate
- * @uses      \Mu\Core\Delegates\Exception\InvalidDelegateName
- * @uses      \Mu\Core\Delegates\Exception\DelegateCreationNotAllowed
- * @uses      \Mu\Core\Config
+ * @uses       \Mu\Core\Delegates\Exception\InvalidDelegate
+ * @uses       \Mu\Core\Delegates\Exception\InvalidDelegateName
+ * @uses       \Mu\Core\Delegates\Exception\DelegateCreationNotAllowed
+ * @uses       \Mu\Core\Config
  */
 class Delegates extends MixinAbstract {
     /**

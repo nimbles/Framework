@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Entry
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Log;
@@ -21,16 +22,17 @@ use Mu\Core\Mixin\MixinAbstract,
     Mu\Core\DateTime;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Entry
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\MixinAbstract
- * @uses      \Mu\Core\Log\Config\Options
- * @uses      \Mu\Core\DateTime
- * @uses      \Mu\Core\Log\Exception\MissingMessage
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Log\Config\Options
+ * @uses       \Mu\Core\DateTime
+ * @uses       \Mu\Core\Log\Exception\MissingMessage
  */
 class Entry extends MixinAbstract {
     /**

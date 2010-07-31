@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Config\Configurable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Config;
@@ -21,14 +22,15 @@ use Mu\Core\Mixin\Mixinable\MixinableAbstract,
     Mu\Core\Config;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Config\Configurable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\Mixinable\MixinableAbstract
- * @uses      \Mu\Core\Config
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ * @uses       \Mu\Core\Config
  */
 class Configurable extends MixinableAbstract {
     /**

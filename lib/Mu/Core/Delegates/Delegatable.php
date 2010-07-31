@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Delegates\Delegatable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Delegates;
@@ -20,14 +21,15 @@ namespace Mu\Core\Delegates;
 use Mu\Core\Mixin\Mixinable\MixinableAbstract;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Delegates\Delegatable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\Mixinable\MixinableAbstract
- * @uses      \Mu\Core\Delegates
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ * @uses       \Mu\Core\Delegates
  */
 class Delegatable extends MixinableAbstract {
     /**
@@ -75,15 +77,15 @@ class Delegatable extends MixinableAbstract {
     public function getMethods() {
         if (null === $this->_methods) {
             $this->_methods = array(
-                'hasDelegate' => function($object, &$delegates, $name) {
+                'hasDelegate' => function($thisObject, &$delegates, $name) {
                     return $delegates->hasDelegate($name);
                 },
 
-                'getDelegate' => function($object, &$delegates, $name) {
+                'getDelegate' => function($thisObject, &$delegates, $name) {
                     return $delegates->getDelegate($name);
                 },
 
-                'setDelegate' => function($objectr, &$delegates, $name, $delegate) {
+                'setDelegate' => function($thisObject, &$delegates, $name, $delegate) {
                     return $delegates->setDelegate($name, $delegate);
                 }
             );

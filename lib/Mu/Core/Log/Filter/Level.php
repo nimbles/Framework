@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Filter\Level
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Log\Filter;
@@ -20,16 +21,17 @@ namespace Mu\Core\Log\Filter;
 use Mu\Core\Log\Entry;
 
 /**
- * @category  \Mu\Core
- * @package   \Mu\Core\Log\Filter\Level
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Log\Filter\FilterAbstract
- * @uses      \Mu\Core\Config\Options
- * @uses      \Mu\Core\Log\Entry
- * @uses      \Mu\Core\Log\Filter\Exception\InvalidLevel
+ * @uses       \Mu\Core\Log\Filter\FilterAbstract
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Log\Entry
+ * @uses       \Mu\Core\Log\Filter\Exception\InvalidLevel
  */
 class Level extends FilterAbstract {
     /**
