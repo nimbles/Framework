@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Http
- * @package   \Mu\Http\Header
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Http;
@@ -21,16 +22,17 @@ use Mu\Core\Mixin\MixinAbstract,
     Mu\Http\Header\Exception;
 
 /**
- * @category  \Mu\Http
- * @package   \Mu\Http\Header
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\MixinAbstract
- * @uses      \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
  *
- * @uses      \Mu\Http\Header\Exception\InvalidHeaderName
+ * @uses       \Mu\Http\Header\Exception\InvalidHeaderName
  */
 class Header extends MixinAbstract {
     /**

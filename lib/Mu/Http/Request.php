@@ -9,10 +9,11 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Http
- * @package   \Mu\Http\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Http;
@@ -20,17 +21,18 @@ namespace Mu\Http;
 use Mu\Core\Request\RequestAbstract;
 
 /**
- * @category  \Mu\Http
- * @package   \Mu\Http\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Request\RequestAbstract
- * @uses      \Mu\Core\Config\Options
- * @uses      \Mu\Core\Delegates\Delegatable
+ * @uses       \Mu\Core\Request\RequestAbstract
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Delegates\Delegatable
  *
- * @uses      \Mu\Http\Header
+ * @uses       \Mu\Http\Header
  */
 class Request extends RequestAbstract {
     /**
