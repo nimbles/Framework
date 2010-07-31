@@ -9,21 +9,30 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Response
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Response
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli;
 
+use Mu\Core\Response\ResponseAbstract;
+
 /**
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Response
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Response
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Response\ResponseAbstract
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Delegates\Delegatable
  */
-class Response extends \Mu\Core\Response\ResponseAbstract {
+class Response extends ResponseAbstract {
     /**
      * Class implements
      * @var array

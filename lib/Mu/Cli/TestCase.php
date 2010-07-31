@@ -9,20 +9,27 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Cli
- * @package   \Mu\Cli\TestCase
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage TestCase
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 namespace Mu\Cli;
 
 require_once 'PHPUnit/Framework.php';
 
 /**
- * @category  \Mu\Cli
- * @package   \Mu\Cli\TestCase
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage TestCase
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ * @uses       \Mu\Cli\Request
+ * @uses       \Mu\Cli\Response
  */
 class TestCase extends \Mu\Core\TestCase {
     /**

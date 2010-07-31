@@ -9,21 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Opt
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli;
 
+use Mu\Core\Mixin\MixinAbstract;
+
 /**
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Opt
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
+ *
+ * @uses       \Mu\Cli\Request\Opt\Exception\InvalidAlias
+ * @uses       \Mu\Cli\Request\Opt\Exception\InvalidCharacter
+ * @uses       \Mu\Cli\Request\Opt\Exception\InvalidParameterType
+ * @uses       \Mu\Cli\Request\Opt\Exception\Parse
  */
-class Opt extends \Mu\Core\Mixin\MixinAbstract {
+class Opt extends MixinAbstract {
     /**
      * Class implements
      * @var array

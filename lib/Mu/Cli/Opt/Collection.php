@@ -9,21 +9,30 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Opt\Collection
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli\Opt;
 
+use ArrayObject;
+
 /**
- * @category  \Mu\Cli
- * @package   \Mu\Cli\Opt\Collection
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \ArrayObject
+ *
+ * @uses       \Mu\Cli\Opt
  */
-class Collection extends \ArrayObject {
+class Collection extends ArrayObject {
     /**
      * The short opts index
      * @var array
