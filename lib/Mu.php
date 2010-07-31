@@ -9,23 +9,24 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 require_once 'Mu/Core/Loader.php';
 
 /**
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT Licesce
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT Licesce
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Loader
  */
 class Mu {
-
     /**
      * Mu instance
      * @var \Mu

@@ -27,13 +27,12 @@ namespace Mu\Core;
  * @version    $Id$
  */
 abstract class Singleton {
-
     /**
      * Instances of each singleton
      *
      * @var \Mu\Core\Singleton[]
      */
-    private static $_instances = array();
+    static private $_instances = array();
 
     /**
      * Class constructor
@@ -62,7 +61,7 @@ abstract class Singleton {
      * @return \Mu\Core\Singleton
      * @todo Consider constructor arguments
      */
-    final public static function getInstance() {
+    final static public function getInstance() {
         $class = get_called_class();
 
         if (!isset(self::$_instances[$class])) {
