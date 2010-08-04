@@ -18,10 +18,8 @@
 
 namespace Mu\Http;
 
-use Mu\Core\Mixin\Mixinable\MixinableAbstract;
-
-use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Status;
+use Mu\Http\Client,
+    Mu\Core\Mixin\MixinAbstract;
 
 /**
  * @category   Mu
@@ -39,11 +37,69 @@ use Mu\Core\Mixin\MixinAbstract,
  * @uses       \Mu\Http\Status
  */
 
-class Client extends MixinableAbstract {
-
+class Client extends MixinAbstract {
     /**
      * Class implements
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    protected $_implements = array(
+        'Mu\Core\Config\Options',
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'getValidMethods' => array('\Mu\Http\Client', 'getValidHTTPMethods')
+            )
+        )
+    );
+
+    /**
+     * HTTP method
+     * @var string
+     */
+    protected $_method = null;
+
+    /**
+     * Client constructor
+     *
+     * @param array|null $options
+     */
+    public function __construct($options = null) {
+        parent::__construct();
+        $this->setOptions($options);
+    }
+
+    /**
+     * Get the HTTP method
+     * @return string
+     */
+    public function getMethod() {
+        return $this->_method;
+    }
+
+    /**
+     * Set the HTTP method
+     * @param string $method
+     * @return Client
+     */
+    public function setMethod($method) {
+        if (!is_string($method)) {
+            throw new Client\Exception('Method must be of type string');
+        }
+
+        $validMethods = array_map('strtoupper', $this->getValidMethods());
+        $method = strtoupper($method);
+        if (!in_array($method, $validMethods)) {
+            throw new Client\Exception('Invalid HTTP method [' . $method . ']');
+        }
+
+        $this->_method = $method;
+        return $this;
+    }
+
+    /**
+     * Valid HTTP Methods
+     * @return array
+     */
+    static public function getValidHTTPMethods() {
+        return array ('GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS');
+    }
 }
