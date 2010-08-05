@@ -61,4 +61,42 @@ class ClientTest extends \Mu\Http\TestCase {
             array(new \stdClass(), false),
         );
     }
+
+    /**
+     * @dataProvider adapterDataProvider
+     */
+    public function testAdapter($adapter, $options, $valid) {
+        $client = new Client();
+
+        if (!$valid) {
+            $this->setExpectedException('\Mu\Http\Client\Exception');
+            $constraint = $this->logicalNot(
+                $this->equalTo(null)
+            );
+        } else {
+            $constraint = $this->isInstanceOf($valid);
+        }
+
+        $returnValue = $client->setAdapter($adapter, $options);
+
+        $this->assertThat($client->getAdapter(), $constraint);
+        $this->assertEquals($client, $returnValue);
+    }
+
+    public function adapterDataProvider() {
+        return array(
+            // Valid Adapters
+            array('Curl', array(), 'Mu\\Http\\Client\\Adapter\\Curl'),
+            array('MultiCurl', array(), 'Mu\\Http\\Client\\Adapter\\MultiCurl'),
+            // Alternative spelling
+            array('curl', array(), 'Mu\\Http\\Client\\Adapter\\Curl'),
+            array('CURL', array(), 'Mu\\Http\\Client\\Adapter\\Curl'),
+            // Camel case
+            array('multi-curl', array(), false),
+            array('Multi-Curl', array(), false),
+            // Objects
+            //array(new \Mu\Http\Client\Adapter\Curl(), null, true),
+            //array(new \Mu\Http\Client, null, false)
+        );
+    }
 }

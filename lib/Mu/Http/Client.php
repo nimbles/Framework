@@ -11,15 +11,17 @@
  *
  * @category   Mu
  * @package    Mu-Http
- * @subpackage Response
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Http;
 
+use Mu\Http\Client\Adapter\Curl;
+
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Client;
+    Mu\Http\Client\Adapter;
 
 /**
  * @category   Mu
@@ -29,12 +31,9 @@ use Mu\Core\Mixin\MixinAbstract,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Response\ResponseAbstract
  * @uses       \Mu\Core\Delegates\Delegatable
  * @uses       \Mu\Core\Config\Options
  *
- * @uses       \Mu\Http\Header
- * @uses       \Mu\Http\Status
  */
 
 class Client extends MixinAbstract {
@@ -58,8 +57,13 @@ class Client extends MixinAbstract {
     protected $_method = null;
 
     /**
+     * Client adapter
+     * @var unknown_type
+     */
+    protected $_adapter = null;
+
+    /**
      * Client constructor
-     *
      * @param array|null $options
      */
     public function __construct($options = null) {
@@ -92,6 +96,42 @@ class Client extends MixinAbstract {
         }
 
         $this->_method = $method;
+        return $this;
+    }
+
+    /**
+     * Get the HTTP adapter
+     * @return Client\Adapter\AdapterAbstract
+     */
+    public function getAdapter() {
+        return $this->_adapter;
+    }
+
+    /**
+     * Set the HTTP Adapter
+     * @param object|string $adapter
+     * @return Client
+     */
+    public function setAdapter($adapter) {
+        if (is_string($adapter) && strlen($adapter) > 0) {
+            if ($adapter[0] !== '\\') {
+                $adapter = __CLASS__ . '\\Adapter\\' . $adapter;
+            }
+            if (!class_exists($adapter)) {
+                throw new Client\Exception('Adapter [' . $adapter . '] must be valid class name');
+            }
+            $args = func_get_args();
+            array_pop($args);
+            $adapter = new $adapter($args);
+        }
+
+        if (!is_object($adapter)) {
+            throw new Client\Exception('Adapter must be either a string or an object');
+        } else if (!$adapter instanceof Adapter\AdapterInterface) {
+            throw new Client\Exception('Adapter implement \Mu\Http\Client\Adapter\AdapterInterface');
+        }
+
+        $this->_adapter = $adapter;
         return $this;
     }
 
