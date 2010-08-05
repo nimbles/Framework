@@ -19,7 +19,7 @@
 namespace Mu\Http;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Client\Exception;
+    Mu\Http\Client;
 
 /**
  * @category   Mu
@@ -82,7 +82,7 @@ class Client extends MixinAbstract {
      */
     public function setMethod($method) {
         if (!is_string($method)) {
-            throw new Exception('Method must be of type string');
+            throw new Client\Exception('Method must be of type string');
         }
 
         $validMethods = array_map('strtoupper', $this->getValidMethods());
