@@ -9,30 +9,32 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Http
- * @package   Mu\Http\Cookie
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Cookie
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Http;
 
-use \Mu\Core\Mixin\MixinAbstract,
-    \Mu\Http\Cookie\Exception;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Http\Cookie\Exception;
 
 /**
- * @category  Mu\Http
- * @package   Mu\Http\Cookie
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Cookie
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Mixin\MixinAbstract
  *
- * @uses      \Mu\Http\Cookie\Exception\InvalidName
- * @uses      \Mu\Http\Cookie\Exception\InvalidValue
- * @uses      \Mu\Http\Cookie\Exception\InvalidPath
- * @uses      \Mu\Http\Cookie\Exception\InvalidDomain
+ * @uses       \Mu\Http\Cookie\Exception\InvalidName
+ * @uses       \Mu\Http\Cookie\Exception\InvalidValue
+ * @uses       \Mu\Http\Cookie\Exception\InvalidPath
+ * @uses       \Mu\Http\Cookie\Exception\InvalidDomain
  */
 class Cookie extends MixinAbstract {
     /**
@@ -41,16 +43,19 @@ class Cookie extends MixinAbstract {
      */
     protected $_implements = array(
         'Mu\Core\Config\Options' => array(
-            'expire' => 0,
-            'secure' => false,
+            'expire'   => 0,
+            'path'     => '/',
+            'domain'   => null,
+            'secure'   => false,
             'httponly' => false
         ),
-	    'Mu\Core\Delegates\Delegatable' => array(
-	        'delegates' => array(
-				'setcookie' => 'setcookie',
-				'setrawcookie' => 'setrawcookie'
-	        )
-	    )
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'headers_sent' => 'headers_sent',
+                'setcookie'    => 'setcookie',
+                'setrawcookie' => 'setrawcookie'
+            )
+        )
     );
 
     /**
@@ -153,6 +158,8 @@ class Cookie extends MixinAbstract {
      * @return \Mu\Http\Cookie
      */
     public function setExpire($expire) {
+        var_dump($expire);
+
         $this->_expire = (is_int($expire) && (0 <= $expire)) ? $expire : $this->_expire;
         return $this;
     }
@@ -269,5 +276,33 @@ class Cookie extends MixinAbstract {
      */
     public function __toString() {
         return $this->getValue();
+    }
+
+    /**
+     * Sends the cookie
+     * @param bool $raw
+     * @return void
+     * @throw \Mu\Http\Cookie\Exception\HeadersAlreadySent
+     */
+    public function send($raw = false) {
+        if ($this->headers_sent()) {
+            throw new Exception\HeadersAlreadySent('Cannot send cookie when headers already sent');
+        }
+
+        $args = array(
+            $this->getName(),
+            $this->getValue(),
+            $this->getExpire(),
+            $this->getPath(),
+            $this->getDomain(),
+            $this->getSecure(),
+            $this->getHttponly()
+        );
+
+        if ($raw) {
+            return call_user_func_array(array($this, 'setrawcookie', $args));
+        }
+
+        return call_user_func_array(array($this, 'setcookie', $args));
     }
 }

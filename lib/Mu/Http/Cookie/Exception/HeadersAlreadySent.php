@@ -16,7 +16,9 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Http\Cookie;
+namespace Mu\Http\Cookie\Exception;
+
+use Mu\Http\Cookie\Exception;
 
 /**
  * @category   Mu
@@ -26,6 +28,6 @@ namespace Mu\Http\Cookie;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Cookie\Exception
+ * @uses       \Mu\Http\Cookie\Exception
  */
-class Exception extends \Mu\Cookie\Exception {}
+class HeadersAlreadySent extends Exception {}

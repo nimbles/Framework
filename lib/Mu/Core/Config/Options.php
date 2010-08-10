@@ -38,6 +38,7 @@ class Options extends Configurable {
         if (null !== $this->getConfig()) {
             $config->setConfig($this->getConfig());
         }
+
         return $config;
     }
 

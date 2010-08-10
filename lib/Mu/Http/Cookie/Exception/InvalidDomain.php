@@ -17,7 +17,7 @@
 
 namespace Mu\Http\Cookie\Exception;
 
-use \Mu\Http\Cookie\Exception;
+use Mu\Http\Cookie\Exception;
 
 /**
  * @category  Mu\Http
