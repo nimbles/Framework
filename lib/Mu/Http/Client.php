@@ -21,7 +21,8 @@ namespace Mu\Http;
 use Mu\Http\Client\Adapter\Curl;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Client\Adapter;
+    Mu\Http\Client\Adapter,
+    Mu\Http\Client\Exception;
 
 /**
  * @category   Mu
@@ -34,6 +35,8 @@ use Mu\Core\Mixin\MixinAbstract,
  * @uses       \Mu\Core\Delegates\Delegatable
  * @uses       \Mu\Core\Config\Options
  *
+ * @uses       \Mu\Http\Client\Exception\InvalidAdapter
+ * @uses       \Mu\Http\Client\Exception\InvalidMethod
  */
 
 class Client extends MixinAbstract {
@@ -82,17 +85,18 @@ class Client extends MixinAbstract {
     /**
      * Set the HTTP method
      * @param string $method
-     * @return Client
+     * @return \Mu\Http\Client
+     * @throws \Mu\Http\Client\Exception\InvalidMethod
      */
     public function setMethod($method) {
         if (!is_string($method)) {
-            throw new Client\Exception('Method must be of type string');
+            throw new Exception\InvalidMethod('Method must be of type string');
         }
 
         $validMethods = array_map('strtoupper', $this->getValidMethods());
         $method = strtoupper($method);
         if (!in_array($method, $validMethods)) {
-            throw new Client\Exception('Invalid HTTP method [' . $method . ']');
+            throw new Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
         }
 
         $this->_method = $method;
@@ -101,7 +105,7 @@ class Client extends MixinAbstract {
 
     /**
      * Get the HTTP adapter
-     * @return Client\Adapter\AdapterAbstract
+     * @return \Mu\Http\Client\Adapter\AdapterAbstract
      */
     public function getAdapter() {
         return $this->_adapter;
@@ -110,15 +114,18 @@ class Client extends MixinAbstract {
     /**
      * Set the HTTP Adapter
      * @param object|string $adapter
-     * @return Client
+     * @return \Mu\Http\Client
+     * @throws \Mu\Http\Client\Exception\InvalidAdapter
      */
     public function setAdapter($adapter) {
+        // @todo move this functionality to a factory
+
         if (is_string($adapter) && strlen($adapter) > 0) {
             if ($adapter[0] !== '\\') {
                 $adapter = __CLASS__ . '\\Adapter\\' . $adapter;
             }
             if (!class_exists($adapter)) {
-                throw new Client\Exception('Adapter [' . $adapter . '] must be valid class name');
+                throw new Exception\InvalidAdapter('Adapter [' . $adapter . '] must be valid class name');
             }
             $args = func_get_args();
             array_pop($args);
@@ -126,9 +133,9 @@ class Client extends MixinAbstract {
         }
 
         if (!is_object($adapter)) {
-            throw new Client\Exception('Adapter must be either a string or an object');
+            throw new Exception\InvalidAdapter('Adapter must be either a string or an object');
         } else if (!$adapter instanceof Adapter\AdapterInterface) {
-            throw new Client\Exception('Adapter implement \Mu\Http\Client\Adapter\AdapterInterface');
+            throw new Exception\InvalidAdapter('Adapter implement \Mu\Http\Client\Adapter\AdapterInterface');
         }
 
         $this->_adapter = $adapter;

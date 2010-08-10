@@ -33,6 +33,8 @@ use Mu\Core\Mixin\MixinAbstract,
  * @uses       \Mu\Core\Mixin\MixinAbstract
  * @uses       \Mu\Core\Config\Options
  * @uses       \Mu\Http\Client\Adapter\AdapterInterface
+ *
+ * @todo Add a factory
  */
 
 abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface {

@@ -36,7 +36,7 @@ class ClientTest extends \Mu\Http\TestCase {
 
         $constraint = $this->equalTo($method);
         if (!$valid) {
-            $this->setExpectedException('\Mu\Http\Client\Exception');
+            $this->setExpectedException('\Mu\Http\Client\Exception\InvalidMethod');
             $constraint = $this->logicalNot(
                 $this->equalTo($method)
             );
@@ -69,7 +69,7 @@ class ClientTest extends \Mu\Http\TestCase {
         $client = new Client();
 
         if (!$valid) {
-            $this->setExpectedException('\Mu\Http\Client\Exception');
+            $this->setExpectedException('\Mu\Http\Client\Exception\InvalidAdapter');
             $constraint = $this->logicalNot(
                 $this->equalTo(null)
             );
