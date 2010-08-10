@@ -9,49 +9,58 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Cli
- * @package   Mu\Cli\Response
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Response
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli;
 
+use Mu\Core\Response\ResponseAbstract;
+
 /**
- * @category  Mu\Cli
- * @package   Mu\Cli\Response
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Response
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Response\ResponseAbstract
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Delegates\Delegatable
  */
-class Response extends \Mu\Core\Response\ResponseAbstract {
+class Response extends ResponseAbstract {
     /**
-	 * Class implements
-	 * @var array
-	 */
-	protected $_implements = array(
-		'Mu\Core\Config\Options',
-	    'Mu\Core\Delegates\Delegatable' => array(
-	        'delegates' => array(
-	            'write' => array('\Mu\Cli\Response', 'writeBody')
-	        )
-	    )
-	);
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array(
+        'Mu\Core\Config\Options',
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'write' => array('\Mu\Cli\Response', 'writeBody')
+            )
+        )
+    );
 
-	/**
-	 * Sends the response
-	 * @return void
-	 */
-	public function send() {
-	    $this->write($this->getBody());
-	}
+    /**
+     * Sends the response
+     * @return void
+     */
+    public function send() {
+        $this->write($this->getBody());
+    }
 
-	/**
-	 * Writes the body to stdout
-	 *
-	 * @param string $body
-	 * @return void
-	 */
-	static public function writeBody($body) {
+    /**
+     * Writes the body to stdout
+     *
+     * @param string $body
+     * @return void
+     */
+    static public function writeBody($body) {
         file_put_contents('php://stdout', $body);
-	}
+    }
 }

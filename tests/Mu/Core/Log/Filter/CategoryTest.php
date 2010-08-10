@@ -10,11 +10,11 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Log\Filter
+ * @package   \Mu\Core\Log\Filter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Filter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Filter
  */
 
 namespace Tests\Mu\Core\Log\Filter;
@@ -22,11 +22,11 @@ namespace Tests\Mu\Core\Log\Filter;
 
 /**
  * @category  Mu
- * @package   Mu\Core\Log\Filter
+ * @package   \Mu\Core\Log\Filter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Filter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Filter
  */
 class CategoryTest extends \Mu\Core\TestCase {
     /**
@@ -54,7 +54,7 @@ class CategoryTest extends \Mu\Core\TestCase {
     }
 
     /**
-     * Tests that the Mu\Core\Log\Filter\Exception\InvalidCategory exception is thrown
+     * Tests that the \Mu\Core\Log\Filter\Exception\InvalidCategory exception is thrown
      * when no category is given
      * @return void
      */

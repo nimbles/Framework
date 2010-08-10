@@ -9,21 +9,33 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Writer
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Log\Writer;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Formatter\FormatterAbstract,
+    Mu\Core\Log\Entry;
+
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Writer
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Log\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Log\Filter\FilterAbstract
+ * @uses       \Mu\Core\Log\Formatter\FormatterAbstract
+ * @uses       \Mu\Core\Log\Entry
  */
-abstract class WriterAbstract extends \Mu\Core\Mixin\MixinAbstract {
+abstract class WriterAbstract extends MixinAbstract {
     /**
      * Implements for this mixin
      * @var array
@@ -54,7 +66,7 @@ abstract class WriterAbstract extends \Mu\Core\Mixin\MixinAbstract {
      */
     public function getFormatterObject() {
         if (null === $this->_formatter) {
-            $this->_formatter = \Mu\Core\Log\Formatter\FormatterAbstract::factory($this->getOption('formatter'));
+            $this->_formatter = FormatterAbstract::factory($this->getOption('formatter'));
         }
         return $this->_formatter;
     }
@@ -73,7 +85,7 @@ abstract class WriterAbstract extends \Mu\Core\Mixin\MixinAbstract {
      * Method which writes the log entry
      * @param \Mu\Core\Log\Entry $entry
      */
-    public function write(\Mu\Core\Log\Entry $entry) {
+    public function write(Entry $entry) {
         foreach ($this->filters as $filter) {
             if ($filter->filter($entry)) { // stop if the filter removes the log entry from being written
                 return;

@@ -9,21 +9,30 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Cli
- * @package   Mu\Cli\Opt\Collection
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli\Opt;
 
+use ArrayObject;
+
 /**
- * @category  Mu\Cli
- * @package   Mu\Cli\Opt\Collection
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Opt
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \ArrayObject
+ *
+ * @uses       \Mu\Cli\Opt
  */
-class Collection extends \ArrayObject {
+class Collection extends ArrayObject {
     /**
      * The short opts index
      * @var array
@@ -107,7 +116,7 @@ class Collection extends \ArrayObject {
      * @return \Mu\Cli\Opt|null
      */
     public function __get($name) {
-        if ((strlen($name) === 1) && array_key_exists($name, $this->_shortopts)){
+        if ((strlen($name) === 1) && array_key_exists($name, $this->_shortopts)) {
             return $this[$this->_shortopts[$name]];
         }
 
@@ -123,12 +132,15 @@ class Collection extends \ArrayObject {
      * @return string
      */
     public function getOptionString() {
-        return implode('', array_map(
-            function($option) {
-                return $option->getFormattedOpt();
-            },
-            $this->getArrayCopy()
-        ));
+        return implode(
+            '',
+            array_map(
+                function($option) {
+                    return $option->getFormattedOpt();
+                },
+                $this->getArrayCopy()
+            )
+        );
     }
 
     /**

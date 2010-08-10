@@ -9,18 +9,25 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Cli
- * @package   Mu\Cli\Request\Exception\InvalidOpts
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli\Request\Exception;
 
+use Mu\Cli\Request\Exception;
+
 /**
- * @category  Mu\Cli
- * @package   Mu\Cli\Request\Exception\InvalidOpts
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Cli\Request\Exception
  */
-class InvalidOpts extends \Mu\Cli\Request\Exception {}
+class InvalidOpts extends Exception {}

@@ -9,35 +9,64 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Log\Formatter;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Log\Entry,
+    Mu\Core\DateTime;
+
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Log\Formatter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\DateTime
+ * @uses       \Mu\Core\Log\Entry
+ * @uses       \Mu\Core\Log\Formatter\Exception\InvalidOptions
+ * @uses       \Mu\Core\Log\Formatter\Exception\InvalidFormatterType
  */
-abstract class FormatterAbstract extends \Mu\Core\Mixin\MixinAbstract {
+abstract class FormatterAbstract extends MixinAbstract {
+    /**
+     * The log levels as array to string
+     * @var array
+     */
+    protected $_levels = array(
+        LOG_EMERG => 'EMERG',
+        LOG_ALERT => 'ALERT',
+        LOG_CRIT => 'CRIT',
+        LOG_ERR => 'ERROR',
+        LOG_WARNING => 'WARN',
+        LOG_NOTICE => 'NOTICE',
+        LOG_INFO => 'INFO',
+        LOG_DEBUG => 'DEBUG',
+    );
+
     /**
      * Abstract method to format the entry
-     * @param Entry $entry
+     * @param \Mu\Core\Log\Entry $entry
      */
-    abstract public function format(\Mu\Core\Log\Entry $entry);
+    abstract public function format(Entry $entry);
 
     /**
      * Factory method for formatters
      * @param string|array $options
      * @return \Mu\Core\Log\Formatter
+     * @throws \Mu\Core\Log\Formatter\Exception\InvalidOptions
      * @throws \Mu\Core\Log\Formatter\Exception\InvalidFormatterType
      */
     static public function factory($options) {
-        if ($options instanceof Formatter) { // already a formatter so just return it
+        if ($options instanceof self) { // already a formatter so just return it
             return $options;
         }
 
@@ -80,43 +109,21 @@ abstract class FormatterAbstract extends \Mu\Core\Mixin\MixinAbstract {
      * @param string $option
      * @return null|string
      */
-    public function getFormattedOption(\Mu\Core\Log\Entry $entry, $option) {
+    public function getFormattedOption(Entry $entry, $option) {
         $value = $entry->getOption($option);
 
         switch ($option) {
             case 'timestamp' :
-                if (!($value instanceof \Mu\Core\DateTime)) {
+                if (!($value instanceof DateTime)) {
                     return null;
                 }
 
-                return $value->format(\Mu\Core\DateTime::ISO8601);
+                return $value->format(DateTime::ISO8601);
                 break;
 
             case 'level' :
-                switch ($value) {
-                    case LOG_EMERG :
-                        return 'EMERG';
-
-                    case LOG_ALERT :
-                        return 'ALERT';
-
-                    case LOG_CRIT :
-                        return 'CRIT';
-
-                    case LOG_ERR :
-                        return 'ERROR';
-
-                    case LOG_WARNING :
-                        return 'WARN';
-
-                    case LOG_NOTICE :
-                        return 'NOTICE';
-
-                    case LOG_INFO :
-                        return 'INFO';
-
-                    case LOG_DEBUG :
-                        return 'DEBUG';
+                if (array_key_exists($value, $this->_levels)) {
+                    return $this->_levels[$value];
                 }
                 break;
 

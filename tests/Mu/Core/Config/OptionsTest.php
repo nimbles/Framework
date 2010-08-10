@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Config
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Config
+ * @group     \Mu\Core\Config
  */
 
 namespace Tests\Mu\Core\Config;
@@ -23,10 +23,10 @@ require_once 'OptionsMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Config
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Config
+ * @group     \Mu\Core\Config
  */
 class OptionsTest extends \Mu\Core\TestCase {
     /**

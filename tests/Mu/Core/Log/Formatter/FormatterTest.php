@@ -10,11 +10,11 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Log\Formatter
+ * @package   \Mu\Core\Log\Formatter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Formatter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Formatter
  */
 
 namespace Tests\Mu\Core\Log\Formatter;
@@ -22,15 +22,15 @@ namespace Tests\Mu\Core\Log\Formatter;
 
 /**
  * @category  Mu
- * @package   Mu\Core\Log\Formatter
+ * @package   \Mu\Core\Log\Formatter
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
- * @group     Mu\Core\Log\Formatter
+ * @group     \Mu\Core\Log
+ * @group     \Mu\Core\Log\Formatter
  */
 class FormatterTest extends \Mu\Core\TestCase {
     /**
-     * Tests that the Mu\Core\Log\Formatter\Exception\InvalidOptions exception is thrown
+     * Tests that the \Mu\Core\Log\Formatter\Exception\InvalidOptions exception is thrown
      * when passing invalid options into the formatter factory
      * @dataProvider invalidOptionsProvider
      * @param mixed $options

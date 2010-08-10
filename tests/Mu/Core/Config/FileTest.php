@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Config
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Config
+ * @group     \Mu\Core\Config
  */
 
 namespace Tests\Mu\Core\Config;
@@ -21,10 +21,10 @@ namespace Tests\Mu\Core\Config;
 
 /**
  * @category  Mu
- * @package   Mu\Core\Config
+ * @package   \Mu\Core\Config
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Config
+ * @group     \Mu\Core\Config
  */
 class FileTest extends \Mu\Core\TestCase {
     /**

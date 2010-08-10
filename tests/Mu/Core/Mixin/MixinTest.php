@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Mixin
+ * @package   \Mu\Core\Mixin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Mixin
+ * @group     \Mu\Core\Mixin
  */
 
 namespace Tests\Mu\Core\Mixin;
@@ -22,14 +22,14 @@ require_once 'MixinMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Mixin
+ * @package   \Mu\Core\Mixin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Mixin
+ * @group     \Mu\Core\Mixin
  */
 class MixinTest extends \Mu\Core\TestCase {
     /**
-     * Tests that the Mu\Core\Mixin\Exception\MixinableMissing exception is thrown
+     * Tests that the \Mu\Core\Mixin\Exception\MixinableMissing exception is thrown
      * when trying to add a mixinable that does not exist
      * @return void
      */

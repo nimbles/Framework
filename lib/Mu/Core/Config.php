@@ -9,29 +9,31 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core;
 
-use \ArrayObject,
-    \BadMethodCallException,
+use ArrayObject,
+    BadMethodCallException,
     Mu\Core\Config\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \ArrayObject
- * @uses      \BadMethodCallException
+ * @uses       \ArrayObject
+ * @uses       \BadMethodCallException
  *
- * @uses      \Mu\Core\Config\Exception\InvalidConfig
+ * @uses       \Mu\Core\Config\Exception\InvalidConfig
  */
 class Config extends ArrayObject {
     /**
@@ -100,7 +102,7 @@ class Config extends ArrayObject {
                 $current = &$config;
                 $count = count($parts);
 
-                for($i = 1; $i < $count; $i++) {
+                for ($i = 1; $i < $count; $i++) {
                     $part = $parts[$i];
 
                     $current[$part] = ($i < ($count - 1)) ? array() : $value;

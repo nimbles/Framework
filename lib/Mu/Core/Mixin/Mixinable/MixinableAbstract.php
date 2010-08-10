@@ -9,28 +9,30 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Mixin\Mixinable\MixinableAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Mixin\Mixinable;
 
-use \Mu\Core\Config,
-    \Mu\Core\Mixin\Exception;
+use Mu\Core\Config,
+    Mu\Core\Mixin\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Mixin\Mixinable\MixinableAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Config
- * @uses      \Mu\Core\Mixin\Exception\InvalidConfig
- * @uses      \Mu\Core\Mixin\Exception\InvalidProperty
- * @uses      \Mu\Core\Mixin\Exception\InvalidMethod
+ * @uses       \Mu\Core\Config
+ * @uses       \Mu\Core\Mixin\Exception\InvalidConfig
+ * @uses       \Mu\Core\Mixin\Exception\InvalidProperty
+ * @uses       \Mu\Core\Mixin\Exception\InvalidMethod
  */
 abstract class MixinableAbstract {
     /**
@@ -75,7 +77,7 @@ abstract class MixinableAbstract {
         }
 
         if (!($config instanceof \Mu\Core\Config)) {
-            throw new Exception\InvalidConfig('Config must be either null, an array or an instance of Mu\Core\\Config');
+            throw new Exception\InvalidConfig('Config must be either null, an array or an instance of \Mu\Core\Config');
         }
 
         $this->_config = $config;

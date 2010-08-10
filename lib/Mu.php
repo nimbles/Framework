@@ -9,31 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 require_once 'Mu/Core/Loader.php';
 
 /**
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT Licesce
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT Licesce
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Loader
  */
 class Mu {
-
     /**
      * Mu instance
-     * @var Mu
+     * @var \Mu
      */
     static protected $_instance;
 
     /**
      * Gets and instance of Mu
-     * @return Mu
+     * @return \Mu
+     * @todo require and use \Mu\Core\Singleton
      */
     static public function getInstance() {
         if (null === self::$_instance) {
@@ -49,7 +52,7 @@ class Mu {
     public function __construct() {
         if (null === self::$_instance) {
             $this->_setupEnvironmentVars();
-            Mu\Core\Loader::register();
+            \Mu\Core\Loader::register();
             self::$_instance = $this;
         }
     }

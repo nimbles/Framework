@@ -9,21 +9,23 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Http
- * @package   Mu\Http\Header\Exception
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Http\Header;
 
 /**
- * @category  Mu\Http
- * @package   Mu\Http\Header\Exception
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Http\Exception
+ * @uses       \Mu\Http\Exception
  */
 class Exception extends \Mu\Http\Exception {}

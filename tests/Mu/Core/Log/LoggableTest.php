@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Log
+ * @package   \Mu\Core\Log
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
+ * @group     \Mu\Core\Log
  */
 
 namespace Tests\Mu\Core\Log;
@@ -22,10 +22,10 @@ require_once 'LoggableMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Log
+ * @package   \Mu\Core\Log
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Log
+ * @group     \Mu\Core\Log
  */
 class LoggableTest extends \Mu\Core\TestCase {
     /**

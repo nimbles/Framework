@@ -9,23 +9,25 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Config\Exception\InvalidConfig
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Config\Exception;
 
-use \Mu\Core\Config\Exception;
+use Mu\Core\Config\Exception;
 
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Config\Exception\InvalidConfig
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @version   $Id$
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  *
- * @uses      \Mu\Core\Config\Exception
+ * @uses       \Mu\Core\Config\Exception
  */
 class InvalidConfig extends Exception {}

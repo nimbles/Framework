@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Delegates\Delegatable
+ * @package   \Mu\Core\Delegates\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Delegates
+ * @group     \Mu\Core\Delegates
  */
 
 namespace Tests\Mu\Core\Delegates;
@@ -22,10 +22,10 @@ require_once 'DelegatableMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Delegates\Delegatable
+ * @package   \Mu\Core\Delegates\Delegatable
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Delegates
+ * @group     \Mu\Core\Delegates
  */
 class DelegatableTest extends \Mu\Core\TestCase {
     /**
@@ -52,8 +52,8 @@ class DelegatableTest extends \Mu\Core\TestCase {
         $this->assertEquals('test', $mock->method1());
     }
 
-	/**
-     * Tests that the Mu\Core\Delegates\Exception\InvalidDelegate exception is thrown
+    /**
+     * Tests that the \Mu\Core\Delegates\Exception\InvalidDelegate exception is thrown
      * when setting an invalid delegate
      * @return void
      */

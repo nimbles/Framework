@@ -9,32 +9,45 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Cli
- * @package   Mu\Cli\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 namespace Mu\Cli;
 
+use Mu\Core\Request\RequestAbstract;
+
 /**
- * @category  Mu\Cli
- * @package   Mu\Cli\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Cli
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Request\RequestAbstract
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Delegates\Delegatable
+ *
+ * @uses       \Mu\Cli\Opt
+ * @uses       \Mu\Cli\Opt\Collection
+ * @uses       \Mu\Cli\Request\Exception\InvalidOpts
  */
-class Request extends \Mu\Core\Request\RequestAbstract {
+class Request extends RequestAbstract {
     /**
-	 * Class implements
-	 * @var array
-	 */
-	protected $_implements = array(
-		'Mu\Core\Config\Options',
-	    'Mu\Core\Delegates\Delegatable' => array(
-	        'delegates' => array(
-	            'getInput' => array('\Mu\Cli\Request', 'getStdin')
-	        )
-	    )
-	);
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array(
+        'Mu\Core\Config\Options',
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'getInput' => array('\Mu\Cli\Request', 'getStdin')
+            )
+        )
+    );
 
     /**
      * Gets the input from stdin
@@ -76,7 +89,7 @@ class Request extends \Mu\Core\Request\RequestAbstract {
     /**
      * Sets the command line options used by getopts
      * @param unknown_type $opts
-     * @return $this
+     * @return \Mu\Cli\Request
      * @throws \Mu\Cli\Request\Exception\InvalidOpts
      */
     public function setOpts($opts) {
@@ -85,7 +98,7 @@ class Request extends \Mu\Core\Request\RequestAbstract {
         }
 
         if (!($opts instanceof \Mu\Cli\Opt\Collection)) {
-            throw new Request\Exception\InvalidOpts('Opts must be an array or Mu\Cli\Opt\Collection');
+            throw new Request\Exception\InvalidOpts('Opts must be an array or \Mu\Cli\Opt\Collection');
         }
 
         $opts->parse();

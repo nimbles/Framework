@@ -10,7 +10,7 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Http\Header
+ * @package   \Mu\Http\Header
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
  */
@@ -19,10 +19,10 @@ namespace Tests\Mu\Http;
 
 /**
  * @category  Mu
- * @package   Mu\Http\Header
+ * @package   \Mu\Http\Header
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Http
+ * @group     \Mu\Http
  */
 class HeaderTest extends \Mu\Http\TestCase {
     /**

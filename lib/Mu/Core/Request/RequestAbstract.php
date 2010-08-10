@@ -9,21 +9,32 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu\Core
- * @package   Mu\Core\Request\RequestAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Core\Request;
 
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Request\Exception;
+
 /**
- * @category  Mu\Core
- * @package   Mu\Core\Request\RequestAbstract
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Request\RequestInterface
+ * @uses       \Mu\Core\Config\Options
+ * @uses       \Mu\Core\Request\Exception\MuPathUndefined
  */
-abstract class RequestAbstract extends \Mu\Core\Mixin\MixinAbstract
+abstract class RequestAbstract extends MixinAbstract
     implements RequestInterface {
     /**
      * Class implements
@@ -98,7 +109,7 @@ abstract class RequestAbstract extends \Mu\Core\Mixin\MixinAbstract
      */
     static public function factory() {
         if (!defined('MU_LIBRARY')) {
-            throw new Request\Exception\MuPathUndefined('MU_LIBRARY constant is not defined');
+            throw new Exception\MuPathUndefined('MU_LIBRARY constant is not defined');
         }
 
         $mu = dir(MU_LIBRARY);

@@ -10,10 +10,10 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   Mu\Core\Plugin
+ * @package   \Mu\Core\Plugin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Plugin
+ * @group     \Mu\Core\Plugin
  */
 
 namespace Tests\Mu\Core\Plugin;
@@ -22,10 +22,10 @@ require_once 'PluginMock.php';
 
 /**
  * @category  Mu
- * @package   Mu\Core\Plugin
+ * @package   \Mu\Core\Plugin
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     Mu\Core\Plugin
+ * @group     \Mu\Core\Plugin
  */
 class PluginTest extends \Mu\Core\TestCase {
     /**
