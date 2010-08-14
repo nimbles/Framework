@@ -20,7 +20,7 @@ namespace Mu\Core;
 
 use ArrayObject,
     BadMethodCallException,
-    Mu\Core\Config\Exception;
+    Mu\Core\Config;
 
 /**
  * @category   Mu
@@ -115,7 +115,7 @@ class Config extends ArrayObject {
 
             $this[$section] = $config;
         } else if (null !== $section) {
-            throw new Exception\InvalidConfig('Config must be provided if section is not an array');
+            throw new Config\Exception\InvalidConfig('Config must be provided if section is not an array');
         }
 
         return $this;
@@ -220,7 +220,7 @@ class Config extends ArrayObject {
      */
     public function merge($override) {
         if (!(is_array($override) || ($override instanceof Config))) {
-            throw new Exception\InvalidConfig('Override must be an array or another instance of Mu\Core\Config, recieved: ' . gettype($override));
+            throw new Config\Exception\InvalidConfig('Override must be an array or another instance of Mu\Core\Config, recieved: ' . gettype($override));
         }
 
         foreach ($override as $key => $value) {

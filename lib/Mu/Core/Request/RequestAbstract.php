@@ -19,7 +19,7 @@
 namespace Mu\Core\Request;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Core\Request\Exception;
+    Mu\Core\Request;
 
 /**
  * @category   Mu
@@ -106,10 +106,11 @@ abstract class RequestAbstract extends MixinAbstract
     /**
      * Factory method to build a corresponding request object
      * @return \Mu\Core\Request|null
+     * @throws \Mu\Core\Request\Exception\MuPathUndefined
      */
     static public function factory() {
         if (!defined('MU_LIBRARY')) {
-            throw new Exception\MuPathUndefined('MU_LIBRARY constant is not defined');
+            throw new Request\Exception\MuPathUndefined('MU_LIBRARY constant is not defined');
         }
 
         $mu = dir(MU_LIBRARY);

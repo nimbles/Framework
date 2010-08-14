@@ -19,7 +19,7 @@
 namespace Mu\Core\Mixin\Mixinable;
 
 use Mu\Core\Config,
-    Mu\Core\Mixin\Exception;
+    Mu\Core\Mixin;
 
 /**
  * @category   Mu
@@ -77,7 +77,7 @@ abstract class MixinableAbstract {
         }
 
         if (!($config instanceof \Mu\Core\Config)) {
-            throw new Exception\InvalidConfig('Config must be either null, an array or an instance of \Mu\Core\Config');
+            throw new Mixin\Exception\InvalidConfig('Config must be either null, an array or an instance of \Mu\Core\Config');
         }
 
         $this->_config = $config;
@@ -131,7 +131,7 @@ abstract class MixinableAbstract {
             $properties = $this->getProperties();
 
             if (!($properties[$property] instanceof \Closure)) {
-                throw new Exception\InvalidProperty('Property ' . $property . ' is not a closure');
+                throw new Mixin\Exception\InvalidProperty('Property ' . $property . ' is not a closure');
             }
 
             return $properties[$property];
@@ -169,7 +169,7 @@ abstract class MixinableAbstract {
             $methods = $this->getMethods();
 
             if (!($methods[$method] instanceof \Closure)) {
-                throw new Exception\InvalidMethod('Method ' . $method . ' is not a closure');
+                throw new Mixin\Exception\InvalidMethod('Method ' . $method . ' is not a closure');
             }
 
             return $methods[$method];
