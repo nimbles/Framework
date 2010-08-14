@@ -19,7 +19,7 @@
 namespace Mu\Http;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Cookie\Exception;
+    Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -116,7 +116,7 @@ class Cookie extends MixinAbstract {
      */
     public function setName($name) {
         if (!is_string($name)) {
-            throw new Exception\InvalidName('Cookie name must be a string');
+            throw new Cookie\Exception\InvalidName('Cookie name must be a string');
         }
         $this->_name = $name;
         return $this;
@@ -138,7 +138,7 @@ class Cookie extends MixinAbstract {
      */
     public function setValue($value) {
         if (!is_string($value)) {
-            throw new Exception\InvalidValue('Cookie value must be a string');
+            throw new Cookie\Exception\InvalidValue('Cookie value must be a string');
         }
         $this->_value = $value;
         return $this;
@@ -158,8 +158,6 @@ class Cookie extends MixinAbstract {
      * @return \Mu\Http\Cookie
      */
     public function setExpire($expire) {
-        var_dump($expire);
-
         $this->_expire = (is_int($expire) && (0 <= $expire)) ? $expire : $this->_expire;
         return $this;
     }
@@ -180,14 +178,14 @@ class Cookie extends MixinAbstract {
      */
     public function setPath($path) {
         if (!is_string($path)) {
-            throw new Exception\InvalidPath('Path must be a string');
+            throw new Cookie\Exception\InvalidPath('Path must be a string');
         }
 
         /**
          * @todo improve path matching
          */
-        if ('/' !== strpos($path, 0, 1)) {
-            throw new Exception\InvalidPath('Path must start with /');
+        if ('/' !== substr($path, 0, 1)) {
+            throw new Cookie\Exception\InvalidPath('Path must start with /');
         }
 
         $this->_path = $path;
@@ -209,8 +207,8 @@ class Cookie extends MixinAbstract {
      * @throws \Mu\Http\Cookie\Exception\InavlidDomain
      */
     public function setDomain($domain) {
-        if (!is_string($domain)) {
-            throw new Exception\InavlidDomain('Domain must be a string');
+        if (!((null === $domain) || is_string($domain))) {
+            throw new Cookie\Exception\InvalidDomain('Domain must be null or a string');
         }
 
         /**
@@ -286,7 +284,7 @@ class Cookie extends MixinAbstract {
      */
     public function send($raw = false) {
         if ($this->headers_sent()) {
-            throw new Exception\HeadersAlreadySent('Cannot send cookie when headers already sent');
+            throw new Cookie\Exception\HeadersAlreadySent('Cannot send cookie when headers already sent');
         }
 
         $args = array(

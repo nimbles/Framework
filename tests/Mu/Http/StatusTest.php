@@ -17,6 +17,8 @@
 
 namespace Tests\Mu\Http;
 
+use Mu\Http\Status;
+
 /**
  * @category  Mu
  * @package   \Mu\Http\Status
@@ -34,7 +36,7 @@ class StatusTest extends \Mu\Http\TestCase {
      */
     public function testConstruct($code, $description) {
         // create by code
-        $status = new \Mu\Http\Status($code);
+        $status = new Status($code);
 
         $this->assertEquals($code, $status->getStatus());
         $this->assertEquals($description, $status->getDescription());
@@ -75,7 +77,7 @@ class StatusTest extends \Mu\Http\TestCase {
         }
 
         // create by description
-        $status = new \Mu\Http\Status($description);
+        $status = new Status($description);
 
         $this->assertEquals($code, $status->getStatus());
         $this->assertEquals($description, $status->getDescription());

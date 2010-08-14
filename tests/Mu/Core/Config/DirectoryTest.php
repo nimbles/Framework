@@ -18,6 +18,8 @@
 
 namespace Tests\Mu\Core\Config;
 
+use Mu\Core\Config;
+
 
 /**
  * @category  Mu
@@ -32,9 +34,9 @@ class DirectoryTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel1() {
-        $dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level1');
+        $dir = new Config\Directory(dirname(__FILE__) . '/_files/', 'level1');
 
-        $config = $dir->getParsedConfig();
+        $config = $dir->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals(1, $config->config->a);
@@ -51,9 +53,9 @@ class DirectoryTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel2() {
-        $dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level2');
+        $dir = new Config\Directory(dirname(__FILE__) . '/_files/', 'level2');
 
-        $config = $dir->getParsedConfig();
+        $config = $dir->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals('one', $config->config->a);
@@ -70,9 +72,9 @@ class DirectoryTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel3() {
-        $dir = new \Mu\Core\Config\Directory(dirname(__FILE__) . '/_files/', 'level3');
+        $dir = new Config\Directory(dirname(__FILE__) . '/_files/', 'level3');
 
-        $config = $dir->getParsedConfig();
+        $config = $dir->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals('one', $config->config->a);

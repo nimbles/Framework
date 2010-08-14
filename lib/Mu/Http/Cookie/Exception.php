@@ -26,6 +26,6 @@ namespace Mu\Http\Cookie;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Cookie\Exception
+ * @uses       \Mu\Http\Exception
  */
-class Exception extends \Mu\Cookie\Exception {}
+class Exception extends \Mu\Http\Exception {}

@@ -34,16 +34,16 @@ use Mu\Core\Config;
 class File {
     /**
      * The parsed config
-     * @var array
+     * @var Config
      */
-    protected $_parsedConfig;
+    protected $_config;
 
     /**
-     * Gets the parses config
+     * Gets the config
      * @return \Mu\Core\Config
      */
-    public function getParsedConfig() {
-        return new Config($this->_parsedConfig);
+    public function getConfig() {
+        return $this->_config;
     }
 
     /**
@@ -53,7 +53,7 @@ class File {
      * @return void
      */
     public function __construct($file, $environment) {
-        $this->_parsedConfig = array();
+        $this->_config = new Config();
         $this->_readConfigFile($file, $environment);
     }
 
@@ -67,17 +67,17 @@ class File {
         $section = substr(basename($file), 0, -4);
         $config = include $file;
 
-        $this->_parsedConfig[$section] = $this->_parseConfig($config, $environment);
+        $this->_config[$section] = $this->_parseConfig($config, $environment);
     }
 
     /**
      * Parses the config
      * @param array  $config      The config to parse
      * @param string $environment The environment of which to load the config data
-     * @return array
+     * @return \Mu\Core\Config
      **/
     protected function _parseConfig(array $config, $environment) {
-        $configCopy = array();
+        $configCopy = new Config();
 
         foreach ($config as $section => &$subconfig) {
             if (preg_match('/^[a-z0-9]+ : [a-z0-9]+$/i', $section)) {
@@ -87,40 +87,18 @@ class File {
                     throw new Exception\InvalidConfig('Invalid config, parent config not defined: ' . $parent);
                 }
 
-                $subconfig = $this->_mergeConfig($configCopy[$parent], $subconfig);
+                $configCopy[$section] = clone $configCopy[$parent];
+                $configCopy[$section]->merge($subconfig);
+            } else {
+                $configCopy[$section] = $subconfig;
             }
-
-            $configCopy[$section] = $subconfig;
         }
 
-        // navigate over derived sections and return one for this environment
-        foreach ($configCopy as $section => $subconfig) {
-            if ($environment === $section) {
-                return $subconfig;
-            }
+        if (isset($configCopy[$environment])) {
+            return $configCopy[$environment];
         }
 
         // return first value, no match to environment found
         return reset($configCopy);
-    }
-
-    /**
-     * Merges a source config with overriding values
-     * @param array $source
-     * @param array $override
-     * @return array
-     */
-    protected function _mergeConfig(array $source, array $override) {
-        foreach ($override as $key => $value) {
-            if (is_array($value)) {
-                if (isset($source[$key])) {
-                    $value = $this->_mergeConfig($source[$key], $value);
-                }
-            }
-
-            $source[$key] = $value;
-        }
-
-        return $source;
     }
 }
