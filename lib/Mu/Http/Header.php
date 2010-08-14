@@ -19,7 +19,7 @@
 namespace Mu\Http;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Header\Exception;
+    Mu\Http\Header;
 
 /**
  * @category   Mu
@@ -69,7 +69,7 @@ class Header extends MixinAbstract {
      */
     public function setName($name) {
         if (!is_string($name)) {
-            throw new Exception\InvalidHeaderName('Header name must be a string');
+            throw new Header\Exception\InvalidHeaderName('Header name must be a string');
         }
 
         $name = implode('-', array_map('ucfirst', preg_split('/[_\-]/', strtolower(trim($name)))));
@@ -147,7 +147,7 @@ class Header extends MixinAbstract {
      */
     public function merge(Header $header) {
         if ($this->getName() !== $header->getName()) {
-            throw new Exception\InvalidHeaderName('Cannot merge headers of different name');
+            throw new Header\Exception\InvalidHeaderName('Cannot merge headers of different name');
         }
 
         $values = $header->getValue(); // for header to create an array
