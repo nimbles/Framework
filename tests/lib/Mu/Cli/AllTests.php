@@ -15,11 +15,11 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\lib\Mu\Cli;
+namespace Tests\Lib\Mu\Cli;
 
-//require_once 'OptTest.php';
-//require_once 'RequestTest.php';
-//require_once 'ResponseTest.php';
+require_once 'RequestTest.php';
+require_once 'ResponseTest.php';
+require_once 'OptTest.php';
 
 use Mu\Cli\TestSuite;
 
@@ -28,6 +28,10 @@ use Mu\Cli\TestSuite;
  * @package    Mu-Cli
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
  * @group      Mu
  * @group      Mu-Cli
  */
@@ -38,9 +42,11 @@ class AllTests extends TestSuite {
      */
     static public function suite() {
         $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
-        /*$suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-        $suite->addTestSuite('\Tests\Mu\Cli\RequestTest');
-        $suite->addTestSuite('\Tests\Mu\Cli\ResponseTest');*/
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\RequestTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\ResponseTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\OptTest');
+
         return $suite;
     }
 }

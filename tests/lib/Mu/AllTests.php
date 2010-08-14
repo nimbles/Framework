@@ -46,7 +46,7 @@ class AllTests extends TestSuite {
         $suite->addTestSuite('\Tests\Lib\Mu\MuTest');
 
         $suite->addTest(Core\AllTests::suite());
-        //$suite->addTest(Cli\AllTests::suite());
+        $suite->addTest(Cli\AllTests::suite());
         $suite->addTest(Http\AllTests::suite());
 
         return $suite;

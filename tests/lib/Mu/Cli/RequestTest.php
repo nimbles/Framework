@@ -9,23 +9,32 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Cli\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Cli
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Cli;
+namespace Tests\Lib\Mu\Cli;
+
+use Mu\Http\TestCase;
 
 /**
- * @category  Mu
- * @package   \Mu\Cli\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Cli
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Cli
+ * @group      Mu-Cli-Request
  */
-class RequestTest extends \Mu\Cli\TestCase {
+class RequestTest extends TestCase {
     /**
      * Tests the body for an Cli Request
      * @return void
