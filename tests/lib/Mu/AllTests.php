@@ -15,10 +15,12 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests;
+namespace Tests\Lib\Mu;
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
+require_once 'Core/AllTests.php';
+require_once 'Cli/AllTests.php';
+require_once 'Http/AllTests.php';
+require_once 'MuTest.php';
 
 use Mu\Core\TestSuite;
 
@@ -30,6 +32,8 @@ use Mu\Core\TestSuite;
  * @version    $Id$
  *
  * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
  */
 class AllTests extends TestSuite {
     /**
@@ -37,8 +41,14 @@ class AllTests extends TestSuite {
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
+        $suite = new TestSuite('Mu Framework');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\MuTest');
+
+        $suite->addTest(Core\AllTests::suite());
+        //$suite->addTest(Cli\AllTests::suite());
+        //$suite->addTest(Http\AllTests::suite());
+
         return $suite;
     }
 }

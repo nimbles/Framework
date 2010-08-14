@@ -9,16 +9,28 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Config;
+namespace Tests\Lib\Mu\Core\Config;
 
 use Mu\Core\Mixin\MixinAbstract;
 
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
+ */
 class OptionsMock extends MixinAbstract {
     protected $_implements = array('Mu\Core\Config\Options');
 
@@ -42,6 +54,17 @@ class OptionsMock extends MixinAbstract {
     }
 }
 
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Tests\Lib\Mu\Core\Config\OptionsMock
+ * @uses       \Mu\Core\Config\Options
+ */
 class OptionsWithDefaultsMock extends OptionsMock {
     protected $_implements = array(
         'Mu\Core\Config\Options' => array(

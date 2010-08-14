@@ -9,26 +9,35 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Config
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Config;
+namespace Tests\Lib\Mu\Core\Config;
 
 require_once 'ConfigurableMock.php';
 require_once 'OptionsMock.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Config
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Config
  */
-class OptionsTest extends \Mu\Core\TestCase {
+class OptionsTest extends TestCase {
     /**
      * Tests the mixin properties are created and behave properly
      * @param \Tests\Mu\Core\Config\OptionsMock $mock

@@ -16,19 +16,27 @@
  * @group     \Mu\Core\Config
  */
 
-namespace Tests\Mu\Core\Config;
+namespace Tests\Lib\Mu\Core\Config;
 
-use Mu\Core\Config;
+use Mu\Core\TestCase,
+    Mu\Core\Config;
 
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Config
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Config
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Config
  */
-class DirectoryTest extends \Mu\Core\TestCase {
+class DirectoryTest extends TestCase {
     /**
      * Tests reading a directory of config files for level 1
      * @return void

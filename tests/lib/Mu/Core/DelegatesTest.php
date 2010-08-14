@@ -9,31 +9,39 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Delegates
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core
- * @group     \Mu\Core\Delegates
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core;
+namespace Tests\Lib\Mu\Core;
+
+use \Mu\Core\TestCase,
+    Mu\Core\Delegates;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Delegates
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core
- * @group     \Mu\Core\Delegates
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Delegates
  */
-class DelegatesTest extends \Mu\Core\TestCase {
+class DelegatesTest extends TestCase {
     /**
      * Tests that the Delegates class extends the Mixin abstract
      * @return void
      */
     public function testAbstract() {
-        $delegates = new \Mu\Core\Delegates();
+        $delegates = new Delegates();
         $this->assertType('\Mu\Core\Mixin\MixinAbstract', $delegates);
     }
 
@@ -42,7 +50,7 @@ class DelegatesTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testGetSetDelegates() {
-        $delegates = new \Mu\Core\Delegates();
+        $delegates = new Delegates();
         $this->assertType('\ArrayObject', $delegates->getDelegates());
         $this->assertEquals(0, $delegates->getDelegates()->count());
 

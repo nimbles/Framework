@@ -9,25 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Delegates\Delegatable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Delegates
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Delegates;
+namespace Tests\Lib\Mu\Core\Delegates;
 
 require_once 'DelegatableMock.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Delegates\Delegatable
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Delegates
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Delegates
  */
-class DelegatableTest extends \Mu\Core\TestCase {
+class DelegatableTest extends TestCase {
     /**
      * Tests calling the delegates and replacing with another
      * @return void

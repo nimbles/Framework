@@ -18,8 +18,6 @@
 
 namespace Mu\Http;
 
-require_once 'PHPUnit/Framework.php';
-
 /**
  * @category   Mu
  * @package    Mu-Http

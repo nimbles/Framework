@@ -10,36 +10,38 @@
  * http://mu-framework.com/license/mit
  *
  * @category  Mu
- * @package   \Mu\Cli
+ * @package   \Mu\Http
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Cli
+ * @group     \Mu\Http
  */
 
-namespace Tests\Mu\Cli;
+namespace Tests\Mu\Http;
 
 require_once 'PHPUnit/Framework.php';
-require_once 'OptTest.php';
+require_once 'HeaderTest.php';
+require_once 'StatusTest.php';
 require_once 'RequestTest.php';
 require_once 'ResponseTest.php';
 
 /**
  * @category  Mu
- * @package   \Mu\Cli
+ * @package   \Mu\Http
  * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Cli
+ * @group     \Mu\Http
  */
 class AllTests {
     /**
-     * Creates the Test Suite for Mu Framework - Cli
+     * Creates the Test Suite for Mu Framework - Http
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
-        $suite->addTestSuite('\Tests\Mu\Cli\OptTest');
-        $suite->addTestSuite('\Tests\Mu\Cli\RequestTest');
-        $suite->addTestSuite('\Tests\Mu\Cli\ResponseTest');
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Http');
+        /*$suite->addTestSuite('\Tests\Mu\Http\HeaderTest');
+        $suite->addTestSuite('\Tests\Mu\Http\StatusTest');
+        $suite->addTestSuite('\Tests\Mu\Http\RequestTest');
+        $suite->addTestSuite('\Tests\Mu\Http\ResponseTest');*/
         return $suite;
     }
 }

@@ -15,7 +15,7 @@
  * @license   http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Delegates;
+namespace Tests\Lib\Mu\Core\Delegates;
 
 /**
  * @category  Mu
@@ -30,8 +30,8 @@ class DelegatableMock extends \Mu\Core\Mixin\MixinAbstract {
      */
     protected $_implements = array('Mu\Core\Delegates\Delegatable' => array(
         'delegates' => array(
-            'method1' => array('\Tests\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod1'),
-            'method2' => array('\Tests\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod2'),
+            'method1' => array('\Tests\Lib\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod1'),
+            'method2' => array('\Tests\Lib\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod2'),
         )
     ));
 
