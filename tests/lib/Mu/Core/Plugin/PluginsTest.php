@@ -9,25 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Plugin;
+namespace Tests\Lib\Mu\Core\Plugin;
 
 require_once 'PluginMock.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Plugin
  */
-class PluginsTest extends \Mu\Core\TestCase {
+class PluginsTest extends TestCase {
     /**
      * Tests the construct of a plugins class of simple plugin types
      * @return void
@@ -54,7 +63,7 @@ class PluginsTest extends \Mu\Core\TestCase {
         $plugins = new \Mu\Core\Plugin\Plugins(array(
             'types' => array(
                 'helpers' => array(
-                    'abstract' => '\Tests\Mu\Core\Plugin\PluginAbstract',
+                    'abstract' => '\Tests\Lib\Mu\Core\Plugin\PluginAbstract',
                 )
             )
         ));
@@ -78,7 +87,7 @@ class PluginsTest extends \Mu\Core\TestCase {
             'types' => array(
                 'simple',
                 'helpers' => array(
-                    'abstract' => '\Tests\Mu\Core\Plugin\PluginAbstract',
+                    'abstract' => '\Tests\Lib\Mu\Core\Plugin\PluginAbstract',
                 )
             )
         ));

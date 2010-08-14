@@ -9,22 +9,73 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Plugin;
+namespace Tests\Lib\Mu\Core\Plugin;
 
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
 class PluginSingle {}
 
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
 abstract class PluginAbstract {}
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
 class PluginConcrete extends PluginAbstract {}
 
-interface IPlugin {}
-class PluginImplementor implements IPlugin {}
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
+interface PluginInterface {}
 
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
+class PluginImplementor implements PluginInterface {}
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ */
 class PluginObserver extends PluginAbstract {
     public function update($object) {
         // updated

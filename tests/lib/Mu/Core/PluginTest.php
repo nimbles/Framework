@@ -9,31 +9,40 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Plugin;
+namespace Tests\Lib\Mu\Core;
 
-require_once 'PluginMock.php';
+require_once 'Plugin/PluginMock.php';
+
+use Mu\Core\TestCase;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Plugin
  */
-class PluginTest extends \Mu\Core\TestCase {
+class PluginTest extends TestCase {
     /**
      * Tests that the plugin system implements the observer pattern
      * @return void
      */
     public function testPluginsAreUpdated() {
-        $plugin = $this->getMock('\Tests\Mu\Core\Plugin\PluginObserver', array('update'));
+        $plugin = $this->getMock('\Tests\Lib\Mu\Core\Plugin\PluginObserver', array('update'));
         $plugin->expects($this->once())
             ->method('update')
             ->with($this->equalTo(true));
@@ -50,9 +59,9 @@ class PluginTest extends \Mu\Core\TestCase {
      */
     public function testPluginAccesses() {
         $plugins = new \Mu\Core\Plugin();
-        $plugins->plugin = new PluginSingle();
+        $plugins->plugin = new Plugin\PluginSingle();
 
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginSingle', $plugins->plugin);
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginSingle', $plugins->plugin);
         $this->assertTrue(isset($plugins->plugin));
         unset($plugins->plugin);
         $this->assertFalse(isset($plugins->plugin));
@@ -64,14 +73,14 @@ class PluginTest extends \Mu\Core\TestCase {
      */
     public function testPluginOptionsInvalidAbstract() {
         $plugins = new \Mu\Core\Plugin(array(
-            'abstract' => '\Tests\Mu\Core\Plugin\PluginAbstract'
+            'abstract' => '\Tests\Lib\Mu\Core\Plugin\PluginAbstract'
         ));
 
-        $plugins->attach('plugin', new PluginConcrete());
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $plugins->getPlugin('plugin'));
+        $plugins->attach('plugin', new Plugin\PluginConcrete());
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginAbstract', $plugins->getPlugin('plugin'));
 
         $this->setExpectedException('\Mu\Core\Plugin\Exception\InvalidAbstract');
-        $plugins->plugin = new PluginSingle();
+        $plugins->plugin = new Plugin\PluginSingle();
     }
 
     /**
@@ -80,14 +89,14 @@ class PluginTest extends \Mu\Core\TestCase {
      */
     public function testPluginOptionsInvalidInterface() {
         $plugins = new \Mu\Core\Plugin(array(
-            'interface' => '\Tests\Mu\Core\Plugin\IPlugin'
+            'interface' => '\Tests\Lib\Mu\Core\Plugin\PluginInterface'
         ));
 
-        $plugins->attach('plugin', new PluginImplementor());
-        $this->assertType('\Tests\Mu\Core\Plugin\IPlugin', $plugins->getPlugin('plugin'));
+        $plugins->attach('plugin', new Plugin\PluginImplementor());
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginInterface', $plugins->getPlugin('plugin'));
 
         $this->setExpectedException('\Mu\Core\Plugin\Exception\InvalidInterface');
-        $plugins->plugin = new PluginSingle();
+        $plugins->plugin = new Plugin\PluginSingle();
     }
 
     /**
@@ -96,8 +105,8 @@ class PluginTest extends \Mu\Core\TestCase {
      */
     public function testPluginLoadingByString() {
         $plugins = new \Mu\Core\Plugin();
-        $plugins->attach('plugin', '\Tests\Mu\Core\Plugin\PluginSingle');
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginSingle', $plugins->getPlugin('plugin'));
+        $plugins->attach('plugin', '\Tests\Lib\Mu\Core\Plugin\PluginSingle');
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginSingle', $plugins->getPlugin('plugin'));
     }
 
     /**
@@ -108,6 +117,6 @@ class PluginTest extends \Mu\Core\TestCase {
         $plugins = new \Mu\Core\Plugin();
         $this->setExpectedException('\Mu\Core\Plugin\Exception\PluginNotFound');
 
-        $plugins->attach('plugin', '\Tests\Mu\Core\Plugin\MissingPlugin');
+        $plugins->attach('plugin', '\Tests\Lib\Mu\Core\Plugin\MissingPlugin');
     }
 }

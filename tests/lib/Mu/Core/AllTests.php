@@ -17,7 +17,6 @@
 
 namespace Tests\lib\Mu\Core;
 
-require_once 'Plugin/AllTests.php';
 
 require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
@@ -26,6 +25,8 @@ require_once 'Delegates/AllTests.php';
 require_once 'LogTest.php';
 require_once 'Log/AllTests.php';
 require_once 'Mixin/AllTests.php';
+require_once 'PluginTest.php';
+require_once 'Plugin/AllTests.php';
 
 use Mu\Core\TestSuite;
 
@@ -60,9 +61,8 @@ class AllTests extends TestSuite {
 
         $suite->addTest(Mixin\AllTests::suite());
 
-        /*
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\PluginTest');
         $suite->addTest(Plugin\AllTests::suite());
-        */
 
         return $suite;
     }

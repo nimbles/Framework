@@ -9,26 +9,35 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Plugin;
+namespace Tests\Lib\Mu\Core\Plugin;
 
 require_once 'PluginMock.php';
 require_once 'PluginableMock.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Plugin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Plugin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Plugin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Plugin
  */
-class PluginableTest extends \Mu\Core\TestCase {
+class PluginableTest extends TestCase {
     /**
      * Tests that the pluginable mixin adds a plugins property that behaves as expected
      * @return void
@@ -40,10 +49,10 @@ class PluginableTest extends \Mu\Core\TestCase {
         $this->assertType('\Mu\Core\Plugin', $pluginable->restricted);
 
         $pluginable->simple->plugin = new PluginSingle();
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginSingle', $pluginable->simple->plugin);
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginSingle', $pluginable->simple->plugin);
 
         $pluginable->restricted->plugin = new PluginConcrete();
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
 
         $this->setExpectedException('\Mu\Core\Plugin\Exception\InvalidAbstract');
         $pluginable->restricted->plugin = new PluginSingle();
@@ -56,7 +65,7 @@ class PluginableTest extends \Mu\Core\TestCase {
     public function testMixinMethods() {
         $pluginable = new PluginableMock();
         $pluginable->attach('restricted', 'plugin', new PluginConcrete());
-        $this->assertType('\Tests\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginAbstract', $pluginable->restricted->plugin);
         $pluginable->detach('restricted', 'plugin');
 
         $this->assertFalse(isset($pluginable->plugins->restricted->plugin));
@@ -69,7 +78,7 @@ class PluginableTest extends \Mu\Core\TestCase {
     public function testMixinObserver() {
         $pluginable = new PluginableMock();
 
-        $plugin = $this->getMock('\Tests\Mu\Core\Plugin\PluginObserver', array('update'));
+        $plugin = $this->getMock('\Tests\Lib\Mu\Core\Plugin\PluginObserver', array('update'));
         $plugin->expects($this->exactly(4))
             ->method('update')
             ->with($this->equalTo($pluginable));
