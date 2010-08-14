@@ -22,6 +22,8 @@ require_once 'Core/AllTests.php';
 require_once 'Cli/AllTests.php';
 require_once 'Http/AllTests.php';
 
+require_once 'MuTest.php';
+
 /**
  * @category  Mu
  * @package   Mu
@@ -35,6 +37,8 @@ class AllTests {
      */
     static public function suite() {
         $suite = new \PHPUnit_Framework_TestSuite('Mu Framework');
+
+        $suite->addTestSuite('\Tests\Mu\MuTest');
 
         $suite->addTest(Core\AllTests::suite());
         $suite->addTest(Cli\AllTests::suite());
