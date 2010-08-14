@@ -298,9 +298,9 @@ class Cookie extends MixinAbstract {
         );
 
         if ($raw) {
-            return call_user_func_array(array($this, 'setrawcookie', $args));
+            return call_user_func_array(array($this, 'setrawcookie'), $args);
         }
 
-        return call_user_func_array(array($this, 'setcookie', $args));
+        return call_user_func_array(array($this, 'setcookie'), $args);
     }
 }
