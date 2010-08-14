@@ -9,48 +9,46 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Log\Filter;
+namespace Tests\Lib\Mu\Core\Log\Filter;
 
+use Mu\Core\TestCase,
+    Mu\Core\Log;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Log
  */
-class CategoryTest extends \Mu\Core\TestCase {
+class CategoryTest extends TestCase {
     /**
      * Tests the hit/miss based on category
+     * @param \Mu\Core\Log\Entry $entry
+     * @param bool               $hit
      * @return void
+     * @dataProvider categoryProvider
      */
-    public function testCategory() {
-        $filter = new \Mu\Core\Log\Filter\Category(array(
+    public function testCategory(Log\Entry $entry, $hit) {
+        $filter = new Log\Filter\Category(array(
             'category' => 'hit'
         ));
 
-        $this->assertTrue($filter->apply(new \Mu\Core\Log\Entry(array(
-            'message' => 'This is a test message',
-            'category' => 'hit'
-        ))));
-
-        $this->assertFalse($filter->apply(new \Mu\Core\Log\Entry(array(
-            'message' => 'This is a test message',
-            'category' => 'miss'
-        ))));
-
-        $this->assertFalse($filter->apply(new \Mu\Core\Log\Entry(array(
-            'message' => 'This is a test message'
-        ))));
+        $this->assertEquals($hit, $filter->apply($entry));
     }
 
     /**
@@ -61,11 +59,31 @@ class CategoryTest extends \Mu\Core\TestCase {
     public function testMissingCategory() {
         $this->setExpectedException('\Mu\Core\Log\Filter\Exception\InvalidCategory');
 
-        $filter = new \Mu\Core\Log\Filter\Category(array());
+        $filter = new Log\Filter\Category(array());
 
-        $filter->apply(new \Mu\Core\Log\Entry(array(
+        $filter->apply(new Log\Entry(array(
             'message' => 'This is a test message',
             'category' => 'hit'
         )));
+    }
+
+    /**
+     * Data provider for category hit and misses
+     * @return array
+     */
+    public function categoryProvider() {
+        return array(
+            array(new Log\Entry(array(
+	            'message' => 'This is a test message',
+	            'category' => 'hit'
+	        )), true),
+	        array(new Log\Entry(array(
+                'message' => 'This is a test message',
+                'category' => 'miss'
+            )), false),
+            array(new Log\Entry(array(
+                'message' => 'This is a test message'
+            )), false)
+        );
     }
 }

@@ -19,12 +19,13 @@ namespace Tests\lib\Mu\Core;
 
 require_once 'Mixin/AllTests.php';
 require_once 'Plugin/AllTests.php';
-require_once 'Log/AllTests.php';
 
 require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
 require_once 'DelegatesTest.php';
 require_once 'Delegates/AllTests.php';
+require_once 'LogTest.php';
+require_once 'Log/AllTests.php';
 
 use Mu\Core\TestSuite;
 
@@ -51,7 +52,7 @@ class AllTests extends TestSuite {
         /*$suite->addTest(Config\AllTests::suite());
         $suite->addTest(Mixin\AllTests::suite());
         $suite->addTest(Plugin\AllTests::suite());
-        $suite->addTest(Log\AllTests::suite());*/
+        */
 
         $suite->addTestSuite('\Tests\Lib\Mu\Core\ConfigTest');
         $suite->addTest(Config\AllTests::suite());
@@ -59,6 +60,8 @@ class AllTests extends TestSuite {
         $suite->addTestSuite('\Tests\Lib\Mu\Core\DelegatesTest');
         $suite->addTest(Delegates\AllTests::suite());
 
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\LogTest');
+        $suite->addTest(Log\AllTests::suite());
 
         return $suite;
     }

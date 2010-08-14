@@ -9,30 +9,39 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Log
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Log;
+namespace Tests\Lib\Mu\Core;
 
+use Mu\Core\TestCase,
+    Mu\Core\Log;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Log
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Log
  */
-class LogTest extends \Mu\Core\TestCase {
+class LogTest extends TestCase {
     /**
      * Tests getting an instance of the log
      * @return void
      */
     public function testGetInstance() {
-        $instance = \Mu\Core\Log::getInstance();
+        $instance = Log::getInstance();
         $this->assertType('\Mu\Core\Log', $instance);
     }
 
@@ -41,9 +50,9 @@ class LogTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testAddWriterByAttach() {
-        $instance = new \Mu\Core\Log();
+        $instance = new Log();
 
-        $writer = new \Mu\Core\Log\Writer\Mock(array(
+        $writer = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%message%'
@@ -65,9 +74,9 @@ class LogTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testAddWriterBySetter() {
-        $instance = new \Mu\Core\Log();
+        $instance = new Log();
 
-        $writer = new \Mu\Core\Log\Writer\Mock(array(
+        $writer = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%message%'
@@ -89,9 +98,9 @@ class LogTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testMultipleWritersSameFormat() {
-        $instance = new \Mu\Core\Log();
+        $instance = new Log();
 
-        $instance->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
+        $instance->writers->mock1 = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%message%'
@@ -99,7 +108,7 @@ class LogTest extends \Mu\Core\TestCase {
             )
         ));
 
-        $instance->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
+        $instance->writers->mock2 = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%message%'
@@ -121,9 +130,9 @@ class LogTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testMultipleWritersDifferentFormat() {
-        $instance = new \Mu\Core\Log();
+        $instance = new Log();
 
-        $instance->writers->mock1 = new \Mu\Core\Log\Writer\Mock(array(
+        $instance->writers->mock1 = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%message%'
@@ -131,7 +140,7 @@ class LogTest extends \Mu\Core\TestCase {
             )
         ));
 
-        $instance->writers->mock2 = new \Mu\Core\Log\Writer\Mock(array(
+        $instance->writers->mock2 = new Log\Writer\Mock(array(
             'formatter' => array(
                 'simple' => array(
                     'format' => '%pid% - %message%'

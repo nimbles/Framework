@@ -9,27 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Log\Writer
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Writer
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Log\Writer;
+namespace Tests\Lib\Mu\Core\Log\Writer;
 
 require_once '_files/GlobalStream.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Log\Writer
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Writer
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Log
  */
-class StreamTest extends \Mu\Core\TestCase {
+class StreamTest extends TestCase {
     /**
      * Log Entry
      * @var \Mu\Core\Log\Entry
@@ -41,7 +48,7 @@ class StreamTest extends \Mu\Core\TestCase {
      * @return void
      */
     public static function setUpBeforeClass() {
-        stream_wrapper_register('global', 'Tests\Mu\Core\Log\Writer\GlobalStream');
+        stream_wrapper_register('global', 'Tests\Lib\Mu\Core\Log\Writer\GlobalStream');
     }
 
     /**

@@ -9,26 +9,33 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Log\Filter;
+namespace Tests\Lib\Mu\Core\Log\Filter;
 
+use Mu\Core\TestCase,
+    Mu\Core\Log;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Log
  */
-class LevelTest extends \Mu\Core\TestCase {
+class LevelTest extends TestCase {
     /**
      * Tests that only a single log level is included
      * @return void

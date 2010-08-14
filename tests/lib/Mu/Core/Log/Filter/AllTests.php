@@ -9,36 +9,43 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Log\Filter;
+namespace Tests\Lib\Mu\Core\Log\Filter;
 
 require_once 'LevelTest.php';
 require_once 'CategoryTest.php';
 
+use Mu\Core\TestSuite;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Log\Filter
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Log
- * @group     \Mu\Core\Log\Filter
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Log
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Log
  */
-class AllTests {
+class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for Mu Framework - Core - Log - Filter
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Log - Filter');
-        $suite->addTestSuite('\Tests\Mu\Core\Log\Filter\LevelTest');
-        $suite->addTestSuite('\Tests\Mu\Core\Log\Filter\CategoryTest');
+        $suite = new TestSuite('Mu Framework - Core - Log - Filter');
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\Log\Filter\LevelTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\Log\Filter\CategoryTest');
         return $suite;
     }
 }
