@@ -10,35 +10,27 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Core
+ * @subpackage Log
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests;
+namespace Tests\Lib\Mu\Core\Log;
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
-
-use Mu\Core\TestSuite;
+use Mu\Core\Mixin\MixinAbstract;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Core
+ * @subpackage Log
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Log\Loggable
  */
-class AllTests extends TestSuite {
-    /**
-     * Creates the Test Suite for All Tests
-     * @return \PHPUnit_Framework_TestSuite
-     */
-    static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
-        return $suite;
-    }
+class LoggableMock extends MixinAbstract {
+    protected $_implements = array('Mu\Core\Log\Loggable');
 }

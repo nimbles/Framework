@@ -10,35 +10,43 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Cli
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests;
+namespace Tests\Lib\Mu\Cli;
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
+require_once 'RequestTest.php';
+require_once 'ResponseTest.php';
+require_once 'OptTest.php';
 
-use Mu\Core\TestSuite;
+use Mu\Cli\TestSuite;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Cli
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Cli
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for All Tests
+     * Creates the Test Suite for Mu Framework - Cli
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Cli');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\RequestTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\ResponseTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\OptTest');
+
         return $suite;
     }
 }

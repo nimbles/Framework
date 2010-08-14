@@ -10,35 +10,21 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Https
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
-namespace Tests;
-
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
-
-use Mu\Core\TestSuite;
+namespace Mu\Https;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Https
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\Http\TestSuite
  */
-class AllTests extends TestSuite {
-    /**
-     * Creates the Test Suite for All Tests
-     * @return \PHPUnit_Framework_TestSuite
-     */
-    static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
-        return $suite;
-    }
-}
+class TestSuite extends \Mu\Http\TestSuite {}

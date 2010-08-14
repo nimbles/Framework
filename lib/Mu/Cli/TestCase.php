@@ -17,8 +17,6 @@
  */
 namespace Mu\Cli;
 
-require_once 'PHPUnit/Framework.php';
-
 /**
  * @category   Mu
  * @package    Mu-Cli

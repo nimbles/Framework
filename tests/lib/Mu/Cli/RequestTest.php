@@ -10,35 +10,40 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Http
+ * @subpackage Request
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests;
+namespace Tests\Lib\Mu\Cli;
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
-
-use Mu\Core\TestSuite;
+use Mu\Http\TestCase;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Http
+ * @subpackage Request
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Cli
+ * @group      Mu-Cli-Request
  */
-class AllTests extends TestSuite {
+class RequestTest extends TestCase {
     /**
-     * Creates the Test Suite for All Tests
-     * @return \PHPUnit_Framework_TestSuite
+     * Tests the body for an Cli Request
+     * @return void
      */
-    static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
-        return $suite;
+    public function testBody() {
+        $this->setInput('hello world');
+
+        $request = $this->createRequest();
+        $this->assertType('Mu\Core\Request\RequestAbstract', $request);
+        $this->assertEquals('hello world', $request->getBody());
     }
 }

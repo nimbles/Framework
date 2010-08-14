@@ -15,30 +15,17 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests;
-
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
-
-use Mu\Core\TestSuite;
+namespace Tests\Lib\Mu;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    \Mu\Core\Delegates
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
- * @version    $Id$
- *
- * @uses       \Mu\Core\TestSuite
+ * @group      Mu
  */
-class AllTests extends TestSuite {
-    /**
-     * Creates the Test Suite for All Tests
-     * @return \PHPUnit_Framework_TestSuite
-     */
-    static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
-        return $suite;
+class MuTest extends \Mu\Core\TestCase {
+    public function testGetInstance() {
+        $this->assertType('\Mu', \Mu::getInstance());
     }
 }
