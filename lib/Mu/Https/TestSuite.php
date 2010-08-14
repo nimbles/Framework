@@ -27,4 +27,4 @@ namespace Mu\Https;
  *
  * @uses       \Mu\Http\TestSuite
  */
-class TestSuite extends \Mu\Http\TestCase {}
+class TestSuite extends \Mu\Http\TestSuite {}

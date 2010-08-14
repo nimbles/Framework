@@ -27,4 +27,4 @@ namespace Mu\Cli;
  *
  * @uses       \Mu\Core\TestSuite
  */
-class TestSuite extends \Mu\Core\TestCase {}
+class TestSuite extends \Mu\Core\TestSuite {}

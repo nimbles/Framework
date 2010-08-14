@@ -9,22 +9,32 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Http\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Http;
+namespace Tests\Lib\Mu\Http;
+
+use Mu\Http\TestCase;
 
 /**
- * @category  Mu
- * @package   \Mu\Http\Request
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Http
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Http
+ * @group      Mu-Http-Request
  */
-class RequestTest extends \Mu\Http\TestCase {
+class RequestTest extends TestCase {
     /**
      * Test that the request object extends the abstract
      * @return void

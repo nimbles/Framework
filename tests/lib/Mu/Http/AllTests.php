@@ -9,39 +9,46 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Http
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Http
+ * @category   Mu
+ * @package    Mu-Http
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Http;
+namespace Tests\Lib\Mu\Http;
 
-require_once 'PHPUnit/Framework.php';
 require_once 'HeaderTest.php';
 require_once 'StatusTest.php';
 require_once 'RequestTest.php';
 require_once 'ResponseTest.php';
 
+use Mu\Http\TestSuite;
+
 /**
- * @category  Mu
- * @package   \Mu\Http
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Http
+ * @category   Mu
+ * @package    Mu-Http
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Http
  */
-class AllTests {
+class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for Mu Framework - Http
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Http');
-        /*$suite->addTestSuite('\Tests\Mu\Http\HeaderTest');
-        $suite->addTestSuite('\Tests\Mu\Http\StatusTest');
-        $suite->addTestSuite('\Tests\Mu\Http\RequestTest');
-        $suite->addTestSuite('\Tests\Mu\Http\ResponseTest');*/
+        $suite = new TestSuite('Mu Framework - Http');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\HeaderTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\StatusTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\RequestTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\ResponseTest');
+
         return $suite;
     }
 }

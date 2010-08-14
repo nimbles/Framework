@@ -17,10 +17,10 @@
 
 namespace Tests\Lib\Mu;
 
+require_once 'MuTest.php';
 require_once 'Core/AllTests.php';
 require_once 'Cli/AllTests.php';
 require_once 'Http/AllTests.php';
-require_once 'MuTest.php';
 
 use Mu\Core\TestSuite;
 
@@ -47,7 +47,7 @@ class AllTests extends TestSuite {
 
         $suite->addTest(Core\AllTests::suite());
         //$suite->addTest(Cli\AllTests::suite());
-        //$suite->addTest(Http\AllTests::suite());
+        $suite->addTest(Http\AllTests::suite());
 
         return $suite;
     }

@@ -9,22 +9,32 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Http\Header
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Http;
+namespace Tests\Lib\Mu\Http;
+
+use Mu\Http\TestCase;
 
 /**
- * @category  Mu
- * @package   \Mu\Http\Header
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Http
+ * @category   Mu
+ * @package    Mu-Http
+ * @subpackage Header
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Http
+ * @group      Mu-Http-Header
  */
-class HeaderTest extends \Mu\Http\TestCase {
+class HeaderTest extends TestCase {
     /**
      * Tests the construct of a http header with no options
      * @return void
