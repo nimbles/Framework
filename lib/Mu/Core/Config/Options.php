@@ -67,10 +67,14 @@ class Options extends Configurable {
                 },
 
                 'setOptions' => function($object, &$config, $options) {
-                    if (is_array($options) || ($options instanceof \Mu\Core\Config)) {
-                        foreach ($options as $key => $value) {
-                            $object->setOption($key, $value);
-                        }
+                    if (null === $options) {
+                        $options = array();
+                    }
+                    // merge default config with provided options
+                    $config->merge($options);
+
+                    foreach ($config as $key => $value) {
+                        $object->setOption($key, $value);
                     }
                 }
             );

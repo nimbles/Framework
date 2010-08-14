@@ -17,7 +17,9 @@
 
 namespace Tests\Mu\Core\Config;
 
-class OptionsMock extends \Mu\Core\Mixin\MixinAbstract {
+use Mu\Core\Mixin\MixinAbstract;
+
+class OptionsMock extends MixinAbstract {
     protected $_implements = array('Mu\Core\Config\Options');
 
     protected $_test;
@@ -33,4 +35,17 @@ class OptionsMock extends \Mu\Core\Mixin\MixinAbstract {
         $this->_test = $value;
         return $this;
     }
+
+    public function __construct($options = null) {
+        parent::__construct();
+        $this->setOptions($options);
+    }
+}
+
+class OptionsWithDefaultsMock extends OptionsMock {
+    protected $_implements = array(
+        'Mu\Core\Config\Options' => array(
+            'test' => 'hello world'
+        )
+    );
 }

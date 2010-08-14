@@ -18,6 +18,7 @@
 
 namespace Tests\Mu\Core\Config;
 
+use Mu\Core\Config;
 
 /**
  * @category  Mu
@@ -32,7 +33,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testConstructWithNoParameters() {
-        $config = new \Mu\Core\Config();
+        $config = new Config();
         $this->assertType('\Mu\Core\Config', $config);
     }
 
@@ -41,7 +42,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testConstructWithEmptyArray() {
-        $config = new \Mu\Core\Config(array());
+        $config = new Config(array());
         $this->assertType('\Mu\Core\Config', $config);
     }
 
@@ -51,7 +52,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      */
     public function testConstructWithNonArray() {
         $this->setExpectedException('\Mu\Core\Config\Exception\InvalidConfig');
-        $config = new \Mu\Core\Config('test');
+        $config = new Config('test');
     }
 
     /**
@@ -59,7 +60,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testConstructWithSectionAndValue() {
-        $config = new \Mu\Core\Config('section', 'value');
+        $config = new Config('section', 'value');
         $this->assertEquals('value', $config->section);
     }
 
@@ -68,7 +69,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testAccessesWithSectionAndValue() {
-        $config = new \Mu\Core\Config('section', 'value');
+        $config = new Config('section', 'value');
         $this->assertEquals('value', $config->section);
 
         $config->section = 'value2';
@@ -80,7 +81,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testArrayAccessWithSectionAndValue() {
-        $config = new \Mu\Core\Config('section', 'value');
+        $config = new Config('section', 'value');
         $this->assertEquals('value', $config['section']);
 
         $config['section'] = 'value2';
@@ -92,7 +93,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testGetSetConfigWithSectionAndValue() {
-        $config = new \Mu\Core\Config('section', 'value');
+        $config = new Config('section', 'value');
         $this->assertEquals('value', $config->getConfig('section'));
 
         $config->setConfig('section', 'value2');
@@ -106,7 +107,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testConstructWithPopulatedArray(array $testdata) {
-        $config = new \Mu\Core\Config($testdata);
+        $config = new Config($testdata);
         $this->assertType('\Mu\Core\Config', $config);
     }
 
@@ -117,7 +118,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testAccessesPopulatedArray(array $testdata) {
-        $config = new \Mu\Core\Config($testdata);
+        $config = new Config($testdata);
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals(1, $config->a);
@@ -142,7 +143,7 @@ class ConfigTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testGetSetConfigPopulatedArray(array $testdata) {
-        $config = new \Mu\Core\Config($testdata);
+        $config = new Config($testdata);
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals(1, $config->getConfig('a'));
@@ -154,6 +155,43 @@ class ConfigTest extends \Mu\Core\TestCase {
         $this->assertType('\Mu\Core\Config', $config->getConfig('d.g'));
         $this->assertEquals(6, $config->getConfig('d.g.h'));
         $this->assertNull($config->getConfig('e'));
+    }
+
+    /**
+     * Tests the merge with other config works as expected
+     * @return void
+     */
+    public function testMerge() {
+        $config = new Config(array(
+            'a' => 1,
+            'b' => 2
+        ));
+
+        $this->assertEquals(1, $config->a);
+        $this->assertEquals(2, $config->b);
+
+        $config->merge(array(
+            'b' => 3,
+            'c' => 4
+        ));
+
+        $this->assertEquals(1, $config->a);
+        $this->assertEquals(3, $config->b);
+        $this->assertEquals(4, $config->c);
+
+        $config->merge(new Config(array(
+            'a' => 5,
+            'c' => 6,
+            'd' => 7
+        )));
+
+        $this->assertEquals(5, $config->a);
+        $this->assertEquals(3, $config->b);
+        $this->assertEquals(6, $config->c);
+        $this->assertEquals(7, $config->d);
+
+        $this->setExpectedException('\Mu\Core\Config\Exception\InvalidConfig');
+        $config->merge(true);
     }
 
     /**

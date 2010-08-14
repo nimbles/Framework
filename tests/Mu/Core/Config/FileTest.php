@@ -18,6 +18,8 @@
 
 namespace Tests\Mu\Core\Config;
 
+use Mu\Core\Config;
+
 
 /**
  * @category  Mu
@@ -32,9 +34,9 @@ class FileTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel1() {
-        $file = new \Mu\Core\Config\File(dirname(__FILE__) . '/_files/config.php', 'level1');
+        $file = new Config\File(dirname(__FILE__) . '/_files/config.php', 'level1');
 
-        $config = $file->getParsedConfig();
+        $config = $file->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals(1, $config->config->a);
@@ -47,9 +49,9 @@ class FileTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel2() {
-        $file = new \Mu\Core\Config\File(dirname(__FILE__) . '/_files/config.php', 'level2');
+        $file = new Config\File(dirname(__FILE__) . '/_files/config.php', 'level2');
 
-        $config = $file->getParsedConfig();
+        $config = $file->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals('one', $config->config->a);
@@ -62,9 +64,9 @@ class FileTest extends \Mu\Core\TestCase {
      * @return void
      */
     public function testLoadConfigFileLevel3() {
-        $file = new \Mu\Core\Config\File(dirname(__FILE__) . '/_files/config.php', 'level3');
+        $file = new Config\File(dirname(__FILE__) . '/_files/config.php', 'level3');
 
-        $config = $file->getParsedConfig();
+        $config = $file->getConfig();
         $this->assertType('\Mu\Core\Config', $config);
 
         $this->assertEquals('one', $config->config->a);
