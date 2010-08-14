@@ -9,19 +9,49 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Mixin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Mixin;
+namespace Tests\Lib\Mu\Core\Mixin;
 
-class MixinPropertiesMock extends \Mu\Core\Mixin\MixinAbstract {
-    protected $_implements = array('tests\Mu\Core\Mixin\MixinableProperties');
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Mixin\Mixinable\MixinableAbstract;
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ *
+ * @uses       \Tests\Lib\Mu\Core\Mixin\MixinableProperties
+ */
+class MixinPropertiesMock extends MixinAbstract {
+    /**
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array('Tests\Lib\Mu\Core\Mixin\MixinableProperties');
 }
 
-class MixinableProperties extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ */
+class MixinableProperties extends MixinableAbstract {
     public $readOnly = 'readonly';
     public $readAndWrite = null;
 
@@ -48,11 +78,31 @@ class MixinableProperties extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
     }
 }
 
-class MixinMethodsMock extends \Mu\Core\Mixin\MixinAbstract {
-    protected $_implements = array('Tests\Mu\Core\Mixin\MixinableMethods');
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ */
+class MixinMethodsMock extends MixinAbstract {
+    protected $_implements = array('Tests\Lib\Mu\Core\Mixin\MixinableMethods');
 }
 
-class MixinableMethods extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ */
+class MixinableMethods extends MixinableAbstract {
     public function getObject() {
         return $this;
     }
@@ -69,6 +119,19 @@ class MixinableMethods extends \Mu\Core\Mixin\Mixinable\MixinableAbstract {
     }
 }
 
-class MixinPropertiesAndMethodsMock extends \Mu\Core\Mixin\MixinAbstract {
-    protected $_implements = array('Tests\Mu\Core\Mixin\MixinableProperties', 'Tests\Mu\Core\Mixin\MixinableMethods');
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ */
+class MixinPropertiesAndMethodsMock extends MixinAbstract {
+    protected $_implements = array(
+        'Tests\Lib\Mu\Core\Mixin\MixinableProperties',
+        'Tests\Lib\Mu\Core\Mixin\MixinableMethods'
+    );
 }

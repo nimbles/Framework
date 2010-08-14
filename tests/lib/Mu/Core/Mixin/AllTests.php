@@ -9,34 +9,45 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Mixin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Mixin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Mixin;
+namespace Tests\Lib\Mu\Core\Mixin;
 
 require_once 'MixinTest.php';
 require_once 'MixinableTest.php';
 
+use Mu\Core\TestSuite;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Mixin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Mixin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Mixin
  */
-class AllTests {
+class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for Mu Framework - Core - Mixin
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Mixin');
-        $suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinTest');
-        $suite->addTestSuite('\Tests\Mu\Core\Mixin\MixinableTest');
+        $suite = new TestSuite('Mu Framework - Core - Mixin');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\Mixin\MixinTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\Mixin\MixinableTest');
+
         return $suite;
     }
 }

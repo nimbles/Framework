@@ -9,25 +9,34 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Mixin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Mixin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Mu\Core\Mixin;
+namespace Tests\Lib\Mu\Core\Mixin;
 
 require_once 'MixinMock.php';
 
+use Mu\Core\TestCase;
+
 /**
- * @category  Mu
- * @package   \Mu\Core\Mixin
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
- * @group     \Mu\Core\Mixin
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Mixin
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Mixin
  */
-class MixinTest extends \Mu\Core\TestCase {
+class MixinTest extends TestCase {
     /**
      * Tests that the \Mu\Core\Mixin\Exception\MixinableMissing exception is thrown
      * when trying to add a mixinable that does not exist
