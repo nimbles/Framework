@@ -193,7 +193,7 @@ class Request extends RequestAbstract {
     /**
      * Gets a cookie variable by key
      * @param string|null $key
-     * @return mixed
+     * @return \Mu\Http\Cookie\Jar|string|null
      */
     public function getCookie($key = null) {
         if (null === $this->_cookie) {
@@ -211,7 +211,6 @@ class Request extends RequestAbstract {
      * Sets the cookie variables
      * @param array|null $cookie if null will be set to $_COOKIE
      * @return \Mu\Http\Request
-     * @todo create \Mu\Http\Cookie and assign
      */
     public function setCookie(array $cookie = null) {
         $this->_cookie = new Cookie\Jar((null === $cookie) ? $_COOKIE : $cookie);
