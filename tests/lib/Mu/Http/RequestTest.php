@@ -48,9 +48,11 @@ class RequestTest extends TestCase {
      * Tests over the getters which should have the same behavior
      * @dataProvider getterProvider
      * @param string $getter
+     * @param bool $cast Indicates that should be casted before asserting
+     * @param string $type
      * @return void
      */
-    public function testGetter($getter) {
+    public function testGetter($getter, $cast, $type) {
         $request = $this->createRequest(array(
             $getter => array(
                 'foo' => 'bar',
@@ -60,10 +62,15 @@ class RequestTest extends TestCase {
 
         $method = 'get' . ucfirst($getter);
 
-        $this->assertEquals('bar', $request->$method('foo'));
-        $this->assertEquals('qux', $request->$method('baz'));
+        if ($cast) {
+	        $this->assertEquals('bar', (string) $request->$method('foo'));
+	        $this->assertEquals('qux', (string) $request->$method('baz'));
+        } else {
+            $this->assertEquals('bar', $request->$method('foo'));
+            $this->assertEquals('qux', $request->$method('baz'));
+        }
 
-        $this->assertType('array', $request->$method());
+        $this->assertType($type, $request->$method());
         $this->assertNull($request->$method('quux'));
     }
 
@@ -131,10 +138,10 @@ class RequestTest extends TestCase {
      */
     public function getterProvider() {
         return array(
-            array('query'),
-            array('post'),
-            array('session'),
-            array('cookie'),
+            array('query', false, 'array'),
+            array('post', false, 'array'),
+            array('session', true, 'array'),
+            array('cookie', true, 'Mu\Http\Cookie\Jar'),
         );
     }
 

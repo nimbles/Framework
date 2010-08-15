@@ -54,8 +54,12 @@ class JarTest extends TestCase {
      */
     public function testConstruct() {
         $jar = new Cookie\Jar(array(
-            new Cookie()
+            'test' => new Cookie(),
+            'test2' => 'value'
         ));
+
+        $this->assertEquals('value', (string) $jar['test2']);
+        $this->assertType('Mu\Http\Cookie', $jar['test2']);
 
         $this->setExpectedException('Mu\Http\Cookie\Exception\InvalidInstance');
         $jar = new Cookie\Jar(array(
@@ -89,6 +93,7 @@ class JarTest extends TestCase {
         });
 
         $jar[] = $cookie;
+        $this->assertEquals('test value', (string) $jar['test_name']);
 
         $jar->send();
 

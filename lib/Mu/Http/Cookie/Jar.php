@@ -37,22 +37,51 @@ use Mu\Http\Cookie;
  */
 class Jar extends \ArrayObject {
     /**
+     * Instance of the Cookie Jar
+     * @var \Mu\Http\Cookie\Jar
+     */
+    static protected $_instance;
+
+    /**
+     * Gets an instanceof the Cookie Jar
+     * @return \Mu\Http\Cookie\Jar
+     */
+    static public function getInstance() {
+        if (null === self::$_instance) {
+            self::$_instance = new Jar();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
      * Class construct
      * @param  array $array
      * @return void
      */
     public function __construct(array $array = null) {
+        parent::__construct();
+
         if (is_array($array)) {
-            foreach ($array as $value) {
+            foreach ($array as $key => $value) {
+                if (is_string($value)) {
+                    $value = new Cookie(array(
+                        'name' => $key,
+                        'value' => $value
+                    ));
+                }
+
 	            if (!($value instanceof Cookie)) {
 		            throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
 		        }
-            }
-        } else {
-            $array = array();
-        }
 
-        parent::__construct($array);
+		        if (null === $value->getName()) {
+		            $value->setName($key);
+		        }
+
+		        $this[$value->getName()] = $value;
+            }
+        }
     }
 
     /**
@@ -67,7 +96,7 @@ class Jar extends \ArrayObject {
             throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
         }
 
-        return parent::offsetSet($index, $value);
+        return parent::offsetSet($value->getName(), $value);
     }
 
     /**
