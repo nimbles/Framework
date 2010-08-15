@@ -204,7 +204,7 @@ class Request extends RequestAbstract {
             return $this->_cookie;
         }
 
-        return $this->_cookie->offsetExists($key) ? $this->_cookie[$key] : null;
+        return $this->_cookie->offsetExists($key) ? (string) $this->_cookie[$key] : null;
     }
 
     /**

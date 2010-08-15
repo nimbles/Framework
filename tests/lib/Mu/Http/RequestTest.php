@@ -48,11 +48,10 @@ class RequestTest extends TestCase {
      * Tests over the getters which should have the same behavior
      * @dataProvider getterProvider
      * @param string $getter
-     * @param bool $cast Indicates that should be casted before asserting
      * @param string $type
      * @return void
      */
-    public function testGetter($getter, $cast, $type) {
+    public function testGetter($getter, $type) {
         $request = $this->createRequest(array(
             $getter => array(
                 'foo' => 'bar',
@@ -62,13 +61,9 @@ class RequestTest extends TestCase {
 
         $method = 'get' . ucfirst($getter);
 
-        if ($cast) {
-	        $this->assertEquals('bar', (string) $request->$method('foo'));
-	        $this->assertEquals('qux', (string) $request->$method('baz'));
-        } else {
-            $this->assertEquals('bar', $request->$method('foo'));
-            $this->assertEquals('qux', $request->$method('baz'));
-        }
+
+        $this->assertEquals('bar', $request->$method('foo'));
+        $this->assertEquals('qux', $request->$method('baz'));
 
         $this->assertType($type, $request->$method());
         $this->assertNull($request->$method('quux'));
@@ -125,6 +120,10 @@ class RequestTest extends TestCase {
         $this->assertEquals('mu-framework.com', $request->getHost());
     }
 
+    /**
+     * Tests that the body of the request is retrieved correctly
+     * @return void
+     */
     public function testGetBody() {
         $request = $this->createRequest();
 
@@ -138,10 +137,10 @@ class RequestTest extends TestCase {
      */
     public function getterProvider() {
         return array(
-            array('query', false, 'array'),
-            array('post', false, 'array'),
-            array('session', true, 'array'),
-            array('cookie', true, 'Mu\Http\Cookie\Jar'),
+            array('query', 'array'),
+            array('post', 'array'),
+            array('session', 'array'),
+            array('cookie', 'Mu\Http\Cookie\Jar'),
         );
     }
 
