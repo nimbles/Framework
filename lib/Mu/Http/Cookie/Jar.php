@@ -18,8 +18,7 @@
 
 namespace Mu\Http\Cookie;
 
-use \Mu\Http\Cookie,
-    \Mu\Http\Cookie\Exception;
+use Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -46,9 +45,11 @@ class Jar extends \ArrayObject {
         if (is_array($array)) {
             foreach ($array as $value) {
 	            if (!($value instanceof Cookie)) {
-		            throw new Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
+		            throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
 		        }
             }
+        } else {
+            $array = array();
         }
 
         parent::__construct($array);
@@ -63,9 +64,19 @@ class Jar extends \ArrayObject {
      */
     public function offsetSet($index, $value) {
         if (!($value instanceof Cookie)) {
-            throw new Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
+            throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
         }
 
         return parent::offsetSet($index, $value);
+    }
+
+    /**
+     * Sends the cookies
+     * @return void
+     */
+    public function send() {
+        foreach ($this as $cookie) {
+            $cookie->send();
+        }
     }
 }

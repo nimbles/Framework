@@ -11,24 +11,21 @@
  *
  * @category   Mu
  * @package    Mu-Http
+ * @subpackage Cookie
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Http;
+namespace Tests\Lib\Mu\Http\Cookie;
 
-require_once 'CookieTest.php';
-require_once 'Cookie/AllTests.php';
-require_once 'HeaderTest.php';
-require_once 'StatusTest.php';
-require_once 'RequestTest.php';
-require_once 'ResponseTest.php';
+require_once 'JarTest.php';
 
 use Mu\Http\TestSuite;
 
 /**
  * @category   Mu
  * @package    Mu-Http
+ * @subpackage Cookie
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
@@ -37,6 +34,7 @@ use Mu\Http\TestSuite;
  *
  * @group      Mu
  * @group      Mu-Http
+ * @group      Cookie
  */
 class AllTests extends TestSuite {
     /**
@@ -44,15 +42,9 @@ class AllTests extends TestSuite {
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('Mu Framework - Http');
+        $suite = new TestSuite('Mu Framework - Http - Cookie');
 
-        $suite->addTestSuite('\Tests\Lib\Mu\Http\CookieTest');
-        $suite->addTest(Cookie\AllTests::suite());
-
-        $suite->addTestSuite('\Tests\Lib\Mu\Http\HeaderTest');
-        $suite->addTestSuite('\Tests\Lib\Mu\Http\StatusTest');
-        $suite->addTestSuite('\Tests\Lib\Mu\Http\RequestTest');
-        $suite->addTestSuite('\Tests\Lib\Mu\Http\ResponseTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\Cookie\JarTest');
 
         return $suite;
     }
