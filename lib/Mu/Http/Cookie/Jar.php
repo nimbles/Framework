@@ -47,11 +47,7 @@ class Jar extends \ArrayObject {
      * @return \Mu\Http\Cookie\Jar
      */
     static public function getInstance() {
-        if (null === self::$_instance) {
-            self::$_instance = new Jar();
-        }
-
-        return self::$_instance;
+        return self::$_instance ?: self::$_instance = new static();
     }
 
     /**
@@ -61,27 +57,7 @@ class Jar extends \ArrayObject {
      */
     public function __construct(array $array = null) {
         parent::__construct();
-
-        if (is_array($array)) {
-            foreach ($array as $key => $value) {
-                if (is_string($value)) {
-                    $value = new Cookie(array(
-                        'name' => $key,
-                        'value' => $value
-                    ));
-                }
-
-	            if (!($value instanceof Cookie)) {
-		            throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
-		        }
-
-		        if (null === $value->getName()) {
-		            $value->setName($key);
-		        }
-
-		        $this[$value->getName()] = $value;
-            }
-        }
+        $this->setCookies($array, true);
     }
 
     /**
@@ -97,6 +73,41 @@ class Jar extends \ArrayObject {
         }
 
         return parent::offsetSet($value->getName(), $value);
+    }
+
+    /**
+     * Sets the cookies
+     * @param array|null $cookies
+     * @param bool       $clear   clears out any existing cookies
+     * @return \Mu\Http\Cookie\Jar
+     */
+    public function setCookies(array $cookies = null, $clear = false) {
+        if (is_bool($clear) && $clear && (0 !== $this->count())) {
+            $this->exchangeArray(array());
+        }
+
+        if (null !== $cookies) {
+            foreach ($cookies as $key => $value) {
+                if (is_string($value)) {
+                    $value = new Cookie(array(
+                        'name' => $key,
+                        'value' => $value
+                    ));
+                }
+
+                if (!($value instanceof Cookie)) {
+                    throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
+                }
+
+                if (null === $value->getName()) {
+                    $value->setName($key);
+                }
+
+                $this[$value->getName()] = $value;
+            }
+        }
+
+        return $this;
     }
 
     /**
