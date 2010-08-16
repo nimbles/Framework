@@ -150,11 +150,8 @@ class ResponseTest extends TestCase {
     public function testSend($headers, $status, $body, $expectedHeaders, $expectedOutput) {
         $response = $this->createResponse();
 
-        $response->setHeaders(array(
-            'Content-Type' => 'text/plain',
-            'Content-Length' => '11',
-        ))->setStatus($status)
-            ->setBody('hello world');
+        $response->setHeaders($headers)->setStatus($status)
+            ->setBody($body);
 
         $response->send();
 
