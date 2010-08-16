@@ -18,6 +18,7 @@
 
 namespace Mu\Http;
 
+
 /**
  * @category   Mu
  * @package    Mu-Http
@@ -33,13 +34,13 @@ class TestCase extends \Mu\Core\TestCase {
      * Indicates that the headers have been sent
      * @var bool
      */
-    protected $_headersSent;
+    static protected $_headersSent;
 
     /**
      * Array of sent headers
      * @var array
      */
-    protected $_headers;
+    static protected $_headers;
 
     /**
      * Creates a \Mu\Http\Request with the test delegate methods
@@ -47,8 +48,8 @@ class TestCase extends \Mu\Core\TestCase {
      * @return \Mu\Http\Request
      */
     public function createRequest($options = null) {
-        $request = new \Mu\Http\Request($options);
-        $request->setDelegate('getInput', array($this, 'getInput'));
+        $request = new Request($options);
+        $request->setDelegate('getInput', array('\Mu\Http\TestCase', 'getInput'));
 
         return $request;
     }
@@ -59,20 +60,57 @@ class TestCase extends \Mu\Core\TestCase {
      * @return \Mu\Http\Response
      */
     public function createResponse($options = null) {
-        $response = new \Mu\Http\Response($options);
-        $response->setDelegate('write', array($this, 'setOutput'));
-
-        $headers_sent =& $this->_headersSent;
-        $response->setDelegate('headers_sent', function() use (&$headers_sent) {
-            return $headers_sent;
-        });
-
-        $headers =& $this->_headers;
-        $response->setDelegate('header', function($header) use (&$headers) {
-            $headers[] = $header;
-        });
+        $response = new Response($options);
+        $response->setDelegate('write', array('\Mu\Http\TestCase', 'setOutput'));
+        $response->setDelegate('header', array('\Mu\Http\TestCase', 'header'));
+        $response->setDelegate('headers_sent', array($this, 'isHeadersSent'));
 
         return $response;
+    }
+
+    /**
+     * Creates a \Mu\Http\Header with the delegate methods
+     * @param array|null $options
+     * @return \Mu\Http\Header
+     */
+    public function createHeader($options = null) {
+        $header = new Header($options);
+        $header->setDelegate('header', array('\Mu\Http\TestCase', 'header'));
+        $header->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+
+        return $header;
+    }
+
+    /**
+     * Creates a \Mu\Http\Status with delegate methods
+     * @param array|null $options
+     * @return \Mu\Http\Status
+     */
+    public function createStatus($options = null) {
+        $status = new Status($options);
+        $status->setDelegate('header', array('\Mu\Http\TestCase', 'header'));
+        $status->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+
+        return $status;
+    }
+
+    /**
+     * Indicates that the headers have been sent
+     * @return bool
+     */
+    static public function isHeadersSent($headersSent = null) {
+        self::$_headersSent = is_bool($headersSent) ? $headersSent : self::$_headersSent;
+        return self::$_headersSent;
+    }
+
+    /**
+     * Appends a header
+     *
+     * @param string $header
+     * @return void
+     */
+    static public function header($header) {
+        self::$_headers[] = $header;
     }
 
     /**
@@ -81,7 +119,7 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function resetDelegatesVars() {
         parent::resetDelegatesVars();
-        $this->_headersSent = false;
-        $this->_headers = array();
+        self::$_headersSent = false;
+        self::$_headers = array();
     }
 }

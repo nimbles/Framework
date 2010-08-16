@@ -38,6 +38,15 @@ use Mu\Http\Status;
  */
 class StatusTest extends TestCase {
     /**
+     * Tests that the default status is 200 OK
+     * @return void
+     */
+    public function testDefault() {
+        $status = new Status();
+        $this->assertEquals(200, $status->getStatus());
+    }
+
+    /**
      * Tests that creating a status from a given code produces the corresponding header
      * @dataProvider codeProvider
      * @param int    $code
@@ -46,7 +55,7 @@ class StatusTest extends TestCase {
      */
     public function testConstruct($code, $description) {
         // create by code
-        $status = new Status($code);
+        $status = new Status(array('status' => $code));
 
         $this->assertEquals($code, $status->getStatus());
         $this->assertEquals($description, $status->getDescription());
@@ -87,7 +96,7 @@ class StatusTest extends TestCase {
         }
 
         // create by description
-        $status = new Status($description);
+        $status = new Status(array('status' => $description));
 
         $this->assertEquals($code, $status->getStatus());
         $this->assertEquals($description, $status->getDescription());

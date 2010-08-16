@@ -83,7 +83,7 @@ class ResponseTest extends TestCase {
      * @return void
      */
     public function testStatus() {
-        $response = new \Mu\http\Response();
+        $response = new \Mu\Http\Response();
 
         $this->assertType('\Mu\Http\Status', $response->getStatus());
         $this->assertEquals(\Mu\http\Status::STATUS_OK, $response->getStatus()->getStatus());
@@ -92,7 +92,7 @@ class ResponseTest extends TestCase {
         $this->assertType('\Mu\Http\Status', $response->getStatus());
         $this->assertEquals(\Mu\http\Status::STATUS_FORBIDDEN, $response->getStatus()->getStatus());
 
-        $response->setStatus(new \Mu\Http\Status('Request Entity Too Large'));
+        $response->setStatus(new \Mu\Http\Status(array('status' => 'Request Entity Too Large')));
         $this->assertType('\Mu\Http\Status', $response->getStatus());
         $this->assertEquals(\Mu\http\Status::STATUS_REQUEST_ENTITY_TOO_LARGE, $response->getStatus()->getStatus());
 
@@ -147,23 +147,28 @@ class ResponseTest extends TestCase {
      * @return void
      * @dataProvider sendProvider
      */
-    public function testSend($headers, $status, $body, $expectedHeaders, $expectedOutput) {
+    public function testSend($headers, $cookies, $status, $body, $expectedHeaders, $expectedOutput) {
         $response = $this->createResponse();
 
-        $response->setHeaders($headers)->setStatus($status)
+        $response->setHeaders($headers)
+            ->setStatus($status)
             ->setBody($body);
+
+        foreach ($cookies as $cookie => $value) {
+            $response->setCookie($cookie, $value);
+        }
 
         $response->send();
 
-        $this->assertSame($expectedHeaders, $this->_headers);
-        $this->assertEquals($expectedOutput, $this->getOutput());
+        $this->assertSame($expectedHeaders, self::$_headers);
+        $this->assertEquals($expectedOutput, self::getOutput());
 
         $this->resetDelegatesVars();
 
-        $this->_headersSent = true;
+        self::$_headersSent = true;
         $response->send();
-        $this->assertSame(array(), $this->_headers);
-        $this->assertEquals($expectedOutput, $this->getOutput());
+        $this->assertSame(array(), self::$_headers);
+        $this->assertEquals($expectedOutput, self::getOutput());
     }
 
     /**
@@ -174,43 +179,70 @@ class ResponseTest extends TestCase {
         return array(
             array(
                 array(
-		            'Content-Type' => 'text/plain',
-		            'Content-Length' => '11',
-		        ),
-                \Mu\http\Status::STATUS_OK,
-                'hello world',
-                array(
-		            'Content-Type: text/plain',
-		            'Content-Length: 11',
-		            'HTTP/1.1 200 OK'
-		        ),
-		        'hello world'
-		    ),
-            array(
-                array(
-                    'Content-Type' => 'text/plain',
-                    'Content-Length' => '11',
+                    $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
+                    $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
                 ),
-                \Mu\http\Status::STATUS_NO_CONTENT,
-                'hello world',
                 array(
-		            'Content-Type: text/plain',
-		            'Content-Length: 11',
-		            'HTTP/1.1 204 No Content'
-		        ),
-		        ''
-		    ),
-		    array(
-                array(
-                    'Content-Type' => 'text/plain',
-                    'Content-Length' => '11',
+                    'test1' => 'value1',
+                    new \Mu\Http\Cookie(array(
+                        'name' => 'test2',
+                        'value' => 'value2',
+                        'expire' => 20,
+                        'path' => '/foo'
+                    ))
                 ),
-                \Mu\http\Status::STATUS_NOT_MODIFIED,
+                $this->createStatus(),
                 'hello world',
                 array(
                     'Content-Type: text/plain',
                     'Content-Length: 11',
-                'HTTP/1.1 304 Not Modified'
+                    'HTTP/1.1 200 OK'
+                ),
+                'hello world'
+            ),
+            array(
+                array(
+                    $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
+                    $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
+                ),
+                array(
+                    'test1' => 'value1',
+                    new \Mu\Http\Cookie(array(
+                        'name' => 'test2',
+                        'value' => 'value2',
+                        'expire' => 20,
+                        'path' => '/foo'
+                    ))
+                ),
+                $this->createStatus(array('status' => \Mu\http\Status::STATUS_NO_CONTENT)),
+                'hello world',
+                array(
+                    'Content-Type: text/plain',
+                    'Content-Length: 11',
+                    'HTTP/1.1 204 No Content'
+                ),
+                ''
+            ),
+            array(
+                array(
+                    $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
+                    $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
+                ),
+                array(
+                    'test1' => 'value1',
+                    new \Mu\Http\Cookie(array(
+                        'name' => 'test2',
+                        'value' => 'value2',
+                        'expire' => 20,
+                        'path' => '/foo'
+                    ))
+                ),
+                $this->createStatus(array('status' => \Mu\http\Status::STATUS_NOT_MODIFIED)),
+                'hello world',
+                array(
+                    'Content-Type: text/plain',
+                    'Content-Length: 11',
+                    'HTTP/1.1 304 Not Modified'
                 ),
                 ''
             ),

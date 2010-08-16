@@ -113,6 +113,7 @@ class Response extends ResponseAbstract {
      * Gets a header by its name
      * @param string $name
      * @return \Mu\Http\Header|null
+     * @todo Create header collection class once collection available, to include send method
      */
     public function getHeader($name) {
         if (array_key_exists($name, ($headers = $this->getHeaders()))) {
@@ -135,7 +136,14 @@ class Response extends ResponseAbstract {
         }
 
         if ($name instanceof Header) {
-            $this->setHeader($name->getName(), $name->getValue());
+            $header = $name;
+            $name = $header->getName();
+
+            if (array_key_exists($name, $this->_headers)) {
+                $this->_headers[$name]->merge($header);
+            } else {
+                $this->_headers[$name] = $header;
+            }
         } else if (is_string($name)) {
             if ($value instanceof Header) {
                 $name = $value->getName(); // sync to the headers name
@@ -168,7 +176,7 @@ class Response extends ResponseAbstract {
      */
     public function getStatus() {
         if (null === $this->_status) {
-            $this->_status = new Status(Status::STATUS_OK);
+            $this->_status = new Status();
         }
         return $this->_status;
     }
@@ -179,7 +187,7 @@ class Response extends ResponseAbstract {
      * @return \Mu\Http\Response
      */
     public function setStatus($status) {
-        $this->_status = ($status instanceof Status) ? $status : new Status($status);
+        $this->_status = ($status instanceof Status) ? $status : new Status(array('status' => $status));
         return $this;
     }
 
@@ -249,12 +257,13 @@ class Response extends ResponseAbstract {
      */
     public function send() {
         if (!$this->headers_sent()) {
+            // @todo call send on collection once available
             foreach ($this->getHeaders() as $header) {
-                $this->header((string) $header);
+                $header->send();
             }
 
             // set the status last due to php changing the status if a location header has been sent
-            $this->header((string) $this->getStatus());
+            $this->getStatus()->send();
             $this->getCookie()->send();
         }
 

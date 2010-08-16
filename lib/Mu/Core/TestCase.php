@@ -37,20 +37,20 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * Input to be used during test cases
      * @var string
      */
-    protected $_input = '';
+    static protected $_input = '';
 
     /**
      * Output to be used during test cases
      * @var string
      */
-    protected $_output = '';
+    static protected $_output = '';
 
     /**
      * Gets input to be used during test cases
      * @return string
      */
-    public function getInput() {
-        return $this->_input;
+    static public function getInput() {
+        return self::$_input;
     }
 
     /**
@@ -58,24 +58,24 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param string $input
      * @return void
      */
-    public function setInput($input) {
-        $this->_input = is_string($input) ? $input : $this->_input;
+    static public function setInput($input) {
+        self::$_input = is_string($input) ? $input : self::$_input;
     }
 
     /**
      * Gets output to be used during test cases
      * @return string
      */
-    public function getOutput() {
-        return $this->_output;
+    static public function getOutput() {
+        return self::$_output;
     }
 
     /**
      * Sets output to be used during test cases
      * @param string $output
      */
-    public function setOutput($output) {
-        $this->_output = is_string($output) ? $output : $this->_output;
+    static public function setOutput($output) {
+        self::$_output = is_string($output) ? $output : self::$_output;
     }
 
     /**
@@ -101,8 +101,8 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @return void
      */
     public function resetDelegatesVars() {
-        $this->_input = '';
-        $this->_output = '';
+        self::$_input = '';
+        self::$_output = '';
     }
 
     /**

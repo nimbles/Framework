@@ -30,6 +30,7 @@ use Mu\Core\Mixin\MixinAbstract,
  * @version    $Id$
  *
  * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Delegates\Delegatable
  * @uses       \Mu\Core\Config\Options
  *
  * @uses       \Mu\Http\Header\Exception\InvalidHeaderName
@@ -39,7 +40,15 @@ class Header extends MixinAbstract {
      * Class implements
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    protected $_implements = array(
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'headers_sent' => 'headers_sent',
+                'header' => 'header'
+            )
+        ),
+        'Mu\Core\Config\Options'
+    );
 
     /**
      * The header name
@@ -211,5 +220,17 @@ class Header extends MixinAbstract {
         }
 
         return sprintf('%s', $this->getName());
+    }
+
+    /**
+     * Sends the header
+     * @return void
+     */
+    public function send() {
+        if ($this->headers_sent()) {
+            throw new Header\Exception\HeadersAlreadySent('Cannot send header when headers have already been sent');
+        }
+
+        $this->header((string) $this);
     }
 }
