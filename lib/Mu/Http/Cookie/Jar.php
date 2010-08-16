@@ -18,7 +18,8 @@
 
 namespace Mu\Http\Cookie;
 
-use Mu\Http\Cookie;
+use Mu\Http\Cookie,
+    Mu\Http\Cookie\Jar;
 
 /**
  * @category   Mu
@@ -43,6 +44,12 @@ class Jar extends \ArrayObject {
     static protected $_instance;
 
     /**
+     * Indicates that the jar is readonly
+     * @var bool
+     */
+    protected $_readonly;
+
+    /**
      * Gets an instanceof the Cookie Jar
      * @return \Mu\Http\Cookie\Jar
      */
@@ -51,25 +58,51 @@ class Jar extends \ArrayObject {
     }
 
     /**
+     * Indicates that the jar is readonly
+     * @return bool
+     */
+    public function isReadOnly() {
+        return $this->_readonly;
+    }
+
+    /**
      * Class construct
-     * @param  array $array
+     * @param array $array
+     * @param bool  $readonly indicates that the jar should be readonly
      * @return void
      */
-    public function __construct(array $array = null) {
+    public function __construct(array $array = null, $readonly = false) {
         parent::__construct();
+
         $this->setCookies($array, true);
+        $this->_readonly = is_bool($readonly) ? $readonly : false;
     }
 
     /**
      * Overloads offsetSet to restrict value type
-     * @param  int|string      $index
+     * @param  int|string      $key
      * @param  \Mu\Http\Cookie $value
      * @return void
      * @throws \Mu\Http\Cookie\Exception\InvalidInstance
      */
-    public function offsetSet($index, $value) {
+    public function offsetSet($key, $value) {
+        if ($this->isReadOnly()) {
+            throw new Jar\Exception\ReadOnly('Cannot write to cookie jar when it is read only');
+        }
+
+        if (is_string($value)) {
+            $value = new Cookie(array(
+                'name' => $key,
+                'value' => $value
+            ));
+        }
+
         if (!($value instanceof Cookie)) {
             throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
+        }
+
+        if (null === $value->getName()) {
+            $value->setName($key);
         }
 
         return parent::offsetSet($value->getName(), $value);
@@ -88,22 +121,7 @@ class Jar extends \ArrayObject {
 
         if (null !== $cookies) {
             foreach ($cookies as $key => $value) {
-                if (is_string($value)) {
-                    $value = new Cookie(array(
-                        'name' => $key,
-                        'value' => $value
-                    ));
-                }
-
-                if (!($value instanceof Cookie)) {
-                    throw new Cookie\Exception\InvalidInstance('Invalid value, must be an instance of Mu\Http\Cookie');
-                }
-
-                if (null === $value->getName()) {
-                    $value->setName($key);
-                }
-
-                $this[$value->getName()] = $value;
+                $this[$key] = $value;
             }
         }
 

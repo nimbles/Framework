@@ -213,12 +213,9 @@ class Request extends RequestAbstract {
      * @return \Mu\Http\Request
      */
     public function setCookie(array $cookie = null) {
-        if (null === $this->_cookie) {
-            $this->_cookie = Cookie\Jar::getInstance();
-        }
-
-        $this->_cookie->setCookies(
-            (null === $cookie) ? $_COOKIE : $cookie
+        $this->_cookie = new Cookie\Jar(
+            (null === $cookie) ? $_COOKIE : $cookie,
+            true
         );
 
         return $this;

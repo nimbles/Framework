@@ -37,19 +37,32 @@ use Mu\Http\TestCase,
  */
 class JarTest extends TestCase {
     /**
-     * Tests adding a cookie
+     * Tests adding a cookie and that a Mu\Http\Cookie\Exception\InvalidInstance exception
+     * is thrown accordingly
      * @return void
      */
     public function testAddCookie() {
         $jar = new Cookie\Jar();
-        $jar[] = new Cookie();
+        $jar[] = new Cookie(array(
+            'name' => 'test',
+            'value' => 'value'
+        ));
+
+        $jar['test2'] = new Cookie(array(
+            'value' => 'value2'
+        ));
+
+        $jar['test3'] = 'value3';
+
+        $this->assertCollection('\Mu\Http\Cookie', $jar);
 
         $this->setExpectedException('Mu\Http\Cookie\Exception\InvalidInstance');
         $jar[] = true;
     }
 
     /**
-     * Tests construct
+     * Tests construct and that a Mu\Http\Cookie\Exception\InvalidInstance exception is
+     * thrown when adding a non cookie
      * @return void
      */
     public function testConstruct() {
@@ -68,7 +81,23 @@ class JarTest extends TestCase {
     }
 
     /**
-     * Tests sending the cookie jar
+     * Tests that a Mu\Http\Cookie\Jar\Exception\ReadOnly exception is thrown when
+     * added a cookie to a read only jar
+     * @return void
+     */
+    public function testReadOnly() {
+        $jar = new Cookie\Jar(array(
+            'test' => new Cookie(),
+            'test2' => 'value'
+        ), true);
+
+        $this->setExpectedException('Mu\Http\Cookie\Jar\Exception\ReadOnly');
+        $jar['test3'] = 'value3';
+    }
+
+    /**
+     * Tests sending the cookie jar and that the Mu\Http\Cookie\Exception\HeadersAlreadySent
+     * exception is thrown when attempt to send once headers are already sent
      * @return void
      */
     public function testSend() {
