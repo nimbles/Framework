@@ -19,7 +19,8 @@
 namespace Mu\Http;
 
 use Mu\Core\Response\ResponseAbstract,
-    Mu\Http\Status;
+    Mu\Http\Status,
+    Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -35,6 +36,8 @@ use Mu\Core\Response\ResponseAbstract,
  *
  * @uses       \Mu\Http\Header
  * @uses       \Mu\Http\Status
+ * @uses       \Mu\Http\Cookie
+ * @uses       \Mu\Http\Cookie\Jar
  */
 class Response extends ResponseAbstract {
     /**
@@ -63,6 +66,12 @@ class Response extends ResponseAbstract {
      * @var \Mu\Http\Status
      */
     protected $_status;
+
+    /**
+     * The cookies to include in the response
+     * @var \Mu\Http\Cookie\Jar
+     */
+    protected $_cookie;
 
     /**
      * Indicates the response should be compressed
@@ -175,6 +184,48 @@ class Response extends ResponseAbstract {
     }
 
     /**
+     * Gets the cookie or jar
+     * @param string|null $key
+     * @return \Mu\Http\Cookie|\Mu\Http\Cookie\Jar|null
+     */
+    public function getCookie($key = null) {
+        if (null === $this->_cookie) {
+            $this->setCookie();
+        }
+
+        if (null === $key) {
+            return $this->_cookie;
+        }
+
+        if ($this->_cookie->offsetExists($key)) {
+            return $this->_cookie[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * Initializes the cookie jar, adds cookies to it
+     *
+     * @param null|\Mu\Http\Cookie|string $cookie
+     * @param null|string                 $value
+     * @return \Mu\Http\Response
+     */
+    public function setCookie($cookie = null, $value = null) {
+        if (null ===  $this->_cookie) {
+            $this->_cookie = new Cookie\Jar();
+        }
+
+        if ($cookie instanceof Cookie) {
+            $this->_cookie[] = $cookie;
+        } else if (is_string($cookie) && is_string($value)) {
+            $this->_cookie[$cookie] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets if the response should be compressed
      * @return bool
      */
@@ -204,6 +255,7 @@ class Response extends ResponseAbstract {
 
             // set the status last due to php changing the status if a location header has been sent
             $this->header((string) $this->getStatus());
+            $this->getCookie()->send();
         }
 
         if (

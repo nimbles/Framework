@@ -33,6 +33,7 @@ use Mu\Http\Cookie,
  *
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Cookie\Exception\InvalidInstance
+ * @uses       \Mu\Http\Cookie\Jar\Exception\ReadOnly
  *
  * @todo Migrate to using the collection class once available
  */

@@ -114,4 +114,31 @@ class ResponseTest extends TestCase {
         $response->setCompressed(true);
         $this->assertTrue($response->getCompressed());
     }
+
+    /**
+     * Tests getting an setting cookies
+     * @return void
+     */
+    public function testCookie() {
+        $response = new \Mu\Http\Response();
+
+        $this->assertType('\Mu\Http\Cookie\Jar', $response->getCookie());
+
+        $response->setCookie('test1', 'value1');
+        $response->setCookie(new \Mu\Http\Cookie(array(
+            'name' => 'test2',
+            'value' => 'value2',
+            'expire' => 200
+        )));
+        $this->assertCollection('\Mu\Http\Cookie', $response->getCookie());
+
+        $cookie1 = $response->getCookie('test1');
+        $cookie2 = $response->getCookie('test2');
+
+        $this->assertEquals('value1', $cookie1->getValue());
+        $this->assertEquals(0, $cookie1->getExpire());
+
+        $this->assertEquals('value2', $cookie2->getValue());
+        $this->assertEquals(200, $cookie2->getExpire());
+    }
 }
