@@ -95,6 +95,20 @@ class TestCase extends \Mu\Core\TestCase {
     }
 
     /**
+     * Creates a \Mu\Http\Cookie with delegate methods
+     * @param array|null $options
+     * @return \Mu\Http\Cookie
+     */
+    public function createCookie($options = null) {
+        $cookie = new Cookie($options);
+        $cookie->setDelegate('setcookie', array('\Mu\Http\TestCase', 'setcookie'));
+        $cookie->setDelegate('setrawcookie', array('\Mu\Http\TestCase', 'setrawcookie'));
+        $cookie->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+
+        return $cookie;
+    }
+
+    /**
      * Indicates that the headers have been sent
      * @return bool
      */
@@ -110,6 +124,56 @@ class TestCase extends \Mu\Core\TestCase {
      * @return void
      */
     static public function header($header) {
+        self::$_headers[] = $header;
+    }
+
+    /**
+     * Sets a cookie
+     *
+     * @param string $name
+     * @param string $value
+     * @param int    $expire
+     * @param string $path
+     * @param string $domain
+     * @param bool   $secure
+     * @param bool   $httponly
+     */
+    static public function setcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
+        return self::setrawcookie($name, urldecode($value), $expire, $path, $domain, $secure, $httponly);
+    }
+
+    /**
+     * Sets a raw cookie
+     *
+     * @param string $name
+     * @param string $value
+     * @param int    $expire
+     * @param string $path
+     * @param string $domain
+     * @param bool   $secure
+     * @param bool   $httponly
+     */
+    static public function setrawcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
+        $header = sprintf('Set-Cookie: %s=%s', $name, $value);
+
+        if (0 !== $expire) {
+            $header .= sprintf("; expires=%s", date('D, d-m-Y H:i:s e', $expire));
+        }
+
+        $header .= sprintf("; path=%s", $path);
+
+        if (null !== $domain) {
+            $header .= sprintf("; domain=%s", $domain);
+        }
+
+        if ($secure) {
+            $header .= '; secure';
+        }
+
+        if ($httponly) {
+            $header .= '; httponly';
+        }
+
         self::$_headers[] = $header;
     }
 

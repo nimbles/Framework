@@ -48,10 +48,10 @@ class StatusTest extends TestCase {
 
     /**
      * Tests that creating a status from a given code produces the corresponding header
-     * @dataProvider codeProvider
      * @param int    $code
      * @param string $expectedHeader
      * @return void
+     * @dataProvider codeProvider
      */
     public function testConstruct($code, $description) {
         // create by code
@@ -105,6 +105,26 @@ class StatusTest extends TestCase {
         foreach($methods as $method => $expected) {
             $this->assertEquals($expected, $status->$method());
         }
+    }
+
+    /**
+     * Tests sending a header
+     * @param int    $code
+     * @param string $expectedHeader
+     * @return void
+     * @dataProvider codeProvider
+     */
+    public function testSend($code, $description) {
+        $status = $this->createStatus(array('status' => $code));
+        $status->send();
+
+        $this->assertSame(array(
+            sprintf('HTTP/1.1 %d %s', $code, $description)
+        ), self::$_headers);
+
+        self::isHeadersSent(true);
+        $this->setExpectedException('\Mu\Http\Status\Exception\HeadersAlreadySent');
+        $status->send();
     }
 
     /**

@@ -154,8 +154,8 @@ class ResponseTest extends TestCase {
             ->setStatus($status)
             ->setBody($body);
 
-        foreach ($cookies as $cookie => $value) {
-            $response->setCookie($cookie, $value);
+        foreach ($cookies as $cookie) {
+            $response->setCookie($cookie);
         }
 
         $response->send();
@@ -176,76 +176,40 @@ class ResponseTest extends TestCase {
      * @return array
      */
     public function sendProvider() {
-        return array(
-            array(
+        $args = array();
+        $statuses = array(null, 204, 304);
+
+        foreach ($statuses as $status) {
+            $body = (null === $status) ? 'hello world' : '';
+
+            $status = $this->createStatus(
+                (null === $status) ?
+                null :
+                array('status' => $status)
+            );
+
+            $args[] = array(
                 array(
                     $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
                     $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
                 ),
                 array(
-                    'test1' => 'value1',
-                    new \Mu\Http\Cookie(array(
-                        'name' => 'test2',
-                        'value' => 'value2',
-                        'expire' => 20,
-                        'path' => '/foo'
-                    ))
+                    $this->createCookie(array('name' => 'test1', 'value' => 'value1')),
+                    $this->createCookie(array('name' => 'test2', 'value' => 'value2', 'path' => '/foo')),
                 ),
-                $this->createStatus(),
+                $status,
                 'hello world',
                 array(
                     'Content-Type: text/plain',
                     'Content-Length: 11',
-                    'HTTP/1.1 200 OK'
+                    'Set-Cookie: test1=value1; path=/',
+                    'Set-Cookie: test2=value2; path=/foo',
+                    (string) $status
                 ),
-                'hello world'
-            ),
-            array(
-                array(
-                    $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
-                    $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
-                ),
-                array(
-                    'test1' => 'value1',
-                    new \Mu\Http\Cookie(array(
-                        'name' => 'test2',
-                        'value' => 'value2',
-                        'expire' => 20,
-                        'path' => '/foo'
-                    ))
-                ),
-                $this->createStatus(array('status' => \Mu\http\Status::STATUS_NO_CONTENT)),
-                'hello world',
-                array(
-                    'Content-Type: text/plain',
-                    'Content-Length: 11',
-                    'HTTP/1.1 204 No Content'
-                ),
-                ''
-            ),
-            array(
-                array(
-                    $this->createHeader(array('name' => 'Content-Type', 'value' => 'text/plain')),
-                    $this->createHeader(array('name' => 'Content-Length', 'value' => '11')),
-                ),
-                array(
-                    'test1' => 'value1',
-                    new \Mu\Http\Cookie(array(
-                        'name' => 'test2',
-                        'value' => 'value2',
-                        'expire' => 20,
-                        'path' => '/foo'
-                    ))
-                ),
-                $this->createStatus(array('status' => \Mu\http\Status::STATUS_NOT_MODIFIED)),
-                'hello world',
-                array(
-                    'Content-Type: text/plain',
-                    'Content-Length: 11',
-                    'HTTP/1.1 304 Not Modified'
-                ),
-                ''
-            ),
-        );
+                $body
+            );
+        }
+
+        return $args;
     }
 }

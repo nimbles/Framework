@@ -30,4 +30,4 @@ use Mu\Http\Status\Exception;
  *
  * @uses       \Mu\Http\Status\Exception
  */
-class StatussAlreadySent extends Exception {}
+class HeadersAlreadySent extends Exception {}

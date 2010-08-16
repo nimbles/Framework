@@ -82,51 +82,24 @@ class CookieTest extends TestCase {
      * Tests the send method
      */
     public function testSend() {
-        $cookie = new Cookie(array(
+        $cookie = $this->createCookie(array(
             'name' => 'test_name',
             'value' => 'test value'
         ));
 
-        $sent = false;
-        $urlencoded = array();
-        $raw = array();
-
-        $cookie->setDelegate('headers_sent', function() use (&$sent) {
-            return $sent;
-        });
-
-        $cookie->setDelegate('setcookie', function() use (&$urlencoded) {
-            $urlencoded = func_get_args();
-            $urlencoded[1] = urlencode($urlencoded[1]);
-        });
-
-        $cookie->setDelegate('setrawcookie', function() use (&$raw) {
-            $raw = func_get_args();
-        });
-
         $cookie->send();
         $this->assertSame(array(
-            'test_name',
-            'test+value',
-            0,
-            '/',
-            null,
-            false,
-            false
-        ), $urlencoded);
+            'Set-Cookie: test_name=test value; path=/'
+        ), self::$_headers);
+
+        $this->resetDelegatesVars();
 
         $cookie->send(true);
         $this->assertSame(array(
-            'test_name',
-            'test value',
-            0,
-            '/',
-            null,
-            false,
-            false
-        ), $raw);
+            'Set-Cookie: test_name=test value; path=/'
+        ), self::$_headers);
 
-        $sent = true;
+        self::isHeadersSent(true);
         $this->setExpectedException('Mu\Http\Cookie\Exception\HeadersAlreadySent');
 
         $cookie->send();

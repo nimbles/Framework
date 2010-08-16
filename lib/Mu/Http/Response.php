@@ -261,10 +261,10 @@ class Response extends ResponseAbstract {
             foreach ($this->getHeaders() as $header) {
                 $header->send();
             }
+            $this->getCookie()->send();
 
             // set the status last due to php changing the status if a location header has been sent
             $this->getStatus()->send();
-            $this->getCookie()->send();
         }
 
         if (

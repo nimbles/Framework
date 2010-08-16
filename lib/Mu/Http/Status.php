@@ -264,7 +264,7 @@ class Status extends MixinAbstract {
      */
     public function send() {
         if ($this->headers_sent()) {
-            throw new Header\Exception\HeadersAlreadySent('Cannot send status when headers have already been sent');
+            throw new Status\Exception\HeadersAlreadySent('Cannot send status when headers have already been sent');
         }
 
         $this->header((string) $this);
