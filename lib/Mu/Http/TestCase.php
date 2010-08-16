@@ -30,6 +30,18 @@ namespace Mu\Http;
  */
 class TestCase extends \Mu\Core\TestCase {
     /**
+     * Indicates that the headers have been sent
+     * @var bool
+     */
+    protected $_headersSent;
+
+    /**
+     * Array of sent headers
+     * @var array
+     */
+    protected $_headers;
+
+    /**
      * Creates a \Mu\Http\Request with the test delegate methods
      * @param array|null $options
      * @return \Mu\Http\Request
@@ -50,6 +62,26 @@ class TestCase extends \Mu\Core\TestCase {
         $response = new \Mu\Http\Response($options);
         $response->setDelegate('write', array($this, 'setOutput'));
 
+        $headers_sent =& $this->_headersSent;
+        $response->setDelegate('headers_sent', function() use (&$headers_sent) {
+            return $headers_sent;
+        });
+
+        $headers =& $this->_headers;
+        $response->setDelegate('header', function($header) use (&$headers) {
+            $headers[] = $header;
+        });
+
         return $response;
+    }
+
+    /**
+     * Resets headers
+     * @return void
+     */
+    public function resetDelegatesVars() {
+        parent::resetDelegatesVars();
+        $this->_headersSent = false;
+        $this->_headers = array();
     }
 }

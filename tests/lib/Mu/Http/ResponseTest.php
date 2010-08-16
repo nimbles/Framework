@@ -114,4 +114,82 @@ class ResponseTest extends TestCase {
         $response->setCompressed(true);
         $this->assertTrue($response->getCompressed());
     }
+
+    /**
+     * Tests sending the response
+     * @return void
+     * @dataProvider sendProvider
+     */
+    public function testSend($headers, $status, $body, $expectedHeaders, $expectedOutput) {
+        $response = $this->createResponse();
+
+        $response->setHeaders(array(
+            'Content-Type' => 'text/plain',
+            'Content-Length' => '11',
+        ))->setStatus($status)
+            ->setBody('hello world');
+
+        $response->send();
+
+        $this->assertSame($expectedHeaders, $this->_headers);
+        $this->assertEquals($expectedOutput, $this->getOutput());
+
+        $this->resetDelegatesVars();
+
+        $this->_headersSent = true;
+        $response->send();
+        $this->assertSame(array(), $this->_headers);
+        $this->assertEquals($expectedOutput, $this->getOutput());
+    }
+
+    /**
+     * Data provider for sending of a reponse
+     * @return array
+     */
+    public function sendProvider() {
+        return array(
+            array(
+                array(
+		            'Content-Type' => 'text/plain',
+		            'Content-Length' => '11',
+		        ),
+                \Mu\http\Status::STATUS_OK,
+                'hello world',
+                array(
+		            'Content-Type: text/plain',
+		            'Content-Length: 11',
+		            'HTTP/1.1 200 OK'
+		        ),
+		        'hello world'
+		    ),
+            array(
+                array(
+                    'Content-Type' => 'text/plain',
+                    'Content-Length' => '11',
+                ),
+                \Mu\http\Status::STATUS_NO_CONTENT,
+                'hello world',
+                array(
+		            'Content-Type: text/plain',
+		            'Content-Length: 11',
+		            'HTTP/1.1 204 No Content'
+		        ),
+		        ''
+		    ),
+		    array(
+                array(
+                    'Content-Type' => 'text/plain',
+                    'Content-Length' => '11',
+                ),
+                \Mu\http\Status::STATUS_NOT_MODIFIED,
+                'hello world',
+                array(
+                    'Content-Type: text/plain',
+                    'Content-Length: 11',
+                'HTTP/1.1 304 Not Modified'
+                ),
+                ''
+            ),
+        );
+    }
 }
