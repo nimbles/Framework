@@ -18,7 +18,7 @@
 
 namespace Tests\Lib\Mu\Cli;
 
-use Mu\Http\TestCase;
+use Mu\Cli\TestCase;
 
 /**
  * @category   Mu
@@ -28,7 +28,7 @@ use Mu\Http\TestCase;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestCase
+ * @uses       \Mu\Cli\TestCase
  *
  * @group      Mu
  * @group      Mu-Cli

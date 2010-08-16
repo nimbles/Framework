@@ -95,4 +95,22 @@ class TestCase extends PHPUnit_Framework_TestCase {
             $this->assertType($type, $value, $message);
         }
     }
+
+    /**
+     * Resets input and output
+     * @return void
+     */
+    public function resetDelegatesVars() {
+        $this->_input = '';
+        $this->_output = '';
+    }
+
+    /**
+     * Overrides so that variables used by delegates are reset, they may get missed if setUp was used
+     * @return void
+     */
+    public function runBare() {
+        $this->resetDelegatesVars();
+        return parent::runBare();
+    }
 }

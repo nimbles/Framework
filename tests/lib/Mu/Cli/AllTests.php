@@ -30,7 +30,7 @@ use Mu\Cli\TestSuite;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\Cli\TestSuite
  *
  * @group      Mu
  * @group      Mu-Cli

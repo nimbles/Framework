@@ -70,4 +70,13 @@ class TestCase extends \Mu\Core\TestCase {
 
         return $response;
     }
+
+    /**
+     * Resets argv
+     * @return void
+     */
+    public function resetDelegatesVars() {
+        parent::resetDelegatesVars();
+        $this->_argv = array();
+    }
 }
