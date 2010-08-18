@@ -17,7 +17,7 @@
 
 namespace Tests\lib\Mu\Core;
 
-
+require_once 'Adapter/AllTests.php';
 require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
 require_once 'DelegatesTest.php';
@@ -49,6 +49,8 @@ class AllTests extends TestSuite {
      */
     static public function suite() {
         $suite = new TestSuite('Mu Framework - Core');
+
+        $suite->addTest(Adapter\AllTests::suite());
 
         $suite->addTestSuite('\Tests\Lib\Mu\Core\ConfigTest');
         $suite->addTest(Config\AllTests::suite());
