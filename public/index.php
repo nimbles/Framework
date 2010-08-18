@@ -1,3 +1,3 @@
 <?php
-setcookie('testing', 'cookie', time()+2000, '/foo', 'localhost', true, true);
-setcookie('testing2', 'cookie', time()+2000, '/foo', 'localhost', true, true);
+header('Content-Type: text/plain');
+print_r(session_get_cookie_params());
