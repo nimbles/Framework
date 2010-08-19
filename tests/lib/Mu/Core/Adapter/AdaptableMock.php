@@ -36,6 +36,31 @@ class AdaptableSingleMock extends MixinAbstract {
      * with no restriction of adapter type
      * @var array
      */
+    protected $_implements = array(
+        'Mu\Core\Adapter\Adaptable' => array(
+            'paths' => array(
+                '\Tests\Lib\Mu\Core\Adapter'
+            )
+        )
+    );
+}
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Adapter
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ */
+class AdaptableSingleNoPathsMock extends MixinAbstract {
+    /**
+     * The implements for this mock, adds the adaptable mixin
+     * with no restriction of adapter type
+     * @var array
+     */
     protected $_implements = array('Mu\Core\Adapter\Adaptable');
 }
 
@@ -57,7 +82,10 @@ class AdaptableAbstractMock extends MixinAbstract {
      */
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
-            'abstract' => '\Tests\Lib\Mu\Core\Adapter\AdapterAbstract'
+            'abstract' => '\Tests\Lib\Mu\Core\Adapter\AdapterAbstract',
+            'paths' => array(
+                '\Tests\Lib\Mu\Core\Adapter'
+            )
         )
     );
 }
@@ -80,7 +108,10 @@ class AdaptableInterfaceMock extends MixinAbstract {
      */
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
-            'interface' => '\Tests\Lib\Mu\Core\Adapter\AdapterInterface'
+            'interface' => '\Tests\Lib\Mu\Core\Adapter\AdapterInterface',
+            'paths' => array(
+                '\Tests\Lib\Mu\Core\Adapter'
+            )
         )
     );
 }
