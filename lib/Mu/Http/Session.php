@@ -52,7 +52,8 @@ class Session extends MixinAbstract {
 	            'write'                     => array('\Mu\Http\Session', 'writeSession'),
                 'clear'                     => array('\Mu\Http\Session', 'clearSession'),
             )
-        )
+        ),
+        'Mu\Core\Config\Options'
     );
 
     /**
@@ -153,6 +154,16 @@ class Session extends MixinAbstract {
     public function setCookieParams(array $params) {
         call_user_func_array(array($this, 'session_set_cookie_params'), $params);
         return $this;
+    }
+
+    /**
+     * Class construct
+     * @param array|null $options
+     * @return void
+     */
+    public function __construct($options = null) {
+        parent::__construct();
+        $this->setOptions($options);
     }
 
     /**

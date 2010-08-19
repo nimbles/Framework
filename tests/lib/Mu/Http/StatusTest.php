@@ -18,9 +18,8 @@
 
 namespace Tests\Lib\Mu\Http;
 
-use Mu\Http\TestCase;
-
-use Mu\Http\Status;
+use Mu\Http\TestCase,
+    Mu\Http\Status;
 
 /**
  * @category   Mu

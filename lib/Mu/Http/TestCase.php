@@ -109,6 +109,16 @@ class TestCase extends \Mu\Core\TestCase {
     }
 
     /**
+     * Creates a \Mu\Http\Session with delegate methods
+     * @param array|null $options
+     * @return \Mu\Http\Session
+     */
+    public function createSession($options = null) {
+        $session = new Session($options);
+        return $session;
+    }
+
+    /**
      * Indicates that the headers have been sent
      * @return bool
      */

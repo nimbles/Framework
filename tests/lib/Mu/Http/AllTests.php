@@ -20,6 +20,7 @@ namespace Tests\Lib\Mu\Http;
 require_once 'CookieTest.php';
 require_once 'Cookie/AllTests.php';
 require_once 'HeaderTest.php';
+require_once 'SessionTest.php';
 require_once 'StatusTest.php';
 require_once 'RequestTest.php';
 require_once 'ResponseTest.php';
@@ -50,6 +51,7 @@ class AllTests extends TestSuite {
         $suite->addTest(Cookie\AllTests::suite());
 
         $suite->addTestSuite('\Tests\Lib\Mu\Http\HeaderTest');
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\SessionTest');
         $suite->addTestSuite('\Tests\Lib\Mu\Http\StatusTest');
         $suite->addTestSuite('\Tests\Lib\Mu\Http\RequestTest');
         $suite->addTestSuite('\Tests\Lib\Mu\Http\ResponseTest');
