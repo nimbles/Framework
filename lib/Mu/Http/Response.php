@@ -19,7 +19,8 @@
 namespace Mu\Http;
 
 use Mu\Core\Response\ResponseAbstract,
-    Mu\Http\Status;
+    Mu\Http\Status,
+    Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -35,6 +36,8 @@ use Mu\Core\Response\ResponseAbstract,
  *
  * @uses       \Mu\Http\Header
  * @uses       \Mu\Http\Status
+ * @uses       \Mu\Http\Cookie
+ * @uses       \Mu\Http\Cookie\Jar
  */
 class Response extends ResponseAbstract {
     /**
@@ -63,6 +66,12 @@ class Response extends ResponseAbstract {
      * @var \Mu\Http\Status
      */
     protected $_status;
+
+    /**
+     * The cookies to include in the response
+     * @var \Mu\Http\Cookie\Jar
+     */
+    protected $_cookie;
 
     /**
      * Indicates the response should be compressed
@@ -104,6 +113,7 @@ class Response extends ResponseAbstract {
      * Gets a header by its name
      * @param string $name
      * @return \Mu\Http\Header|null
+     * @todo Create header collection class once collection available, to include send method
      */
     public function getHeader($name) {
         if (array_key_exists($name, ($headers = $this->getHeaders()))) {
@@ -126,7 +136,14 @@ class Response extends ResponseAbstract {
         }
 
         if ($name instanceof Header) {
-            $this->setHeader($name->getName(), $name->getValue());
+            $header = $name;
+            $name = $header->getName();
+
+            if (array_key_exists($name, $this->_headers)) {
+                $this->_headers[$name]->merge($header);
+            } else {
+                $this->_headers[$name] = $header;
+            }
         } else if (is_string($name)) {
             if ($value instanceof Header) {
                 $name = $value->getName(); // sync to the headers name
@@ -159,7 +176,7 @@ class Response extends ResponseAbstract {
      */
     public function getStatus() {
         if (null === $this->_status) {
-            $this->_status = new Status(Status::STATUS_OK);
+            $this->_status = new Status();
         }
         return $this->_status;
     }
@@ -170,7 +187,49 @@ class Response extends ResponseAbstract {
      * @return \Mu\Http\Response
      */
     public function setStatus($status) {
-        $this->_status = ($status instanceof Status) ? $status : new Status($status);
+        $this->_status = ($status instanceof Status) ? $status : new Status(array('status' => $status));
+        return $this;
+    }
+
+    /**
+     * Gets the cookie or jar
+     * @param string|null $key
+     * @return \Mu\Http\Cookie|\Mu\Http\Cookie\Jar|null
+     */
+    public function getCookie($key = null) {
+        if (null === $this->_cookie) {
+            $this->setCookie();
+        }
+
+        if (null === $key) {
+            return $this->_cookie;
+        }
+
+        if ($this->_cookie->offsetExists($key)) {
+            return $this->_cookie[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * Initializes the cookie jar, adds cookies to it
+     *
+     * @param null|\Mu\Http\Cookie|string $cookie
+     * @param null|string                 $value
+     * @return \Mu\Http\Response
+     */
+    public function setCookie($cookie = null, $value = null) {
+        if (null ===  $this->_cookie) {
+            $this->_cookie = new Cookie\Jar();
+        }
+
+        if ($cookie instanceof Cookie) {
+            $this->_cookie[] = $cookie;
+        } else if (is_string($cookie) && is_string($value)) {
+            $this->_cookie[$cookie] = $value;
+        }
+
         return $this;
     }
 
@@ -198,12 +257,14 @@ class Response extends ResponseAbstract {
      */
     public function send() {
         if (!$this->headers_sent()) {
+            // @todo call send on collection once available
             foreach ($this->getHeaders() as $header) {
-                $this->header((string) $header);
+                $header->send();
             }
+            $this->getCookie()->send();
 
             // set the status last due to php changing the status if a location header has been sent
-            $this->header((string) $this->getStatus());
+            $this->getStatus()->send();
         }
 
         if (

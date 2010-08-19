@@ -9,31 +9,36 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Tests;
 
 require_once 'PHPUnit/Framework.php';
-require_once 'Mu/AllTests.php';
+require_once 'lib/AllTests.php';
+
+use Mu\Core\TestSuite;
 
 /**
- * @category  Mu
- * @package   Mu
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
  */
-class AllTests {
+class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for All Tests
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('All Tests');
-        $suite->addTest(Mu\AllTests::suite());
+        $suite = new TestSuite('All Tests');
+        $suite->addTest(Lib\AllTests::suite());
         return $suite;
     }
 }

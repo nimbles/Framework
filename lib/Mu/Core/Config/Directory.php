@@ -18,6 +18,8 @@
 
 namespace Mu\Core\Config;
 
+use Mu\Core\Config;
+
 /**
  * @category   Mu
  * @package    Mu-Core
@@ -26,6 +28,7 @@ namespace Mu\Core\Config;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
+ * @uses       \Mu\Core\Config
  * @uses       \Mu\Core\Config\File
  * @uses       \Mu\Core\Config\Exception\MissingConfigDirectory
  */
@@ -37,7 +40,7 @@ class Directory extends File {
      * @return void
      */
     public function __construct($directory, $environment) {
-        $this->_parsedConfig = array();
+        $this->_config = new Config();
         $this->_readConfigFiles($directory, $environment);
     }
 

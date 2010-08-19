@@ -18,6 +18,8 @@
 
 namespace Mu\Http;
 
+use Mu\Core\Mixin\MixinAbstract;
+
 /**
  * @category   Mu
  * @package    Mu-Http
@@ -26,7 +28,23 @@ namespace Mu\Http;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  */
-class Status {
+class Status extends MixinAbstract {
+    /**
+     * Class implements
+     * @var array
+     */
+    protected $_implements = array(
+        'Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'headers_sent' => 'headers_sent',
+                'header' => 'header'
+            )
+        ),
+        'Mu\Core\Config\Options' => array(
+            'status' => Status::STATUS_OK
+        )
+    );
+
     /**
      * Informational
      */
@@ -224,11 +242,12 @@ class Status {
 
     /**
      * Class construct
-     * @param int $status
+     * @param array|null $options
      * @return void
      */
-    public function __construct($status) {
-        $this->setStatus($status);
+    public function __construct($options = null) {
+        parent::__construct();
+        $this->setOptions($options);
     }
 
     /**
@@ -237,5 +256,17 @@ class Status {
      */
     public function __toString() {
         return sprintf('HTTP/1.1 %d %s', $this->getStatus(), $this->getDescription());
+    }
+
+    /**
+     * Sends the status code
+     * @return void
+     */
+    public function send() {
+        if ($this->headers_sent()) {
+            throw new Status\Exception\HeadersAlreadySent('Cannot send status when headers have already been sent');
+        }
+
+        $this->header((string) $this);
     }
 }

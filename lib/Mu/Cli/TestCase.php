@@ -17,8 +17,6 @@
  */
 namespace Mu\Cli;
 
-require_once 'PHPUnit/Framework.php';
-
 /**
  * @category   Mu
  * @package    Mu-Cli
@@ -33,11 +31,17 @@ require_once 'PHPUnit/Framework.php';
  */
 class TestCase extends \Mu\Core\TestCase {
     /**
+     * Argv used during test cases
+     * @var array
+     */
+    static protected $_argv;
+
+    /**
      * Gets the Argv to be used during test cases
      * @return array
      */
-    public function getArgv() {
-        return $this->_argv;
+    static public function getArgv() {
+        return self::$_argv;
     }
 
     /**
@@ -45,8 +49,8 @@ class TestCase extends \Mu\Core\TestCase {
      * @param array $argv
      * @return void
      */
-    public function setArgv(array $argv) {
-        $this->_argv = $argv;
+    static public function setArgv(array $argv) {
+        self::$_argv = $argv;
     }
 
     /**
@@ -56,7 +60,7 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function createRequest($options = null) {
         $response = new \Mu\Cli\Request($options);
-        $response->setDelegate('getInput', array($this, 'getInput'));
+        $response->setDelegate('getInput', array('\Mu\Cli\TestCase', 'getInput'));
 
         return $response;
     }
@@ -68,8 +72,17 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function createResponse($options = null) {
         $response = new \Mu\Cli\Response($options);
-        $response->setDelegate('write', array($this, 'setOutput'));
+        $response->setDelegate('write', array('\Mu\Cli\TestCase', 'setOutput'));
 
         return $response;
+    }
+
+    /**
+     * Resets argv
+     * @return void
+     */
+    public function resetDelegatesVars() {
+        parent::resetDelegatesVars();
+        self::$_argv = array();
     }
 }

@@ -73,8 +73,8 @@ class Request extends RequestAbstract {
     protected $_session;
 
     /**
-     * The cookie variables
-     * @var array
+     * The cookie jar
+     * @var \Mu\Http\Cookie\Jar
      */
     protected $_cookie;
 
@@ -193,24 +193,31 @@ class Request extends RequestAbstract {
     /**
      * Gets a cookie variable by key
      * @param string|null $key
-     * @return mixed
+     * @return \Mu\Http\Cookie\Jar|string|null
      */
     public function getCookie($key = null) {
         if (null === $this->_cookie) {
             $this->setCookie();
         }
 
-        return $this->_getGlobal($this->_cookie, $key);
+        if (null === $key) {
+            return $this->_cookie;
+        }
+
+        return $this->_cookie->offsetExists($key) ? (string) $this->_cookie[$key] : null;
     }
 
     /**
      * Sets the cookie variables
      * @param array|null $cookie if null will be set to $_COOKIE
      * @return \Mu\Http\Request
-     * @todo create \Mu\Http\Cookie and assign
      */
     public function setCookie(array $cookie = null) {
-        $this->_cookie = (null === $cookie) ? $_COOKIE : $cookie;
+        $this->_cookie = new Cookie\Jar(
+            (null === $cookie) ? $_COOKIE : $cookie,
+            true
+        );
+
         return $this;
     }
 

@@ -20,7 +20,7 @@ namespace Mu\Core;
 
 use ArrayObject,
     BadMethodCallException,
-    Mu\Core\Config\Exception;
+    Mu\Core\Config;
 
 /**
  * @category   Mu
@@ -115,7 +115,7 @@ class Config extends ArrayObject {
 
             $this[$section] = $config;
         } else if (null !== $section) {
-            throw new Exception\InvalidConfig('Config must be provided if section is not an array');
+            throw new Config\Exception\InvalidConfig('Config must be provided if section is not an array');
         }
 
         return $this;
@@ -159,7 +159,7 @@ class Config extends ArrayObject {
 
     /**
      * Overload offsetGet to get arrays as Config
-     * @param mixed $index
+     * @param int|string $index
      * @return \Mu\Core\Config|scalar
      */
     public function offsetGet($index) {
@@ -210,5 +210,29 @@ class Config extends ArrayObject {
         }
 
         throw new BadMethodCallException('Invalid static method ' . $method . ' on Config');
+    }
+
+    /**
+     * Merges a source config with overriding values
+     * @param array|\Mu\Config $override
+     * @return array
+     * @throws \Mu\Core\Config\Exception\InvalidConfig
+     */
+    public function merge($override) {
+        if (!(is_array($override) || ($override instanceof Config))) {
+            throw new Config\Exception\InvalidConfig('Override must be an array or another instance of Mu\Core\Config, recieved: ' . gettype($override));
+        }
+
+        foreach ($override as $key => $value) {
+            if (is_array($value) || ($value instanceof Config)) {
+                if (isset($this->$key) && ($this->$key instanceof Config)) {
+                    $this->$key->merge($value);
+                } else {
+                    $this->$key = new Config($value);
+                }
+            }
+
+            $this->$key = $value;
+        }
     }
 }
