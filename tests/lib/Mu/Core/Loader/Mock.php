@@ -10,28 +10,20 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-Core
+ * @subpackage Loader
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu;
+namespace Tests\Lib\Mu\Core\Loader;
 
 /**
  * @category   Mu
- * @package    \Mu\Core\Delegates
+ * @package    Mu-Core
+ * @subpackage Loader
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
- * @group      Mu
+ * @version    $Id$
  */
-class MuTest extends \Mu\Core\TestCase {
-    /**
-     * Tests getting an instance of Mu
-     * @return void
-     */
-    public function testGetInstance() {
-        $this->assertType('\Mu', \Mu::getInstance());
-        \Mu::setInstance();
-        $this->assertType('\Mu', \Mu::getInstance());
-    }
-}
+class Mock {}

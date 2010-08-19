@@ -41,7 +41,7 @@ class Loader {
             );
         }
 
-        spl_autoload_register(__NAMESPACE__ . '\Loader::autoload');
+        spl_autoload_register('Mu\Core\Loader::autoload');
     }
 
     /**
@@ -52,7 +52,7 @@ class Loader {
     static public function autoload($class) {
         // only need to replace back slashes with forward slashes since php 5.3
         $file = str_replace('\\', '/', $class) . '.php';
-        if (self::_fileExists($file)) {
+        if (static::fileExists($file)) {
             require_once $file;
         }
     }
@@ -62,7 +62,7 @@ class Loader {
      * @param string $file
      * @return bool
      */
-    static protected function _fileExists($file) {
+    static public function fileExists($file) {
         if (false !== realpath($file)) {
             return true;
         }

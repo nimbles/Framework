@@ -18,8 +18,6 @@
 
 namespace Mu\Https;
 
-use Mu\Http\Request;
-
 /**
  * @category   Mu
  * @package    Mu-Https
@@ -30,7 +28,7 @@ use Mu\Http\Request;
  *
  * @uses       \Mu\Http\Request
  */
-class Request extends Request {
+class Request extends \Mu\Http\Request {
     /**
      * Builds the request, used by factory
      * @return \Mu\Https\Request|null

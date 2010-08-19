@@ -22,6 +22,7 @@ require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
 require_once 'DelegatesTest.php';
 require_once 'Delegates/AllTests.php';
+require_once 'LoaderTest.php';
 require_once 'LogTest.php';
 require_once 'Log/AllTests.php';
 require_once 'Mixin/AllTests.php';
@@ -57,6 +58,8 @@ class AllTests extends TestSuite {
 
         $suite->addTestSuite('\Tests\Lib\Mu\Core\DelegatesTest');
         $suite->addTest(Delegates\AllTests::suite());
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\LoaderTest');
 
         $suite->addTestSuite('\Tests\Lib\Mu\Core\LogTest');
         $suite->addTest(Log\AllTests::suite());

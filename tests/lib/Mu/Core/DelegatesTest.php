@@ -82,7 +82,24 @@ class DelegatesTest extends TestCase {
         $this->assertType('\Closure', $func1);
         $this->assertFalse($func1(1, 2));
 
-        $this->setExpectedException('\Mu\Core\Delegates\Exception\DelegateCreationNotAllowed');
+        $this->setExpectedException('Mu\Core\Delegates\Exception\DelegateCreationNotAllowed');
         $delegates->setDelegate('method3', $func1);
+    }
+
+    /**
+     * Tests that setting a numeric array as delegates throws the
+     * Mu\Core\Delegates\Exception\InvalidDelegateName exception
+     * @return void
+     */
+    public function testSetDeletagesInvalidDelegateName() {
+        $delegates = new Delegates();
+        $this->setExpectedException('Mu\Core\Delegates\Exception\InvalidDelegateName');
+        $delegates->setDelegates(array('foo'));
+    }
+
+    public function testSetDelegatesInvalidDelegate() {
+        $delegates = new Delegates();
+        $this->setExpectedException('Mu\Core\Delegates\Exception\InvalidDelegate');
+        $delegates->setDelegates(array('foo' => null));
     }
 }
