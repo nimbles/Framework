@@ -86,8 +86,8 @@ class LoaderTest extends TestCase {
         \Mu\Core\Loader::autoload('Mu');
         $this->assertTrue(class_exists('Mu', false));
 
-        $this->assertFalse(class_exists('Tests\Lib\Mu\Core\Loader\Mock', false));
-        \Mu\Core\Loader::autoload('Tests\Lib\Mu\Core\Loader\Mock');
+	$this->assertFalse(class_exists('Tests\Lib\Mu\Core\Loader\Mock', false));
+	\Mu\Core\Loader::autoload('tests\lib\Mu\Core\Loader\Mock');
         $this->assertTrue(class_exists('Tests\Lib\Mu\Core\Loader\Mock', false));
     }
 }
