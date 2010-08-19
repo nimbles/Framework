@@ -38,7 +38,7 @@ class AdaptableSingleMock extends MixinAbstract {
      */
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
-            'paths' => array(
+            'namespaces' => array(
                 '\Tests\Lib\Mu\Core\Adapter'
             )
         )
@@ -83,7 +83,7 @@ class AdaptableAbstractMock extends MixinAbstract {
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
             'abstract' => '\Tests\Lib\Mu\Core\Adapter\AdapterAbstract',
-            'paths' => array(
+            'namespaces' => array(
                 '\Tests\Lib\Mu\Core\Adapter'
             )
         )
@@ -109,7 +109,7 @@ class AdaptableInterfaceMock extends MixinAbstract {
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
             'interface' => '\Tests\Lib\Mu\Core\Adapter\AdapterInterface',
-            'paths' => array(
+            'namespaces' => array(
                 '\Tests\Lib\Mu\Core\Adapter'
             )
         )
