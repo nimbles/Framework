@@ -45,6 +45,12 @@ class Client extends MixinAbstract {
      * @var array
      */
     protected $_implements = array(
+        'Mu\Core\Adapter\Adaptable' => array(
+            'interface' => 'Mu\Http\Client\Adapter\AdapterInterface',
+            'paths' => array(
+                'Mu\Http\Client\Adapter'
+            )
+        ),
         'Mu\Core\Config\Options',
         'Mu\Core\Delegates\Delegatable' => array(
             'delegates' => array(
@@ -58,12 +64,6 @@ class Client extends MixinAbstract {
      * @var string
      */
     protected $_method = null;
-
-    /**
-     * Client adapter
-     * @var unknown_type
-     */
-    protected $_adapter = null;
 
     /**
      * Client constructor
@@ -103,44 +103,6 @@ class Client extends MixinAbstract {
         return $this;
     }
 
-    /**
-     * Get the HTTP adapter
-     * @return \Mu\Http\Client\Adapter\AdapterAbstract
-     */
-    public function getAdapter() {
-        return $this->_adapter;
-    }
-
-    /**
-     * Set the HTTP Adapter
-     * @param object|string $adapter
-     * @return \Mu\Http\Client
-     * @throws \Mu\Http\Client\Exception\InvalidAdapter
-     */
-    public function setAdapter($adapter) {
-        // @todo move this functionality to a factory
-
-        if (is_string($adapter) && strlen($adapter) > 0) {
-            if ($adapter[0] !== '\\') {
-                $adapter = __CLASS__ . '\\Adapter\\' . $adapter;
-            }
-            if (!class_exists($adapter)) {
-                throw new Exception\InvalidAdapter('Adapter [' . $adapter . '] must be valid class name');
-            }
-            $args = func_get_args();
-            array_pop($args);
-            $adapter = new $adapter($args);
-        }
-
-        if (!is_object($adapter)) {
-            throw new Exception\InvalidAdapter('Adapter must be either a string or an object');
-        } else if (!$adapter instanceof Adapter\AdapterInterface) {
-            throw new Exception\InvalidAdapter('Adapter implement \Mu\Http\Client\Adapter\AdapterInterface');
-        }
-
-        $this->_adapter = $adapter;
-        return $this;
-    }
 
     /**
      * Valid HTTP Methods

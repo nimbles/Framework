@@ -77,7 +77,7 @@ class ClientTest extends TestCase {
         $client = new Client();
 
         if (!$valid) {
-            $this->setExpectedException('\Mu\Http\Client\Exception\InvalidAdapter');
+            $this->setExpectedException('Mu\Core\Adapter\Exception\InvalidAdapter');
             $constraint = $this->logicalNot(
                 $this->equalTo(null)
             );
@@ -103,8 +103,8 @@ class ClientTest extends TestCase {
             array('multi-curl', array(), false),
             array('Multi-Curl', array(), false),
             // Objects
-            //array(new \Mu\Http\Client\Adapter\Curl(), null, true),
-            //array(new \Mu\Http\Client, null, false)
+            array(new \Mu\Http\Client\Adapter\Curl(), array(), 'Mu\\Http\\Client\\Adapter\\Curl'),
+            array(new \Mu\Http\Client\Adapter\MultiCurl(), array(), 'Mu\\Http\\Client\\Adapter\\MultiCurl'),
         );
     }
 }
