@@ -50,21 +50,45 @@ class Options extends Configurable {
         if (null === $this->_methods) {
             $this->_methods = array(
                 'getOption' => function($object, &$config, $key) {
-                    $method = 'get' . ucfirst($key);
-                    if (method_exists($object, $method)) {
-                        return $object->$method();
+                    $methods = array_filter(
+                        array_map(
+                            function($prefix) use ($key) {
+                                return $prefix . ucfirst($key);
+                            },
+                            array('get', 'is')
+                        ),
+                        function($method) use ($object) {
+                            return method_exists($object, $method);
+                        }
+                    );
+
+                    if (0 === count($methods)) {
+                        return $config->$key;
                     }
 
-                    return $config->{$key};
+                    $method = array_shift($methods);
+                    return $object->$method();
                 },
 
                 'setOption' => function($object, &$config, $key, $value) {
-                    $method = 'set' . ucfirst($key);
-                    if (method_exists($object, $method)) {
-                        return $object->$method($value);
+                    $methods = array_filter(
+                        array_map(
+                            function($prefix) use ($key) {
+                                return $prefix . ucfirst($key);
+                            },
+                            array('set', 'is')
+                        ),
+                        function($method) use ($object) {
+                            return method_exists($object, $method);
+                        }
+                    );
+
+                    if (0 === count($methods)) {
+                        return $config->$key = $value;
                     }
 
-                    return $config->{$key} = $value;
+                    $method = array_shift($methods);
+                    return $object->$method($value);
                 },
 
                 'setOptions' => function($object, &$config, $options) {

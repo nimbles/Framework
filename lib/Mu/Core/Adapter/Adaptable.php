@@ -59,16 +59,22 @@ class Adaptable extends MixinableAbstract {
             }
 
             // quick check before doing the reflection stuff
-	        if (!is_object($adapter) && !is_string($adapter)) {
-	            throw new Adapter\Exception\InvalidAdapter('Adapter must be an object or a string');
-	        }
+            if (!is_object($adapter) && !is_string($adapter)) {
+                throw new Adapter\Exception\InvalidAdapter('Adapter must be an object or a string');
+            }
 
             if (is_string($adapter)) {
                 // get the valid classes from the namespaces and class name
                 $namespaces = (null === $namespaces) ? array() : $namespaces->getArrayCopy();
-                $classes = array_filter(array_map(function($namespace) use ($adapter) {
-                    return $namespace . '\\' . $adapter;
-                }, $namespaces), 'class_exists');
+                $classes = array_filter(
+                    array_map(
+                        function($namespace) use ($adapter) {
+                            return $namespace . '\\' . $adapter;
+                        },
+                        $namespaces
+                    ),
+                    'class_exists'
+                );
 
                 if (0 === count($classes)) {
                     throw new Adapter\Exception\InvalidAdapter('Adapter cannot be found');
