@@ -86,12 +86,16 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param $message
      */
     public function assertCollection($type, $array, $message = '') {
-        $this->assertThat($array, $this->logicalOr(
-            new \PHPUnit_Framework_Constraint_IsType('array'),
-            new \PHPUnit_Framework_Constraint_IsInstanceOf('\ArrayObject')
-        ), 'Array must be an array or an instance of ArrayObject');
+        $this->assertThat(
+            $array,
+            $this->logicalOr(
+                new \PHPUnit_Framework_Constraint_IsType('array'),
+                new \PHPUnit_Framework_Constraint_IsInstanceOf('\ArrayObject')
+            ),
+            'Array must be an array or an instance of ArrayObject'
+        );
 
-        foreach($array as $value) {
+        foreach ($array as $value) {
             $this->assertType($type, $value, $message);
         }
     }
