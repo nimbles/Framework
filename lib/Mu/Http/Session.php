@@ -41,16 +41,17 @@ class Session extends MixinAbstract {
     protected $_implements = array(
         'Mu\Core\Delegates\Delegatable' => array(
             'delegates' => array(
-	            'session_start'             => 'session_start',
-	            'session_id'                => 'session_id',
-	            'session_name'              => 'session_name',
-	            'session_regenerate_id'     => 'session_regenerate_id',
-	            'session_destroy'           => 'session_destroy',
+                'session_start'             => 'session_start',
+                'session_id'                => 'session_id',
+                'session_name'              => 'session_name',
+                'session_regenerate_id'     => 'session_regenerate_id',
+                'session_destroy'           => 'session_destroy',
                 'session_get_cookie_params' => 'session_get_cookie_params',
                 'session_set_cookie_params' => 'session_set_cookie_params',
-	            'read'                      => array('\Mu\Http\Session', 'readSession'),
-	            'write'                     => array('\Mu\Http\Session', 'writeSession'),
-                'clear'                     => array('\Mu\Http\Session', 'clearSession'),
+                'headers_sent'              => 'headers_sent',
+                'readValue'                 => array('\Mu\Http\Session', 'readSession'),
+                'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
+                'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
             )
         ),
         'Mu\Core\Config\Options'
@@ -196,18 +197,18 @@ class Session extends MixinAbstract {
         $this->clear();
 
         if (ini_get('session.use_cookies')) {
-	        $params = $this->getCookieParams();
-	        $cookie = new Cookie(array(
-	            'name'     => $this->getName(),
-	            'value'    => '',
-	            'expire'   => time() - 42000,
-	            'path'     => $params['path'],
-	            'domain'   => $params['domain'],
-	            'secure'   => $params['secure'],
-	            'httponly' => $params['httponly']
-	        ));
+            $params = $this->getCookieParams();
+            $cookie = new Cookie(array(
+                'name'     => $this->getName(),
+                'value'    => '',
+                'expire'   => time() - 42000,
+                'path'     => $params['path'],
+                'domain'   => $params['domain'],
+                'secure'   => $params['secure'],
+                'httponly' => $params['httponly']
+            ));
 
-	        $cookie->send();
+            $cookie->send();
         }
 
         $this->session_destroy();
@@ -216,7 +217,43 @@ class Session extends MixinAbstract {
 
     /**
      * Reads from the session
+     * @param string|null $key
+     * @return mixed
+     */
+    public function read($key = null) {
+        return $this->readValue($key);
+    }
+
+    /**
+     * Writes to the session
      * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function write($key, $value) {
+        if (!$this->isStarted()) {
+            throw new Session\Exception\SessionStarted('Cannot write to session when it has not been started');
+        }
+
+        if ($this->headers_sent()) {
+            throw new Session\Exception\HeadersAlreadySent('Cannot write to session once headers have already been sent');
+        }
+
+        return $this->writeValue($key, $value);
+    }
+
+    /**
+     * Clears the session
+     * @return void
+     */
+    public function clear() {
+        return $this->clearValues();
+    }
+
+    /**
+     * Reads from the session
+     * @param string|null $key
+     * @return mixed
      */
     static public function readSession($key = null) {
         if (null === $key) {
@@ -229,10 +266,10 @@ class Session extends MixinAbstract {
     /**
      * Writes to the session
      * @param string $key
-     * @param mixed $name
+     * @param mixed $value
      */
-    static public function writeSession($key, $name) {
-        $_SESSION[$key] = $name;
+    static public function writeSession($key, $value) {
+        $_SESSION[$key] = $value;
     }
 
     /**

@@ -127,7 +127,7 @@ class RequestTest extends TestCase {
     public function testGetBody() {
         $request = $this->createRequest();
 
-        $this->setInput('hello world');
+        static::setInput('hello world');
         $this->assertEquals('hello world', $request->getBody());
     }
 

@@ -160,15 +160,15 @@ class ResponseTest extends TestCase {
 
         $response->send();
 
-        $this->assertSame($expectedHeaders, self::$_headers);
-        $this->assertEquals($expectedOutput, self::getOutput());
+        $this->assertSame($expectedHeaders, static::$_headers);
+        $this->assertEquals($expectedOutput, static::getOutput());
 
         $this->resetDelegatesVars();
 
-        self::$_headersSent = true;
+        static::isHeadersSent(true);
         $response->send();
-        $this->assertSame(array(), self::$_headers);
-        $this->assertEquals($expectedOutput, self::getOutput());
+        $this->assertSame(array(), static::$_headers);
+        $this->assertEquals($expectedOutput, static::getOutput());
     }
 
     /**

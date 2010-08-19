@@ -90,16 +90,16 @@ class CookieTest extends TestCase {
         $cookie->send();
         $this->assertSame(array(
             'Set-Cookie: test_name=test value; path=/'
-        ), self::$_headers);
+        ), static::$_headers);
 
         $this->resetDelegatesVars();
 
         $cookie->send(true);
         $this->assertSame(array(
             'Set-Cookie: test_name=test value; path=/'
-        ), self::$_headers);
+        ), static::$_headers);
 
-        self::isHeadersSent(true);
+        static::isHeadersSent(true);
         $this->setExpectedException('Mu\Http\Cookie\Exception\HeadersAlreadySent');
 
         $cookie->send();

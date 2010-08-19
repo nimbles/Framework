@@ -36,6 +36,10 @@ use Mu\Http\TestCase,
  * @group      Mu-Http-Session
  */
 class SessionTest extends TestCase {
+    /**
+     * Tests the isStarted method
+     * @return void
+     */
     public function testIsStarted() {
         $session = new Session();
         $this->assertFalse($session->isStarted());
@@ -43,4 +47,6 @@ class SessionTest extends TestCase {
         // check if true status persists
         $this->assertTrue($session->isStarted());
     }
+
+
 }
