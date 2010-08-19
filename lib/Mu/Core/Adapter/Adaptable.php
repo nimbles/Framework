@@ -52,11 +52,37 @@ class Adaptable extends MixinableAbstract {
      * @return \Mu\Core\Adapter\Adaptable
      */
     public function setAdapter($adapter) {
-        if (!is_object($adapter)) {
-            throw new Adapter\Exception\InvalidAdapter('Adapter must be an object');
+        if (!is_object($adapter) && !is_string($adapter)) {
+            throw new Adapter\Exception\InvalidAdapter('Adapter must be an object or a string');
         }
 
-        if (null !== ($config = $this->getConfig())) {
+        $config = $this->getConfig();
+
+        if (is_string($adapter)) {
+            $paths = array('');
+            if (null !== $config) {
+                if (isset($config->paths)) {
+                    $paths = $config->paths;
+                }
+            }
+
+            $adapterInstance = null;
+            foreach ($paths as $path) {
+                $adapterClass = $path . '\\' . $adapter;
+                if (class_exists($adapterClass)) {
+                    $args = func_get_args();
+                    array_pop($args);
+                    $adapterInstance = new $adapterClass($args);
+                    break;
+                }
+            }
+            if (null === $adapterInstance) {
+                throw new Adapter\Exception\InvalidAdapter('Adapter cannot be found');
+            }
+            $adapter = $adapterInstance;
+        }
+
+        if (null !== $config) {
 	        $ref = new \ReflectionClass($adapter);
 	        if (null !== ($abstract = $config->abstract)) {
 	            if (!$ref->isSubclassOf($abstract)) {
