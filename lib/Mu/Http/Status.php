@@ -27,6 +27,12 @@ use Mu\Core\Mixin\MixinAbstract;
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Delegates\Delegatable
+ * @uses       \Mu\Core\Config\Options
+ *
+ * @uses       \Mu\Http\Status\Exception\HeadersAlreadySent
  */
 class Status extends MixinAbstract {
     /**
