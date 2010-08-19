@@ -15,9 +15,7 @@
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-namespace Mu\Http\Client\Exception;
-
-use Mu\Http\Client\Exception;
+namespace Mu\Http\Client\Adapter\Curl;
 
 /**
  * @category   Mu
@@ -27,6 +25,6 @@ use Mu\Http\Client\Exception;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Client\Exception
+ * @uses       \Mu\Http\Client\Adapter\Exception
  */
-class InvalidAdapter extends Exception {}
+class Exception extends \Mu\Http\Client\Adapter\Exception {}

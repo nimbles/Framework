@@ -10,33 +10,31 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http\Client\Adapter;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Client\Adapter,
-    Mu\Core\Request;
+    Mu\Http\Client,
+    Mu\Http\Client\Adapter;
 
 /**
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Mu\Core\Mixin\MixinAbstract
- * @uses       \Mu\Core\Config\Options
- * @uses       \Mu\Http\Client\Adapter\AdapterInterface
+ * @uses       \Mu\Http\Client
+ * @uses       \Mu\Http\Client\Adapter
  *
- * @todo Add a factory
+ * @todo       Add a factory
  */
-
 abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface {
     /**
      * Class implements
@@ -48,7 +46,7 @@ abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface
 
     /**
      * Request instance
-     * @var RequestAbstract
+     * @var Request
      */
     protected $_request;
 
@@ -65,7 +63,7 @@ abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface
      * (non-PHPdoc)
      * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterInterface::setRequest()
      */
-    public function setRequest(RequestAbstract $request) {
+    public function setRequest(Client\Request $request) {
         $this->_request = $request;
     }
 

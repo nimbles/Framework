@@ -10,29 +10,31 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http\Client\Adapter;
 
 use Mu\Http\Client\Adapter;
 
 /**
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Client\Adapter\AdapterAbstract
+ * @uses       \Mu\Http\Client\Adapter
  */
-
 class MultiCurl extends AdapterAbstract {
 
+    /**
+     * (non-PHPdoc)
+     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterAbstract::write()
+     */
     public function write() {
         /**
          * @todo write the MultiCurl handler

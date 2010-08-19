@@ -10,39 +10,32 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http\Client\Adapter;
 
-use Mu\Core\Request;
+use Mu\Http\Client;
 
 
 /**
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Response\ResponseAbstract
- * @uses       \Mu\Core\Delegates\Delegatable
- * @uses       \Mu\Core\Config\Options
- *
- * @uses       \Mu\Http\Header
- * @uses       \Mu\Http\Status
+ * @uses       \Mu\Http\Client
  */
-
 interface AdapterInterface {
     /**
      * Set the request
-     * @param RequestAbstract $request
+     * @param Request $request
      */
-    public function setRequest(RequestAbstract $request);
+    public function setRequest(Client\Request $request);
     /**
      * Write request
      */

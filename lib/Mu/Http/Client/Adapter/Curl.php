@@ -10,32 +10,91 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http\Client\Adapter;
 
-use Mu\Http\Client\Adapter;
+use Mu\Http\Client,
+    Mu\Http\Client\Adapter,
+    Mu\Core\Config;
 
 /**
  * @category   Mu
- * @package    Mu-Http_Client
- * @subpackage Adapter
+ * @package    Mu-Http
+ * @subpackage Client
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Client\Adapter\AdapterAbstract
+ * @uses       Mu\Http\Client
+ * @uses       Mu\Http\Client\Adapter
+ * @uses       Mu\Core\Config
  */
-
 class Curl extends AdapterAbstract {
 
+    /**
+     * Curl options
+     * @var array
+     */
+    protected $_curlOptions = array();
+
+    /**
+     * Default Curl options
+     * @var array
+     */
+    protected $_defaultCurlOptions = array(
+        CURLOPT_TIMEOUT => 10
+    );
+
+    /**
+     * Get the curl options
+     * @return array
+     */
+    public function getCurlOptions() {
+        return $this->_curlOptions;
+    }
+
+    /**
+     * Set the curl options
+     * @param array|Config $value
+     * @return Curl
+     */
+    public function setCurlOptions($value) {
+        if ($value instanceof \Mu\Core\Config) {
+            $value = $value->getArrayCopy();
+        }
+        if (!is_array($value)) {
+            throw new Curl\Exception('Curl options must an array or an instance of \\Mu\\Core\\Config');
+        }
+        $this->_curlOptions = $value;
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterAbstract::write()
+     */
     public function write() {
-        /**
-         * @todo write the Curl handler
-         */
+        $curlOptions = array_merge($this->_defaultCurlOptions, $this->getCurlOptions());
+
+        $curlOptions[CURLOPT_URL] = $this->_request->getRequestUri();
+        $curlOptions[CURLOPT_RETURNTRANSFER] = true;
+        $curlOptions[CURLOPT_HEADER] = true;
+
+        $ch = curl_init();
+        curl_setopt_array($ch, $curlOptions);
+
+        if(!$result = curl_exec($ch)) {
+            throw new Curl\Exception(curl_error($ch));
+        }
+        curl_close($ch);
+
+        $response = new Client\Response();
+        $response->setRawResponse($result);
+
+        return $response;
     }
 }

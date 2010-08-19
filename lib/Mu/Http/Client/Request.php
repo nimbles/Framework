@@ -17,6 +17,9 @@
  */
 namespace Mu\Http\Client;
 
+use Mu\Http\Client,
+    Mu\Http;
+
 /**
  * @category   Mu
  * @package    Mu-Http
@@ -25,6 +28,35 @@ namespace Mu\Http\Client;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Exception
+ * @uses       \Mu\Http\Client
+ * @uses       \Mu\Http
  */
-class Exception extends \Mu\Http\Exception {}
+class Request extends Http\Request {
+    /**
+     * Request URI
+     * @var string
+     */
+    protected $_requestUri;
+
+    /**
+     * Get the request URI
+     * @return string
+     */
+    public function getRequestUri() {
+        return $this->_requestUri;
+    }
+
+    /**
+     * Set the request URI
+     * @param string $value
+     * @return Request
+     */
+    public function setRequestUri($value) {
+        if (!is_string($value)) {
+            throw new Exception('Request URI must be a string');
+        }
+
+        $this->_requestUri = (string)$value;
+        return $this;
+    }
+}

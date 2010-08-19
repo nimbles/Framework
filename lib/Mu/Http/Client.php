@@ -15,14 +15,12 @@
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http;
-
-use Mu\Http\Client\Adapter\Curl;
 
 use Mu\Core\Mixin\MixinAbstract,
     Mu\Http\Client\Adapter,
-    Mu\Http\Client\Exception;
+    Mu\Http\Client\Exception,
+    Mu\Http\Client\Adapter\Curl;
 
 /**
  * @category   Mu
@@ -32,13 +30,11 @@ use Mu\Core\Mixin\MixinAbstract,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Delegates\Delegatable
- * @uses       \Mu\Core\Config\Options
- *
- * @uses       \Mu\Http\Client\Exception\InvalidAdapter
- * @uses       \Mu\Http\Client\Exception\InvalidMethod
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Http\Client\Adapter
+ * @uses       \Mu\Http\Client\Exception
+ * @uses       \Mu\Http\Client\Adapter\Curl
  */
-
 class Client extends MixinAbstract {
     /**
      * Class implements

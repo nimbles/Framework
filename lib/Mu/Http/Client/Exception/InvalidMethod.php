@@ -15,7 +15,6 @@
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-
 namespace Mu\Http\Client\Exception;
 
 use Mu\Http\Client\Exception;

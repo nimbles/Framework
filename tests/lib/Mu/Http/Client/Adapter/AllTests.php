@@ -15,9 +15,11 @@
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
-namespace Mu\Http\Client\Exception;
+namespace Tests\Lib\Mu\Http\Client\Adapter;
 
-use Mu\Http\Client\Exception;
+require_once 'CurlTest.php';
+
+use Mu\Http\TestSuite;
 
 /**
  * @category   Mu
@@ -27,6 +29,23 @@ use Mu\Http\Client\Exception;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Client\Exception
+ * @uses       \Mu\Http\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Http
+ * @group      Mu-Http-Client
+ * @group      Mu-Http-Client-Adapter
  */
-class InvalidAdapter extends Exception {}
+class AllTests extends TestSuite {
+    /**
+     * Creates the Test Suite for Mu Framework - Http - Client - Adapter
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new TestSuite('Mu Framework - Http - Client - Adapter');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Http\Client\Adapter\CurlTest');
+
+        return $suite;
+    }
+}

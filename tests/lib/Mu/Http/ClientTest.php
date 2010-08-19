@@ -28,7 +28,8 @@ use Mu\Http\TestCase,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestCase
+ * @uses       \Mu\Http\TestCase
+ * @uses       \Mu\Http\Client
  *
  * @group      Mu
  * @group      Mu-Http
