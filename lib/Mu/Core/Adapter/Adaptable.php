@@ -70,7 +70,7 @@ class Adaptable extends MixinableAbstract {
                     return $namespace . '\\' . $adapter;
                 }, $namespaces), 'class_exists');
 
-                if (0 === $classes) {
+                if (0 === count($classes)) {
                     throw new Adapter\Exception\InvalidAdapter('Adapter cannot be found');
                 }
 
