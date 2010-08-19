@@ -18,9 +18,8 @@
 
 namespace Tests\Lib\Mu\Http;
 
-use Mu\Http\TestCase;
-
-use Mu\Http\Status;
+use Mu\Http\TestCase,
+    Mu\Http\Status;
 
 /**
  * @category   Mu
@@ -120,9 +119,9 @@ class StatusTest extends TestCase {
 
         $this->assertSame(array(
             sprintf('HTTP/1.1 %d %s', $code, $description)
-        ), self::$_headers);
+        ), static::$_headers);
 
-        self::isHeadersSent(true);
+        static::isHeadersSent(true);
         $this->setExpectedException('\Mu\Http\Status\Exception\HeadersAlreadySent');
         $status->send();
     }

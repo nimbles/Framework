@@ -223,19 +223,8 @@ class Cookie extends MixinAbstract {
      * transmitted over a secure HTTPS connection from the client
      * @return bool
      */
-    public function getSecure() {
-        return $this->_secure;
-    }
-
-    /**
-     * Sets the indicator that the cookie should only be
-     * transmitted over a secure HTTPS connection from the client
-     * @param  bool $secure
-     * @return \Mu\Http\Cookie
-     */
-    public function setSecure($secure) {
-        $this->_secure = is_bool($secure) ? $secure : $this->_secure;
-        return $this;
+    public function isSecure($secure = null) {
+        return $this->_secure = is_bool($secure) ? $secure : $this->_secure;
     }
 
     /**
@@ -243,19 +232,8 @@ class Cookie extends MixinAbstract {
      * accessible only through the HTTP protocol
      * @return bool
      */
-    public function getHttponly() {
-        return $this->_httponly;
-    }
-
-    /**
-     * Sets the indicator that the cookie will be made
-     * accessible only through the HTTP protocol
-     * @param  bool $httponly
-     * @return \Mu\Http\Cookie
-     */
-    public function setHttponly($httponly) {
-        $this->_httponly = is_bool($httponly) ? $httponly : $this->_httponly;
-        return $this;
+    public function isHttponly($httponly = null) {
+        return $this->_httponly = is_bool($httponly) ? $httponly : $this->_httponly;
     }
 
     /**
@@ -293,8 +271,8 @@ class Cookie extends MixinAbstract {
             $this->getExpire(),
             $this->getPath(),
             $this->getDomain(),
-            $this->getSecure(),
-            $this->getHttponly()
+            $this->isSecure(),
+            $this->isHttponly()
         );
 
         if ($raw) {

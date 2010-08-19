@@ -70,6 +70,33 @@ class RequestTest extends TestCase {
     }
 
     /**
+     * Tests using the session
+     * @return void
+     */
+    public function testSession() {
+        $request = $this->createRequest();
+        $request->setSession($this->createSession());
+
+        static::$_session = array(
+            'test1' => 'abc',
+            'test2' => 123
+        );
+
+        $this->assertEquals('abc', $request->getSession('test1'));
+        $this->assertEquals(123, $request->getSession('test2'));
+        $this->assertNull($request->getSession('test3'));
+
+        $this->assertType('Mu\Http\Session', $request->getSession());
+
+        $request->getSession()->write('test3', 'def');
+        $this->assertNull($request->getSession('test3'));
+
+        $request->getSession()->clear();
+        $this->assertEquals('abc', $request->getSession('test1'));
+        $this->assertEquals(123, $request->getSession('test2'));
+    }
+
+    /**
      * Tests that the request uri is detected for multiple platforms
      * @dataProvider requestUriProvider
      * @param array $options
@@ -127,7 +154,7 @@ class RequestTest extends TestCase {
     public function testGetBody() {
         $request = $this->createRequest();
 
-        $this->setInput('hello world');
+        static::setInput('hello world');
         $this->assertEquals('hello world', $request->getBody());
     }
 
@@ -139,7 +166,6 @@ class RequestTest extends TestCase {
         return array(
             array('query', 'array'),
             array('post', 'array'),
-            array('session', 'array'),
             array('cookie', 'Mu\Http\Cookie\Jar'),
         );
     }

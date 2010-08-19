@@ -41,7 +41,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @return array
      */
     static public function getArgv() {
-        return self::$_argv;
+        return static::$_argv;
     }
 
     /**
@@ -50,7 +50,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @return void
      */
     static public function setArgv(array $argv) {
-        self::$_argv = $argv;
+        static::$_argv = $argv;
     }
 
     /**
@@ -83,6 +83,6 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function resetDelegatesVars() {
         parent::resetDelegatesVars();
-        self::$_argv = array();
+        static::$_argv = array();
     }
 }

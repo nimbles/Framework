@@ -99,12 +99,12 @@ class Collection extends ArrayObject {
             return null;
         }
 
-        if (null !== ($c = $value->getCharacter())) {
-            $this->_shortopts[$c] = $this->count();
+        if (null !== ($character = $value->getCharacter())) {
+            $this->_shortopts[$character] = $this->count();
         }
 
-        if (null !== ($a = $value->getAlias())) {
-            $this->_longopts[$a] = $this->count();
+        if (null !== ($alias = $value->getAlias())) {
+            $this->_longopts[$alias] = $this->count();
         }
 
         return $value;

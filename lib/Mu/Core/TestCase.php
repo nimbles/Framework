@@ -50,7 +50,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @return string
      */
     static public function getInput() {
-        return self::$_input;
+        return static::$_input;
     }
 
     /**
@@ -59,7 +59,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @return void
      */
     static public function setInput($input) {
-        self::$_input = is_string($input) ? $input : self::$_input;
+        static::$_input = is_string($input) ? $input : static::$_input;
     }
 
     /**
@@ -67,7 +67,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @return string
      */
     static public function getOutput() {
-        return self::$_output;
+        return static::$_output;
     }
 
     /**
@@ -75,7 +75,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param string $output
      */
     static public function setOutput($output) {
-        self::$_output = is_string($output) ? $output : self::$_output;
+        static::$_output = is_string($output) ? $output : static::$_output;
     }
 
     /**
@@ -86,12 +86,16 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param $message
      */
     public function assertCollection($type, $array, $message = '') {
-        $this->assertThat($array, $this->logicalOr(
-            new \PHPUnit_Framework_Constraint_IsType('array'),
-            new \PHPUnit_Framework_Constraint_IsInstanceOf('\ArrayObject')
-        ), 'Array must be an array or an instance of ArrayObject');
+        $this->assertThat(
+            $array,
+            $this->logicalOr(
+                new \PHPUnit_Framework_Constraint_IsType('array'),
+                new \PHPUnit_Framework_Constraint_IsInstanceOf('\ArrayObject')
+            ),
+            'Array must be an array or an instance of ArrayObject'
+        );
 
-        foreach($array as $value) {
+        foreach ($array as $value) {
             $this->assertType($type, $value, $message);
         }
     }
@@ -101,8 +105,8 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @return void
      */
     public function resetDelegatesVars() {
-        self::$_input = '';
-        self::$_output = '';
+        static::$_input = '';
+        static::$_output = '';
     }
 
     /**

@@ -52,51 +52,68 @@ class Adaptable extends MixinableAbstract {
      * @return \Mu\Core\Adapter\Adaptable
      */
     public function setAdapter($adapter) {
-        if (!is_object($adapter) && !is_string($adapter)) {
-            throw new Adapter\Exception\InvalidAdapter('Adapter must be an object or a string');
-        }
+        if (null !== ($config = $this->getConfig())) {
+            // check if namespaces have been defined, if not we cannot accept by string
+            if ((null === ($namespaces = $config->namespaces)) && !is_object($adapter)) {
+                throw new Adapter\Exception\InvalidAdapter('Adapter must be an object when no namespaces are provided in config');
+            }
 
-        $config = $this->getConfig();
+            // quick check before doing the reflection stuff
+            if (!is_object($adapter) && !is_string($adapter)) {
+                throw new Adapter\Exception\InvalidAdapter('Adapter must be an object or a string');
+            }
 
-        if (is_string($adapter)) {
-            $paths = array('');
-            if (null !== $config) {
-                if (isset($config->paths)) {
-                    $paths = $config->paths;
+            if (is_string($adapter)) {
+                // get the valid classes from the namespaces and class name
+                $namespaces = (null === $namespaces) ? array() : $namespaces->getArrayCopy();
+                $classes = array_filter(
+                    array_map(
+                        function($namespace) use ($adapter) {
+                            return $namespace . '\\' . $adapter;
+                        },
+                        $namespaces
+                    ),
+                    'class_exists'
+                );
+
+                if (0 === count($classes)) {
+                    throw new Adapter\Exception\InvalidAdapter('Adapter cannot be found');
+                }
+
+                // get the resolved class name
+                $adapter = array_shift($classes);
+            }
+
+            // start reflection here as by class name is allowed
+            $ref = new \ReflectionClass($adapter);
+
+            // check abstract and interface
+            if (null !== ($abstract = $config->abstract)) {
+                if (!$ref->isSubclassOf($abstract)) {
+                    throw new Adapter\Exception\InvalidAbstract('Adapter does not extend abstract ' . $abstract);
+                }
+            } else if (null !== ($interface = $config->interface)) {
+                if (!$ref->implementsInterface($interface)) {
+                    throw new Adapter\Exception\InvalidInterface('Adapter does not implement interface ' . $interface);
                 }
             }
 
-            $adapterInstance = null;
-            foreach ($paths as $path) {
-                $adapterClass = $path . '\\' . $adapter;
-                if (class_exists($adapterClass)) {
-                    $args = func_get_args();
-                    array_pop($args);
-                    $adapterInstance = new $adapterClass($args);
-                    break;
+            if (is_string($adapter)) {
+                // create a new instance of the class with remaining args, same as call_user_func_array
+                $args = func_get_args();
+                array_shift($args);
+
+                if ((null === ($constructor = $ref->getConstructor()) || (0 === count($constructor->getParameters())))) {
+                    $adapter = new $adapter();
+                } else {
+                    $adapter = $ref->newInstanceArgs($args);
                 }
             }
-            if (null === $adapterInstance) {
-                throw new Adapter\Exception\InvalidAdapter('Adapter cannot be found');
-            }
-            $adapter = $adapterInstance;
-        }
-
-        if (null !== $config) {
-	        $ref = new \ReflectionClass($adapter);
-	        if (null !== ($abstract = $config->abstract)) {
-	            if (!$ref->isSubclassOf($abstract)) {
-	                throw new Adapter\Exception\InvalidAbstract('Adapter does not extend abstract ' . $abstract);
-	            }
-	        } else if (null !== ($interface = $config->interface)) {
-	            if (!$ref->implementsInterface($interface)) {
-	                throw new Adapter\Exception\InvalidInterface('Adapter does not implement interface ' . $interface);
-	            }
-	        }
+        } else if (!is_object($adapter)) {
+            throw new Adapter\Exception\InvalidAdapter('Adapter must be an object when no config is provided');
         }
 
         $this->_adapter = $adapter;
-
         return $this;
     }
 

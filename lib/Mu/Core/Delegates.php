@@ -127,7 +127,7 @@ class Delegates extends MixinAbstract {
         }
 
         if (!is_callable($delegate)) {
-            throw new Delegates\Exception\InvalidDelegate('Delegate must be callable');
+            throw new Delegates\Exception\InvalidDelegate('Cannot assign new delegate for: ' . $name . '; delegate must be callable');
         }
 
         $this->_delegates[$name] = $delegate;

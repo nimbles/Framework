@@ -33,6 +33,8 @@ use Mu\Core\Request\RequestAbstract;
  * @uses       \Mu\Core\Delegates\Delegatable
  *
  * @uses       \Mu\Http\Header
+ * @uses       \Mu\Http\Cookie
+ * @uses       \Mu\Http\Sesssion
  */
 class Request extends RequestAbstract {
     /**
@@ -68,7 +70,7 @@ class Request extends RequestAbstract {
 
     /**
      * The session variables
-     * @var array
+     * @var \Mu\Http\Session
      */
     protected $_session;
 
@@ -162,29 +164,32 @@ class Request extends RequestAbstract {
     /**
      * Gets a session variable by key
      * @param string|null $key
-     * @return mixed
+     * @return \Mu\Http\Session|scalar
      */
     public function getSession($key = null) {
         if (null === $this->_session) {
             $this->setSession();
         }
-        return $this->_getGlobal($this->_session, $key);
+
+        if (null === $key) {
+            return $this->_session;
+        }
+
+        return $this->_session->read($key);
     }
 
     /**
-     * Sets the session variables, will start session if not already
-     * @param array|null $session if null will be set to $_SESSION
+     * Sets the session and starts if not already
+     * @param \Mu\Http\Session $session
      * @return \Mu\Http\Request
-     * @todo set to \Mu\Http\Session instead of $_SESSION
      */
-    public function setSession(array $session = null) {
-        if (null === $session) {
-            if (!headers_sent()) {
-                @session_start(); // session can only be started if headers not sent
-            }
-            $this->_session =& $_SESSION;
-        } else {
-            $this->_session = $session;
+    public function setSession(Session $session = null) {
+        $this->_session = (null === $session) ? new Session() : $session;
+        $this->_session->setDelegate('writeValue', function() {}); // do nothing, make read only
+        $this->_session->setDelegate('clearValues', function() {}); // do nothing, make read only
+
+        if (!$this->_session->isStarted()) {
+            $this->_session->start();
         }
 
         return $this;

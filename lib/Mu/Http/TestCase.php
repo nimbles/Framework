@@ -43,6 +43,24 @@ class TestCase extends \Mu\Core\TestCase {
     static protected $_headers;
 
     /**
+     * The session data
+     * @var array
+     */
+    static protected $_session = array();
+
+    /**
+     * The session id
+     * @var string
+     */
+    static protected $_sessionId = '';
+
+    /**
+     * The session name
+     * @var string
+     */
+    static protected $_sessionName = 'PHPSESSID';
+
+    /**
      * Creates a \Mu\Http\Request with the test delegate methods
      * @param array|null $options
      * @return \Mu\Http\Request
@@ -109,12 +127,33 @@ class TestCase extends \Mu\Core\TestCase {
     }
 
     /**
+     * Creates a \Mu\Http\Session with delegate methods
+     * @param array|null $options
+     * @return \Mu\Http\Session
+     */
+    public function createSession($options = null) {
+        $session = new Session($options);
+        $session->isStarted(false);
+
+        $session->setDelegate('session_start', array('\Mu\Http\TestCase', 'sessionStart'));
+        $session->setDelegate('session_id', array('\Mu\Http\TestCase', 'sessionId'));
+        $session->setDelegate('session_name', array('\Mu\Http\TestCase', 'sessionName'));
+        $session->setDelegate('session_regenerate_id', array('\Mu\Http\TestCase', 'generateSessionId'));
+        $session->setDelegate('session_destroy', array('\Mu\Http\TestCase', 'sessionDestroy'));
+        $session->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+        $session->setDelegate('readValue', array('\Mu\Http\TestCase', 'readSession'));
+        $session->setDelegate('writeValue', array('\Mu\Http\TestCase', 'writeSession'));
+        $session->setDelegate('clearValues', array('\Mu\Http\TestCase', 'clearSession'));
+        return $session;
+    }
+
+    /**
      * Indicates that the headers have been sent
      * @return bool
      */
     static public function isHeadersSent($headersSent = null) {
-        self::$_headersSent = is_bool($headersSent) ? $headersSent : self::$_headersSent;
-        return self::$_headersSent;
+        static::$_headersSent = is_bool($headersSent) ? $headersSent : static::$_headersSent;
+        return static::$_headersSent;
     }
 
     /**
@@ -124,7 +163,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @return void
      */
     static public function header($header) {
-        self::$_headers[] = $header;
+        static::$_headers[] = $header;
     }
 
     /**
@@ -139,7 +178,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @param bool   $httponly
      */
     static public function setcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
-        return self::setrawcookie($name, urldecode($value), $expire, $path, $domain, $secure, $httponly);
+        return static::setrawcookie($name, urldecode($value), $expire, $path, $domain, $secure, $httponly);
     }
 
     /**
@@ -174,7 +213,94 @@ class TestCase extends \Mu\Core\TestCase {
             $header .= '; httponly';
         }
 
-        self::$_headers[] = $header;
+        static::$_headers[] = $header;
+    }
+
+    /**
+     * Starts the session
+     * @return bool
+     */
+    static public function sessionStart() {
+        if ('' === static::$_sessionId) {
+            static::generateSessionId();
+        }
+        return true;
+    }
+
+    /**
+     * Gets and sets the session id
+     * @param string|null $id
+     * @return void
+     */
+    static public function sessionId($id = null) {
+        return static::$_sessionId = (null === $id) ? static::$_sessionId : $id;
+    }
+
+    /**
+     * Gets and sets the session name
+     * @param string|null $name
+     * @return void
+     */
+    static public function sessionName($name = null) {
+        return static::$_sessionName = (null === $name) ? static::$_sessionName : $name;
+    }
+
+    /**
+     * Destroys the session
+     */
+    static public function sessionDestroy() {
+        static::$_sessionId = '';
+        static::$_sessionName = 'PHPSESSID';
+        static::$_session = array();
+        return true;
+    }
+
+    /**
+     * Generates a session id
+     * @return bool
+     */
+    static public function generateSessionId($deleteOld = false) {
+        static::$_sessionId = md5((string) (time() + rand(0, 1000)));
+        return true;
+    }
+
+    /**
+     * Reads from the session
+     * @param string $key
+     * @return mixed
+     */
+    static public function readSession($key) {
+        if ('' === static::$_sessionId) {
+            if (null === $key) {
+                return array();
+            }
+
+            return null;
+        }
+
+        if (null === $key) {
+            return static::$_session;
+        }
+
+        return array_key_exists($key, static::$_session) ? static::$_session[$key] : null;
+    }
+
+    /**
+     * Writes to the session
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    static public function writeSession($key, $value) {
+        static::$_session[$key] = $value;
+    }
+
+    /**
+     * Clears the session
+     * @return void
+     */
+    static public function clearSession() {
+        static::$_session = array();
     }
 
     /**
@@ -183,7 +309,10 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function resetDelegatesVars() {
         parent::resetDelegatesVars();
-        self::$_headersSent = false;
-        self::$_headers = array();
+        static::$_headersSent = false;
+        static::$_headers = array();
+        static::$_sessionId = '';
+        static::$_sessionName = 'PHPSESSID';
+        static::$_session = array();
     }
 }

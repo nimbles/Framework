@@ -47,8 +47,8 @@ class Client extends MixinAbstract {
     protected $_implements = array(
         'Mu\Core\Adapter\Adaptable' => array(
             'interface' => 'Mu\Http\Client\Adapter\AdapterInterface',
-            'paths' => array(
-                'Mu\Http\Client\Adapter'
+            'namespaces' => array(
+                '\Mu\Http\Client\Adapter'
             )
         ),
         'Mu\Core\Config\Options',

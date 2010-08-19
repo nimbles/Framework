@@ -48,8 +48,8 @@ class CookieTest extends TestCase {
         $this->assertEquals(0, $cookie->getExpire());
         $this->assertEquals('/', $cookie->getPath());
         $this->assertNull($cookie->getDomain());
-        $this->assertFalse($cookie->getSecure());
-        $this->assertFalse($cookie->getHttponly());
+        $this->assertFalse($cookie->isSecure());
+        $this->assertFalse($cookie->isHttponly());
         $this->assertEquals('test_name', $cookie->getName());
         $this->assertEquals('test_value', $cookie->getValue());
     }
@@ -72,8 +72,8 @@ class CookieTest extends TestCase {
         $this->assertEquals(100, $cookie->getExpire());
         $this->assertEquals('/foo', $cookie->getPath());
         $this->assertEquals('www.bar.com', $cookie->getDomain());
-        $this->assertTrue($cookie->getSecure());
-        $this->assertTrue($cookie->getHttponly());
+        $this->assertTrue($cookie->isSecure());
+        $this->assertTrue($cookie->isHttponly());
         $this->assertEquals('test_name', $cookie->getName());
         $this->assertEquals('test_value', $cookie->getValue());
     }
@@ -90,16 +90,16 @@ class CookieTest extends TestCase {
         $cookie->send();
         $this->assertSame(array(
             'Set-Cookie: test_name=test value; path=/'
-        ), self::$_headers);
+        ), static::$_headers);
 
         $this->resetDelegatesVars();
 
         $cookie->send(true);
         $this->assertSame(array(
             'Set-Cookie: test_name=test value; path=/'
-        ), self::$_headers);
+        ), static::$_headers);
 
-        self::isHeadersSent(true);
+        static::isHeadersSent(true);
         $this->setExpectedException('Mu\Http\Cookie\Exception\HeadersAlreadySent');
 
         $cookie->send();
