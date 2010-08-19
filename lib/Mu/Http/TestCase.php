@@ -219,7 +219,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @return bool
      */
     static public function sessionStart() {
-        if (null === static::$_sessionId) {
+        if ('' === static::$_sessionId) {
             static::generateSessionId();
         }
         return true;
@@ -239,8 +239,18 @@ class TestCase extends \Mu\Core\TestCase {
      * @param string|null $name
      * @return void
      */
-    static public function sessionName($id = null) {
+    static public function sessionName($name = null) {
         return static::$_sessionName = (null === $name) ? static::$_sessionName : $name;
+    }
+
+    /**
+     * Destroys the session
+     */
+    static public function sessionDestroy() {
+        static::$_sessionId = '';
+        static::$_sessionName = 'PHPSESSID';
+        static::$_session = array();
+        return true;
     }
 
     /**
@@ -258,6 +268,14 @@ class TestCase extends \Mu\Core\TestCase {
      * @return mixed
      */
     static public function readSession($key) {
+        if ('' === static::$_sessionId) {
+            if (null === $key) {
+                return array();
+            }
+
+            return null;
+        }
+
         if (null === $key) {
             return static::$_session;
         }
@@ -291,5 +309,8 @@ class TestCase extends \Mu\Core\TestCase {
         parent::resetDelegatesVars();
         static::$_headersSent = false;
         static::$_headers = array();
+        static::$_sessionId = '';
+        static::$_sessionName = 'PHPSESSID';
+        static::$_session = array();
     }
 }
