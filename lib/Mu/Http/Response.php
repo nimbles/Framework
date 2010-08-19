@@ -74,6 +74,12 @@ class Response extends ResponseAbstract {
     protected $_cookie;
 
     /**
+     * The users session
+     * @var \Mu\http\Session
+     */
+    protected $_session;
+
+    /**
      * Indicates the response should be compressed
      * @var bool
      */
@@ -214,7 +220,6 @@ class Response extends ResponseAbstract {
 
     /**
      * Initializes the cookie jar, adds cookies to it
-     *
      * @param null|\Mu\Http\Cookie|string $cookie
      * @param null|string                 $value
      * @return \Mu\Http\Response
@@ -230,6 +235,43 @@ class Response extends ResponseAbstract {
             $this->_cookie[$cookie] = $value;
         }
 
+        return $this;
+    }
+
+    /**
+     * Gets the users session or a value from the session
+     * @param string|null $key
+     * @return \Mu\Http\Session|scalar
+     */
+    public function getSession($key = null) {
+        if (null === $this->_session) {
+            $this->_session = new Session();
+        }
+
+        if (null === $key) {
+            return $this->_session;
+        }
+
+        if (!$this->_session->isStarted()) {
+            $this->_session->start();
+        }
+
+        return $this->_session->read($key);
+    }
+
+    /**
+     * Sets the session or session value
+     * @param string|\Mu\Http\Sesison $key
+     * @param scalar $value
+     * @return \Mu\Http\Response
+     */
+    public function setSession($key, $value = null) {
+        if ($key instanceof Session) {
+            $this->_session = $key;
+            return $this;
+        }
+
+        $this->_session->write($key, $value);
         return $this;
     }
 

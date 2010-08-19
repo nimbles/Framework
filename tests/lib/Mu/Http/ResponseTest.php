@@ -142,6 +142,29 @@ class ResponseTest extends TestCase {
         $this->assertEquals(200, $cookie2->getExpire());
     }
 
+    /**
+     * Tests the session from a response
+     * @return void
+     */
+    public function testSession() {
+        $response = new \Mu\Http\Response();
+        $session = $this->createSession();
+        $response->setSession($session);
+
+        $this->assertType('Mu\Http\Session', $response->getSession());
+        static::$_session = array(
+            'test1' => 'abc',
+            'test2' => 123
+        );
+
+        $this->assertEquals('abc', $response->getSession('test1'));
+        $this->assertEquals(123, $response->getSession('test2'));
+        $this->assertNull($response->getSession('test3'));
+
+        $response->setSession('test3', 'def');
+        $this->assertEquals('def', $response->getSession('test3'));
+    }
+
    /**
      * Tests sending the response
      * @return void

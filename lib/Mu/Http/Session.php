@@ -61,7 +61,7 @@ class Session extends MixinAbstract {
      * Indicates that the session has started
      * @var bool
      */
-    protected $_started = false;
+    static protected $_started = false;
 
     /**
      * The session name
@@ -75,7 +75,7 @@ class Session extends MixinAbstract {
      * @return bool
      */
     public function isStarted($started = null) {
-        return $this->_started = is_bool($started) ? $started : $this->_started;
+        return static::$_started = is_bool($started) ? $started : static::$_started;
     }
 
     /**

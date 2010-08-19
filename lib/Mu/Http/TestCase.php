@@ -133,6 +133,8 @@ class TestCase extends \Mu\Core\TestCase {
      */
     public function createSession($options = null) {
         $session = new Session($options);
+        $session->isStarted(false);
+
         $session->setDelegate('session_start', array('\Mu\Http\TestCase', 'sessionStart'));
         $session->setDelegate('session_id', array('\Mu\Http\TestCase', 'sessionId'));
         $session->setDelegate('session_name', array('\Mu\Http\TestCase', 'sessionName'));

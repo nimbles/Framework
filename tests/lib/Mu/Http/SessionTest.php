@@ -41,7 +41,7 @@ class SessionTest extends TestCase {
      * @return void
      */
     public function testIsStarted() {
-        $session = new Session();
+        $session = $this->createSession();
 
         $this->assertFalse($session->isStarted());
         $this->assertTrue($session->isStarted(true));
