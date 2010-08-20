@@ -141,6 +141,8 @@ class TestCase extends \Mu\Core\TestCase {
         $session->setDelegate('session_regenerate_id', array('\Mu\Http\TestCase', 'generateSessionId'));
         $session->setDelegate('session_destroy', array('\Mu\Http\TestCase', 'sessionDestroy'));
         $session->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+        $session->setDelegate('setcookie', array('\Mu\Http\TestCase', 'setcookie'));
+        $session->setDelegate('setrawcookie', array('\Mu\Http\TestCase', 'setrawcookie'));
         $session->setDelegate('readValue', array('\Mu\Http\TestCase', 'readSession'));
         $session->setDelegate('writeValue', array('\Mu\Http\TestCase', 'writeSession'));
         $session->setDelegate('clearValues', array('\Mu\Http\TestCase', 'clearSession'));

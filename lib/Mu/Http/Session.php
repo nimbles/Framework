@@ -49,6 +49,8 @@ class Session extends MixinAbstract {
                 'session_get_cookie_params' => 'session_get_cookie_params',
                 'session_set_cookie_params' => 'session_set_cookie_params',
                 'headers_sent'              => 'headers_sent',
+                'setcookie'                 => 'setcookie',
+                'setrawcookie'              => 'setrawcookie',
                 'readValue'                 => array('\Mu\Http\Session', 'readSession'),
                 'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
                 'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
@@ -207,6 +209,10 @@ class Session extends MixinAbstract {
                 'secure'   => $params['secure'],
                 'httponly' => $params['httponly']
             ));
+
+            $cookie->setDelegate('headers_sent', $this->getDelegate('headers_sent'));
+            $cookie->setDelegate('setcookie', $this->getDelegate('setcookie'));
+            $cookie->setDelegate('setrawcookie', $this->getDelegate('setrawcookie'));
 
             $cookie->send();
         }
