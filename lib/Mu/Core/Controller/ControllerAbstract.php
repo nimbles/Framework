@@ -31,6 +31,10 @@ use Mu\Core\Mixin\MixinAbstract;
  * @uses       \Mu\Core\Mixin\MixinAbstract
  */
 abstract class ControllerAbstract extends MixinAbstract {
+    /**
+     * Class implements
+     * @var array
+     */
     protected $_implements = array(
         'Mu\Core\Plugin\Pluginable' => array(
             'types' => array(
@@ -62,6 +66,12 @@ abstract class ControllerAbstract extends MixinAbstract {
     protected $_dispatchState;
 
     /**
+     * The resulting data returned from an action
+     * @var mixed
+     */
+    protected $_actionData;
+
+    /**
      * Gets the dispatch state
      * @return int
      */
@@ -77,6 +87,14 @@ abstract class ControllerAbstract extends MixinAbstract {
     public function setDispatchState($state) {
         $this->_dispatchState = is_int($state) ? $state : $this->_dispatchState;
         return $this;
+    }
+
+    /**
+     * Gets the resulting data returned from an action
+     * @return mixed
+     */
+    public function getActionData() {
+        return $this->_actionData;
     }
 
     /**
@@ -104,18 +122,14 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @return void
      */
     public function dispatch($action, array $params = null) {
-        try {
-            $this->notifyPreDispatch()->preDispatch();
+        $this->notifyPreDispatch()->preDispatch();
 
-            if ('Action' !== substr($action, -6)) {
-                $action .= 'Action';
-            }
-            $this->_dispatchAction($action, $params);
-
-            $this->notifyPostDispatch()->postDispatch();
-        } catch (\Exception $ex) {
-
+        if ('Action' !== substr($action, -6)) {
+            $action .= 'Action';
         }
+        $this->_actionData = $this->_dispatchAction($action, $params);
+
+        $this->notifyPostDispatch()->postDispatch();
     }
 
     /**
@@ -125,8 +139,9 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @return mixed
      */
     protected function _dispatchAction($action, array $params = null) {
+        $this->setDispatchState(static::STATE_DISPATCH);
         if (!method_exists($this, $action)) {
-            // @todo throw
+            throw new Exception\ActionNotFound('Cannot find action ' . $action . ' in the ' . __CLASS__ . ' controller');
         }
 
         $params = (null === $params) ? array() : $params;
@@ -135,6 +150,7 @@ abstract class ControllerAbstract extends MixinAbstract {
 
     /**
      * Notifies the plugins and helpers of the post dispatch state
+     * @return void
      */
     public function notifyPostDispatch() {
         $this->setDispatchState(static::STATE_POSTDISPATCH);
