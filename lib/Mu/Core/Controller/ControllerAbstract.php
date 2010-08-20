@@ -31,6 +31,15 @@ use Mu\Core\Request\RequestAbstract,
  * @version    $Id$
  *
  * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Plugin\Pluginable
+ * @uses       \Mu\Core\Options
+ *
+ * @uses       \Mu\Core\Request\RequestAbstract
+ * @uses       \Mu\Core\Response\ResponseAbstract
+ * @uses       \Mu\Core\Controller\Exception\ActionNotFound
+ * @uses       \Mu\Core\Controller\Resource\ResourceAbstract
+ * @uses       \Mu\Core\Controller\Helper\HelperAbstract
+ * @uses       \Mu\Core\Controller\Plugin\PluginAbstract
  */
 abstract class ControllerAbstract extends MixinAbstract {
     /**
@@ -192,6 +201,7 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @param string     $action
      * @param array|null $params
      * @return mixed
+     * @throws \Mu\Core\Controller\Exception\ActionNotFound
      */
     protected function _dispatchAction($action, array $params = null) {
         $this->setDispatchState(static::STATE_DISPATCH);
