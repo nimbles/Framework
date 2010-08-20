@@ -39,10 +39,19 @@ class Mu {
      * @todo require and use \Mu\Core\Singleton
      */
     static public function getInstance() {
-        if (null === self::$_instance) {
+        if (null === static::$_instance) {
             new Mu();
         }
-        return self::$_instance;
+        return static::$_instance;
+    }
+
+    /**
+     * Sets the instance of Mu, can be cleared so a refresh is possible
+     * @param Mu $instance
+     * @return void
+     */
+    static public function setInstance(Mu $instance = null) {
+        static::$_instance = $instance;
     }
 
     /**
@@ -50,10 +59,10 @@ class Mu {
      * @return void
      */
     public function __construct() {
-        if (null === self::$_instance) {
+        if (null === static::$_instance) {
             $this->_setupEnvironmentVars();
             \Mu\Core\Loader::register();
-            self::$_instance = $this;
+            static::$_instance = $this;
         }
     }
 

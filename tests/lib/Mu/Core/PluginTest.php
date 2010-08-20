@@ -68,6 +68,29 @@ class PluginTest extends TestCase {
     }
 
     /**
+     * Tests getting a plugin by its name
+     * @return void
+     */
+    public function testPluginGetter() {
+        $plugins = new \Mu\Core\Plugin();
+        $plugins->plugin = new Plugin\PluginSingle();
+
+        $this->assertType('\Tests\Lib\Mu\Core\Plugin\PluginSingle', $plugins->getPlugin('plugin'));
+        $this->assertNull($plugins->getPlugin('foo'));
+    }
+
+    /**
+     * Tests that an unknown error is raised
+     * @return void
+     */
+    public function testAttachUnknownError() {
+        $plugins = new \Mu\Core\Plugin();
+
+        $this->setExpectedException('Mu\Core\Plugin\Exception');
+        $plugins->attach('foo', null);
+    }
+
+    /**
      * Tests the plugins system rejects plugins which do not extend a given abstract
      * @return void
      */
