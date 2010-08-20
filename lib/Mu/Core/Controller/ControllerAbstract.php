@@ -18,7 +18,9 @@
 
 namespace Mu\Core\Controller;
 
-use Mu\Core\Mixin\MixinAbstract;
+use Mu\Core\Request\RequestAbstract,
+    Mu\Core\Response\ResponseAbstract,
+    Mu\Core\Mixin\MixinAbstract;
 
 /**
  * @category   Mu
@@ -48,6 +50,9 @@ abstract class ControllerAbstract extends MixinAbstract {
                     'abstract' => 'Mu\Core\Controller\Plugin\PluginAbstract'
                 )
             )
+        ),
+        'Mu\Core\Options' => array(
+            'dispatchState' => static::STATE_NOTDISPATCHED
         )
     );
 
@@ -55,9 +60,10 @@ abstract class ControllerAbstract extends MixinAbstract {
      * Dispatch states
      * @var int
      */
-    const STATE_PREDISPATCH  = 0;
-    const STATE_DISPATCH     = 1;
-    const STATE_POSTDISPATCH = 2;
+    const STATE_NOTDISPATCHED = -1;
+    const STATE_PREDISPATCH   = 0;
+    const STATE_DISPATCH      = 1;
+    const STATE_POSTDISPATCH  = 2;
 
     /**
      * Dispatch state
@@ -70,6 +76,18 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @var mixed
      */
     protected $_actionData;
+
+    /**
+     * The request that launched this controller
+     * @var \Mu\Core\Request\RequestAbstract
+     */
+    protected $_request;
+
+    /**
+     * The response from this controller
+     * @var \Mu\Core\Response\ResponseAbstract
+     */
+    protected $_response;
 
     /**
      * Gets the dispatch state
@@ -95,6 +113,43 @@ abstract class ControllerAbstract extends MixinAbstract {
      */
     public function getActionData() {
         return $this->_actionData;
+    }
+
+    /**
+     * Gets the request that launched this controller
+     * @return \Mu\Core\Request\RequestAbstract
+     */
+    public function getRequest() {
+        return $this->_request;
+    }
+
+    public function setRequest(RequestAbstract $request) {
+        $this->_request = $request;
+        return $this;
+    }
+
+    /**
+     * Gets the response from this controller
+     * @return \Mu\Core\Response\ResponseAbstract
+     */
+    public function getResponse() {
+        return $this->_response;
+    }
+
+    public function setResponse(ResponseAbstract $response) {
+        $this->_response = $response;
+        return $this;
+    }
+
+    /**
+     * Class constructor
+     * @param $options
+     */
+    public function __construct(RequestAbstract $request, ResponseAbstract $response, $options = null) {
+        parent::__construct();
+        $this->setOptions();
+        $this->setRequest($request)
+            ->setResponse($response);
     }
 
     /**
