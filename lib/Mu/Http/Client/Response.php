@@ -33,31 +33,24 @@ use Mu\Http\Client,
  */
 class Response extends Http\Response {
     /**
-     * Get the new line charactor
-     * @retrun string
-     */
-    protected function _getNewLineCharactor() {
-        return (APPLICATION_ENV === 'test' ? "\n" : "\r\n");
-    }
-
-    /**
      * Populate the request object using a raw response
      * @param srting $raw
      * @return Response
      */
     public function setRawResponse($raw) {
+        $lineEnding = (strstr(substr($raw, 0, 128), "\r\n")) ? "\r\n" : "\n";
         $headers = '';
         $body = $raw;
 
-        $raw = explode(str_repeat($this->_getNewLineCharactor(), 2), $raw);
+        $raw = explode(str_repeat($lineEnding, 2), $raw);
         if (0 < count($raw)) {
             $headers = $raw[0];
             unset($raw[0]);
-            $body = implode(str_repeat($this->_getNewLineCharactor(), 2), $raw);
+            $body = implode(str_repeat($lineEnding, 2), $raw);
         }
         $this->setBody($body);
 
-        $headers = explode($this->_getNewLineCharactor(), $headers);
+        $headers = explode($lineEnding, $headers);
         foreach ($headers as $header) {
             if (strstr($header, ': ')) {
                 $header = explode(': ', $header);

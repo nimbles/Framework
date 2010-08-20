@@ -57,4 +57,23 @@ class RequestTest extends TestCase {
             array(1, false),
         );
     }
+
+    /**
+     * @dataProvider provideMethod
+     */
+    public function testMethod($value) {
+        $request = new Request();
+        $request->setMethod($value);
+        $this->assertEquals($value, $request->getMethod());
+    }
+
+    public function provideMethod() {
+        return array(
+            array('GET'),
+            array('POST'),
+            array('PUT'),
+            array('DELETE'),
+            array('OPTIONS'),
+        );
+    }
 }

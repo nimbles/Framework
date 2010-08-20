@@ -45,6 +45,14 @@ use Mu\Http\TestCase,
  */
 class CurlTest extends TestCase {
 
+    protected function setUp()
+    {
+        if (!extension_loaded('curl')) {
+            $this->markTestSkipped('cURL is not installed, marking all Http Client Curl Adapter tests skipped.');
+        }
+        parent::setUp();
+    }
+
     /**
      * @dataProvider provideCurlOptions
      */
@@ -54,12 +62,17 @@ class CurlTest extends TestCase {
             $this->setExpectedException('Mu\Http\Client\Adapter\Curl\Exception');
         }
         $curl->setCurlOptions($value);
+        if ($value instanceof \Mu\Core\Config) {
+            $value = $value->getArrayCopy();
+        }
+
         $this->assertEquals($value, $curl->getCurlOptions());
     }
 
     public function provideCurlOptions() {
         return array(
             array(array(), true),
+            array(new \Mu\Core\Config(array()), true),
             array(true, false),
             array('incorrect', false),
             array(1, false),
@@ -81,6 +94,16 @@ class CurlTest extends TestCase {
 
         $this->assertEquals('<html><body><h1>It works!</h1></body></html>', $response->getBody());
         $this->assertEquals(Status::STATUS_OK, $response->getStatus()->getStatus());
+    }
+
+    public function testFailedWrite() {
+        $request = new Client\Request();
+        $dir = dirname(__FILE__);
+        $request->setRequestUri('http://localhost:21/invalidpath');
+        $curl = new Curl();
+        $curl->setRequest($request);
+        $this->setExpectedException('Mu\Http\Client\Adapter\Curl\Exception');
+        $response = $curl->write();
     }
 
 }

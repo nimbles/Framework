@@ -18,9 +18,8 @@
 namespace Mu\Http;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Http\Client\Adapter,
-    Mu\Http\Client\Exception,
-    Mu\Http\Client\Adapter\Curl;
+    Mu\Http\Client,
+    Mu\Http\Client\Adapter;
 
 /**
  * @category   Mu
@@ -50,7 +49,8 @@ class Client extends MixinAbstract {
         'Mu\Core\Config\Options',
         'Mu\Core\Delegates\Delegatable' => array(
             'delegates' => array(
-                'getValidMethods' => array('\Mu\Http\Client', 'getValidHTTPMethods')
+                'getValidMethods' => array('\Mu\Http\Client', 'getValidHTTPMethods'),
+                'getDefaultAdapter' => array('\Mu\Http\Client', 'getDefaultAdapter')
             )
         )
     );
@@ -60,6 +60,12 @@ class Client extends MixinAbstract {
      * @var string
      */
     protected $_method = null;
+
+    /**
+     * Last successful request
+     * @var Request
+     */
+    protected $_lastRequest = null;
 
     /**
      * Client constructor
@@ -86,17 +92,73 @@ class Client extends MixinAbstract {
      */
     public function setMethod($method) {
         if (!is_string($method)) {
-            throw new Exception\InvalidMethod('Method must be of type string');
+            throw new Client\Exception\InvalidMethod('Method must be of type string');
         }
 
         $validMethods = array_map('strtoupper', $this->getValidMethods());
         $method = strtoupper($method);
         if (!in_array($method, $validMethods)) {
-            throw new Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
+            throw new Client\Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
         }
 
         $this->_method = $method;
         return $this;
+    }
+
+    /**
+     * Gets the last successful request
+     * @return Request
+     */
+    public function getLastRequest() {
+        return $this->_lastRequest;
+    }
+
+    /**
+     * Set the last successful request
+     * @param Request $request
+     * @return Client
+     */
+    protected function _setLastRequest(Request $request) {
+        $this->_lastRequest = $request;
+        return $this;
+    }
+
+    /**
+     * Request an HTTP resource
+     * @param string|Client\Request $request
+     * @param string|null $method
+     * @return Client\Response
+     */
+    public function request($request, $method = null) {
+        if (null !== $method) {
+            $this->setMethod($method);
+        } else if (null === $this->getMethod()) {
+            $validMethods = $this->getValidHTTPMethods();
+            $this->setMethod($validMethods[0]);
+        }
+
+        if ($request instanceof Client\Request && null !== $method) {
+            $request->setMethod($method);
+        } else if (is_string($request)) {
+            $requestInstance = new Client\Request();
+            $request = $requestInstance->setRequestUri($request)
+                                       ->setMethod($this->getMethod());
+        }
+
+        if (!($request instanceof Client\Request)) {
+            throw new Client\Exception('Request must be either a \Mu\Http\Client\Request object or a URI string');
+        }
+
+        if (null === $this->getAdapter()) {
+            $this->setAdapter($this->getDefaultAdapter());
+        }
+
+        $this->getAdapter()->setRequest($request);
+        $response = $this->getAdapter()->write();
+
+        $this->_setLastRequest($request);
+
+        return $response;
     }
 
 
@@ -106,5 +168,13 @@ class Client extends MixinAbstract {
      */
     static public function getValidHTTPMethods() {
         return array ('GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS');
+    }
+
+    /**
+     * Returns the default adapter
+     * @return mixed
+     */
+    static public function getDefaultAdapter() {
+        return new Adapter\Curl();
     }
 }

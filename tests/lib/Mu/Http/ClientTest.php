@@ -18,7 +18,8 @@
 namespace Tests\Lib\Mu\Http;
 
 use Mu\Http\TestCase,
-    Mu\Http\Client;
+    Mu\Http\Client,
+    Mu\Http\Status;
 
 /**
  * @category   Mu
@@ -36,6 +37,13 @@ use Mu\Http\TestCase,
  * @group      Mu-Http-Client
  */
 class ClientTest extends TestCase {
+
+    public function setUp() {
+        if (!extension_loaded('curl')) {
+            $this->markTestSkipped('cURL is not installed, marking all Http Client Curl Adapter tests skipped.');
+        }
+        parent::setUp();
+    }
 
     /**
      * @dataProvider methodDataProvider
@@ -106,6 +114,45 @@ class ClientTest extends TestCase {
             // Objects
             array(new \Mu\Http\Client\Adapter\Curl(), array(), 'Mu\Http\Client\Adapter\Curl'),
             array(new \Mu\Http\Client\Adapter\MultiCurl(), array(), 'Mu\Http\Client\Adapter\MultiCurl'),
+        );
+    }
+
+    /**
+     * @dataProvider requestDataProvider
+     */
+    public function testRequest($request, $method, $adapter, $status, $headers, $body) {
+        $client = new Client();
+        $client->setAdapter($adapter);
+        $response = $client->request($request, $method);
+
+        if (null !== $status) {
+            $this->assertEquals($status, $response->getStatus()->getStatus());
+        }
+
+        if (null !== $headers) {
+            foreach($headers as $key => $value) {
+                $header = $response->getHeader($key);
+                $this->assertNotNull($header);
+                $this->assertEquals($key, $header->getName());
+                $this->assertEquals($value, $header->getValue());
+            }
+        }
+        if (null === $method) {
+            $validMethods = $client->getValidHTTPMethods();
+            $method = $validMethods[0];
+        }
+        $this->assertEquals($method, $client->getLastRequest()->getMethod());
+        $this->assertEquals($body, $response->getBody());
+
+    }
+
+    public function requestDataProvider() {
+        $fileDir = 'file://' . dirname(__FILE__) . '/_files/client/';
+        return array(
+            array($fileDir . '1.txt', 'GET', 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
+            array($fileDir . '1.txt', NULL, 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
+            array($fileDir . '1.txt', 'POST', 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
+            array($fileDir . '2.txt', 'POST', 'Curl', Status::STATUS_OK, array('Key1' => 'Value', 'Key2' => 'Value', 'Key3' => 'Value'), "Body\nof\n2")
         );
     }
 }

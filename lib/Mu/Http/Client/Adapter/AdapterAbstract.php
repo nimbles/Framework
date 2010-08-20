@@ -71,5 +71,7 @@ abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface
      * (non-PHPdoc)
      * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterInterface::write()
      */
+    /* @codeCoverageIgnoreStart */
     public function write() {}
+    /* @codeCoverageIgnoreEnd */
 }

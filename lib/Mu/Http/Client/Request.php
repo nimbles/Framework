@@ -39,6 +39,12 @@ class Request extends Http\Request {
     protected $_requestUri;
 
     /**
+     * Method of request
+     * @var string
+     */
+    protected $_method;
+
+    /**
      * Get the request URI
      * @return string
      */
@@ -57,6 +63,24 @@ class Request extends Http\Request {
         }
 
         $this->_requestUri = (string)$value;
+        return $this;
+    }
+
+    /**
+     * Get the method
+     * @return string
+     */
+    public function getMethod() {
+        return $this->_method;
+    }
+
+    /**
+     * Set the method
+     * @param string $method
+     * @return Request
+     */
+    public function setMethod($method) {
+        $this->_method = $method;
         return $this;
     }
 }
