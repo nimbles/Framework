@@ -17,7 +17,8 @@
  */
 namespace Mu\Http\Client;
 
-use Mu\Http\Client,
+use Mu\Http\Client\Request,
+    Mu\Http\Client,
     Mu\Http;
 
 /**
@@ -28,10 +29,24 @@ use Mu\Http\Client,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
+ * @uses       \Mu\Http\Client\Request
  * @uses       \Mu\Http\Client
  * @uses       \Mu\Http
  */
 class Request extends Http\Request {
+    /**
+     * Class implements
+     * @var array
+     */
+    protected $_validMethods = array (
+        'GET',
+        'PUT',
+        'POST',
+        'DELETE',
+        'OPTIONS',
+        'HEAD'
+    );
+
     /**
      * Request URI
      * @var string
@@ -42,7 +57,7 @@ class Request extends Http\Request {
      * Method of request
      * @var string
      */
-    protected $_method;
+    protected $_method = null;
 
     /**
      * Get the request URI
@@ -67,7 +82,7 @@ class Request extends Http\Request {
     }
 
     /**
-     * Get the method
+     * Get the HTTP method
      * @return string
      */
     public function getMethod() {
@@ -75,11 +90,20 @@ class Request extends Http\Request {
     }
 
     /**
-     * Set the method
+     * Set the HTTP method
      * @param string $method
-     * @return Request
+     * @return \Mu\Http\Client
+     * @throws \Mu\Http\Client\Exception\InvalidMethod
      */
     public function setMethod($method) {
+        if (!is_string($method)) {
+            throw new Request\Exception\InvalidMethod('Method must be of type string');
+        }
+        $method = strtoupper($method);
+        if (!in_array($method, $this->_validMethods)) {
+            throw new Request\Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
+        }
+
         $this->_method = $method;
         return $this;
     }

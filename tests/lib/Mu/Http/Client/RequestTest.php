@@ -59,21 +59,37 @@ class RequestTest extends TestCase {
     }
 
     /**
-     * @dataProvider provideMethod
+     * @dataProvider methodDataProvider
      */
-    public function testMethod($value) {
+    public function testMethod($method, $valid) {
         $request = new Request();
-        $request->setMethod($value);
-        $this->assertEquals($value, $request->getMethod());
+
+        $constraint = $this->equalTo($method);
+        if (!$valid) {
+            $this->setExpectedException('\Mu\Http\Client\Request\Exception\InvalidMethod');
+            $constraint = $this->logicalNot(
+                $this->equalTo($method)
+            );
+        }
+
+        $returnValue = $request->setMethod($method);
+
+        $this->assertThat($request->getMethod(), $constraint);
+        $this->assertEquals($request, $returnValue);
     }
 
-    public function provideMethod() {
+    public function methodDataProvider() {
         return array(
-            array('GET'),
-            array('POST'),
-            array('PUT'),
-            array('DELETE'),
-            array('OPTIONS'),
+            array('GET', true),
+            array('HEAD', true),
+            array('POST', true),
+            array('PUT', true),
+            array('DELETE', true),
+            array('OPTIONS', true),
+            array('SET', false),
+            array(0, false),
+            array(array(), false),
+            array(new \stdClass(), false),
         );
     }
 }

@@ -49,17 +49,11 @@ class Client extends MixinAbstract {
         'Mu\Core\Config\Options',
         'Mu\Core\Delegates\Delegatable' => array(
             'delegates' => array(
-                'getValidMethods' => array('\Mu\Http\Client', 'getValidHTTPMethods'),
                 'getDefaultAdapter' => array('\Mu\Http\Client', 'getDefaultAdapter')
             )
         )
     );
 
-    /**
-     * HTTP method
-     * @var string
-     */
-    protected $_method = null;
 
     /**
      * Last successful request
@@ -74,35 +68,6 @@ class Client extends MixinAbstract {
     public function __construct($options = null) {
         parent::__construct();
         $this->setOptions($options);
-    }
-
-    /**
-     * Get the HTTP method
-     * @return string
-     */
-    public function getMethod() {
-        return $this->_method;
-    }
-
-    /**
-     * Set the HTTP method
-     * @param string $method
-     * @return \Mu\Http\Client
-     * @throws \Mu\Http\Client\Exception\InvalidMethod
-     */
-    public function setMethod($method) {
-        if (!is_string($method)) {
-            throw new Client\Exception\InvalidMethod('Method must be of type string');
-        }
-
-        $validMethods = array_map('strtoupper', $this->getValidMethods());
-        $method = strtoupper($method);
-        if (!in_array($method, $validMethods)) {
-            throw new Client\Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
-        }
-
-        $this->_method = $method;
-        return $this;
     }
 
     /**
@@ -129,20 +94,15 @@ class Client extends MixinAbstract {
      * @param string|null $method
      * @return Client\Response
      */
-    public function request($request, $method = null) {
-        if (null !== $method) {
-            $this->setMethod($method);
-        } else if (null === $this->getMethod()) {
-            $validMethods = $this->getValidHTTPMethods();
-            $this->setMethod($validMethods[0]);
-        }
+    public function request($request, $method = NULL) {
+        $method = (null === $method) ? 'GET' : $method;
 
-        if ($request instanceof Client\Request && null !== $method) {
+        if ($request instanceof Client\Request && null === $request->getMethod()) {
             $request->setMethod($method);
         } else if (is_string($request)) {
             $requestInstance = new Client\Request();
             $request = $requestInstance->setRequestUri($request)
-                                       ->setMethod($this->getMethod());
+                                       ->setMethod($method);
         }
 
         if (!($request instanceof Client\Request)) {
@@ -159,15 +119,6 @@ class Client extends MixinAbstract {
         $this->_setLastRequest($request);
 
         return $response;
-    }
-
-
-    /**
-     * Valid HTTP Methods
-     * @return array
-     */
-    static public function getValidHTTPMethods() {
-        return array ('GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS');
     }
 
     /**

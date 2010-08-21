@@ -46,40 +46,6 @@ class ClientTest extends TestCase {
     }
 
     /**
-     * @dataProvider methodDataProvider
-     */
-    public function testMethod($method, $valid) {
-        $client = new Client();
-
-        $constraint = $this->equalTo($method);
-        if (!$valid) {
-            $this->setExpectedException('\Mu\Http\Client\Exception\InvalidMethod');
-            $constraint = $this->logicalNot(
-                $this->equalTo($method)
-            );
-        }
-
-        $returnValue = $client->setMethod($method);
-
-        $this->assertThat($client->getMethod(), $constraint);
-        $this->assertEquals($client, $returnValue);
-    }
-
-    public function methodDataProvider() {
-        return array(
-            array('GET', true),
-            array('HEAD', true),
-            array('POST', true),
-            array('PUT', true),
-            array('DELETE', true),
-            array('OPTIONS', true),
-            array(0, false),
-            array(array(), false),
-            array(new \stdClass(), false),
-        );
-    }
-
-    /**
      * @dataProvider adapterDataProvider
      */
     public function testAdapter($adapter, $options, $valid) {
@@ -122,7 +88,9 @@ class ClientTest extends TestCase {
      */
     public function testRequest($request, $method, $adapter, $status, $headers, $body) {
         $client = new Client();
-        $client->setAdapter($adapter);
+        if (null !== $adapter) {
+            $client->setAdapter($adapter);
+        }
         $response = $client->request($request, $method);
 
         if (null !== $status) {
@@ -137,10 +105,8 @@ class ClientTest extends TestCase {
                 $this->assertEquals($value, $header->getValue());
             }
         }
-        if (null === $method) {
-            $validMethods = $client->getValidHTTPMethods();
-            $method = $validMethods[0];
-        }
+        $method = (null === $method) ? 'GET' : $method;
+
         $this->assertEquals($method, $client->getLastRequest()->getMethod());
         $this->assertEquals($body, $response->getBody());
 
@@ -152,7 +118,36 @@ class ClientTest extends TestCase {
             array($fileDir . '1.txt', 'GET', 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
             array($fileDir . '1.txt', NULL, 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
             array($fileDir . '1.txt', 'POST', 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
-            array($fileDir . '2.txt', 'POST', 'Curl', Status::STATUS_OK, array('Key1' => 'Value', 'Key2' => 'Value', 'Key3' => 'Value'), "Body\nof\n2")
+            array($fileDir . '1.txt', 'GET', NULL, Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
+            array($fileDir . '2.txt', 'POST', 'Curl', Status::STATUS_OK, array('Key1' => 'Value', 'Key2' => 'Value', 'Key3' => 'Value'), "Body\nof\n2"),
+            array(new Client\Request(array('requestUri' => $fileDir . '1.txt')) , 'GET', 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
+            array(new Client\Request(array('requestUri' => $fileDir . '1.txt')) , NULL, 'Curl', Status::STATUS_OK, array('Key' => 'Value'), 'Body'),
         );
     }
+
+    public function testDefaultAdapter() {
+        $this->assertType('\Mu\Http\Client\Adapter\Curl', Client::getDefaultAdapter());
+    }
+
+    /**
+     * @dataProvider requestInvalidDataProvider
+     */
+    public function testRequestInvalidRequest($request) {
+        $client = new Client();
+        $this->setExpectedException('Mu\Http\Client\Exception');
+        $response = $client->request($request);
+    }
+
+    public function requestInvalidDataProvider() {
+        return array(
+            array(new \Mu\Http\Request()),
+            array(1),
+            array(0.9),
+            array(new \stdClass()),
+            array(function() {return new \stdClass();}),
+            array(false),
+            array(true),
+        );
+    }
+
 }
