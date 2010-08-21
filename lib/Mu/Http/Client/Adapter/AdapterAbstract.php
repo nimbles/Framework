@@ -33,7 +33,6 @@ use Mu\Core\Mixin\MixinAbstract,
  * @uses       \Mu\Http\Client
  * @uses       \Mu\Http\Client\Adapter
  *
- * @todo       Add a factory
  */
 abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface {
     /**

@@ -70,16 +70,16 @@ class ClientTest extends TestCase {
         return array(
             // Valid Adapters
             array('Curl', array(), 'Mu\Http\Client\Adapter\Curl'),
-            array('MultiCurl', array(), 'Mu\Http\Client\Adapter\MultiCurl'),
+            array('CurlMulti', array(), 'Mu\Http\Client\Adapter\CurlMulti'),
             // Alternative spelling
             array('curl', array(), 'Mu\Http\Client\Adapter\Curl'),
             array('CURL', array(), 'Mu\Http\Client\Adapter\Curl'),
             // Camel case
-            array('multi-curl', array(), false),
-            array('Multi-Curl', array(), false),
+            array('curl-multi', array(), false),
+            array('Curl-Multi', array(), false),
             // Objects
             array(new \Mu\Http\Client\Adapter\Curl(), array(), 'Mu\Http\Client\Adapter\Curl'),
-            array(new \Mu\Http\Client\Adapter\MultiCurl(), array(), 'Mu\Http\Client\Adapter\MultiCurl'),
+            array(new \Mu\Http\Client\Adapter\CurlMulti(), array(), 'Mu\Http\Client\Adapter\CurlMulti'),
         );
     }
 
@@ -109,6 +109,7 @@ class ClientTest extends TestCase {
 
         $this->assertEquals($method, $client->getLastRequest()->getMethod());
         $this->assertEquals($body, $response->getBody());
+        $this->assertEquals($response, $client->getLastResponse());
 
     }
 
@@ -148,6 +149,36 @@ class ClientTest extends TestCase {
             array(false),
             array(true),
         );
+    }
+
+
+    public function testRequestMulti() {
+        $client = new Client();
+
+        $requests = array(
+            new Client\Request(array('requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/1.txt', 'method' => 'GET')),
+            new Client\Request(array('requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/1.txt')),
+            new Client\Request(array('requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/2.txt', 'method' => 'GET')),
+            new Client\Request(array('requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/2.txt'))
+        );
+
+        $client->setAdapter('CurlMulti');
+
+        $batch = $client->request($requests);
+
+        $this->assertEquals($batch, $client->getLastBatch());
+        $this->assertEquals(count($requests), count($batch));
+        foreach($batch as $result) {
+            $this->assertArrayHasKey('request', $result);
+            $this->assertArrayHasKey('response', $result);
+            $request = $result['request'];
+            $this->assertContains($request, $requests);
+        }
+
+        $this->setExpectedException('\Mu\Http\Client\Exception');
+        $client->setAdapter('Curl');
+        $client->request($requests);
+
     }
 
 }

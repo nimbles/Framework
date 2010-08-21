@@ -81,6 +81,7 @@ class Curl extends AdapterAbstract {
         $curlOptions = array_merge($this->_defaultCurlOptions, $this->getCurlOptions());
 
         $curlOptions[CURLOPT_URL] = $this->_request->getRequestUri();
+        $curlOptions[CURLOPT_CUSTOMREQUEST] = $this->_request->getMethod();
         $curlOptions[CURLOPT_RETURNTRANSFER] = true;
         $curlOptions[CURLOPT_HEADER] = true;
 

@@ -62,6 +62,18 @@ class Client extends MixinAbstract {
     protected $_lastRequest = null;
 
     /**
+     * Last successful response
+     * @var Request
+     */
+    protected $_lastResponse = null;
+
+    /**
+     * Last successful batch
+     * @var Request
+     */
+    protected $_lastBatch = null;
+
+    /**
      * Client constructor
      * @param array|null $options
      */
@@ -83,8 +95,44 @@ class Client extends MixinAbstract {
      * @param Request $request
      * @return Client
      */
-    protected function _setLastRequest(Request $request) {
+    protected function _setLastRequest($request) {
         $this->_lastRequest = $request;
+        return $this;
+    }
+
+    /**
+     * Gets the last successful response
+     * @return Response
+     */
+    public function getLastResponse() {
+        return $this->_lastResponse;
+    }
+
+    /**
+     * Set the last successful response
+     * @param Response $request
+     * @return Client
+     */
+    protected function _setLastResponse($response) {
+        $this->_lastResponse = $response;
+        return $this;
+    }
+
+    /**
+     * Gets the last successful batch of request and responses
+     * @return mixed
+     */
+    public function getLastBatch() {
+        return $this->_lastBatch;
+    }
+
+    /**
+     * Set the last successful batch of request and responses
+     * @param mixed $batch
+     * @return Client
+     */
+    protected function _setLastBatch($batch) {
+        $this->_lastBatch = $batch;
         return $this;
     }
 
@@ -95,8 +143,46 @@ class Client extends MixinAbstract {
      * @return Client\Response
      */
     public function request($request, $method = NULL) {
+        if (null === $this->getAdapter()) {
+            $this->setAdapter($this->getDefaultAdapter());
+        }
+
         $method = (null === $method) ? 'GET' : $method;
 
+        if (is_array($request)) {
+            // Check if all the items are request objects
+            $preparedRequests = array();
+            foreach($request as $aRequest) {
+                $preparedRequests[] = $this->_prepareRequestInstance($aRequest, $method);
+            }
+
+            if (!($this->getAdapter() instanceof Adapter\AdapterMultiInterface)) {
+                throw new Client\Exception('A multi adapter is required to process and array of requests');
+            }
+            $this->getAdapter()->setRequests($preparedRequests);
+        } else {
+            $this->getAdapter()->setRequest($request = $this->_prepareRequestInstance($request, $method));
+        }
+
+        $response = $this->getAdapter()->write();
+
+        if (is_array($response)) {
+            $this->_setLastBatch($response);
+        } else {
+            $this->_setLastRequest($request)
+                 ->_setLastResponse($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Prepare the request by setting the method and ensuring it's of the correct type
+     * @param Client\Request $request
+     * @param string $method
+     * @throws Client\Exception
+     */
+    protected function _prepareRequestInstance($request, $method) {
         if ($request instanceof Client\Request && null === $request->getMethod()) {
             $request->setMethod($method);
         } else if (is_string($request)) {
@@ -108,17 +194,7 @@ class Client extends MixinAbstract {
         if (!($request instanceof Client\Request)) {
             throw new Client\Exception('Request must be either a \Mu\Http\Client\Request object or a URI string');
         }
-
-        if (null === $this->getAdapter()) {
-            $this->setAdapter($this->getDefaultAdapter());
-        }
-
-        $this->getAdapter()->setRequest($request);
-        $response = $this->getAdapter()->write();
-
-        $this->_setLastRequest($request);
-
-        return $response;
+        return $request;
     }
 
     /**
