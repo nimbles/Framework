@@ -19,7 +19,8 @@ namespace Mu\Http;
 
 use Mu\Core\Mixin\MixinAbstract,
     Mu\Http\Client,
-    Mu\Http\Client\Adapter;
+    Mu\Http\Client\Adapter,
+    Mu\Http;
 
 /**
  * @category   Mu
@@ -30,9 +31,9 @@ use Mu\Core\Mixin\MixinAbstract,
  * @version    $Id$
  *
  * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Http\Client
  * @uses       \Mu\Http\Client\Adapter
- * @uses       \Mu\Http\Client\Exception
- * @uses       \Mu\Http\Client\Adapter\Curl
+ * @uses       \Mu\Http
  */
 class Client extends MixinAbstract {
     /**
@@ -74,6 +75,12 @@ class Client extends MixinAbstract {
     protected $_lastBatch = null;
 
     /**
+     * Cookie jar instance
+     * @var Cookie\Jar
+     */
+    protected $_cookieJar = null;
+
+    /**
      * Client constructor
      * @param array|null $options
      */
@@ -95,7 +102,7 @@ class Client extends MixinAbstract {
      * @param Request $request
      * @return Client
      */
-    protected function _setLastRequest($request) {
+    protected function _setLastRequest(Client\Request $request) {
         $this->_lastRequest = $request;
         return $this;
     }
@@ -113,7 +120,10 @@ class Client extends MixinAbstract {
      * @param Response $request
      * @return Client
      */
-    protected function _setLastResponse($response) {
+    protected function _setLastResponse(Client\Response $response) {
+        if (null !== $response->getCookie() && 0 < $response->getCookie()->count() && null !== ($cookieJar = $this->getCookieJar())) {
+            $cookieJar->setCookies($response->getCookie()->getArrayCopy());
+        }
         $this->_lastResponse = $response;
         return $this;
     }
@@ -132,7 +142,34 @@ class Client extends MixinAbstract {
      * @return Client
      */
     protected function _setLastBatch($batch) {
+        if (null !== ($cookieJar = $this->getCookieJar())) {
+            foreach($batch as $result) {
+                $response = $result['response'];
+                if (null !== $response->getCookie() && 0 < $response->getCookie()->count()) {
+                    $cookieJar->setCookies($response->getCookie()->getArrayCopy());
+                }
+            }
+        }
+
         $this->_lastBatch = $batch;
+        return $this;
+    }
+
+    /**
+     * Get the cookie jar instance
+     * @return Cookie\Jar
+     */
+    public function getCookieJar() {
+        return $this->_cookieJar;
+    }
+
+    /**
+     * Set the cookie jar instance
+     * @param Cookie\Jar $cookieJar
+     * @return Client
+     */
+    public function setCookieJar(Cookie\Jar $cookieJar) {
+        $this->_cookieJar = $cookieJar;
         return $this;
     }
 

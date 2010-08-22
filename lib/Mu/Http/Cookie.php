@@ -43,7 +43,7 @@ class Cookie extends MixinAbstract {
      */
     protected $_implements = array(
         'Mu\Core\Config\Options' => array(
-            'expire'   => 0,
+            'expires'   => 0,
             'path'     => '/',
             'domain'   => null,
             'secure'   => false,
@@ -74,7 +74,7 @@ class Cookie extends MixinAbstract {
      * The time the cookie expires
      * @var int
      */
-    protected $_expire;
+    protected $_expires;
 
     /**
      * The path on the server in which the cookie will be available on
@@ -148,17 +148,20 @@ class Cookie extends MixinAbstract {
      * Gets the time the cookie expires
      * @return int
      */
-    public function getExpire() {
-        return $this->_expire;
+    public function getExpires() {
+        return $this->_expires;
     }
 
     /**
      * Sets the time the cookie expires
-     * @param  int $expire
+     * @param  int|string $expires
      * @return \Mu\Http\Cookie
      */
-    public function setExpire($expire) {
-        $this->_expire = (is_int($expire) && (0 <= $expire)) ? $expire : $this->_expire;
+    public function setExpires($expires) {
+        if(is_string($expires)) {
+            $expires = strtotime($expires) - time();
+        }
+        $this->_expires = (is_int($expires) && (0 <= $expires)) ? $expires : $this->_expires;
         return $this;
     }
 
@@ -268,7 +271,7 @@ class Cookie extends MixinAbstract {
         $args = array(
             $this->getName(),
             $this->getValue(),
-            $this->getExpire(),
+            $this->getExpires(),
             $this->getPath(),
             $this->getDomain(),
             $this->isSecure(),

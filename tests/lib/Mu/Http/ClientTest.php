@@ -19,7 +19,8 @@ namespace Tests\Lib\Mu\Http;
 
 use Mu\Http\TestCase,
     Mu\Http\Client,
-    Mu\Http\Status;
+    Mu\Http\Status,
+    Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -31,6 +32,8 @@ use Mu\Http\TestCase,
  *
  * @uses       \Mu\Http\TestCase
  * @uses       \Mu\Http\Client
+ * @uses       \Mu\Http\Status
+ * @uses       \Mu\Http\Cookie
  *
  * @group      Mu
  * @group      Mu-Http
@@ -151,7 +154,6 @@ class ClientTest extends TestCase {
         );
     }
 
-
     public function testRequestMulti() {
         $client = new Client();
 
@@ -178,7 +180,54 @@ class ClientTest extends TestCase {
         $this->setExpectedException('\Mu\Http\Client\Exception');
         $client->setAdapter('Curl');
         $client->request($requests);
-
     }
 
+    /**
+     * Test the cookie jar of the response and client
+     */
+    public function testCookieJar() {
+        $client = new Client();
+        $cookieJar = new Cookie\Jar();
+        $client->setCookieJar($cookieJar);
+        $this->assertEquals($cookieJar, $client->getCookieJar());
+
+        $request = new Client\Request(
+            array(
+                'requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/cookie.txt',
+                'method' => 'GET'
+            )
+        );
+
+        $response = $client->request($request);
+        $this->assertType('Mu\Http\Cookie\Jar', $response->getCookie());
+        $responseCookieJar = $response->getCookie()->getArrayCopy();
+        $this->assertArrayHasKey('Name', $responseCookieJar);
+        $this->assertType('Mu\Http\Cookie', $responseCookieJar['Name']);
+        $this->assertEquals('Value', $responseCookieJar['Name']->getValue());
+        $this->assertEquals('localhost', $responseCookieJar['Name']->getDomain());
+        $this->assertEquals('/', $responseCookieJar['Name']->getPath());
+        $this->assertEquals(strtotime('Tue, 31-Dec-2050 23:59:59 GMT') - time(), $responseCookieJar['Name']->getExpires());
+
+        $arrayCookieJar = $cookieJar->getArrayCopy();
+        $this->assertArrayHasKey('Name', $arrayCookieJar);
+        $this->assertEquals($responseCookieJar['Name'], $arrayCookieJar['Name']);
+
+        $cookieJar->exchangeArray(array()); //reset the cookie jar
+        $client->setAdapter('CurlMulti');
+        $request = new Client\Request(
+            array(
+                'requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/cookie.txt',
+                'method' => 'GET'
+            ),
+            array(
+                'requestUri' => 'file://' . dirname(__FILE__) . '/_files/client/cookie.txt',
+                'method' => 'GET'
+            )
+        );
+
+        $batch = $client->request($request);
+        $arrayCookieJar = $cookieJar->getArrayCopy();
+        $this->assertArrayHasKey('Name', $arrayCookieJar);
+
+    }
 }

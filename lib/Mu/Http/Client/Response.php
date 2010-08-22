@@ -19,7 +19,8 @@
 namespace Mu\Http\Client;
 
 use Mu\Http\Client,
-    Mu\Http;
+    Mu\Http,
+    Mu\Http\Cookie;
 
 /**
  * @category   Mu
@@ -30,6 +31,8 @@ use Mu\Http\Client,
  * @version    $Id$
  *
  * @uses       \Mu\Http\Request
+ * @uses       \Mu\Http
+ * @uses       \Mu\Http\Cookie
  */
 class Response extends Http\Response {
     /**
@@ -54,7 +57,27 @@ class Response extends Http\Response {
         foreach ($headers as $header) {
             if (strstr($header, ': ')) {
                 $header = explode(': ', $header);
-                $this->setHeader($header[0], $header[1]);
+                switch(strtolower($header[0])) {
+                    case 'set-cookie':
+                        $cookieParts = array_reverse(array_map('trim', explode(';', $header[1])));
+                        list($name, $value) = explode('=', array_pop($cookieParts));
+                        $options = array (
+                            'name' => $name,
+                            'value' => $value
+                        );
+
+                        while(count($cookieParts) > 0) {
+                            list($name, $value) = explode('=', array_pop($cookieParts));
+                            $options[$name] = $value;
+                        }
+
+                        $this->setCookie(new Cookie($options));
+                        break;
+                    default:
+                        $this->setHeader($header[0], $header[1]);
+                }
+
+
             } else if (1 === preg_match('#^HTTP/[0-9.]+\s+(?<status>[0-9]{3})#', $header, $matches)) {
                 $this->setStatus($matches['status']);
             }

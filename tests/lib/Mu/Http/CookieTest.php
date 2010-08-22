@@ -45,7 +45,7 @@ class CookieTest extends TestCase {
             'value' => 'test_value'
         ));
 
-        $this->assertEquals(0, $cookie->getExpire());
+        $this->assertEquals(0, $cookie->getExpires());
         $this->assertEquals('/', $cookie->getPath());
         $this->assertNull($cookie->getDomain());
         $this->assertFalse($cookie->isSecure());
@@ -60,7 +60,7 @@ class CookieTest extends TestCase {
      */
     public function testConstructOptions() {
         $cookie = new Cookie(array(
-            'expire' => 100,
+            'expires' => 100,
             'path' => '/foo',
             'domain' => 'www.bar.com',
             'secure' => true,
@@ -69,7 +69,7 @@ class CookieTest extends TestCase {
             'value' => 'test_value'
         ));
 
-        $this->assertEquals(100, $cookie->getExpire());
+        $this->assertEquals(100, $cookie->getExpires());
         $this->assertEquals('/foo', $cookie->getPath());
         $this->assertEquals('www.bar.com', $cookie->getDomain());
         $this->assertTrue($cookie->isSecure());
@@ -103,5 +103,17 @@ class CookieTest extends TestCase {
         $this->setExpectedException('Mu\Http\Cookie\Exception\HeadersAlreadySent');
 
         $cookie->send();
+    }
+
+    public function testExpires() {
+        $cookie = new Cookie();
+        $expire = 3600;
+
+        $currentTime = time();
+        $expireTime = time() + $expire;
+        $expireString = date('r', $expireTime);
+        $cookie->setExpires($expireString);
+
+        $this->assertEquals($expire, $cookie->getExpires());
     }
 }

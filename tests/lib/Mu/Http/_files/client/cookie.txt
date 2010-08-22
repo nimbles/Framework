@@ -1,0 +1,4 @@
+HTTP/1.1 200 OK
+Set-Cookie: Name=Value; expires=Tue, 31-Dec-2050 23:59:59 GMT; path=/; domain=localhost
+
+Cookie Test
