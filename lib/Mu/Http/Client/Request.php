@@ -44,7 +44,8 @@ class Request extends Http\Request {
         'POST',
         'DELETE',
         'OPTIONS',
-        'HEAD'
+        'HEAD',
+        'TRACE'
     );
 
     /**
