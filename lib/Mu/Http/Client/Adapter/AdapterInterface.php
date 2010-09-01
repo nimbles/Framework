@@ -33,12 +33,12 @@ use Mu\Http\Client;
 interface AdapterInterface {
     /**
      * Set the request
-     * @param Client\Request $request
+     * @param \Mu\Http\Client\Request $request
      */
     public function setRequest(Client\Request $request);
     /**
      * Write request
-     * @return Client\Response
+     * @return \Mu\Http\Client\Response
      */
     public function write();
 }

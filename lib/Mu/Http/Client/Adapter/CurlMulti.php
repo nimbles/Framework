@@ -33,7 +33,7 @@ use Mu\Http\Client,
 class CurlMulti extends Curl implements AdapterMultiInterface {
     /**
      * Requests instance
-     * @var Request
+     * @var \Mu\Http\Client\Request
      */
     protected $_requests;
 

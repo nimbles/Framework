@@ -60,7 +60,7 @@ class Curl extends AdapterAbstract {
     /**
      * Set the curl options
      * @param array|Config $value
-     * @return Curl
+     * @return \Mu\Http\Client\Adapter\Curl
      */
     public function setCurlOptions($value) {
         if ($value instanceof \Mu\Core\Config) {

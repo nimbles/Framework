@@ -58,25 +58,25 @@ class Client extends MixinAbstract {
 
     /**
      * Last successful request
-     * @var Request
+     * @var \Mu\Http\Client\Request
      */
     protected $_lastRequest = null;
 
     /**
      * Last successful response
-     * @var Request
+     * @var \Mu\Http\Client\Request
      */
     protected $_lastResponse = null;
 
     /**
      * Last successful batch
-     * @var Request
+     * @var \Mu\Http\Client\Request
      */
     protected $_lastBatch = null;
 
     /**
      * Cookie jar instance
-     * @var Cookie\Jar
+     * @var \Mu\Http\Cookie\Jar
      */
     protected $_cookieJar = null;
 
@@ -91,7 +91,7 @@ class Client extends MixinAbstract {
 
     /**
      * Gets the last successful request
-     * @return Request
+     * @return \Mu\Http\Client\Request
      */
     public function getLastRequest() {
         return $this->_lastRequest;
@@ -99,8 +99,8 @@ class Client extends MixinAbstract {
 
     /**
      * Set the last successful request
-     * @param Request $request
-     * @return Client
+     * @param \Mu\Http\Client\Request $request
+     * @return \Mu\Http\Client
      */
     protected function _setLastRequest(Client\Request $request) {
         $this->_lastRequest = $request;
@@ -109,7 +109,7 @@ class Client extends MixinAbstract {
 
     /**
      * Gets the last successful response
-     * @return Response
+     * @return \Mu\Http\Client\Response
      */
     public function getLastResponse() {
         return $this->_lastResponse;
@@ -117,8 +117,8 @@ class Client extends MixinAbstract {
 
     /**
      * Set the last successful response
-     * @param Response $request
-     * @return Client
+     * @param \Mu\Http\Client\Response $request
+     * @return \Mu\Http\Client
      */
     protected function _setLastResponse(Client\Response $response) {
         if (null !== $response->getCookie() && 0 < $response->getCookie()->count() && null !== ($cookieJar = $this->getCookieJar())) {
@@ -139,7 +139,7 @@ class Client extends MixinAbstract {
     /**
      * Set the last successful batch of request and responses
      * @param mixed $batch
-     * @return Client
+     * @return \Mu\Http\Client
      */
     protected function _setLastBatch($batch) {
         if (null !== ($cookieJar = $this->getCookieJar())) {
@@ -157,7 +157,7 @@ class Client extends MixinAbstract {
 
     /**
      * Get the cookie jar instance
-     * @return Cookie\Jar
+     * @return \Mu\Http\Cookie\Jar
      */
     public function getCookieJar() {
         return $this->_cookieJar;
@@ -165,8 +165,8 @@ class Client extends MixinAbstract {
 
     /**
      * Set the cookie jar instance
-     * @param Cookie\Jar $cookieJar
-     * @return Client
+     * @param \Mu\Http\Cookie\Jar $cookieJar
+     * @return \Mu\Http\Client
      */
     public function setCookieJar(Cookie\Jar $cookieJar) {
         $this->_cookieJar = $cookieJar;
@@ -175,9 +175,9 @@ class Client extends MixinAbstract {
 
     /**
      * Request an HTTP resource
-     * @param string|Client\Request $request
+     * @param string|\Mu\Http\Client\Request $request
      * @param string|null $method
-     * @return Client\Response
+     * @return \Mu\Http\Client\Response
      */
     public function request($request, $method = NULL) {
         if (null === $this->getAdapter()) {
@@ -215,9 +215,9 @@ class Client extends MixinAbstract {
 
     /**
      * Prepare the request by setting the method and ensuring it's of the correct type
-     * @param Client\Request $request
+     * @param \Mu\Http\Client\Request $request
      * @param string $method
-     * @throws Client\Exception
+     * @throws \Mu\Http\Client\Exception
      */
     protected function _prepareRequestInstance($request, $method) {
         if ($request instanceof Client\Request && null === $request->getMethod()) {
@@ -236,7 +236,7 @@ class Client extends MixinAbstract {
 
     /**
      * Returns the default adapter
-     * @return mixed
+     * @return \Mu\Http\Client\Adapter\Curl
      */
     static public function getDefaultAdapter() {
         return new Adapter\Curl();

@@ -71,7 +71,8 @@ class Request extends Http\Request {
     /**
      * Set the request URI
      * @param string $value
-     * @return Request
+     * @return \Mu\Http\Client\Request
+     * @throws \Mu\Http\Client\Exception
      */
     public function setRequestUri($value) {
         if (!is_string($value)) {

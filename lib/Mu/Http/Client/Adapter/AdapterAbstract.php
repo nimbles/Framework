@@ -45,7 +45,7 @@ abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface
 
     /**
      * Request instance
-     * @var Request
+     * @var \Mu\Http\Client\Request
      */
     protected $_request;
 

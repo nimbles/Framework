@@ -38,7 +38,7 @@ class Response extends Http\Response {
     /**
      * Populate the request object using a raw response
      * @param srting $raw
-     * @return Response
+     * @return \Mu\Http\Client\Response
      */
     public function setRawResponse($raw) {
         $lineEnding = (strstr(substr($raw, 0, 128), "\r\n")) ? "\r\n" : "\n";

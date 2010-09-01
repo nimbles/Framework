@@ -33,7 +33,7 @@ use Mu\Http\Client;
 interface AdapterMultiInterface extends AdapterInterface {
     /**
      * Set an array of request objects
-     * @param Client\Request[] $requests
+     * @param \Mu\Http\Client\Request[] $requests
      */
     public function setRequests($requests);
 }
