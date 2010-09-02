@@ -29,10 +29,12 @@ class Plugin extends Mixin\MixinAbstract
     implements \IteratorAggregate {
 
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     /**
      * Plugin collection

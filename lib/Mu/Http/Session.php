@@ -35,29 +35,41 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class Session extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'session_start'             => 'session_start',
-                'session_id'                => 'session_id',
-                'session_name'              => 'session_name',
-                'session_regenerate_id'     => 'session_regenerate_id',
-                'session_destroy'           => 'session_destroy',
-                'session_get_cookie_params' => 'session_get_cookie_params',
-                'session_set_cookie_params' => 'session_set_cookie_params',
-                'headers_sent'              => 'headers_sent',
-                'setcookie'                 => 'setcookie',
-                'setrawcookie'              => 'setrawcookie',
-                'readValue'                 => array('\Mu\Http\Session', 'readSession'),
-                'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
-                'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
-            )
-        ),
-        'Mu\Core\Config\Options'
-    );
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'session_start'             => 'session_start',
+                    'session_id'                => 'session_id',
+                    'session_name'              => 'session_name',
+                    'session_regenerate_id'     => 'session_regenerate_id',
+                    'session_destroy'           => 'session_destroy',
+                    'session_get_cookie_params' => 'session_get_cookie_params',
+                    'session_set_cookie_params' => 'session_set_cookie_params',
+                    'headers_sent'              => 'headers_sent',
+                    'setcookie'                 => 'setcookie',
+                    'setrawcookie'              => 'setrawcookie',
+                    'readValue'                 => function ($key = null) {
+                        if (null === $key) {
+                            return $_SESSION;
+                        }
+
+                        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
+                    },
+                    'writeValue'                => function ($key, $value) {
+                        $_SESSION[$key] = $value;
+                    },
+                    'clearValues'               => function () {
+                        $_SESSION = array();
+                    },
+                )
+            ),
+            'Mu\Core\Config\Options'
+        );
+    }
 
     /**
      * Indicates that the session has started
@@ -254,35 +266,5 @@ class Session extends MixinAbstract {
      */
     public function clear() {
         return $this->clearValues();
-    }
-
-    /**
-     * Reads from the session
-     * @param string|null $key
-     * @return mixed
-     */
-    static public function readSession($key = null) {
-        if (null === $key) {
-            return $_SESSION;
-        }
-
-        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
-    }
-
-    /**
-     * Writes to the session
-     * @param string $key
-     * @param mixed $value
-     */
-    static public function writeSession($key, $value) {
-        $_SESSION[$key] = $value;
-    }
-
-    /**
-     * Clears the session
-     * @return void
-     */
-    static public function clearSession() {
-        $_SESSION = array();
     }
 }

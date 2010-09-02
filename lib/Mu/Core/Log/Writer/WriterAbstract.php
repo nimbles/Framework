@@ -37,22 +37,24 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 abstract class WriterAbstract extends MixinAbstract {
     /**
-     * Implements for this mixin
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Plugin\Pluginable' => array(
-            'types' => array(
-                'filters' => array(
-                    'abstract' => 'Mu\Core\Log\Filter\FilterAbstract',
-                )
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Plugin\Pluginable' => array(
+                'types' => array(
+                    'filters' => array(
+                        'abstract' => 'Mu\Core\Log\Filter\FilterAbstract',
+                    )
+                ),
             ),
-        ),
-        'Mu\Core\Config\Options' => array(
-            'formatter' => 'simple',
-            'separator' => "\n"
-        )
-    );
+            'Mu\Core\Config\Options' => array(
+                'formatter' => 'simple',
+                'separator' => "\n"
+            )
+        );
+    }
 
     /**
      * The formatter used by this writer

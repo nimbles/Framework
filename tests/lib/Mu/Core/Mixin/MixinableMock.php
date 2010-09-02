@@ -35,10 +35,12 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class MixinPropertiesMock extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Tests\Lib\Mu\Core\Mixin\MixinableProperties');
+    static protected function _getImplements() {
+        return array('Tests\Lib\Mu\Core\Mixin\MixinableProperties');
+    }
 }
 
 /**
@@ -89,7 +91,13 @@ class MixinableProperties extends MixinableAbstract {
  * @uses       \Mu\Core\Mixin\MixinAbstract
  */
 class MixinMethodsMock extends MixinAbstract {
-    protected $_implements = array('Tests\Lib\Mu\Core\Mixin\MixinableMethods');
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array('Tests\Lib\Mu\Core\Mixin\MixinableMethods');
+    }
 }
 
 /**
@@ -130,8 +138,14 @@ class MixinableMethods extends MixinableAbstract {
  * @uses       \Mu\Core\Mixin\MixinAbstract
  */
 class MixinPropertiesAndMethodsMock extends MixinAbstract {
-    protected $_implements = array(
-        'Tests\Lib\Mu\Core\Mixin\MixinableProperties',
-        'Tests\Lib\Mu\Core\Mixin\MixinableMethods'
-    );
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array(
+            'Tests\Lib\Mu\Core\Mixin\MixinableProperties',
+            'Tests\Lib\Mu\Core\Mixin\MixinableMethods'
+        );
+    }
 }

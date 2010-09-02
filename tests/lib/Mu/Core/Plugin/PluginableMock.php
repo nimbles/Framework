@@ -32,17 +32,19 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 class PluginableMock extends MixinAbstract {
     /**
-     * The implements for this mock, adds the pluginable mixin
-     * with the types simple and a restricted plugins which limits to
-     * the \Tests\Mu\Core\Plugin\PluginAbstract abstract class
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Plugin\Pluginable' => array(
-        'types' => array(
-            'simple',
-            'restricted' => array(
-                'abstract' => '\Tests\Lib\Mu\Core\Plugin\PluginAbstract',
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Plugin\Pluginable' => array(
+                'types' => array(
+                    'simple',
+                    'restricted' => array(
+                        'abstract' => '\Tests\Lib\Mu\Core\Plugin\PluginAbstract',
+                    )
+                )
             )
-        )
-    ));
+        );
+    }
 }

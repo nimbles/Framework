@@ -33,10 +33,12 @@ use BadMethodCallException;
  */
 abstract class MixinAbstract {
     /**
-     * The array of implements for this mixin
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array();
+    static protected function _getImplements() {
+        return array();
+    }
 
     /**
      * The array of properties this mixin supports
@@ -50,7 +52,7 @@ abstract class MixinAbstract {
      * @throws \Mu\Core\Mixin\Exception\MixinableMissing
      */
     public function __construct() {
-        foreach ($this->_implements as $mixin => $options) {
+        foreach (static::_getImplements() as $mixin => $options) {
             if (is_numeric($mixin)) {
                 $mixin = $options;
                 $options = null;

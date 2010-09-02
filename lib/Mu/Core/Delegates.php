@@ -40,10 +40,12 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 class Delegates extends MixinAbstract {
     /**
-     * Delegates implements options
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     /**
      * The array of delegates

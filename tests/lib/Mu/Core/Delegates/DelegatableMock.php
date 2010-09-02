@@ -25,29 +25,15 @@ namespace Tests\Lib\Mu\Core\Delegates;
  */
 class DelegatableMock extends \Mu\Core\Mixin\MixinAbstract {
     /**
-     * The implements for this mock, adds 2 delegates methods
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Delegates\Delegatable' => array(
-        'delegates' => array(
-            'method1' => array('\Tests\Lib\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod1'),
-            'method2' => array('\Tests\Lib\Mu\Core\Delegates\DelegatableMock', 'similuatedMethod2'),
-        )
-    ));
-
-    /**
-     * A similuated method
-     * @return bool
-     */
-    static public function similuatedMethod1() {
-        return true;
-    }
-
-    /**
-     * A similuated method
-     * @return bool
-     */
-    static public function similuatedMethod2() {
-        return false;
+    static protected function _getImplements() {
+        return array('Mu\Core\Delegates\Delegatable' => array(
+            'delegates' => array(
+                'method1' => function() { return true; },
+                'method2' => function() { return false; },
+            )
+        ));
     }
 }

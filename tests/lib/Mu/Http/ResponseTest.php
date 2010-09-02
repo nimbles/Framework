@@ -128,7 +128,7 @@ class ResponseTest extends TestCase {
         $response->setCookie(new \Mu\Http\Cookie(array(
             'name' => 'test2',
             'value' => 'value2',
-            'expire' => 200
+            'expires' => 200
         )));
         $this->assertCollection('\Mu\Http\Cookie', $response->getCookie());
 
@@ -136,10 +136,10 @@ class ResponseTest extends TestCase {
         $cookie2 = $response->getCookie('test2');
 
         $this->assertEquals('value1', $cookie1->getValue());
-        $this->assertEquals(0, $cookie1->getExpire());
+        $this->assertEquals(0, $cookie1->getExpires());
 
         $this->assertEquals('value2', $cookie2->getValue());
-        $this->assertEquals(200, $cookie2->getExpire());
+        $this->assertEquals(200, $cookie2->getExpires());
     }
 
     /**

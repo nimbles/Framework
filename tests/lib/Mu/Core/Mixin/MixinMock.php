@@ -43,5 +43,11 @@ class MixinEmpty extends MixinAbstract {}
  * @uses       \Mu\Core\Mixin\MixinAbstract
  */
 class MixinInvalid extends MixinAbstract {
-    protected $_implements = array('\Invalid\Class');
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array('\Invalid\Class');
+    }
 }

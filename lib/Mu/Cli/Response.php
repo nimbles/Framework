@@ -34,17 +34,20 @@ use Mu\Core\Response\ResponseAbstract;
  */
 class Response extends ResponseAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Config\Options',
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'write' => array('\Mu\Cli\Response', 'writeBody')
+    static protected function _getImplements() {
+        return parent::_getImplements() + array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'write' => function($body) {
+                        file_put_contents('php://stdout', $body);
+                    }
+                )
             )
-        )
-    );
+        );
+    }
 
     /**
      * Sends the response
@@ -52,15 +55,5 @@ class Response extends ResponseAbstract {
      */
     public function send() {
         $this->write($this->getBody());
-    }
-
-    /**
-     * Writes the body to stdout
-     *
-     * @param string $body
-     * @return void
-     */
-    static public function writeBody($body) {
-        file_put_contents('php://stdout', $body);
     }
 }

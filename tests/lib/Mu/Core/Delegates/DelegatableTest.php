@@ -51,8 +51,8 @@ class DelegatableTest extends TestCase {
         $this->assertTrue($mock->method1());
         $this->assertFalse($mock->method2());
 
-        $this->assertType('array', $mock->getDelegate('method1'));
-        $this->assertType('array', $mock->getDelegate('method2'));
+        $this->assertType('\Closure', $mock->getDelegate('method1'));
+        $this->assertType('\Closure', $mock->getDelegate('method2'));
 
         $mock->setDelegate('method1', function() {
             return 'test';

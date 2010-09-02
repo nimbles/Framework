@@ -35,16 +35,18 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class Log extends MixinAbstract {
     /**
-     * Mixin implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Plugin\Pluginable' => array(
-            'types' => array(
-                'writers' => array('abstract' => 'Mu\Core\Log\Writer\WriterAbstract')
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Plugin\Pluginable' => array(
+                'types' => array(
+                    'writers' => array('abstract' => 'Mu\Core\Log\Writer\WriterAbstract')
+                )
             )
-        )
-    );
+        );
+    }
 
     /**
      * Instance of Log

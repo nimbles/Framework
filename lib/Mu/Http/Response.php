@@ -41,19 +41,22 @@ use Mu\Core\Response\ResponseAbstract,
  */
 class Response extends ResponseAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'headers_sent' => 'headers_sent',
-                'header' => 'header',
-                'write' => array('\Mu\Http\Response', 'writeBody')
+    static protected function _getImplements() {
+        return parent::_getImplements() + array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'headers_sent' => 'headers_sent',
+                    'header' => 'header',
+                    'write' => function($body) {
+                        echo $body;
+                    }
+                )
             )
-        ),
-        'Mu\Core\Config\Options'
-    );
+        );
+    }
 
     /**
      * The collection of headers
@@ -321,15 +324,5 @@ class Response extends ResponseAbstract {
         }
 
         $this->write($this->getBody());
-    }
-
-    /**
-     * Writes the body, this function exists as a delegate as
-     * echo and print are language constructs and are not classes as callable
-     * @param string $body
-     * @return void
-     */
-    static public function writeBody($body) {
-        echo $body;
     }
 }
