@@ -35,23 +35,25 @@ use Mu\Core\Log\Entry;
  */
 class Level extends FilterAbstract {
     /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Config\Options' => array(
+                'type' => self::LEVEL_ABOVE,
+                'level' => LOG_NOTICE
+            )
+        );
+    }
+
+    /**
      * level filter types
      */
     const LEVEL_INCLUDE = 0;
     const LEVEL_EXCLUDE    = 1;
     const LEVEL_ABOVE     = 2;
     const LEVEL_BELOW    = 3;
-
-    /**
-     * Mixin implements
-     * @var array
-     */
-    protected $_implements = array(
-        'Mu\Core\Config\Options' => array(
-            'type' => self::LEVEL_ABOVE,
-            'level' => LOG_NOTICE
-        )
-    );
 
     /**
      * Filters based on level

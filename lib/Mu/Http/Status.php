@@ -36,20 +36,22 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 class Status extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'headers_sent' => 'headers_sent',
-                'header' => 'header'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'headers_sent' => 'headers_sent',
+                    'header' => 'header'
+                )
+            ),
+            'Mu\Core\Config\Options' => array(
+                'status' => Status::STATUS_OK
             )
-        ),
-        'Mu\Core\Config\Options' => array(
-            'status' => Status::STATUS_OK
-        )
-    );
+        );
+    }
 
     /**
      * Informational

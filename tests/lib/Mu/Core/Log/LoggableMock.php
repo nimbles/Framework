@@ -32,5 +32,11 @@ use Mu\Core\Mixin\MixinAbstract;
  * @uses       \Mu\Core\Log\Loggable
  */
 class LoggableMock extends MixinAbstract {
-    protected $_implements = array('Mu\Core\Log\Loggable');
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array('Mu\Core\Log\Loggable');
+    }
 }

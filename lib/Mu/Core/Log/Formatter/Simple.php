@@ -34,14 +34,16 @@ use Mu\Core\Log\Entry;
  */
 class Simple extends FormatterAbstract {
     /**
-     * Mixin implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Config\Options' => array(
-            'format' => '%timestamp% %pid% %level% - %category% - %message%'
-        )
-    );
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Config\Options' => array(
+                'format' => '%timestamp% %pid% %level% - %category% - %message%'
+            )
+        );
+    }
 
     /**
      * Class construct

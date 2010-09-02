@@ -38,25 +38,27 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class Cookie extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Config\Options' => array(
-            'expire'   => 0,
-            'path'     => '/',
-            'domain'   => null,
-            'secure'   => false,
-            'httponly' => false
-        ),
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'headers_sent' => 'headers_sent',
-                'setcookie'    => 'setcookie',
-                'setrawcookie' => 'setrawcookie'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Config\Options' => array(
+                'expire'   => 0,
+                'path'     => '/',
+                'domain'   => null,
+                'secure'   => false,
+                'httponly' => false
+            ),
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'headers_sent' => 'headers_sent',
+                    'setcookie'    => 'setcookie',
+                    'setrawcookie' => 'setrawcookie'
+                )
             )
-        )
-    );
+        );
+    }
 
     /**
      * The name of the cookie

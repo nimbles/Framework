@@ -37,17 +37,18 @@ use Mu\Core\Request\RequestAbstract;
  */
 class Request extends RequestAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Config\Options',
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'getInput' => array('\Mu\Cli\Request', 'getStdin')
+    static protected function _getImplements() {
+        return parent::_getImplements() + array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'getInput' => array('\Mu\Cli\Request', 'getStdin')
+                )
             )
-        )
-    );
+        );
+    }
 
     /**
      * Gets the input from stdin

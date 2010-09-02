@@ -35,29 +35,31 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class Session extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'session_start'             => 'session_start',
-                'session_id'                => 'session_id',
-                'session_name'              => 'session_name',
-                'session_regenerate_id'     => 'session_regenerate_id',
-                'session_destroy'           => 'session_destroy',
-                'session_get_cookie_params' => 'session_get_cookie_params',
-                'session_set_cookie_params' => 'session_set_cookie_params',
-                'headers_sent'              => 'headers_sent',
-                'setcookie'                 => 'setcookie',
-                'setrawcookie'              => 'setrawcookie',
-                'readValue'                 => array('\Mu\Http\Session', 'readSession'),
-                'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
-                'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
-            )
-        ),
-        'Mu\Core\Config\Options'
-    );
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Delegates\Delegatable' => array(
+                'delegates' => array(
+                    'session_start'             => 'session_start',
+                    'session_id'                => 'session_id',
+                    'session_name'              => 'session_name',
+                    'session_regenerate_id'     => 'session_regenerate_id',
+                    'session_destroy'           => 'session_destroy',
+                    'session_get_cookie_params' => 'session_get_cookie_params',
+                    'session_set_cookie_params' => 'session_set_cookie_params',
+                    'headers_sent'              => 'headers_sent',
+                    'setcookie'                 => 'setcookie',
+                    'setrawcookie'              => 'setrawcookie',
+                    'readValue'                 => array('\Mu\Http\Session', 'readSession'),
+                    'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
+                    'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
+                )
+            ),
+            'Mu\Core\Config\Options'
+        );
+    }
 
     /**
      * Indicates that the session has started

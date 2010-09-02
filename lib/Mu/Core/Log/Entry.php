@@ -36,10 +36,12 @@ use Mu\Core\Mixin\MixinAbstract,
  */
 class Entry extends MixinAbstract {
     /**
-     * Mixin implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     /**
      * Class construct

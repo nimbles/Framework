@@ -32,7 +32,13 @@ use Mu\Core\Mixin\MixinAbstract;
  * @uses       \Mu\Core\Config\Options
  */
 class OptionsMock extends MixinAbstract {
-    protected $_implements = array('Mu\Core\Config\Options');
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     protected $_test;
 
@@ -66,9 +72,15 @@ class OptionsMock extends MixinAbstract {
  * @uses       \Mu\Core\Config\Options
  */
 class OptionsWithDefaultsMock extends OptionsMock {
-    protected $_implements = array(
-        'Mu\Core\Config\Options' => array(
-            'test' => 'hello world'
-        )
-    );
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Config\Options' => array(
+                'test' => 'hello world'
+            )
+        );
+    }
 }

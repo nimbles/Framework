@@ -31,5 +31,11 @@ use Mu\Core\Mixin\MixinAbstract;
  * @uses       \Mu\Core\Mixin\MixinAbstract
  */
 class ConfigurableMock extends MixinAbstract {
-    protected $_implements = array('Mu\Core\Config\Configurable');
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Configurable');
+    }
 }

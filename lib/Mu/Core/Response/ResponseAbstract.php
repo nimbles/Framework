@@ -33,10 +33,12 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 abstract class ResponseAbstract extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     /**
      * The response body

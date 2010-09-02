@@ -32,17 +32,18 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 class AdaptableSingleMock extends MixinAbstract {
     /**
-     * The implements for this mock, adds the adaptable mixin
-     * with no restriction of adapter type
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Adapter\Adaptable' => array(
-            'namespaces' => array(
-                '\Tests\Lib\Mu\Core\Adapter'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Adapter\Adaptable' => array(
+                'namespaces' => array(
+                    '\Tests\Lib\Mu\Core\Adapter'
+                )
             )
-        )
-    );
+        );
+    }
 }
 
 /**
@@ -57,11 +58,12 @@ class AdaptableSingleMock extends MixinAbstract {
  */
 class AdaptableSingleNoPathsMock extends MixinAbstract {
     /**
-     * The implements for this mock, adds the adaptable mixin
-     * with no restriction of adapter type
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Adapter\Adaptable');
+    static protected function _getImplements() {
+        return array('Mu\Core\Adapter\Adaptable');
+    }
 }
 
 /**
@@ -76,18 +78,19 @@ class AdaptableSingleNoPathsMock extends MixinAbstract {
  */
 class AdaptableAbstractMock extends MixinAbstract {
     /**
-     * The implements for this mock, adds the adaptable mixin
-     * with the adapter type restricted to an abstract
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Adapter\Adaptable' => array(
-            'abstract' => '\Tests\Lib\Mu\Core\Adapter\AdapterAbstract',
-            'namespaces' => array(
-                '\Tests\Lib\Mu\Core\Adapter'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Adapter\Adaptable' => array(
+                'abstract' => '\Tests\Lib\Mu\Core\Adapter\AdapterAbstract',
+                'namespaces' => array(
+                    '\Tests\Lib\Mu\Core\Adapter'
+                )
             )
-        )
-    );
+        );
+    }
 }
 
 /**
@@ -102,18 +105,19 @@ class AdaptableAbstractMock extends MixinAbstract {
  */
 class AdaptableInterfaceMock extends MixinAbstract {
     /**
-     * The implements for this mock, adds the adaptable mixin
-     * with the adapter type restricted to an interface
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Adapter\Adaptable' => array(
-            'interface' => '\Tests\Lib\Mu\Core\Adapter\AdapterInterface',
-            'namespaces' => array(
-                '\Tests\Lib\Mu\Core\Adapter'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Adapter\Adaptable' => array(
+                'interface' => '\Tests\Lib\Mu\Core\Adapter\AdapterInterface',
+                'namespaces' => array(
+                    '\Tests\Lib\Mu\Core\Adapter'
+                )
             )
-        )
-    );
+        );
+    }
 }
 
 /**
