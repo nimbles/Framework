@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Date: Thu, 19 Aug 2010 18:54:53 GMT
+Server: Apache/2.2.14 (Unix) mod_ssl/2.2.14 OpenSSL/0.9.8l DAV/2
+Content-Location: index.html.en
+Vary: negotiate
+TCN: choice
+Last-Modified: Sat, 20 Nov 2004 20:16:24 GMT
+ETag: "b33d55-2c-3e9564c23b600"
+Accept-Ranges: bytes
+Content-Length: 44
+Content-Type: text/html
+Content-Language: en
+
+<html><body><h1>It works!</h1></body></html>
