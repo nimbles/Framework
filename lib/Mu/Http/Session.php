@@ -52,9 +52,19 @@ class Session extends MixinAbstract {
                     'headers_sent'              => 'headers_sent',
                     'setcookie'                 => 'setcookie',
                     'setrawcookie'              => 'setrawcookie',
-                    'readValue'                 => array('\Mu\Http\Session', 'readSession'),
-                    'writeValue'                => array('\Mu\Http\Session', 'writeSession'),
-                    'clearValues'               => array('\Mu\Http\Session', 'clearSession'),
+                    'readValue'                 => function ($key = null) {
+                        if (null === $key) {
+                            return $_SESSION;
+                        }
+
+                        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
+                    },
+                    'writeValue'                => function ($key, $value) {
+                        $_SESSION[$key] = $value;
+                    },
+                    'clearValues'               => function () {
+                        $_SESSION = array();
+                    },
                 )
             ),
             'Mu\Core\Config\Options'
@@ -256,35 +266,5 @@ class Session extends MixinAbstract {
      */
     public function clear() {
         return $this->clearValues();
-    }
-
-    /**
-     * Reads from the session
-     * @param string|null $key
-     * @return mixed
-     */
-    static public function readSession($key = null) {
-        if (null === $key) {
-            return $_SESSION;
-        }
-
-        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
-    }
-
-    /**
-     * Writes to the session
-     * @param string $key
-     * @param mixed $value
-     */
-    static public function writeSession($key, $value) {
-        $_SESSION[$key] = $value;
-    }
-
-    /**
-     * Clears the session
-     * @return void
-     */
-    static public function clearSession() {
-        $_SESSION = array();
     }
 }

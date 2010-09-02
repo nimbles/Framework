@@ -41,7 +41,9 @@ class Response extends ResponseAbstract {
         return parent::_getImplements() + array(
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
-                    'write' => array('\Mu\Cli\Response', 'writeBody')
+                    'write' => function($body) {
+                        file_put_contents('php://stdout', $body);
+                    }
                 )
             )
         );
@@ -53,15 +55,5 @@ class Response extends ResponseAbstract {
      */
     public function send() {
         $this->write($this->getBody());
-    }
-
-    /**
-     * Writes the body to stdout
-     *
-     * @param string $body
-     * @return void
-     */
-    static public function writeBody($body) {
-        file_put_contents('php://stdout', $body);
     }
 }

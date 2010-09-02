@@ -50,7 +50,9 @@ class Response extends ResponseAbstract {
                 'delegates' => array(
                     'headers_sent' => 'headers_sent',
                     'header' => 'header',
-                    'write' => array('\Mu\Http\Response', 'writeBody')
+                    'write' => function($body) {
+                        echo $body;
+                    }
                 )
             )
         );
@@ -322,15 +324,5 @@ class Response extends ResponseAbstract {
         }
 
         $this->write($this->getBody());
-    }
-
-    /**
-     * Writes the body, this function exists as a delegate as
-     * echo and print are language constructs and are not classes as callable
-     * @param string $body
-     * @return void
-     */
-    static public function writeBody($body) {
-        echo $body;
     }
 }

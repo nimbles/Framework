@@ -130,7 +130,8 @@ class ClientTest extends TestCase {
     }
 
     public function testDefaultAdapter() {
-        $this->assertType('\Mu\Http\Client\Adapter\Curl', Client::getDefaultAdapter());
+        $client = new Client();
+        $this->assertType('\Mu\Http\Client\Adapter\Curl', $client->getDefaultAdapter());
     }
 
     /**

@@ -51,7 +51,9 @@ class Client extends MixinAbstract {
             'Mu\Core\Config\Options',
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
-                    'getDefaultAdapter' => array('\Mu\Http\Client', 'getDefaultAdapter')
+                    'getDefaultAdapter' => function() {
+                        return new Adapter\Curl();
+                    }
                 )
             )
         );
@@ -234,13 +236,5 @@ class Client extends MixinAbstract {
             throw new Client\Exception('Request must be either a \Mu\Http\Client\Request object or a URI string');
         }
         return $request;
-    }
-
-    /**
-     * Returns the default adapter
-     * @return \Mu\Http\Client\Adapter\Curl
-     */
-    static public function getDefaultAdapter() {
-        return new Adapter\Curl();
     }
 }
