@@ -41,29 +41,43 @@ abstract class MixinAbstract {
     }
 
     /**
-     * The array of properties this mixin supports
+     * The array of mixinables that have been added to this class
      * @var array
      */
-    protected $_mixins = array();
+    protected $_mixins;
+
+    /**
+     * Gets the mixinables that have been added to this class
+     * @return array
+     * @throws \Mu\Core\Mixin\Exception\MixinableMissing
+     */
+    public function getMixins() {
+        if (null === $this->_mixins) {
+            $this->_mixins = array();
+
+            foreach (static::_getImplements() as $mixin => $options) {
+                if (is_numeric($mixin)) {
+                    $mixin = $options;
+                    $options = null;
+                }
+
+                if (!class_exists($mixin)) {
+                    throw new Exception\MixinableMissing();
+                }
+
+                $this->_mixins[$mixin] = new $mixin($options);
+            }
+        }
+
+        return $this->_mixins;
+    }
 
     /**
      * Class construct
      * @return void
      * @throws \Mu\Core\Mixin\Exception\MixinableMissing
      */
-    public function __construct() {
-        foreach (static::_getImplements() as $mixin => $options) {
-            if (is_numeric($mixin)) {
-                $mixin = $options;
-                $options = null;
-            }
-            if (!class_exists($mixin)) {
-                throw new Exception\MixinableMissing();
-            }
-
-            $this->_mixins[$mixin] = new $mixin($options);
-        }
-    }
+    public function __construct() {}
 
     /**
      * Magic __call for the mixin'd methods
@@ -72,7 +86,7 @@ abstract class MixinAbstract {
      * @throws \BadMethodCallException
      */
     public function __call($method, $args) {
-        foreach ($this->_mixins as &$mixin) {
+        foreach ($this->getMixins() as $mixin) {
             if ($mixin->hasMethod($method)) {
                 $object = $mixin->getObject();
                 return call_user_func_array(
@@ -93,7 +107,7 @@ abstract class MixinAbstract {
      * @param string $property
      */
     public function __get($property) {
-        foreach ($this->_mixins as &$mixin) {
+        foreach ($this->getMixins() as $mixin) {
             if ($mixin->hasProperty($property)) {
                 $object = $mixin->getObject();
 
@@ -123,7 +137,7 @@ abstract class MixinAbstract {
      * @param mixed $value
      */
     public function __set($property, $value) {
-        foreach ($this->_mixins as &$mixin) {
+        foreach ($this->getMixins() as $mixin) {
             if ($mixin->hasProperty($property)) {
                 $object = $mixin->getObject();
 

@@ -48,7 +48,6 @@ abstract class FilterAbstract extends MixinAbstract {
      * @return void
      */
     public function __construct($options) {
-        parent::__construct();
         $this->setOptions($options);
     }
 

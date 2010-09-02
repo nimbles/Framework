@@ -50,8 +50,6 @@ class Entry extends MixinAbstract {
      * @throws \Mu\Core\Log\Exception\MissingMessage
      */
     public function __construct($entry) {
-        parent::__construct();
-
         $options = array();
         if (is_string($entry)) {
             $options = array(

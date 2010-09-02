@@ -119,7 +119,6 @@ class Plugins extends MixinAbstract {
      * @return void
      */
     public function __construct($options = null) {
-        parent::__construct();
         $this->setOptions($options);
     }
 
