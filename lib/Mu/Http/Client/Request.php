@@ -35,20 +35,6 @@ use Mu\Http\Client\Request,
  */
 class Request extends Http\Request {
     /**
-     * Class implements
-     * @var array
-     */
-    protected $_validMethods = array (
-        'GET',
-        'PUT',
-        'POST',
-        'DELETE',
-        'OPTIONS',
-        'HEAD',
-        'TRACE'
-    );
-
-    /**
      * Request URI
      * @var string
      */
@@ -102,7 +88,7 @@ class Request extends Http\Request {
             throw new Request\Exception\InvalidMethod('Method must be of type string');
         }
         $method = strtoupper($method);
-        if (!in_array($method, $this->_validMethods)) {
+        if (0 === preg_match('/^[A-Z0-9]+$/', $method)) {
             throw new Request\Exception\InvalidMethod('Invalid HTTP method [' . $method . ']');
         }
 
