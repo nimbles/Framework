@@ -36,6 +36,7 @@ interface AdapterInterface {
      * @param \Mu\Http\Client\Request $request
      */
     public function setRequest(Client\Request $request);
+
     /**
      * Write request
      * @return \Mu\Http\Client\Response

@@ -59,16 +59,16 @@ abstract class AdapterAbstract extends MixinAbstract implements AdapterInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterInterface::setRequest()
+     * Set the request
+     * @param \Mu\Http\Client\Request $request
      */
     public function setRequest(Client\Request $request) {
         $this->_request = $request;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterInterface::write()
+     * Write request
+     * @return \Mu\Http\Client\Response
      */
     /* @codeCoverageIgnoreStart */
     public function write() {}

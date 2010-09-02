@@ -74,8 +74,8 @@ class Curl extends AdapterAbstract {
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterAbstract::write()
+     * Write request
+     * @return \Mu\Http\Client\Response
      */
     public function write() {
         $curlOptions = array_merge($this->_defaultCurlOptions, $this->getCurlOptions());

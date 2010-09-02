@@ -47,16 +47,16 @@ class CurlMulti extends Curl implements AdapterMultiInterface {
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterInterface::setRequest()
+     * Set the request
+     * @param \Mu\Http\Client\Request $request
      */
     public function setRequest(Client\Request $request) {
         $this->_requests = array($request);
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterMultiInterface::setRequests()
+     * Set an array of request objects
+     * @param \Mu\Http\Client\Request[] $requests
      */
     public function setRequests($requests) {
         $this->_requests = array();
@@ -69,8 +69,8 @@ class CurlMulti extends Curl implements AdapterMultiInterface {
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Mu/Http/Client/Adapter/Mu\Http\Client\Adapter.AdapterAbstract::write()
+     * Write request
+     * @return \Mu\Http\Client\Response
      */
     public function write() {
         $curlOptions = array_merge($this->_defaultCurlOptions, $this->getCurlOptions());
