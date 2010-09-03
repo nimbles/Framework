@@ -55,7 +55,6 @@ class OptionsMock extends MixinAbstract {
     }
 
     public function __construct($options = null) {
-        parent::__construct();
         $this->setOptions($options);
     }
 }

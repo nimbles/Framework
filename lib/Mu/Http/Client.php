@@ -89,7 +89,6 @@ class Client extends MixinAbstract {
      * @param array|null $options
      */
     public function __construct($options = null) {
-        parent::__construct();
         $this->setOptions($options);
     }
 

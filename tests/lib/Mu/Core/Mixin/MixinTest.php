@@ -45,6 +45,7 @@ class MixinTest extends TestCase {
     public function testInvalidMixin() {
         $this->setExpectedException('\Mu\Core\Mixin\Exception\MixinableMissing');
         $invalidMixin = new MixinInvalid();
+        $invalidMixin->getMixins();
     }
 
     /**
