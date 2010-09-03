@@ -43,27 +43,29 @@ use Mu\Core\Request\RequestAbstract,
  */
 abstract class ControllerAbstract extends MixinAbstract {
     /**
-     * Class implements
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array(
-        'Mu\Core\Plugin\Pluginable' => array(
-            'types' => array(
-                'resources' => array(
-                    'abstract' => 'Mu\Core\Controller\Resource\ResourceAbstract'
-                ),
-                'helpers' => array(
-                    'abstract' => 'Mu\Core\Controller\Helper\HelperAbstract'
-                ),
-                'plugins' => array(
-                    'abstract' => 'Mu\Core\Controller\Plugin\PluginAbstract'
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Plugin\Pluginable' => array(
+                'types' => array(
+                    'resources' => array(
+                        'abstract' => 'Mu\Core\Controller\Resource\ResourceAbstract'
+                    ),
+                    'helpers' => array(
+                        'abstract' => 'Mu\Core\Controller\Helper\HelperAbstract'
+                    ),
+                    'plugins' => array(
+                        'abstract' => 'Mu\Core\Controller\Plugin\PluginAbstract'
+                    )
                 )
+            ),
+            'Mu\Core\Config\Options' => array(
+                'dispatchState' => static::STATE_NOTDISPATCHED
             )
-        ),
-        'Mu\Core\Options' => array(
-            'dispatchState' => static::STATE_NOTDISPATCHED
-        )
-    );
+        );
+    }
 
     /**
      * Dispatch states
@@ -155,8 +157,7 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @param $options
      */
     public function __construct(RequestAbstract $request, ResponseAbstract $response, $options = null) {
-        parent::__construct();
-        $this->setOptions();
+        $this->setOptions($options);
         $this->setRequest($request)
             ->setResponse($response);
     }

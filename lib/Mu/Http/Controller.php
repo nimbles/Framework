@@ -31,5 +31,41 @@ use Mu\Core\Controller\ControllerAbstract;
  * @uses       \Mu\Core\Controller\ControllerAbstract
  */
 class Controller extends ControllerAbstract {
+    public function __get($property) {
+        switch ($property) {
+            case 'query' :
+            case 'post' :
+            case 'server' :
+                $method = 'get' . ucfirst($property);
+                return $this->getRequest()->$method();
+                break;
 
+            case 'requestHeader' :
+                return $this->getRequest()->getHeader();
+                break;
+
+            case 'responseHeader' :
+                return $this->getResponse()->getHeaders();
+                break;
+
+            case 'requestCookie' :
+                return $this->getRequest()->getHeader();
+                break;
+        }
+
+        return parent::__get($property);
+    }
+
+    public function __set($property, $value) {
+        switch ($property) {
+            case 'responseHeader' :
+                return $this->getResponse()->setHeaders();
+                break;
+        }
+        return parent::__set($property, $value);
+    }
+
+    public function postDispatch() {
+        $this->getResponse()->send();
+    }
 }

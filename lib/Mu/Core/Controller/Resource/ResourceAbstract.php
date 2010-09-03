@@ -33,11 +33,12 @@ use Mu\Core\Mixin\MixinAbstract;
  */
 abstract class ResourceAbstract extends MixinAbstract {
     /**
-     * Class implements. Adds in the options mixin for future resources to
-     * have their constructor arguments given in options
+     * Gets the array of implements for this mixin
      * @var array
      */
-    protected $_implements = array('Mu\Core\Config\Options');
+    static protected function _getImplements() {
+        return array('Mu\Core\Config\Options');
+    }
 
     /**
      * The resource
