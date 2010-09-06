@@ -45,7 +45,7 @@ class RequestTest extends TestCase {
     }
 
     /**
-     * Tests over the getters which should have the same behavior
+     * Tests the query
      * @return void
      */
     public function testQuery() {
@@ -69,7 +69,7 @@ class RequestTest extends TestCase {
     }
 
     /**
-     * Tests over the getters which should have the same behavior
+     * Tests the post
      * @return void
      */
     public function testPost() {
@@ -90,6 +90,30 @@ class RequestTest extends TestCase {
         $this->assertEquals('qux', $request->post->baz);
 
         $this->assertNull($request->getPost('quux'));
+    }
+
+    /**
+     * Test the server
+     * @return void
+     */
+    public function testServer() {
+        static::$_server = array(
+            'foo' => 'bar',
+            'baz' => 'qux'
+        );
+
+        $request = $this->createRequest();
+
+        $this->assertType('Mu\Core\Collection', $request->getServer());
+        $this->assertType('Mu\Core\Collection', $request->server);
+
+        $this->assertEquals('bar', $request->getServer('foo'));
+        $this->assertEquals('bar', $request->server->foo);
+
+        $this->assertEquals('qux', $request->getServer('baz'));
+        $this->assertEquals('qux', $request->server->baz);
+
+        $this->assertNull($request->getServer('quux'));
     }
 
     /**
@@ -161,7 +185,7 @@ class RequestTest extends TestCase {
      */
     public function testGetPort() {
         static::$_server = array(
-            'SERVER_PORT' => 80
+            'SERVER_PORT' => '80'
         );
         $request = $this->createRequest();
 
@@ -240,6 +264,7 @@ class RequestTest extends TestCase {
 
         static::setInput('hello world');
         $this->assertEquals('hello world', $request->getBody());
+        $this->assertEquals('hello world', $request->body);
     }
 
     /**

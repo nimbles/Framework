@@ -19,7 +19,8 @@
 namespace Mu\Core\Request;
 
 use Mu\Core\Mixin\MixinAbstract,
-    Mu\Core\Request;
+    Mu\Core\Request,
+    Mu\Core\Collection;
 
 /**
  * @category   Mu
@@ -33,6 +34,11 @@ use Mu\Core\Mixin\MixinAbstract,
  * @uses       \Mu\Core\Request\RequestInterface
  * @uses       \Mu\Core\Config\Options
  * @uses       \Mu\Core\Request\Exception\MuPathUndefined
+ *
+ * @uses       \Mu\Core\Collection
+ *
+ * @property   string $body
+ * @property   \Mu\Core\Collection $server
  */
 abstract class RequestAbstract extends MixinAbstract
     implements RequestInterface {
@@ -62,32 +68,23 @@ abstract class RequestAbstract extends MixinAbstract
     /**
      * Gets a server variable by its key
      * @param string|null $key
-     * @return array|string|null
+     * @return \Mu\Core\Collection|string|null
      */
     public function getServer($key = null) {
         if (null === $this->_server) {
-            $this->_server = $this->getServerRaw();
+            $this->_server = new Collection($this->getServerRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_server->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_server, $key);
-    }
-
-    /**
-     * Gets from a global variable
-     * @param array $global
-     * @param string|null $key
-     * @return array|string|null
-     */
-    protected function _getGlobal(array $global, $key = null) {
         if (null === $key) {
-            return $global;
+            return $this->_server;
         }
 
-        if (is_string($key) && array_key_exists($key, $global)) {
-            return $global[$key];
-        }
-
-        return null;
+        return $this->_server->offsetExists($key) ? $this->_server[$key] : null;
     }
 
     /**
@@ -102,6 +99,23 @@ abstract class RequestAbstract extends MixinAbstract
     public function __construct($options = null) {
         parent::__construct();
         $this->setOptions($options);
+    }
+
+    /**
+     * Magic __get to add some accesses for request context
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        if (in_array($name, array(
+            'server',
+            'body'
+        ))) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
+        }
+
+        return parent::__get($name);
     }
 
     /**
