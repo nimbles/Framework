@@ -51,10 +51,19 @@ class ResponseTest extends TestCase {
     public function testHeaders() {
         $response = new \Mu\Http\Response();
 
-        $this->assertSame(array(), $response->getHeaders());
+        $this->assertType('Mu\Http\Header\Collection', $response->getHeader());
         $response->setHeader('Content-Type', 'text/plain');
-        $this->assertArrayHasKey('Content-Type', $response->getHeaders());
-        $this->assertType('\Mu\http\Header', $response->getHeader('Content-Type'));
+        $this->assertTrue($response->getHeader()->offsetExists('Content-Type'));
+
+        $this->assertType('\Mu\Http\Header', $response->getHeader('Content-Type'));
+        $this->assertEquals('Content-Type: text/plain', (string) $response->getHeader('Content-Type'));
+
+        $this->assertType('\Mu\Http\Header', $response->header->getHeader('Content-Type'));
+        $this->assertEquals('Content-Type: text/plain', (string) $response->header->getHeader('Content-Type'));
+
+        $this->assertType('\Mu\Http\Header', $response->header->{'Content-Type'});
+        $this->assertEquals('Content-Type: text/plain', (string) $response->header->{'Content-Type'});
+
         $this->assertNull($response->getHeader('Content-Length'));
 
         $response->setHeaders(array(
@@ -65,17 +74,17 @@ class ResponseTest extends TestCase {
             'Foo' => \Mu\Http\Header::factory('WWW-Authenticate: Basic'), // should set name to WWW-Authenticate
         ));
 
-        $this->assertArrayHasKey('Allow', $response->getHeaders());
-        $this->assertArrayHasKey('Content-Length', $response->getHeaders());
-        $this->assertArrayHasKey('Content-Location', $response->getHeaders());
-        $this->assertArrayHasKey('Pragma', $response->getHeaders());
-        $this->assertArrayHasKey('WWW-Authenticate', $response->getHeaders());
+        $this->assertTrue($response->getHeader()->offsetExists('Allow'));
+        $this->assertTrue($response->getHeader()->offsetExists('Content-Length'));
+        $this->assertTrue($response->getHeader()->offsetExists('Content-Location'));
+        $this->assertTrue($response->getHeader()->offsetExists('Pragma'));
+        $this->assertTrue($response->getHeader()->offsetExists('WWW-Authenticate'));
 
-        $this->assertType('\Mu\http\Header', $response->getHeader('Allow'));
-        $this->assertType('\Mu\http\Header', $response->getHeader('Content-Length'));
-        $this->assertType('\Mu\http\Header', $response->getHeader('Content-Location'));
-        $this->assertType('\Mu\http\Header', $response->getHeader('Pragma'));
-        $this->assertType('\Mu\http\Header', $response->getHeader('WWW-Authenticate'));
+        $this->assertType('\Mu\Http\Header', $response->getHeader('Allow'));
+        $this->assertType('\Mu\Http\Header', $response->getHeader('Content-Length'));
+        $this->assertType('\Mu\Http\Header', $response->getHeader('Content-Location'));
+        $this->assertType('\Mu\Http\Header', $response->getHeader('Pragma'));
+        $this->assertType('\Mu\Http\Header', $response->getHeader('WWW-Authenticate'));
     }
 
     /**
@@ -86,21 +95,21 @@ class ResponseTest extends TestCase {
         $response = new \Mu\Http\Response();
 
         $this->assertType('\Mu\Http\Status', $response->getStatus());
-        $this->assertEquals(\Mu\http\Status::STATUS_OK, $response->getStatus()->getStatus());
+        $this->assertEquals(\Mu\Http\Status::STATUS_OK, $response->getStatus()->getStatus());
 
-        $response->setStatus(\Mu\http\Status::STATUS_FORBIDDEN);
+        $response->setStatus(\Mu\Http\Status::STATUS_FORBIDDEN);
         $this->assertType('\Mu\Http\Status', $response->getStatus());
-        $this->assertEquals(\Mu\http\Status::STATUS_FORBIDDEN, $response->getStatus()->getStatus());
+        $this->assertEquals(\Mu\Http\Status::STATUS_FORBIDDEN, $response->getStatus()->getStatus());
 
         $response->setStatus(new \Mu\Http\Status(array('status' => 'Request Entity Too Large')));
         $this->assertType('\Mu\Http\Status', $response->getStatus());
-        $this->assertEquals(\Mu\http\Status::STATUS_REQUEST_ENTITY_TOO_LARGE, $response->getStatus()->getStatus());
+        $this->assertEquals(\Mu\Http\Status::STATUS_REQUEST_ENTITY_TOO_LARGE, $response->getStatus()->getStatus());
 
-        $response = new \Mu\http\Response(array(
-            'status' => \Mu\http\Status::STATUS_NOT_FOUND
+        $response = new \Mu\Http\Response(array(
+            'status' => \Mu\Http\Status::STATUS_NOT_FOUND
         ));
         $this->assertType('\Mu\Http\Status', $response->getStatus());
-        $this->assertEquals(\Mu\http\Status::STATUS_NOT_FOUND, $response->getStatus()->getStatus());
+        $this->assertEquals(\Mu\Http\Status::STATUS_NOT_FOUND, $response->getStatus()->getStatus());
     }
 
     /**
@@ -108,7 +117,7 @@ class ResponseTest extends TestCase {
      * @return void
      */
     public function testCompressed() {
-        $response = new \Mu\http\Response();
+        $response = new \Mu\Http\Response();
 
         $this->assertFalse($response->getCompressed());
         $response->setCompressed(true);

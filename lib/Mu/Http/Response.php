@@ -38,6 +38,8 @@ use Mu\Core\Response\ResponseAbstract,
  * @uses       \Mu\Http\Status
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Cookie\Jar
+ *
+ * @property   \Mu\Http\Header\Collection $header
  */
 class Response extends ResponseAbstract {
     /**
@@ -60,7 +62,7 @@ class Response extends ResponseAbstract {
 
     /**
      * The collection of headers
-     * @var array
+     * @var \Mu\Http\Header\Collection
      */
     protected $_headers;
 
@@ -89,24 +91,11 @@ class Response extends ResponseAbstract {
     protected $_compressed = false;
 
     /**
-     * Gets the headers
-     * @return array
-     */
-    public function getHeaders() {
-        if (null === $this->_headers) {
-            $this->_headers = array();
-        }
-
-        return $this->_headers;
-    }
-
-    /**
      * Sets the headers, clears out any existing
      * @param array $headers
      * @return \Mu\Http\Response
      */
     public function setHeaders(array $headers) {
-        $this->_headers = array();
         foreach ($headers as $name => $header) {
             if (is_string($name)) {
                 $this->setHeader($name, $header);
@@ -121,15 +110,19 @@ class Response extends ResponseAbstract {
     /**
      * Gets a header by its name
      * @param string $name
-     * @return \Mu\Http\Header|null
+     * @return \Mu\Http\Header\Collection|\Mu\Http\Header|null
      * @todo Create header collection class once collection available, to include send method
      */
-    public function getHeader($name) {
-        if (array_key_exists($name, ($headers = $this->getHeaders()))) {
-            return $headers[$name];
+    public function getHeader($name = null) {
+        if (null === $this->_headers) {
+            $this->_headers = new Header\Collection();
         }
 
-        return null;
+        if (null === $name) {
+            return $this->_headers;
+        }
+
+        return $this->_headers->offsetExists($name) ? $this->_headers[$name] : null;
     }
 
     /**
@@ -140,15 +133,23 @@ class Response extends ResponseAbstract {
      * @return \Mu\Http\Response
      */
     public function setHeader($name, $value = null, $append = false) {
-        if (!is_array($this->_headers)) {
-            $this->_headers = array();
+        if (null === $this->_headers) {
+            $this->_headers = new Header\Collection();
         }
 
-        if ($name instanceof Header) {
+        if (is_array($name) || ($name instanceof \ArrayObject)) {
+            foreach ($name as $index => $header) {
+                if (is_string($index)) {
+                    $this->setHeader($index, $header);
+                } else {
+                    $this->setHeader($header);
+                }
+            }
+        } else if ($name instanceof Header) {
             $header = $name;
             $name = $header->getName();
 
-            if (array_key_exists($name, $this->_headers)) {
+            if ($this->_headers->offsetExists($name)) {
                 $this->_headers[$name]->merge($header);
             } else {
                 $this->_headers[$name] = $header;
@@ -297,13 +298,44 @@ class Response extends ResponseAbstract {
     }
 
     /**
+     * Magic __get to provide accesses for some properties
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        switch ($name) {
+            case 'header' :
+                return $this->getHeader();
+                break;
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * Magic __set to provide accesses for some properties
+     * @param string $name
+     * @param mixed  $value
+     * @return mixed
+     */
+    public function __set($name, $value) {
+        switch ($name) {
+            case 'header' :
+                return $this->setHeader($value);
+                break;
+        }
+
+        return parent::__set($name, $value);
+    }
+
+    /**
      * Sends the Http response
      * @return void
      */
     public function send() {
         if (!$this->headers_sent()) {
             // @todo call send on collection once available
-            foreach ($this->getHeaders() as $header) {
+            foreach ($this->getHeader() as $header) {
                 $header->send();
             }
             $this->getCookie()->send();
