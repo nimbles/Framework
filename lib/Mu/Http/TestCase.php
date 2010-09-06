@@ -43,6 +43,12 @@ class TestCase extends \Mu\Core\TestCase {
     static protected $_headers;
 
     /**
+     * Array of cookies
+     * @var array
+     */
+    static protected $_cookies;
+
+    /**
      * The session data
      * @var array
      */
@@ -68,6 +74,7 @@ class TestCase extends \Mu\Core\TestCase {
     public function createRequest($options = null) {
         $request = new Request($options);
         $request->setDelegate('getInput', array('\Mu\Http\TestCase', 'getInput'));
+        $request->setDelegate('getCookieRaw', array('\Mu\Http\TestCase', 'getCookie'));
 
         return $request;
     }
@@ -166,6 +173,17 @@ class TestCase extends \Mu\Core\TestCase {
      */
     static public function header($header) {
         static::$_headers[] = $header;
+    }
+
+    /**
+     * Gets the cookies
+     * @return array
+     */
+    static public function getCookie() {
+        if (!is_array(static::$_cookies)) {
+            static::$_cookies = array();
+        }
+        return static::$_cookies;
     }
 
     /**
@@ -313,6 +331,7 @@ class TestCase extends \Mu\Core\TestCase {
         parent::resetDelegatesVars();
         static::$_headersSent = false;
         static::$_headers = array();
+        static::$_cookies = array();
         static::$_sessionId = '';
         static::$_sessionName = 'PHPSESSID';
         static::$_session = array();

@@ -173,6 +173,28 @@ class RequestTest extends TestCase {
         $this->assertEquals($name . ': ' . $value, (string) $request->header->$name);
     }
 
+    public function testCookie() {
+        static::$_cookies = array(
+            'hello' => 'world'
+        );
+
+        $request = $this->createRequest();
+        $this->assertType('Mu\Http\Cookie\Jar', $request->getCookie());
+        $this->assertType('Mu\Http\Cookie\Jar', $request->cookie);
+
+        $this->assertType('Mu\Http\Cookie', $request->getCookie('hello'));
+        $this->assertType('Mu\Http\Cookie', $request->cookie->getCookie('hello'));
+        $this->assertType('Mu\Http\Cookie', $request->cookie->hello);
+
+        $this->assertEquals('world', $request->getCookie('hello')->getValue());
+        $this->assertEquals('world', $request->cookie->getCookie('hello')->getValue());
+        $this->assertEquals('world', $request->cookie->hello->getValue());
+
+        $this->assertEquals('world', (string) $request->getCookie('hello'));
+        $this->assertEquals('world', (string) $request->cookie->getCookie('hello'));
+        $this->assertEquals('world', (string) $request->cookie->hello);
+    }
+
     /**
      * Tests that the body of the request is retrieved correctly
      * @return void
@@ -192,7 +214,6 @@ class RequestTest extends TestCase {
         return array(
             array('query', 'array'),
             array('post', 'array'),
-            array('cookie', 'Mu\Http\Cookie\Jar'),
         );
     }
 

@@ -89,7 +89,9 @@ class JarTest extends TestCase {
         $jar = new Cookie\Jar(array(
             'test' => new Cookie(),
             'test2' => 'value'
-        ), true);
+        ), array(
+            'readonly' => true
+        ));
 
         $this->setExpectedException('Mu\Http\Cookie\Jar\Exception\ReadOnly');
         $jar['test3'] = 'value3';

@@ -48,6 +48,21 @@ class Request extends RequestAbstract {
         return parent::_getImplements() + array(
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
+                    'getServerRaw' => function() {
+                        return $_SERVER;
+                    },
+                    'getCookieRaw' => function() {
+                        return $_COOKIE;
+                    },
+                    'getQueryRaw' => function() {
+                        return $_GET;
+                    },
+                    'getPostRaw' => function() {
+                        return $_POST;
+                    },
+                    'getFilesRaw' => function() {
+                        return $_FILES;
+                    },
                     'getInput' => array('\Mu\Http\Request', 'getRequestInput')
                 )
             )
@@ -206,28 +221,17 @@ class Request extends RequestAbstract {
      */
     public function getCookie($key = null) {
         if (null === $this->_cookie) {
-            $this->setCookie();
+            $this->_cookie = new Cookie\Jar(
+                $this->getCookieRaw(),
+                array('readonly' => true)
+            );
         }
 
         if (null === $key) {
             return $this->_cookie;
         }
 
-        return $this->_cookie->offsetExists($key) ? (string) $this->_cookie[$key] : null;
-    }
-
-    /**
-     * Sets the cookie variables
-     * @param array|null $cookie if null will be set to $_COOKIE
-     * @return \Mu\Http\Request
-     */
-    public function setCookie(array $cookie = null) {
-        $this->_cookie = new Cookie\Jar(
-            (null === $cookie) ? $_COOKIE : $cookie,
-            true
-        );
-
-        return $this;
+        return $this->_cookie->offsetExists($key) ? $this->_cookie[$key] : null;
     }
 
     /**
@@ -264,6 +268,11 @@ class Request extends RequestAbstract {
         switch ($name) {
             case 'header' :
                 return $this->getHeader();
+                break;
+
+            case 'cookie' :
+                return $this->getCookie();
+                break;
         }
 
         return parent::__get($name);

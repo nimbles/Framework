@@ -19,7 +19,8 @@
 namespace Mu\Http\Cookie;
 
 use Mu\Http\Cookie,
-    Mu\Http\Cookie\Jar;
+    Mu\Http\Cookie\Jar,
+    Mu\Core\Collection;
 
 /**
  * @category   Mu
@@ -29,7 +30,7 @@ use Mu\Http\Cookie,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \ArrayObject
+ * @uses       Collection
  *
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Cookie\Exception\InvalidInstance
@@ -37,7 +38,7 @@ use Mu\Http\Cookie,
  *
  * @todo Migrate to using the collection class once available
  */
-class Jar extends \ArrayObject {
+class Jar extends Collection {
     /**
      * Instance of the Cookie Jar
      * @var \Mu\Http\Cookie\Jar
@@ -72,11 +73,15 @@ class Jar extends \ArrayObject {
      * @param bool  $readonly indicates that the jar should be readonly
      * @return void
      */
-    public function __construct(array $array = null, $readonly = false) {
-        parent::__construct();
+    public function __construct(array $array = null, array $options = null) {
+        parent::__construct($array, array_merge(is_array($options) ? $options : array(), array(
+            'type' => 'Mu\Http\Cookie',
+            'indexType' => static::INDEX_ASSOCITIVE,
+            'readonly' => false
+        )));
 
-        $this->setCookies($array, true);
-        $this->_readonly = is_bool($readonly) ? $readonly : false;
+        $this->_readonly = (bool) $options['readonly'];
+        $this->setFlags(self::ARRAY_AS_PROPS);
     }
 
     /**
@@ -134,8 +139,21 @@ class Jar extends \ArrayObject {
      * @return void
      */
     public function send() {
+        if ($this->isReadOnly()) {
+            return;
+        }
+
         foreach ($this as $cookie) {
             $cookie->send();
         }
+    }
+
+    /**
+     * Gets a cookie
+     *
+     * @param $name
+     */
+    public function getCookie($name) {
+        return $this[$name];
     }
 }
