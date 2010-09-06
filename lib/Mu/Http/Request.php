@@ -33,8 +33,11 @@ use Mu\Core\Request\RequestAbstract;
  * @uses       \Mu\Core\Delegates\Delegatable
  *
  * @uses       \Mu\Http\Header
+ * @uses       \Mu\Http\Header\Collection
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Sesssion
+ *
+ * @property   \Mu\Http\Header\Collection $header
  */
 class Request extends RequestAbstract {
     /**
@@ -83,7 +86,7 @@ class Request extends RequestAbstract {
 
     /**
      * The http headers
-     * @var array
+     * @var Mu\Http\Header\Collection
      */
     protected $_headers;
 
@@ -234,19 +237,14 @@ class Request extends RequestAbstract {
      */
     public function getHeader($key = null) {
         if (null === $this->_headers) {
-            $this->_headers = array();
-            foreach ($this->getServer() as $name => $string) {
-                if (null !== ($header = \Mu\Http\Header::factory($name, $string, true))) {
-                    $this->_headers[$header->getName()] = $header;
-                }
-            }
+            $this->_headers = new Header\Collection($this->getServer());
         }
 
         if (null === $key) {
             return $this->_headers;
         }
 
-        return array_key_exists($key, $this->_headers) ? $this->_headers[$key] : null;
+        return $this->_headers->offsetExists($key) ? $this->_headers[$key] : null;
     }
 
     /**
@@ -255,6 +253,20 @@ class Request extends RequestAbstract {
      */
     public function getBody() {
         return $this->getInput();
+    }
+
+    /**
+     * Magic __get to add some accesses for request context
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        switch ($name) {
+            case 'header' :
+                return $this->getHeader();
+        }
+
+        return parent::__get($name);
     }
 
     /**

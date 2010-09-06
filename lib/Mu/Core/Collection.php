@@ -107,18 +107,30 @@ class Collection extends ArrayObject {
      * @param array|\ArrayObject|null $array
      * @return void
      */
-    public function __construct($array = null, $type = null, $indexType = self::INDEX_MIXED) {
+    public function __construct($array = null, array $options = null) {
         parent::__construct();
 
-        if ((null !== $type) && !is_string($type)) {
+        if (!is_array($options)) {
+            $options = array();
+        }
+
+        if (!array_key_exists('type', $options)) {
+            $options['type'] = null;
+        }
+
+        if (!array_key_exists('indexType', $options)) {
+            $options['indexType'] = static::INDEX_MIXED;
+        }
+
+        if ((null !== $options['type']) && !is_string($options['type'])) {
             throw new Collection\Exception\InvalidType('Type must be a string');
         }
-        $this->_type = $type;
+        $this->_type = $options['type'];
 
-        if (!in_array($indexType, array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCITIVE), true)) {
+        if (!in_array($options['indexType'], array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCITIVE), true)) {
             throw new Collection\Exception\InvalidIndex('Index type must be mixed, numeric or associtive');
         }
-        $this->_indexType = $indexType;
+        $this->_indexType = $options['indexType'];
 
         if (is_array($array) || ($array instanceof \ArrayObject)) {
             // this is done so that the overloaded offsetSet is called

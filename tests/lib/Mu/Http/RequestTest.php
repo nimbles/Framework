@@ -148,6 +148,32 @@ class RequestTest extends TestCase {
     }
 
     /**
+     * Tests reading headers from a request
+     * @return void
+     * @dataProvider headerProvider
+     */
+    public function testGetHeader($name, $value) {
+        $serverName = 'HTTP_' . strtoupper(str_replace('-', '_', $name));
+        $request = $this->createRequest(array(
+            'server' => array(
+                $serverName => $value,
+            )
+        ));
+
+        $this->assertType('Mu\Http\Header\Collection', $request->getHeader());
+        $this->assertType('Mu\Http\Header\Collection', $request->header);
+
+        $this->assertType('Mu\Http\Header', $request->getHeader($name));
+        $this->assertEquals($name . ': ' . $value, (string) $request->getHeader($name));
+
+        $this->assertType('Mu\Http\Header', $request->header->getHeader($name));
+        $this->assertEquals($name . ': ' . $value, (string) $request->header->getHeader($name));
+
+        $this->assertType('Mu\Http\Header', $request->header->$name);
+        $this->assertEquals($name . ': ' . $value, (string) $request->header->$name);
+    }
+
+    /**
      * Tests that the body of the request is retrieved correctly
      * @return void
      */
@@ -225,6 +251,18 @@ class RequestTest extends TestCase {
                     'method_override' => 'PUT'
                 )
             )),
+        );
+    }
+
+    /**
+     * Data provider for headers
+     * @return array
+     */
+    public function headerProvider() {
+        return array(
+            array('User-Agent', 'test'),
+            array('X-Custom', 'value'),
+            array('Accept', 'text/plain'),
         );
     }
 }
