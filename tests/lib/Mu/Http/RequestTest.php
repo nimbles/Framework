@@ -46,27 +46,50 @@ class RequestTest extends TestCase {
 
     /**
      * Tests over the getters which should have the same behavior
-     * @dataProvider getterProvider
-     * @param string $getter
-     * @param string $type
      * @return void
      */
-    public function testGetter($getter, $type) {
-        $property = '_' . $getter;
-
-        static::$$property = array(
+    public function testQuery() {
+        static::$_query = array(
             'foo' => 'bar',
             'baz' => 'qux'
         );
 
         $request = $this->createRequest();
-        $method = 'get' . ucfirst($getter);
 
-        $this->assertEquals('bar', $request->$method('foo'));
-        $this->assertEquals('qux', $request->$method('baz'));
+        $this->assertType('Mu\Core\Collection', $request->getQuery());
+        $this->assertType('Mu\Core\Collection', $request->query);
 
-        $this->assertType($type, $request->$method());
-        $this->assertNull($request->$method('quux'));
+        $this->assertEquals('bar', $request->getQuery('foo'));
+        $this->assertEquals('bar', $request->query->foo);
+
+        $this->assertEquals('qux', $request->getQuery('baz'));
+        $this->assertEquals('qux', $request->query->baz);
+
+        $this->assertNull($request->getQuery('quux'));
+    }
+
+    /**
+     * Tests over the getters which should have the same behavior
+     * @return void
+     */
+    public function testPost() {
+        static::$_post = array(
+            'foo' => 'bar',
+            'baz' => 'qux'
+        );
+
+        $request = $this->createRequest();
+
+        $this->assertType('Mu\Core\Collection', $request->getPost());
+        $this->assertType('Mu\Core\Collection', $request->post);
+
+        $this->assertEquals('bar', $request->getPost('foo'));
+        $this->assertEquals('bar', $request->post->foo);
+
+        $this->assertEquals('qux', $request->getPost('baz'));
+        $this->assertEquals('qux', $request->post->baz);
+
+        $this->assertNull($request->getPost('quux'));
     }
 
     /**
@@ -217,17 +240,6 @@ class RequestTest extends TestCase {
 
         static::setInput('hello world');
         $this->assertEquals('hello world', $request->getBody());
-    }
-
-    /**
-     * Data provider for getter methods
-     * @return array
-     */
-    public function getterProvider() {
-        return array(
-            array('query', 'array'),
-            array('post', 'array'),
-        );
     }
 
     /**

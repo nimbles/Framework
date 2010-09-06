@@ -131,7 +131,7 @@ class Collection extends ArrayObject {
         $options = array_merge(array(
             'type' => null,
             'indexType' => static::INDEX_MIXED,
-            'readonly' => false
+            'readonly' => false,
         ), $options);
 
         if ((null !== $options['type']) && !is_string($options['type'])) {

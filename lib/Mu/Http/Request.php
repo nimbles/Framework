@@ -18,7 +18,8 @@
 
 namespace Mu\Http;
 
-use Mu\Core\Request\RequestAbstract;
+use Mu\Core\Request\RequestAbstract,
+    Mu\Core\Collection;
 
 /**
  * @category   Mu
@@ -32,11 +33,16 @@ use Mu\Core\Request\RequestAbstract;
  * @uses       \Mu\Core\Config\Options
  * @uses       \Mu\Core\Delegates\Delegatable
  *
+ * @uses       \Mu\Core\Collection
+ *
  * @uses       \Mu\Http\Header
  * @uses       \Mu\Http\Header\Collection
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Session
  *
+ * @property   \Mu\Core\Collection $query
+ * @property   \Mu\Core\Collection $post
+ * @property   \Mu\Core\Collection $file
  * @property   \Mu\Http\Header\Collection $header
  * @property   \Mu\Http\Cookie\Jar $cookie
  * @property   \Mu\Http\Session $session
@@ -70,19 +76,19 @@ class Request extends RequestAbstract {
 
     /**
      * The query string variables
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_query;
 
     /**
      * The post variables
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_post;
 
     /**
      * The files
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_files;
 
@@ -113,14 +119,23 @@ class Request extends RequestAbstract {
     /**
      * Gets a query variable
      * @param string|null $key
-     * @return array|string|null
+     * @return \Mu\Core\Collection|string|null
      */
     public function getQuery($key = null) {
         if (null === $this->_query) {
-            $this->_query = $this->getQueryRaw();
+            $this->_query = new Collection($this->getQueryRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_query->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_query, $key);
+        if (null === $key) {
+            return $this->_query;
+        }
+
+        return $this->_query->offsetExists($key) ? $this->_query[$key] : null;
     }
 
     /**
@@ -130,10 +145,19 @@ class Request extends RequestAbstract {
      */
     public function getPost($key = null) {
         if (null === $this->_post) {
-            $this->_post = $this->getPostRaw();
+            $this->_post = new Collection($this->getPostRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_post->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_post, $key);
+        if (null === $key) {
+            return $this->_post;
+        }
+
+        return $this->_post->offsetExists($key) ? $this->_post[$key] : null;
     }
 
     /**
@@ -141,12 +165,21 @@ class Request extends RequestAbstract {
      * @param string|null $key
      * @return array|null
      */
-    public function getFiles($key = null) {
+    public function getFile($key = null) {
         if (null === $this->_files) {
-            $this->_files = $this->getFilesRaw();
+            $this->_files = new Collection($this->getFilesRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_files->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_files, $key);
+        if (null === $key) {
+            return $this->_files;
+        }
+
+        return $this->_files->offsetExists($key) ? $this->_files[$key] : null;
     }
 
     /**
@@ -236,18 +269,16 @@ class Request extends RequestAbstract {
      * @return mixed
      */
     public function __get($name) {
-        switch ($name) {
-            case 'header' :
-                return $this->getHeader();
-                break;
-
-            case 'cookie' :
-                return $this->getCookie();
-                break;
-
-            case 'session' :
-                return $this->getSession();
-                break;
+        if (in_array($name, array(
+            'query',
+            'post',
+            'file',
+            'header',
+            'cookie',
+            'session'
+        ))) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
         }
 
         return parent::__get($name);
