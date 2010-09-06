@@ -58,13 +58,11 @@ class Options extends Configurable {
                     );
 
                     foreach($methods as $method) {
-                        try {
-                            $result = $object->$method();
-                        } catch (\BadMethodCallException $ex) {
-                            continue;
+                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                            return $object->$method();
                         }
-                        return $result;
                     }
+
                     return $config->$key;
                 },
 
@@ -75,15 +73,12 @@ class Options extends Configurable {
                         },
                         array('set', 'is')
                     );
-
                     foreach($methods as $method) {
-                        try {
-                            $result = $object->$method($value);
-                        } catch (\BadMethodCallException $ex) {
-                            continue;
+                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                            return $object->$method($value);
                         }
-                        return $result;
                     }
+
                     return $config->$key = $value;
                 },
 
