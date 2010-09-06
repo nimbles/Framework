@@ -18,7 +18,8 @@
 
 namespace Tests\Lib\Mu\Core\Config;
 
-use Mu\Core\Mixin\MixinAbstract;
+use Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\Mixin\Mixinable\MixinableAbstract;
 
 /**
  * @category   Mu
@@ -80,6 +81,72 @@ class OptionsWithDefaultsMock extends OptionsMock {
             'Mu\Core\Config\Options' => array(
                 'test' => 'hello world'
             )
+        );
+    }
+}
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \Mu\Core\Config\Options
+ */
+class OptionsWithOtherMixinMock extends MixinAbstract {
+    /**
+     * Gets the array of implements for this mixin
+     * @var array
+     */
+    static protected function _getImplements() {
+        return array(
+            'Mu\Core\Config\Options',
+            'Tests\Lib\Mu\Core\Config\MixinableMock'
+        );
+    }
+
+    public function __construct($options = null) {
+        $this->setOptions($options);
+    }
+}
+
+/**
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\Mixinable\MixinableAbstract
+ */
+class MixinableMock extends MixinableAbstract {
+    protected $_test;
+
+    public function getObject() {
+        return $this;
+    }
+
+    public function getTest() {
+        return $this->_test;
+    }
+
+    public function setTest($value) {
+        $this->_test = $value;
+    }
+
+    public function getMethods() {
+        return array(
+            'getTest' => function($object, &$mixinable) {
+                return $mixinable->getTest();
+            },
+            'setTest' => function($object, &$mixinable, $value) {
+                $mixinable->setTest($value);
+                return $object;
+            },
         );
     }
 }

@@ -93,4 +93,18 @@ class OptionsTest extends TestCase {
             array(new OptionsWithDefaultsMock(array('test' => 'test')), 'test'),
         );
     }
+
+    /**
+     * Test getting and setting options on other mixins
+     */
+    public function testAccessingOtherMixins() {
+        $options = new OptionsWithOtherMixinMock(
+            array(
+                'test' => 'value'
+            )
+        );
+        $this->assertEquals('value', $options->getTest());
+        $this->assertEquals($options, $options->setTest('new'));
+        $this->assertEquals('new', $options->getTest());
+    }
 }

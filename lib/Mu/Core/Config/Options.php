@@ -50,45 +50,36 @@ class Options extends Configurable {
         if (null === $this->_methods) {
             $this->_methods = array(
                 'getOption' => function($object, &$config, $key) {
-                    $methods = array_filter(
-                        array_map(
-                            function($prefix) use ($key) {
-                                return $prefix . ucfirst($key);
-                            },
-                            array('get', 'is')
-                        ),
-                        function($method) use ($object) {
-                            return method_exists($object, $method);
-                        }
+                    $methods = array_map(
+                        function($prefix) use ($key) {
+                            return $prefix . ucfirst($key);
+                        },
+                        array('get', 'is')
                     );
 
-                    if (0 === count($methods)) {
-                        return $config->$key;
+                    foreach($methods as $method) {
+                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                            return $object->$method();
+                        }
                     }
 
-                    $method = array_shift($methods);
-                    return $object->$method();
+                    return $config->$key;
                 },
 
                 'setOption' => function($object, &$config, $key, $value) {
-                    $methods = array_filter(
-                        array_map(
-                            function($prefix) use ($key) {
-                                return $prefix . ucfirst($key);
-                            },
-                            array('set', 'is')
-                        ),
-                        function($method) use ($object) {
-                            return method_exists($object, $method);
-                        }
+                    $methods = array_map(
+                        function($prefix) use ($key) {
+                            return $prefix . ucfirst($key);
+                        },
+                        array('set', 'is')
                     );
-
-                    if (0 === count($methods)) {
-                        return $config->$key = $value;
+                    foreach($methods as $method) {
+                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                            return $object->$method($value);
+                        }
                     }
 
-                    $method = array_shift($methods);
-                    return $object->$method($value);
+                    return $config->$key = $value;
                 },
 
                 'setOptions' => function($object, &$config, $options) {
