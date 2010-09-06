@@ -227,6 +227,21 @@ class CollectionTest extends TestCase {
     }
 
     /**
+     * Tests that a collection is read only
+     * @return void
+     */
+    public function testReadOnly() {
+        $collection = new Collection(array(1,2,3), array(
+            'type' => 'int',
+            'indexType' => Collection::INDEX_NUMERIC,
+            'readonly' => true
+        ));
+
+        $this->setExpectedException('Mu\Core\Collection\Exception\ReadOnly');
+        $collection[] = 4;
+    }
+
+    /**
      * Data provider for collection tests
      * @return array
      */

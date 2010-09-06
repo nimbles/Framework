@@ -52,15 +52,15 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testGetter($getter, $type) {
-        $request = $this->createRequest(array(
-            $getter => array(
-                'foo' => 'bar',
-                'baz' => 'qux'
-            )
-        ));
+        $property = '_' . $getter;
 
+        static::$$property = array(
+            'foo' => 'bar',
+            'baz' => 'qux'
+        );
+
+        $request = $this->createRequest();
         $method = 'get' . ucfirst($getter);
-
 
         $this->assertEquals('bar', $request->$method('foo'));
         $this->assertEquals('qux', $request->$method('baz'));
@@ -70,7 +70,8 @@ class RequestTest extends TestCase {
     }
 
     /**
-     * Tests using the session
+     * Tests using the session, when accessing via request, the session should
+     * be read only
      * @return void
      */
     public function testSession() {
@@ -82,11 +83,13 @@ class RequestTest extends TestCase {
             'test2' => 123
         );
 
+        $this->assertType('Mu\Http\Session', $request->getSession());
+        $this->assertType('Mu\Http\Session', $request->session);
+
         $this->assertEquals('abc', $request->getSession('test1'));
+        $this->assertEquals('abc', $request->session->read('test1'));
         $this->assertEquals(123, $request->getSession('test2'));
         $this->assertNull($request->getSession('test3'));
-
-        $this->assertType('Mu\Http\Session', $request->getSession());
 
         $request->getSession()->write('test3', 'def');
         $this->assertNull($request->getSession('test3'));
@@ -103,7 +106,12 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testGetRequestUri($options) {
-        $request = $this->createRequest($options);
+        foreach ($options as $property => $array) {
+            $property = '_' . $property;
+            static::$$property = $array;
+        }
+
+        $request = $this->createRequest();
         $this->assertEquals('/module/controller/action', $request->getRequestUri());
     }
 
@@ -115,7 +123,12 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testGetMethod($method, $options) {
-        $request = $this->createRequest($options);
+        foreach ($options as $property => $array) {
+            $property = '_' . $property;
+            static::$$property = $array;
+        }
+
+        $request = $this->createRequest();
         $this->assertEquals($method, $request->getMethod());
     }
 
@@ -124,11 +137,10 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testGetPort() {
-        $request = $this->createRequest(array(
-            'server' => array(
-                'SERVER_PORT' => 80
-            )
-        ));
+        static::$_server = array(
+            'SERVER_PORT' => 80
+        );
+        $request = $this->createRequest();
 
         $this->assertEquals(80, $request->getPort());
     }
@@ -138,12 +150,10 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testGetHost() {
-        $request = $this->createRequest(array(
-            'server' => array(
-                'SERVER_NAME' => 'mu-framework.com'
-            )
-        ));
-
+        static::$_server = array(
+            'SERVER_NAME' => 'mu-framework.com'
+        );
+        $request = $this->createRequest();
         $this->assertEquals('mu-framework.com', $request->getHost());
     }
 
@@ -154,11 +164,10 @@ class RequestTest extends TestCase {
      */
     public function testGetHeader($name, $value) {
         $serverName = 'HTTP_' . strtoupper(str_replace('-', '_', $name));
-        $request = $this->createRequest(array(
-            'server' => array(
-                $serverName => $value,
-            )
-        ));
+        static::$_server = array(
+            $serverName => $value,
+        );
+        $request = $this->createRequest();
 
         $this->assertType('Mu\Http\Header\Collection', $request->getHeader());
         $this->assertType('Mu\Http\Header\Collection', $request->header);
@@ -173,6 +182,10 @@ class RequestTest extends TestCase {
         $this->assertEquals($name . ': ' . $value, (string) $request->header->$name);
     }
 
+    /**
+     * Tests the cookie
+     * @return void
+     */
     public function testCookie() {
         static::$_cookies = array(
             'hello' => 'world'

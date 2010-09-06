@@ -49,10 +49,16 @@ class Collection extends ArrayObject {
     protected $_type;
 
     /**
-     * Indicates if the collection must be ass
-     * @var unknown_type
+     * The index type
+     * @var int
      */
     protected $_indexType;
+
+    /**
+     * Indicates that the collection is read only
+     * @var unknown_type
+     */
+    protected $_readonly;
 
     /**
      * Gets the collection type
@@ -103,6 +109,14 @@ class Collection extends ArrayObject {
     }
 
     /**
+     * Indicates that the collection is redaonly
+     * @return bool
+     */
+    public function isReadOnly() {
+        return $this->_readonly;
+    }
+
+    /**
      * Class construct
      * @param array|\ArrayObject|null $array
      * @return void
@@ -114,13 +128,11 @@ class Collection extends ArrayObject {
             $options = array();
         }
 
-        if (!array_key_exists('type', $options)) {
-            $options['type'] = null;
-        }
-
-        if (!array_key_exists('indexType', $options)) {
-            $options['indexType'] = static::INDEX_MIXED;
-        }
+        $options = array_merge(array(
+            'type' => null,
+            'indexType' => static::INDEX_MIXED,
+            'readonly' => false
+        ), $options);
 
         if ((null !== $options['type']) && !is_string($options['type'])) {
             throw new Collection\Exception\InvalidType('Type must be a string');
@@ -138,6 +150,8 @@ class Collection extends ArrayObject {
                 $this[$index] = $value;
             }
         }
+
+        $this->_readonly = (bool) $options['readonly'];
     }
 
     /**
@@ -148,11 +162,16 @@ class Collection extends ArrayObject {
      * @return void
      */
     public function offsetSet($index, $value) {
+        if ($this->isReadOnly()) {
+            throw new Collection\Exception\ReadOnly('Cannot write to collection when it is read only');
+        }
+
         if  (null !== ($validator = $this->getTypeValidator())) {
             if (!call_user_func($validator, $value)) {
                 throw new Collection\Exception\InvalidType('Value must be of type: ' . $this->getType());
             }
         }
+
         switch ($this->getIndexType()) {
             case static::INDEX_NUMERIC :
                 if (!is_numeric($index)) {

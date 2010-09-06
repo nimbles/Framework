@@ -43,6 +43,18 @@ class TestCase extends \Mu\Core\TestCase {
     static protected $_headers;
 
     /**
+     * Array of query variables
+     * @var array
+     */
+    static protected $_query;
+
+    /**
+     * Array of post variables
+     * @var array
+     */
+    static protected $_post;
+
+    /**
      * Array of cookies
      * @var array
      */
@@ -74,7 +86,10 @@ class TestCase extends \Mu\Core\TestCase {
     public function createRequest($options = null) {
         $request = new Request($options);
         $request->setDelegate('getInput', array('\Mu\Http\TestCase', 'getInput'));
+        $request->setDelegate('getServerRaw', array('\Mu\Http\TestCase', 'getServer'));
         $request->setDelegate('getCookieRaw', array('\Mu\Http\TestCase', 'getCookie'));
+        $request->setDelegate('getPostRaw', array('\Mu\Http\TestCase', 'getPost'));
+        $request->setDelegate('getQueryRaw', array('\Mu\Http\TestCase', 'getQuery'));
 
         return $request;
     }
@@ -180,10 +195,23 @@ class TestCase extends \Mu\Core\TestCase {
      * @return array
      */
     static public function getCookie() {
-        if (!is_array(static::$_cookies)) {
-            static::$_cookies = array();
-        }
         return static::$_cookies;
+    }
+
+    /**
+     * Gets the query variables
+     * @return array
+     */
+    static public function getQuery() {
+        return static::$_query;
+    }
+
+    /**
+     * Gets the post variables
+     * @return array
+     */
+    static public function getPost() {
+        return static::$_post;
     }
 
     /**

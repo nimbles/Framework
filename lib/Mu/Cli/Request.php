@@ -41,13 +41,13 @@ class Request extends RequestAbstract {
      * @var array
      */
     static protected function _getImplements() {
-        return parent::_getImplements() + array(
+        return array_merge_recursive(parent::_getImplements(), array(
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
                     'getInput' => array('\Mu\Cli\Request', 'getStdin')
                 )
             )
-        );
+        ));
     }
 
     /**

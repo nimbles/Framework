@@ -41,7 +41,16 @@ abstract class RequestAbstract extends MixinAbstract
      * @var array
      */
     static protected function _getImplements() {
-        return array('Mu\Core\Config\Options');
+        return array(
+            'Mu\Core\Config\Options',
+            'Mu\Core\Delegates\Delegatable' => array(
+                    'delegates' => array(
+                        'getServerRaw' => function() {
+                            return $_SERVER;
+                        },
+                    )
+                )
+            );
     }
 
     /**
@@ -57,20 +66,10 @@ abstract class RequestAbstract extends MixinAbstract
      */
     public function getServer($key = null) {
         if (null === $this->_server) {
-            $this->_server = $_SERVER;
+            $this->_server = $this->getServerRaw();
         }
 
         return $this->_getGlobal($this->_server, $key);
-    }
-
-    /**
-     * Sets the server variables
-     * @param array $server
-     * @return \Mu\Core\Request
-     */
-    public function setServer(array $server = null) {
-        $this->_server = (null === $server) ? $_SERVER : $server;
-        return $this;
     }
 
     /**

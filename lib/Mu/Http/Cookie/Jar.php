@@ -46,25 +46,11 @@ class Jar extends Collection {
     static protected $_instance;
 
     /**
-     * Indicates that the jar is readonly
-     * @var bool
-     */
-    protected $_readonly;
-
-    /**
      * Gets an instanceof the Cookie Jar
      * @return \Mu\Http\Cookie\Jar
      */
     static public function getInstance() {
         return self::$_instance ?: self::$_instance = new static();
-    }
-
-    /**
-     * Indicates that the jar is readonly
-     * @return bool
-     */
-    public function isReadOnly() {
-        return $this->_readonly;
     }
 
     /**
@@ -74,13 +60,13 @@ class Jar extends Collection {
      * @return void
      */
     public function __construct(array $array = null, array $options = null) {
-        parent::__construct($array, array_merge(is_array($options) ? $options : array(), array(
-            'type' => 'Mu\Http\Cookie',
-            'indexType' => static::INDEX_ASSOCITIVE,
-            'readonly' => false
-        )));
-
-        $this->_readonly = (bool) $options['readonly'];
+        parent::__construct($array, array_merge(is_array($options) ? $options : array(
+                'readonly' => false
+            ), array(
+                'type' => 'Mu\Http\Cookie',
+                'indexType' => static::INDEX_ASSOCITIVE
+            )
+        ));
         $this->setFlags(self::ARRAY_AS_PROPS);
     }
 
@@ -92,10 +78,6 @@ class Jar extends Collection {
      * @throws \Mu\Http\Cookie\Exception\InvalidInstance
      */
     public function offsetSet($key, $value) {
-        if ($this->isReadOnly()) {
-            throw new Jar\Exception\ReadOnly('Cannot write to cookie jar when it is read only');
-        }
-
         if (is_string($value)) {
             $value = new Cookie(array(
                 'name' => $key,

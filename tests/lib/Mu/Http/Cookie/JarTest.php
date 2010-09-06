@@ -81,7 +81,7 @@ class JarTest extends TestCase {
     }
 
     /**
-     * Tests that a Mu\Http\Cookie\Jar\Exception\ReadOnly exception is thrown when
+     * Tests that a Mu\Core\Collection\Exception\ReadOnly exception is thrown when
      * added a cookie to a read only jar
      * @return void
      */
@@ -93,7 +93,8 @@ class JarTest extends TestCase {
             'readonly' => true
         ));
 
-        $this->setExpectedException('Mu\Http\Cookie\Jar\Exception\ReadOnly');
+        $this->assertTrue($jar->isReadOnly());
+        $this->setExpectedException('Mu\Core\Collection\Exception\ReadOnly');
         $jar['test3'] = 'value3';
     }
 

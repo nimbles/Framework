@@ -65,6 +65,9 @@ class Session extends MixinAbstract {
                     'clearValues'               => function () {
                         $_SESSION = array();
                     },
+                    'offsetExists'              => function($key) {
+                        return array_key_exists($key, $_SESSION);
+                    }
                 )
             ),
             'Mu\Core\Config\Options'
@@ -230,6 +233,14 @@ class Session extends MixinAbstract {
 
         $this->session_destroy();
         return $this;
+    }
+
+    /**
+     * Indicates if the session has a value for the given key
+     * @return bool
+     */
+    public function exists($key) {
+        return $this->offsetExists($key);
     }
 
     /**
