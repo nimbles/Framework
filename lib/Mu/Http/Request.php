@@ -68,6 +68,11 @@ class Request extends RequestAbstract {
                     'getFilesRaw' => function() {
                         return $_FILES;
                     },
+                    'createSession' => function() {
+                        $session = new Session();
+                        $session->setDelegate('writeValue', function() {}); // do nothing, make read only
+                        $session->setDelegate('clearValues', function() {}); // do nothing, make read only
+                    },
                     'getInput' => array('\Mu\Http\Request', 'getRequestInput')
                 )
             )
@@ -189,7 +194,10 @@ class Request extends RequestAbstract {
      */
     public function getSession($key = null) {
         if (null === $this->_session) {
-            $this->setSession();
+            $this->_session = $this->createSession();
+            if (!$this->_session->isStarted()) {
+                $this->_session->start();
+            }
         }
 
         if (null === $key) {
@@ -197,23 +205,6 @@ class Request extends RequestAbstract {
         }
 
         return $this->_session->read($key);
-    }
-
-    /**
-     * Sets the session and starts if not already
-     * @param \Mu\Http\Session $session
-     * @return \Mu\Http\Request
-     */
-    public function setSession(Session $session = null) {
-        $this->_session = (null === $session) ? new Session() : $session;
-        $this->_session->setDelegate('writeValue', function() {}); // do nothing, make read only
-        $this->_session->setDelegate('clearValues', function() {}); // do nothing, make read only
-
-        if (!$this->_session->isStarted()) {
-            $this->_session->start();
-        }
-
-        return $this;
     }
 
     /**

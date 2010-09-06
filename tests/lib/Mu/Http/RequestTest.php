@@ -98,13 +98,13 @@ class RequestTest extends TestCase {
      * @return void
      */
     public function testSession() {
-        $request = $this->createRequest();
-        $request->setSession($this->createSession());
-
         static::$_session = array(
             'test1' => 'abc',
             'test2' => 123
         );
+
+        $request = $this->createRequest();
+
 
         $this->assertType('Mu\Http\Session', $request->getSession());
         $this->assertType('Mu\Http\Session', $request->session);
