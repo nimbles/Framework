@@ -46,6 +46,12 @@ class TestCase extends PHPUnit_Framework_TestCase {
     static protected $_output = '';
 
     /**
+     * The server variables
+     * @var array
+     */
+    static protected $_server;
+
+    /**
      * Gets input to be used during test cases
      * @return string
      */
@@ -79,6 +85,14 @@ class TestCase extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Gets the server variables
+     * @return array
+     */
+    static public function getServer() {
+        return static::$_server;
+    }
+
+    /**
      * Asserts that the collection is of a given type
      *
      * @param $type
@@ -107,6 +121,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
     public function resetDelegatesVars() {
         static::$_input = '';
         static::$_output = '';
+        static::$_server = array();
     }
 
     /**

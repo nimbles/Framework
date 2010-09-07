@@ -80,23 +80,37 @@ abstract class MixinAbstract {
     public function __construct() {}
 
     /**
+     * Finds out if the requested method exists within the mixins
+     *
+     * @param string $method
+     * @param bool $returnMixin
+     * @return bool|MixinableAbstract
+     */
+    public function methodExists($method, $returnMixin = false) {
+        foreach ($this->getMixins() as $mixin) {
+            if ($mixin->hasMethod($method)) {
+                return (true === $returnMixin) ? $mixin : true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Magic __call for the mixin'd methods
      * @param string $method
      * @param array $args
      * @throws \BadMethodCallException
      */
     public function __call($method, $args) {
-        foreach ($this->getMixins() as $mixin) {
-            if ($mixin->hasMethod($method)) {
-                $object = $mixin->getObject();
-                return call_user_func_array(
-                    $mixin->getMethod($method),
-                    array_merge(
-                        array($this, &$object),
-                        $args
-                    )
-                );
-            }
+        if(false !== ($mixin = $this->methodExists($method, true))) {
+            $object = $mixin->getObject();
+            return call_user_func_array(
+                $mixin->getMethod($method),
+                array_merge(
+                    array($this, &$object),
+                    $args
+                )
+            );
         }
 
         throw new BadMethodCallException('Invalid method ' . $method . ' on ' . get_class());
@@ -105,6 +119,7 @@ abstract class MixinAbstract {
     /**
      * Magic __get for the mixin'd properties
      * @param string $property
+     * @return mixed
      */
     public function __get($property) {
         foreach ($this->getMixins() as $mixin) {

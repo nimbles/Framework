@@ -59,10 +59,11 @@ class TestCase extends \Mu\Core\TestCase {
      * @return \Mu\Cli\Response
      */
     public function createRequest($options = null) {
-        $response = new \Mu\Cli\Request($options);
-        $response->setDelegate('getInput', array('\Mu\Cli\TestCase', 'getInput'));
+        $request = new \Mu\Cli\Request($options);
+        $request->setDelegate('getInput', array('\Mu\Cli\TestCase', 'getInput'));
+        $request->setDelegate('getServerRaw', array('\Mu\Http\TestCase', 'getServer'));
 
-        return $response;
+        return $request;
     }
 
     /**
