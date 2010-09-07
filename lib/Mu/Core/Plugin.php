@@ -134,6 +134,20 @@ class Plugin extends Mixin\MixinAbstract
     }
 
     /**
+     * Magic __call so that if a plugin is invokable it is called
+     * @param string $method
+     * @param array $args
+     * @return mixed
+     */
+    public function __call($method, $args) {
+        if ((null !== ($plugin = $this->getPlugin($method))) && is_callable($plugin)) {
+            return call_user_func_array($plugin, $args);
+        }
+
+        return parent::__call($method, $args);
+    }
+
+    /**
      * Attaches a plugin
      * @param string|object $plugin
      * @throws \Mu\Core\Plugin\Exception\InvalidAbstract

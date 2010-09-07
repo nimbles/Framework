@@ -30,7 +30,11 @@ use Mu\App\Controller\Resource\ResourceAbstract;
  * @uses       \Mu\App\Controller\Resource\ResourceAbstract
  */
 class ResourceMock extends ResourceAbstract {
+    protected $_counter = 0;
+
     public function init() {
-        return 'resource';
+        // increment counter to see how many times this has been initialized
+        $this->_counter++;
+        return 'resource' . $this->_counter;
     }
 }

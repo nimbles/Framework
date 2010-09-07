@@ -34,6 +34,28 @@ use Mu\App\Controller\ControllerAbstract,
  */
 class ControllerMock extends ControllerAbstract {
     public function testAction() {}
+
+    public function sendAction() {
+        $this->response->body = 'hello world';
+    }
+
+    public $dump;
+
+    public function helperDirectAction() {
+        $this->dump = $this->helpers->states();
+    }
+
+    public function helperMethodAction() {
+        $this->dump = $this->helpers->states->getStates();
+    }
+
+    public function resourceDirectAction() {
+        $this->dump = $this->resources->string();
+    }
+
+    public function resourceMethodAction() {
+        $this->dump = $this->resources->string->getResource();
+    }
 }
 
 /**

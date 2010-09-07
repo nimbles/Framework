@@ -43,7 +43,7 @@ class ControllerTest extends TestCase {
      * trying to dispatch an action that doesnt exist
      * @return void
      */
-    public function testNoAction() {
+    public function testActionNotFound() {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
         $this->setExpectedException('Mu\App\Controller\Exception\ActionNotFound');
         $controller->dispatch('missingAction');
@@ -53,7 +53,7 @@ class ControllerTest extends TestCase {
      * Tests dispatching an action with no helpers or plugins
      * @return void
      */
-    public function testSimpleAction() {
+    public function testDispatchFlow() {
         $methods = array(
             'testAction',
             'notifyPreDispatch',
@@ -79,7 +79,7 @@ class ControllerTest extends TestCase {
      * Tests dispatching an action with plugins, checks if the plugins are notified
      * @return void
      */
-    public function testPluginAction() {
+    public function testPlugins() {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
 
         $plugins = array();
@@ -112,7 +112,7 @@ class ControllerTest extends TestCase {
      * Tests dispatching an action with helpers, checks if the helpers are notified
      * @return void
      */
-    public function testHelperAction() {
+    public function testHelpers() {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
 
         $helperMock = $this->getMock(
@@ -132,5 +132,88 @@ class ControllerTest extends TestCase {
             ControllerAbstract::STATE_PREDISPATCH,
             ControllerAbstract::STATE_POSTDISPATCH
         ), $helper->getStates());
+    }
+
+    /**
+     * Tests using a helper within a controller
+     * @param string $dispatchMethod
+     * @return void
+     * @dataProvider actionHelperDispatchMethodProvider
+     */
+    public function testActionHelper($dispatchMethod) {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+        $helper = new Helper\HelperMock();
+        $controller->helpers->attach('states', $helper);
+
+        $controller->dispatch($dispatchMethod);
+        $this->assertSame(array(ControllerAbstract::STATE_PREDISPATCH), $controller->dump);
+    }
+
+    /**
+     * Tests using a resource within a contoller
+     * @param string $dispatchMethod
+     * @return void
+     * @dataProvider actionResourceDispatchMethodProvider
+     */
+    public function testResource($dispatchMethod) {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+        $resource = new Resource\ResourceMock();
+        $controller->resources->attach('string', $resource);
+
+        $controller->dispatch($dispatchMethod);
+        $this->assertEquals('resource1', $controller->dump);
+
+        // dispatch again to check resource is the the same
+        $controller->dispatch($dispatchMethod);
+        $this->assertEquals('resource1', $controller->dump);
+    }
+
+    /**
+     * Tests that the dispatch state changes
+     * @return void
+     */
+    public function testDispatchState() {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+        $this->assertEquals(ControllerAbstract::STATE_NOTDISPATCHED, $controller->getDispatchState());
+    }
+
+    /**
+     * Tests the getters for a controller
+     * @return void
+     */
+    public function testGetters() {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+
+        $this->assertType('Mu\Core\Request\RequestAbstract', $controller->getRequest());
+        $this->assertType('Mu\Core\Request\RequestAbstract', $controller->request);
+
+        $this->assertType('Mu\Core\Response\ResponseAbstract', $controller->getResponse());
+        $this->assertType('Mu\Core\Response\ResponseAbstract', $controller->response);
+
+        $this->assertType('Mu\Core\Plugin', $controller->plugins);
+        $this->assertType('Mu\Core\Plugin', $controller->helpers);
+        $this->assertType('Mu\Core\Plugin', $controller->resources);
+    }
+
+    /**
+     * Data provider for the action method names for the action helper test
+     * @return array
+     */
+    public function actionHelperDispatchMethodProvider() {
+        return array(
+            array('helperMethodAction'),
+            array('helperDirectAction'),
+        );
+    }
+
+    /**
+     * Data provider for the action method names for the action resource test
+     * @return array
+     */
+    public function actionResourceDispatchMethodProvider() {
+        return array(
+            array('resourceMethodAction'),
+            array('resourceDirectAction'),
+        );
     }
 }

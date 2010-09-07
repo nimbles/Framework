@@ -55,7 +55,7 @@ abstract class ResourceAbstract extends MixinAbstract {
             $this->_resource = $this->init();
         }
 
-        return $this>_resource;
+        return $this->_resource;
     }
 
     /**
@@ -65,6 +65,14 @@ abstract class ResourceAbstract extends MixinAbstract {
      */
     public function __construct($options = null) {
         $this->setOptions($options);
+    }
+
+    /**
+     * Magic __invoke to get the resource
+     * @return object
+     */
+    public function __invoke() {
+        return $this->getResource();
     }
 
     /**
