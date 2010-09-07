@@ -18,7 +18,8 @@
 
 namespace Mu\Http;
 
-use Mu\Core\Request\RequestAbstract;
+use Mu\Core\Request\RequestAbstract,
+    Mu\Core\Collection;
 
 /**
  * @category   Mu
@@ -32,9 +33,19 @@ use Mu\Core\Request\RequestAbstract;
  * @uses       \Mu\Core\Config\Options
  * @uses       \Mu\Core\Delegates\Delegatable
  *
+ * @uses       \Mu\Core\Collection
+ *
  * @uses       \Mu\Http\Header
+ * @uses       \Mu\Http\Header\Collection
  * @uses       \Mu\Http\Cookie
- * @uses       \Mu\Http\Sesssion
+ * @uses       \Mu\Http\Session
+ *
+ * @property   \Mu\Core\Collection $query
+ * @property   \Mu\Core\Collection $post
+ * @property   \Mu\Core\Collection $file
+ * @property   \Mu\Http\Header\Collection $header
+ * @property   \Mu\Http\Cookie\Jar $cookie
+ * @property   \Mu\Http\Session $session
  */
 class Request extends RequestAbstract {
     /**
@@ -42,30 +53,47 @@ class Request extends RequestAbstract {
      * @var array
      */
     static protected function _getImplements() {
-        return parent::_getImplements() + array(
+        return array_merge_recursive(parent::_getImplements(), array(
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
+                    'getCookieRaw' => function() {
+                        return $_COOKIE;
+                    },
+                    'getQueryRaw' => function() {
+                        return $_GET;
+                    },
+                    'getPostRaw' => function() {
+                        return $_POST;
+                    },
+                    'getFilesRaw' => function() {
+                        return $_FILES;
+                    },
+                    'createSession' => function() {
+                        $session = new Session();
+                        $session->setDelegate('writeValue', function() {}); // do nothing, make read only
+                        $session->setDelegate('clearValues', function() {}); // do nothing, make read only
+                    },
                     'getInput' => array('\Mu\Http\Request', 'getRequestInput')
                 )
             )
-        );
+        ));
     }
 
     /**
      * The query string variables
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_query;
 
     /**
      * The post variables
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_post;
 
     /**
      * The files
-     * @var array
+     * @var \Mu\Core\Collection
      */
     protected $_files;
 
@@ -83,7 +111,7 @@ class Request extends RequestAbstract {
 
     /**
      * The http headers
-     * @var array
+     * @var Mu\Http\Header\Collection
      */
     protected $_headers;
 
@@ -96,24 +124,23 @@ class Request extends RequestAbstract {
     /**
      * Gets a query variable
      * @param string|null $key
-     * @return array|string|null
+     * @return \Mu\Core\Collection|string|null
      */
     public function getQuery($key = null) {
         if (null === $this->_query) {
-            $this->setQuery();
+            $this->_query = new Collection($this->getQueryRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_query->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_query, $key);
-    }
+        if (null === $key) {
+            return $this->_query;
+        }
 
-    /**
-     * Sets the query variables
-     * @param array|null $query if null will be set to $_GET
-     * @return \Mu\Http\Request
-     */
-    public function setQuery(array $query = null) {
-        $this->_query = (null === $query) ? $_GET : $query;
-        return $this;
+        return $this->_query->offsetExists($key) ? $this->_query[$key] : null;
     }
 
     /**
@@ -123,20 +150,19 @@ class Request extends RequestAbstract {
      */
     public function getPost($key = null) {
         if (null === $this->_post) {
-            $this->setPost();
+            $this->_post = new Collection($this->getPostRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_post->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_post, $key);
-    }
+        if (null === $key) {
+            return $this->_post;
+        }
 
-    /**
-     * Sets the post variables
-     * @param array|null $post if null will be set to $_POST
-     * @return \Mu\Http\Request
-     */
-    public function setPost(array $post = null) {
-        $this->_post = (null === $post) ? $_POST : $post;
-        return $this;
+        return $this->_post->offsetExists($key) ? $this->_post[$key] : null;
     }
 
     /**
@@ -144,22 +170,21 @@ class Request extends RequestAbstract {
      * @param string|null $key
      * @return array|null
      */
-    public function getFiles($key = null) {
+    public function getFile($key = null) {
         if (null === $this->_files) {
-            $this->setFiles();
+            $this->_files = new Collection($this->getFilesRaw(), array(
+                'type' => 'string',
+                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'readonly' => true
+            ));
+            $this->_files->setFlags(Collection::ARRAY_AS_PROPS);
         }
 
-        return $this->_getGlobal($this->_files, $key);
-    }
+        if (null === $key) {
+            return $this->_files;
+        }
 
-    /**
-     * Sets the files
-     * @param array|null $files if null will be set to $_FILES
-     * @return \Mu\Http\Request
-     */
-    public function setFiles(array $files = null) {
-        $this->_files = (null === $files) ? $_FILES : $files;
-        return $this;
+        return $this->_files->offsetExists($key) ? $this->_files[$key] : null;
     }
 
     /**
@@ -169,7 +194,10 @@ class Request extends RequestAbstract {
      */
     public function getSession($key = null) {
         if (null === $this->_session) {
-            $this->setSession();
+            $this->_session = $this->createSession();
+            if (!$this->_session->isStarted()) {
+                $this->_session->start();
+            }
         }
 
         if (null === $key) {
@@ -180,51 +208,23 @@ class Request extends RequestAbstract {
     }
 
     /**
-     * Sets the session and starts if not already
-     * @param \Mu\Http\Session $session
-     * @return \Mu\Http\Request
-     */
-    public function setSession(Session $session = null) {
-        $this->_session = (null === $session) ? new Session() : $session;
-        $this->_session->setDelegate('writeValue', function() {}); // do nothing, make read only
-        $this->_session->setDelegate('clearValues', function() {}); // do nothing, make read only
-
-        if (!$this->_session->isStarted()) {
-            $this->_session->start();
-        }
-
-        return $this;
-    }
-
-    /**
      * Gets a cookie variable by key
      * @param string|null $key
      * @return \Mu\Http\Cookie\Jar|string|null
      */
     public function getCookie($key = null) {
         if (null === $this->_cookie) {
-            $this->setCookie();
+            $this->_cookie = new Cookie\Jar(
+                $this->getCookieRaw(),
+                array('readonly' => true)
+            );
         }
 
         if (null === $key) {
             return $this->_cookie;
         }
 
-        return $this->_cookie->offsetExists($key) ? (string) $this->_cookie[$key] : null;
-    }
-
-    /**
-     * Sets the cookie variables
-     * @param array|null $cookie if null will be set to $_COOKIE
-     * @return \Mu\Http\Request
-     */
-    public function setCookie(array $cookie = null) {
-        $this->_cookie = new Cookie\Jar(
-            (null === $cookie) ? $_COOKIE : $cookie,
-            true
-        );
-
-        return $this;
+        return $this->_cookie->offsetExists($key) ? $this->_cookie[$key] : null;
     }
 
     /**
@@ -234,19 +234,16 @@ class Request extends RequestAbstract {
      */
     public function getHeader($key = null) {
         if (null === $this->_headers) {
-            $this->_headers = array();
-            foreach ($this->getServer() as $name => $string) {
-                if (null !== ($header = \Mu\Http\Header::factory($name, $string, true))) {
-                    $this->_headers[$header->getName()] = $header;
-                }
-            }
+            $this->_headers = new Header\Collection($this->getServer(), array(
+                'readonly' => true
+            ));
         }
 
         if (null === $key) {
             return $this->_headers;
         }
 
-        return array_key_exists($key, $this->_headers) ? $this->_headers[$key] : null;
+        return $this->_headers->offsetExists($key) ? $this->_headers[$key] : null;
     }
 
     /**
@@ -255,6 +252,27 @@ class Request extends RequestAbstract {
      */
     public function getBody() {
         return $this->getInput();
+    }
+
+    /**
+     * Magic __get to add some accesses for request context
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        if (in_array($name, array(
+            'query',
+            'post',
+            'file',
+            'header',
+            'cookie',
+            'session'
+        ))) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
+        }
+
+        return parent::__get($name);
     }
 
     /**

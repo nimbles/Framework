@@ -45,7 +45,10 @@ class CollectionTest extends TestCase {
      * @dataProvider      mixedProvider
      */
     public function testMixedCollection($type, array $validValues, array $invalidValues) {
-        $collection = new Collection(null, $type, Collection::INDEX_MIXED);
+        $collection = new Collection(null, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_MIXED
+        ));
 
         foreach ($validValues as $index => $value) {
             $collection[$index] = $value;
@@ -60,11 +63,17 @@ class CollectionTest extends TestCase {
             }
         }
 
-        $collection = new Collection($validValues, $type, Collection::INDEX_MIXED);
+        $collection = new Collection($validValues, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_MIXED
+        ));
 
         if (!empty($invalidValues)) {
             try {
-                $collection = new Collection($invalidValues, $type, Collection::INDEX_MIXED);
+                $collection = new Collection($invalidValues, array(
+                    'type' => $type,
+                    'indexType' => Collection::INDEX_MIXED
+                ));
                 $this->fail('Excpected exception Mu\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
                 $this->assertType('Mu\Core\Collection\Exception\InvalidType', $ex);
@@ -81,7 +90,10 @@ class CollectionTest extends TestCase {
      * @dataProvider      mixedProvider
      */
     public function testNumericCollection($type, array $validValues, array $invalidValues) {
-        $collection = new Collection(null, $type, Collection::INDEX_NUMERIC);
+        $collection = new Collection(null, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_NUMERIC
+        ));
 
         $invalidIndexes = array();
         foreach ($validValues as $index => $value) {
@@ -104,11 +116,17 @@ class CollectionTest extends TestCase {
             }
         }
 
-        $collection = new Collection($validValues, $type, Collection::INDEX_NUMERIC);
+        $collection = new Collection($validValues, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_NUMERIC
+        ));
 
         if (!empty($invalidValues)) {
             try {
-                $collection = new Collection($invalidValues, $type, Collection::INDEX_NUMERIC);
+                $collection = new Collection($invalidValues, array(
+                    'type' => $type,
+                    'indexType' => Collection::INDEX_NUMERIC
+                ));
                 $this->fail('Excpected exception Mu\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
                 $this->assertType('Mu\Core\Collection\Exception\InvalidType', $ex);
@@ -117,7 +135,10 @@ class CollectionTest extends TestCase {
 
         if (!empty($invalidIndexes)) {
             try {
-                $collection = new Collection($invalidIndexes, $type, Collection::INDEX_NUMERIC);
+                $collection = new Collection($invalidIndexes, array(
+                    'type' => $type,
+                    'indexType' => Collection::INDEX_NUMERIC
+                ));
                 $this->fail('Excpected exception Mu\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
                 $this->assertType('Mu\Core\Collection\Exception\InvalidIndex', $ex);
@@ -134,7 +155,10 @@ class CollectionTest extends TestCase {
      * @dataProvider      mixedProvider
      */
     public function testAssocitiveCollection($type, array $validValues, array $invalidValues) {
-        $collection = new Collection(null, $type, Collection::INDEX_ASSOCITIVE);
+        $collection = new Collection(null, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_ASSOCITIVE
+        ));
 
         $validIndexes = array();
         foreach ($validValues as $index => $value) {
@@ -157,11 +181,17 @@ class CollectionTest extends TestCase {
             }
         }
 
-        $collection = new Collection($validIndexes, $type, Collection::INDEX_ASSOCITIVE);
+        $collection = new Collection($validIndexes, array(
+            'type' => $type,
+            'indexType' => Collection::INDEX_ASSOCITIVE
+        ));
 
         if (!empty($invalidValues)) {
             try {
-                $collection = new Collection($invalidValues, $type, Collection::INDEX_ASSOCITIVE);
+                $collection = new Collection($invalidValues, array(
+                    'type' => $type,
+                    'indexType' => Collection::INDEX_ASSOCITIVE
+                ));
                 $this->fail('Excpected exception Mu\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
                 $this->assertType('Mu\Core\Collection\Exception\InvalidType', $ex);
@@ -171,22 +201,15 @@ class CollectionTest extends TestCase {
         if (!empty($validValues)) {
             try {
                 // the validValues array has invalidIndexes
-                $collection = new Collection($validValues, $type, Collection::INDEX_ASSOCITIVE);
+                $collection = new Collection($validValues, array(
+                    'type' => $type,
+                    'indexType' => Collection::INDEX_ASSOCITIVE
+                ));
                 $this->fail('Excpected exception Mu\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
                 $this->assertType('Mu\Core\Collection\Exception\InvalidIndex', $ex);
             }
         }
-    }
-
-    /**
-     * Tests that the Mu\Core\Collection\Exception\InvalidType exception is thrown when
-     * not passing a string as the type
-     * @return void
-     */
-    public function testInvalidTypeConstruct() {
-        $this->setExpectedException('Mu\Core\Collection\Exception\InvalidType');
-        $collection = new Collection(null, 1);
     }
 
     /**
@@ -197,7 +220,25 @@ class CollectionTest extends TestCase {
      */
     public function testInvalidIndexConstruct($invalidIndexType) {
         $this->setExpectedException('Mu\Core\Collection\Exception\InvalidIndex');
-        $collection = new Collection(null, 'string', $invalidIndexType);
+        $collection = new Collection(null, array(
+            'type' => 'string',
+            'indexType' => $invalidIndexType
+        ));
+    }
+
+    /**
+     * Tests that a collection is read only
+     * @return void
+     */
+    public function testReadOnly() {
+        $collection = new Collection(array(1,2,3), array(
+            'type' => 'int',
+            'indexType' => Collection::INDEX_NUMERIC,
+            'readonly' => true
+        ));
+
+        $this->setExpectedException('Mu\Core\Collection\Exception\ReadOnly');
+        $collection[] = 4;
     }
 
     /**

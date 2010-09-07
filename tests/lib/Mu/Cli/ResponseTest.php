@@ -49,6 +49,7 @@ class ResponseTest extends TestCase {
         $this->assertType('Mu\Core\Response\ResponseAbstract', $response);
         $this->assertEquals('hello world', $this->getOutput());
         $this->assertEquals('hello world', $response->getBody());
+        $this->assertEquals('hello world', $response->body);
     }
 
     /**
@@ -63,6 +64,19 @@ class ResponseTest extends TestCase {
 
         $this->assertType('Mu\Core\Response\ResponseAbstract', $response);
         $this->assertEquals('hello world', $this->getOutput());
-        $this->assertEquals('hello world', $response->getBody());
+    }
+
+    /**
+     * Tests the body is given from accesses
+     * @return void
+     */
+    public function testBodyFromAccesses() {
+        $response = $this->createResponse();
+        $response->body = 'hello world';
+
+        $response->send();
+
+        $this->assertType('Mu\Core\Response\ResponseAbstract', $response);
+        $this->assertEquals('hello world', $this->getOutput());
     }
 }

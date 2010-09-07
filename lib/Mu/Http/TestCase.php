@@ -43,6 +43,24 @@ class TestCase extends \Mu\Core\TestCase {
     static protected $_headers;
 
     /**
+     * Array of query variables
+     * @var array
+     */
+    static protected $_query;
+
+    /**
+     * Array of post variables
+     * @var array
+     */
+    static protected $_post;
+
+    /**
+     * Array of cookies
+     * @var array
+     */
+    static protected $_cookies;
+
+    /**
      * The session data
      * @var array
      */
@@ -68,6 +86,11 @@ class TestCase extends \Mu\Core\TestCase {
     public function createRequest($options = null) {
         $request = new Request($options);
         $request->setDelegate('getInput', array('\Mu\Http\TestCase', 'getInput'));
+        $request->setDelegate('getServerRaw', array('\Mu\Http\TestCase', 'getServer'));
+        $request->setDelegate('getCookieRaw', array('\Mu\Http\TestCase', 'getCookie'));
+        $request->setDelegate('getPostRaw', array('\Mu\Http\TestCase', 'getPost'));
+        $request->setDelegate('getQueryRaw', array('\Mu\Http\TestCase', 'getQuery'));
+        $request->setDelegate('createSession', array('\Mu\Http\TestCase', 'getReadOnlySession'));
 
         return $request;
     }
@@ -132,21 +155,7 @@ class TestCase extends \Mu\Core\TestCase {
      * @return \Mu\Http\Session
      */
     public function createSession($options = null) {
-        $session = new Session($options);
-        $session->isStarted(false);
-
-        $session->setDelegate('session_start', array('\Mu\Http\TestCase', 'sessionStart'));
-        $session->setDelegate('session_id', array('\Mu\Http\TestCase', 'sessionId'));
-        $session->setDelegate('session_name', array('\Mu\Http\TestCase', 'sessionName'));
-        $session->setDelegate('session_regenerate_id', array('\Mu\Http\TestCase', 'generateSessionId'));
-        $session->setDelegate('session_destroy', array('\Mu\Http\TestCase', 'sessionDestroy'));
-        $session->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
-        $session->setDelegate('setcookie', array('\Mu\Http\TestCase', 'setcookie'));
-        $session->setDelegate('setrawcookie', array('\Mu\Http\TestCase', 'setrawcookie'));
-        $session->setDelegate('readValue', array('\Mu\Http\TestCase', 'readSession'));
-        $session->setDelegate('writeValue', array('\Mu\Http\TestCase', 'writeSession'));
-        $session->setDelegate('clearValues', array('\Mu\Http\TestCase', 'clearSession'));
-        return $session;
+        return static::getSession($options);
     }
 
     /**
@@ -166,6 +175,67 @@ class TestCase extends \Mu\Core\TestCase {
      */
     static public function header($header) {
         static::$_headers[] = $header;
+    }
+
+    /**
+     * Gets the cookies
+     * @return array
+     */
+    static public function getCookie() {
+        return static::$_cookies;
+    }
+
+    /**
+     * Gets the query variables
+     * @return array
+     */
+    static public function getQuery() {
+        return static::$_query;
+    }
+
+    /**
+     * Gets the post variables
+     * @return array
+     */
+    static public function getPost() {
+        return static::$_post;
+    }
+
+    /**
+     * Gets a session
+     * @param array $options
+     * @return \Mu\Http\Session
+     */
+    static public function getSession($options = null) {
+        $session = new Session($options);
+        $session->isStarted(false);
+
+        $session->setDelegate('session_start', array('\Mu\Http\TestCase', 'sessionStart'));
+        $session->setDelegate('session_id', array('\Mu\Http\TestCase', 'sessionId'));
+        $session->setDelegate('session_name', array('\Mu\Http\TestCase', 'sessionName'));
+        $session->setDelegate('session_regenerate_id', array('\Mu\Http\TestCase', 'generateSessionId'));
+        $session->setDelegate('session_destroy', array('\Mu\Http\TestCase', 'sessionDestroy'));
+        $session->setDelegate('headers_sent', array('\Mu\Http\TestCase', 'isHeadersSent'));
+        $session->setDelegate('setcookie', array('\Mu\Http\TestCase', 'setcookie'));
+        $session->setDelegate('setrawcookie', array('\Mu\Http\TestCase', 'setrawcookie'));
+        $session->setDelegate('readValue', array('\Mu\Http\TestCase', 'readSession'));
+        $session->setDelegate('writeValue', array('\Mu\Http\TestCase', 'writeSession'));
+        $session->setDelegate('clearValues', array('\Mu\Http\TestCase', 'clearSession'));
+        $session->setDelegate('offsetExists', array('\Mu\Http\TestCase', 'sessionKeyExists'));
+
+        return $session;
+    }
+
+    /**
+     * Gets a read only session
+     * @param array $options
+     * @return \Mu\Http\Session
+     */
+    static public function getReadOnlySession($options = null) {
+        $session = static::getSession($options);
+        $session->setDelegate('writeValue', function() {});
+        $session->setDelegate('clearValues', function() {});
+        return $session;
     }
 
     /**
@@ -306,6 +376,15 @@ class TestCase extends \Mu\Core\TestCase {
     }
 
     /**
+     * Checks if a session key exists
+     * @param string $key
+     * @return bool
+     */
+    static public function sessionKeyExists($key) {
+        return array_key_exists($key, static::$_session);
+    }
+
+    /**
      * Resets headers
      * @return void
      */
@@ -313,6 +392,7 @@ class TestCase extends \Mu\Core\TestCase {
         parent::resetDelegatesVars();
         static::$_headersSent = false;
         static::$_headers = array();
+        static::$_cookies = array();
         static::$_sessionId = '';
         static::$_sessionName = 'PHPSESSID';
         static::$_session = array();

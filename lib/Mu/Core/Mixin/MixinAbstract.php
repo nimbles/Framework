@@ -119,6 +119,7 @@ abstract class MixinAbstract {
     /**
      * Magic __get for the mixin'd properties
      * @param string $property
+     * @return mixed
      */
     public function __get($property) {
         foreach ($this->getMixins() as $mixin) {

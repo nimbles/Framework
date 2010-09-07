@@ -30,6 +30,8 @@ use Mu\Core\Mixin\MixinAbstract;
  *
  * @uses      \Mu\Core\Mixin\MixinAbstract
  * @uses      \Mu\Core\Config\Options
+ *
+ * @property  string $body
  */
 abstract class ResponseAbstract extends MixinAbstract {
     /**
@@ -70,6 +72,33 @@ abstract class ResponseAbstract extends MixinAbstract {
      */
     public function __construct($options = null) {
         $this->setOptions($options);
+    }
+
+    /**
+     * Magic __get to provide accesses for body
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        if ('body' === $name) {
+            return $this->getBody();
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * Magic __set to provide accesses for body
+     * @param string $name
+     * @param mixed  $value
+     * @return mixed
+     */
+    public function __set($name, $value) {
+        if ('body' === $name) {
+            return $this->setBody($value);
+        }
+
+        return parent::__set($name, $value);
     }
 
     /**

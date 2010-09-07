@@ -19,7 +19,8 @@
 namespace Mu\Http\Cookie;
 
 use Mu\Http\Cookie,
-    Mu\Http\Cookie\Jar;
+    Mu\Http\Cookie\Jar,
+    Mu\Core\Collection;
 
 /**
  * @category   Mu
@@ -29,7 +30,7 @@ use Mu\Http\Cookie,
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \ArrayObject
+ * @uses       Collection
  *
  * @uses       \Mu\Http\Cookie
  * @uses       \Mu\Http\Cookie\Exception\InvalidInstance
@@ -37,18 +38,12 @@ use Mu\Http\Cookie,
  *
  * @todo Migrate to using the collection class once available
  */
-class Jar extends \ArrayObject {
+class Jar extends Collection {
     /**
      * Instance of the Cookie Jar
      * @var \Mu\Http\Cookie\Jar
      */
     static protected $_instance;
-
-    /**
-     * Indicates that the jar is readonly
-     * @var bool
-     */
-    protected $_readonly;
 
     /**
      * Gets an instanceof the Cookie Jar
@@ -59,24 +54,20 @@ class Jar extends \ArrayObject {
     }
 
     /**
-     * Indicates that the jar is readonly
-     * @return bool
-     */
-    public function isReadOnly() {
-        return $this->_readonly;
-    }
-
-    /**
      * Class construct
      * @param array $array
      * @param bool  $readonly indicates that the jar should be readonly
      * @return void
      */
-    public function __construct(array $array = null, $readonly = false) {
-        parent::__construct();
-
-        $this->setCookies($array, true);
-        $this->_readonly = is_bool($readonly) ? $readonly : false;
+    public function __construct(array $array = null, array $options = null) {
+        parent::__construct($array, array_merge(is_array($options) ? $options : array(
+                'readonly' => false
+            ), array(
+                'type' => 'Mu\Http\Cookie',
+                'indexType' => static::INDEX_ASSOCITIVE
+            )
+        ));
+        $this->setFlags(self::ARRAY_AS_PROPS);
     }
 
     /**
@@ -87,10 +78,6 @@ class Jar extends \ArrayObject {
      * @throws \Mu\Http\Cookie\Exception\InvalidInstance
      */
     public function offsetSet($key, $value) {
-        if ($this->isReadOnly()) {
-            throw new Jar\Exception\ReadOnly('Cannot write to cookie jar when it is read only');
-        }
-
         if (is_string($value)) {
             $value = new Cookie(array(
                 'name' => $key,
@@ -134,8 +121,21 @@ class Jar extends \ArrayObject {
      * @return void
      */
     public function send() {
+        if ($this->isReadOnly()) {
+            return;
+        }
+
         foreach ($this as $cookie) {
             $cookie->send();
         }
+    }
+
+    /**
+     * Gets a cookie
+     *
+     * @param $name
+     */
+    public function getCookie($name) {
+        return $this[$name];
     }
 }

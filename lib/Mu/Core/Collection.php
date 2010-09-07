@@ -49,10 +49,16 @@ class Collection extends ArrayObject {
     protected $_type;
 
     /**
-     * Indicates if the collection must be ass
-     * @var unknown_type
+     * The index type
+     * @var int
      */
     protected $_indexType;
+
+    /**
+     * Indicates that the collection is read only
+     * @var unknown_type
+     */
+    protected $_readonly;
 
     /**
      * Gets the collection type
@@ -103,22 +109,40 @@ class Collection extends ArrayObject {
     }
 
     /**
+     * Indicates that the collection is redaonly
+     * @return bool
+     */
+    public function isReadOnly() {
+        return $this->_readonly;
+    }
+
+    /**
      * Class construct
      * @param array|\ArrayObject|null $array
      * @return void
      */
-    public function __construct($array = null, $type = null, $indexType = self::INDEX_MIXED) {
+    public function __construct($array = null, array $options = null) {
         parent::__construct();
 
-        if ((null !== $type) && !is_string($type)) {
+        if (!is_array($options)) {
+            $options = array();
+        }
+
+        $options = array_merge(array(
+            'type' => null,
+            'indexType' => static::INDEX_MIXED,
+            'readonly' => false,
+        ), $options);
+
+        if ((null !== $options['type']) && !is_string($options['type'])) {
             throw new Collection\Exception\InvalidType('Type must be a string');
         }
-        $this->_type = $type;
+        $this->_type = $options['type'];
 
-        if (!in_array($indexType, array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCITIVE), true)) {
+        if (!in_array($options['indexType'], array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCITIVE), true)) {
             throw new Collection\Exception\InvalidIndex('Index type must be mixed, numeric or associtive');
         }
-        $this->_indexType = $indexType;
+        $this->_indexType = $options['indexType'];
 
         if (is_array($array) || ($array instanceof \ArrayObject)) {
             // this is done so that the overloaded offsetSet is called
@@ -126,6 +150,8 @@ class Collection extends ArrayObject {
                 $this[$index] = $value;
             }
         }
+
+        $this->_readonly = (bool) $options['readonly'];
     }
 
     /**
@@ -136,11 +162,16 @@ class Collection extends ArrayObject {
      * @return void
      */
     public function offsetSet($index, $value) {
+        if ($this->isReadOnly()) {
+            throw new Collection\Exception\ReadOnly('Cannot write to collection when it is read only');
+        }
+
         if  (null !== ($validator = $this->getTypeValidator())) {
             if (!call_user_func($validator, $value)) {
                 throw new Collection\Exception\InvalidType('Value must be of type: ' . $this->getType());
             }
         }
+
         switch ($this->getIndexType()) {
             case static::INDEX_NUMERIC :
                 if (!is_numeric($index)) {
