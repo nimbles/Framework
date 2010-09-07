@@ -45,5 +45,6 @@ class RequestTest extends TestCase {
         $request = $this->createRequest();
         $this->assertType('Mu\Core\Request\RequestAbstract', $request);
         $this->assertEquals('hello world', $request->getBody());
+        $this->assertEquals('hello world', $request->body);
     }
 }

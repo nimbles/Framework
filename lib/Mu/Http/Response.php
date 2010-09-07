@@ -40,6 +40,7 @@ use Mu\Core\Response\ResponseAbstract,
  * @uses       \Mu\Http\Cookie\Jar
  *
  * @property   \Mu\Http\Header\Collection $header
+ * @property   \Mu\Http\Cookie\Jar $cookie
  */
 class Response extends ResponseAbstract {
     /**
@@ -303,29 +304,16 @@ class Response extends ResponseAbstract {
      * @return mixed
      */
     public function __get($name) {
-        switch ($name) {
-            case 'header' :
-                return $this->getHeader();
-                break;
+        if (in_array($name, array(
+            'header',
+            'cookie',
+            'session'
+        ))) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
         }
 
         return parent::__get($name);
-    }
-
-    /**
-     * Magic __set to provide accesses for some properties
-     * @param string $name
-     * @param mixed  $value
-     * @return mixed
-     */
-    public function __set($name, $value) {
-        switch ($name) {
-            case 'header' :
-                return $this->setHeader($value);
-                break;
-        }
-
-        return parent::__set($name, $value);
     }
 
     /**

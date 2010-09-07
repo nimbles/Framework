@@ -139,16 +139,30 @@ class ResponseTest extends TestCase {
             'value' => 'value2',
             'expires' => 200
         )));
+        $response->cookie->test3 = 'value3';
+
         $this->assertCollection('\Mu\Http\Cookie', $response->getCookie());
+        $this->assertCollection('\Mu\Http\Cookie', $response->cookie);
 
         $cookie1 = $response->getCookie('test1');
         $cookie2 = $response->getCookie('test2');
+        $cookie3 = $response->getCookie('test3');
 
+        $this->assertType('Mu\Http\Cookie', $cookie1);
         $this->assertEquals('value1', $cookie1->getValue());
         $this->assertEquals(0, $cookie1->getExpires());
 
+        $this->assertType('Mu\Http\Cookie', $cookie2);
         $this->assertEquals('value2', $cookie2->getValue());
         $this->assertEquals(200, $cookie2->getExpires());
+
+        $this->assertType('Mu\Http\Cookie', $cookie3);
+        $this->assertEquals('value3', $cookie3->getValue());
+        $this->assertEquals(0, $cookie3->getExpires());
+
+        $this->assertSame($cookie1, $response->cookie->test1);
+        $this->assertSame($cookie2, $response->cookie->test2);
+        $this->assertSame($cookie3, $response->cookie->test3);
     }
 
     /**
@@ -166,12 +180,22 @@ class ResponseTest extends TestCase {
             'test2' => 123
         );
 
+        $this->assertType('Mu\Http\Session', $response->getSession());
+        $this->assertType('Mu\Http\Session', $response->session);
+
         $this->assertEquals('abc', $response->getSession('test1'));
+        $this->assertEquals('abc', $response->session->test1);
+
         $this->assertEquals(123, $response->getSession('test2'));
+        $this->assertEquals(123, $response->session->test2);
+
         $this->assertNull($response->getSession('test3'));
+        $this->assertNull($response->session->test3);
 
         $response->setSession('test3', 'def');
+
         $this->assertEquals('def', $response->getSession('test3'));
+        $this->assertEquals('def', $response->session->test3);
     }
 
    /**

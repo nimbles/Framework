@@ -240,6 +240,10 @@ class Session extends MixinAbstract {
      * @return bool
      */
     public function exists($key) {
+        if (!$this->isStarted()) {
+            throw new Session\Exception\SessionStarted('Cannot check for existing values when the session has not been started');
+        }
+
         return $this->offsetExists($key);
     }
 
@@ -276,5 +280,27 @@ class Session extends MixinAbstract {
      */
     public function clear() {
         return $this->clearValues();
+    }
+
+    /**
+     * Magic __get to get session values
+     * @param string $key
+     * @return mixed
+     */
+    public function __get($key) {
+        if ($this->exists($key)) {
+            return $this->read($key);
+        }
+        return parent::__get($key);
+    }
+
+    /**
+     * Magic __set to set session values
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     */
+    public function __set($key, $value) {
+        return $this->write($key, $value);
     }
 }

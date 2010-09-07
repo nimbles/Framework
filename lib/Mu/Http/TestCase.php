@@ -221,6 +221,8 @@ class TestCase extends \Mu\Core\TestCase {
         $session->setDelegate('readValue', array('\Mu\Http\TestCase', 'readSession'));
         $session->setDelegate('writeValue', array('\Mu\Http\TestCase', 'writeSession'));
         $session->setDelegate('clearValues', array('\Mu\Http\TestCase', 'clearSession'));
+        $session->setDelegate('offsetExists', array('\Mu\Http\TestCase', 'sessionKeyExists'));
+
         return $session;
     }
 
@@ -371,6 +373,15 @@ class TestCase extends \Mu\Core\TestCase {
      */
     static public function clearSession() {
         static::$_session = array();
+    }
+
+    /**
+     * Checks if a session key exists
+     * @param string $key
+     * @return bool
+     */
+    static public function sessionKeyExists($key) {
+        return array_key_exists($key, static::$_session);
     }
 
     /**
