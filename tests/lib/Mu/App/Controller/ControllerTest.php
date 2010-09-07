@@ -20,7 +20,8 @@ namespace Tests\Lib\Mu\App\Controller;
 
 require_once 'ControllerMock.php';
 
-use Mu\App\TestCase;
+use Mu\App\TestCase,
+    Mu\App\Controller\ControllerAbstract;
 
 /**
  * @category   Mu
@@ -49,10 +50,10 @@ class ControllerTest extends TestCase {
     }
 
     /**
-     * Tests dispatching an action
+     * Tests dispatching an action with no helpers or plugins
      * @return void
      */
-    public function testAction() {
+    public function testSimpleAction() {
         $methods = array(
             'testAction',
             'notifyPreDispatch',
@@ -72,5 +73,64 @@ class ControllerTest extends TestCase {
         }
 
         $controller->dispatch('testAction');
+    }
+
+    /**
+     * Tests dispatching an action with plugins, checks if the plugins are notified
+     * @return void
+     */
+    public function testPluginAction() {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+
+        $plugins = array();
+        // add 3 plugins
+        for($i = 0; $i < 3; $i++) {
+            $plugin = $this->getMock(
+                'Tests\Lib\Mu\App\Controller\Plugin\PluginMock',
+                array('update')
+            );
+            $plugin->expects($this->exactly(2))->method('update')->with($controller);
+            $controller->plugins->attach('plugin' . $i, $plugin);
+
+            // add a second plugin to test states
+            $plugins[$i] = new Plugin\PluginMock();
+            $controller->plugins->attach('pluginStates' . $i, $plugins[$i]);
+        }
+
+        $controller->dispatch('testAction');
+
+        // test the plugins were called pre and post dispatch
+        foreach($plugins as $plugin) {
+            $this->assertSame(array(
+                ControllerAbstract::STATE_PREDISPATCH,
+                ControllerAbstract::STATE_POSTDISPATCH
+            ), $plugin->getStates());
+        }
+    }
+
+    /**
+     * Tests dispatching an action with helpers, checks if the helpers are notified
+     * @return void
+     */
+    public function testHelperAction() {
+        $controller = new ControllerMock(new RequestMock(), new ResponseMock());
+
+        $helperMock = $this->getMock(
+            'Tests\Lib\Mu\App\Controller\Helper\HelperMock',
+            array('update')
+        );
+        $helperMock->expects($this->exactly(2))->method('update')->with($controller);
+        $controller->helpers->attach('helperMock', $helperMock);
+
+        $helper = new Helper\HelperMock();
+        $controller->helpers->attach('helper', $helper);
+
+        $controller->dispatch('testAction');
+
+        // test the plugins were called pre and post dispatch
+        $this->assertSame(array(
+            ControllerAbstract::STATE_PREDISPATCH,
+            ControllerAbstract::STATE_POSTDISPATCH
+        ), $helper->getStates());
     }
 }
