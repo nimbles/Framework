@@ -10,27 +10,27 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Core\Controller;
+namespace Tests\Lib\Mu\App\Controller;
 
-use Mu\Core\Controller\ControllerAbstract,
+use Mu\App\Controller\ControllerAbstract,
     Mu\Core\Request\RequestAbstract,
     Mu\Core\Response\ResponseAbstract;
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Controller\ControllerAbstract
+ * @uses       \Mu\App\Controller\ControllerAbstract
  */
 class ControllerMock extends ControllerAbstract {
     public function testAction() {}
@@ -38,7 +38,7 @@ class ControllerMock extends ControllerAbstract {
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
@@ -54,7 +54,7 @@ class RequestMock extends RequestAbstract {
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License

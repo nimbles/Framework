@@ -10,24 +10,39 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Cli;
+namespace Tests\lib\Mu\App;
 
-use Mu\Core;
+require_once 'Controller/AllTests.php';
+
+use Mu\App\TestSuite;
 
 /**
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Exception
+ * @uses       \Mu\App\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-App
  */
-class Exception extends Core\Exception {}
+class AllTests extends TestSuite {
+    /**
+     * Creates the Test Suite for Mu Framework - App
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    static public function suite() {
+        $suite = new TestSuite('Mu Framework - App');
+
+        $suite->addTest(Controller\AllTests::suite());
+
+        return $suite;
+    }
+}

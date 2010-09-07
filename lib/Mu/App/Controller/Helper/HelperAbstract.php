@@ -10,41 +10,31 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Core\Controller;
+namespace Mu\App\Controller\Helper;
 
-require_once 'ControllerTest.php';
-
-use Mu\Core\TestSuite;
+use Mu\App\Controller\Plugin\PluginAbstract;
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
- *
- * @group      Mu
- * @group      Mu-Core
- * @group      Mu-Core-Controller
+ * @uses       \Mu\App\Controller\Plugin\PluginAbstract
  */
-class AllTests extends TestSuite {
+abstract class HelperAbstract extends PluginAbstract {
     /**
-     * Creates the Test Suite for Mu Framework - Core - Controller
-     * @return \PHPUnit_Framework_TestSuite
+     * Invoke declared abstract as a helper must have an invoke magic method
+     * arguments to be obtained via func_get_args
+     * @return mixed
      */
-    static public function suite() {
-        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Controller');
-
-        $suite->addTestSuite('\Tests\Lib\Mu\Core\Controller\ControllerTest');
-        return $suite;
-    }
+    abstract public function __invoke();
 }

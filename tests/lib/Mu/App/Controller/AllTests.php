@@ -10,47 +10,41 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu;
+namespace Tests\Lib\Mu\App\Controller;
 
-require_once 'MuTest.php';
-require_once 'Core/AllTests.php';
-require_once 'Cli/AllTests.php';
-require_once 'Http/AllTests.php';
-require_once 'App/AllTests.php';
+require_once 'ControllerTest.php';
 
-use Mu\Core\TestSuite;
+use Mu\App\TestSuite;
 
 /**
  * @category   Mu
- * @package    Mu
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\App\TestSuite
  *
  * @group      Mu
+ * @group      Mu-App
+ * @group      Mu-App-Controller
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for All Tests
+     * Creates the Test Suite for Mu Framework - App - Controller
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('Mu Framework');
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - App - Controller');
 
-        $suite->addTestSuite('\Tests\Lib\Mu\MuTest');
-
-        $suite->addTest(Core\AllTests::suite());
-        $suite->addTest(Cli\AllTests::suite());
-        $suite->addTest(Http\AllTests::suite());
-        $suite->addTest(App\AllTests::suite());
-
+        $suite->addTestSuite('\Tests\Lib\Mu\App\Controller\ControllerTest');
         return $suite;
     }
 }

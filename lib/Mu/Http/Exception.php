@@ -18,6 +18,8 @@
 
 namespace Mu\Http;
 
+use Mu\Core;
+
 /**
  * @category   Mu
  * @package    Mu-Http
@@ -28,4 +30,4 @@ namespace Mu\Http;
  *
  * @uses       \Mu\Core\Exception
  */
-class Exception extends \Mu\Core\Exception {}
+class Exception extends Core\Exception {}

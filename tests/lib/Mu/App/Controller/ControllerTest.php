@@ -10,46 +10,47 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Core\Controller;
+namespace Tests\Lib\Mu\App\Controller;
 
 require_once 'ControllerMock.php';
 
-use Mu\Core\TestCase;
+use Mu\App\TestCase;
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestCase
+ * @uses       \Mu\App\TestCase
  *
  * @group      Mu
- * @group      Mu-Core
- * @group      Mu-Core-Controller
+ * @group      Mu-App
+ * @group      Mu-App-Controller
  */
 class ControllerTest extends TestCase {
     /**
-     * Tests that the Mu\Core\Controller\Exception\ActionNotFound exception is thrown when
+     * Tests that the Mu\App\Controller\Exception\ActionNotFound exception is thrown when
      * trying to dispatch an action that doesnt exist
      * @return void
      */
     public function testNoAction() {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
-        $this->setExpectedException('Mu\Core\Controller\Exception\ActionNotFound');
+        $this->setExpectedException('Mu\App\Controller\Exception\ActionNotFound');
         $controller->dispatch('missingAction');
     }
 
     /**
      * Tests dispatching an action
+     * @return void
      */
     public function testAction() {
         $methods = array(
@@ -61,7 +62,7 @@ class ControllerTest extends TestCase {
         );
 
         $controller = $this->getMock(
-            'Tests\Lib\Mu\Core\Controller\ControllerMock',
+            'Tests\Lib\Mu\App\Controller\ControllerMock',
             $methods,
             array(new RequestMock(), new ResponseMock())
         );

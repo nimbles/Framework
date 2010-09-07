@@ -10,20 +10,20 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Controller\Plugin;
+namespace Mu\App\Controller\Plugin;
 
-use Mu\Core\Controller\ControllerAbstract,
+use Mu\App\Controller\ControllerAbstract,
     Mu\Core\Mixin\MixinAbstract;
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
@@ -32,7 +32,7 @@ use Mu\Core\Controller\ControllerAbstract,
  * @uses       \Mu\Core\Mixin\MixinAbstract
  * @uses       \Mu\Core\Config\Options
  *
- * @uses       \Mu\Core\Controller\ControllerAbstract
+ * @uses       \Mu\App\Controller\ControllerAbstract
  */
 abstract class PluginAbstract extends MixinAbstract {
     /**
@@ -45,13 +45,13 @@ abstract class PluginAbstract extends MixinAbstract {
 
     /**
      * The controller which this plugin has been updated by
-     * @var \Mu\Core\Controller\ControllerAbstract
+     * @var \Mu\App\Controller\ControllerAbstract
      */
     protected $_controller;
 
     /**
      * Gets the controller which this plugin has been updated by
-     * @return \Mu\Core\Controller\ControllerAbstract
+     * @return \Mu\App\Controller\ControllerAbstract
      */
     public function getController() {
         return $this->_controller;
@@ -69,8 +69,8 @@ abstract class PluginAbstract extends MixinAbstract {
 
     /**
      * Update the plugin
-     * @param \Mu\Core\Controller\ControllerAbstract $controller The controller is passed in by reference
-     * @return \Mu\Core\Controller\Plugin\PluginAbstract
+     * @param \Mu\App\Controller\ControllerAbstract $controller The controller is passed in by reference
+     * @return \Mu\App\Controller\Plugin\PluginAbstract
      */
     public function update(ControllerAbstract &$controller) {
         $this->_controller =& $controller;

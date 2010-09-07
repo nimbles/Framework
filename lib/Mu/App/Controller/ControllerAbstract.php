@@ -10,13 +10,13 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Controller;
+namespace Mu\App\Controller;
 
 use Mu\Core\Request\RequestAbstract,
     Mu\Core\Response\ResponseAbstract,
@@ -24,7 +24,7 @@ use Mu\Core\Request\RequestAbstract,
 
 /**
  * @category   Mu
- * @package    Mu-Core
+ * @package    Mu-App
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
@@ -36,10 +36,11 @@ use Mu\Core\Request\RequestAbstract,
  *
  * @uses       \Mu\Core\Request\RequestAbstract
  * @uses       \Mu\Core\Response\ResponseAbstract
- * @uses       \Mu\Core\Controller\Exception\ActionNotFound
- * @uses       \Mu\Core\Controller\Resource\ResourceAbstract
- * @uses       \Mu\Core\Controller\Helper\HelperAbstract
- * @uses       \Mu\Core\Controller\Plugin\PluginAbstract
+ *
+ * @uses       \Mu\App\Controller\Exception\ActionNotFound
+ * @uses       \Mu\App\Controller\Resource\ResourceAbstract
+ * @uses       \Mu\App\Controller\Helper\HelperAbstract
+ * @uses       \Mu\App\Controller\Plugin\PluginAbstract
  *
  * @property   \Mu\Core\Request\RequestAbstract $request
  * @property   \Mu\Core\Response\ResponseAbstract $response
@@ -54,13 +55,13 @@ abstract class ControllerAbstract extends MixinAbstract {
             'Mu\Core\Plugin\Pluginable' => array(
                 'types' => array(
                     'resources' => array(
-                        'abstract' => 'Mu\Core\Controller\Resource\ResourceAbstract'
+                        'abstract' => 'Mu\App\Controller\Resource\ResourceAbstract'
                     ),
                     'helpers' => array(
-                        'abstract' => 'Mu\Core\Controller\Helper\HelperAbstract'
+                        'abstract' => 'Mu\App\Controller\Helper\HelperAbstract'
                     ),
                     'plugins' => array(
-                        'abstract' => 'Mu\Core\Controller\Plugin\PluginAbstract'
+                        'abstract' => 'Mu\App\Controller\Plugin\PluginAbstract'
                     )
                 )
             ),
@@ -114,7 +115,7 @@ abstract class ControllerAbstract extends MixinAbstract {
     /**
      * Sets the dispatch state
      * @param int $state
-     * @return \Mu\Core\Controller\ControllerAbstract
+     * @return \Mu\App\Controller\ControllerAbstract
      */
     public function setDispatchState($state) {
         $this->_dispatchState = is_int($state) ? $state : $this->_dispatchState;
@@ -181,7 +182,7 @@ abstract class ControllerAbstract extends MixinAbstract {
 
     /**
      * Notifies the plugins and helpers of the pre dispatch state
-     * @return \Mu\Core\Controller\ControllerAbstract
+     * @return \Mu\App\Controller\ControllerAbstract
      */
     public function notifyPreDispatch() {
         $this->setDispatchState(static::STATE_PREDISPATCH);
@@ -221,7 +222,7 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @param string     $action
      * @param array|null $params
      * @return mixed
-     * @throws \Mu\Core\Controller\Exception\ActionNotFound
+     * @throws \Mu\App\Controller\Exception\ActionNotFound
      */
     protected function _dispatchAction($action, array $params = null) {
         $this->setDispatchState(static::STATE_DISPATCH);

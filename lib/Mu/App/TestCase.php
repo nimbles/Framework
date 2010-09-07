@@ -10,24 +10,24 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Core
- * @subpackage Controller
+ * @package    Mu-App
+ * @subpackage TestCase
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Core\Controller\Exception;
+namespace Mu\App;
 
-use Mu\Core\Controller\Exception;
+use Mu\Core;
 
 /**
  * @category   Mu
- * @package    Mu-Core
- * @subpackage Controller
+ * @package    Mu-App
+ * @subpackage TestCase
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Controller\Exception
+ * @uses       \Mu\Core\TestCase
  */
-class ActionNotFound extends Exception {}
+class TestCase extends Core\TestCase {}
