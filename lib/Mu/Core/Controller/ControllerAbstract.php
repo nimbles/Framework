@@ -40,6 +40,9 @@ use Mu\Core\Request\RequestAbstract,
  * @uses       \Mu\Core\Controller\Resource\ResourceAbstract
  * @uses       \Mu\Core\Controller\Helper\HelperAbstract
  * @uses       \Mu\Core\Controller\Plugin\PluginAbstract
+ *
+ * @property   \Mu\Core\Request\RequestAbstract $request
+ * @property   \Mu\Core\Response\ResponseAbstract $response
  */
 abstract class ControllerAbstract extends MixinAbstract {
     /**
@@ -163,6 +166,20 @@ abstract class ControllerAbstract extends MixinAbstract {
     }
 
     /**
+     * Magic __get to provider accesses for request and response
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        if (in_array($name, array('request', 'response'))) {
+            $method = 'get' . ucfirst($name);
+            return $this->$method();
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
      * Notifies the plugins and helpers of the pre dispatch state
      * @return \Mu\Core\Controller\ControllerAbstract
      */
@@ -187,14 +204,16 @@ abstract class ControllerAbstract extends MixinAbstract {
      * @return void
      */
     public function dispatch($action, array $params = null) {
-        $this->notifyPreDispatch()->preDispatch();
+        $this->notifyPreDispatch(); // not chained the user may forget to return $this
+        $this->preDispatch();
 
         if ('Action' !== substr($action, -6)) {
             $action .= 'Action';
         }
         $this->_actionData = $this->_dispatchAction($action, $params);
 
-        $this->notifyPostDispatch()->postDispatch();
+        $this->notifyPostDispatch(); // not chained the user may forget to return $this
+        $this->postDispatch();
     }
 
     /**

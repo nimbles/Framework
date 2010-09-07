@@ -11,32 +11,40 @@
  *
  * @category   Mu
  * @package    Mu-Core
- * @subpackage Delegates
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Core\Delegates;
+namespace Tests\Lib\Mu\Core\Controller;
+
+require_once 'ControllerTest.php';
+
+use Mu\Core\TestSuite;
 
 /**
  * @category   Mu
  * @package    Mu-Core
- * @subpackage Delegates
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
+ *
+ * @uses       \Mu\Core\TestSuite
+ *
+ * @group      Mu
+ * @group      Mu-Core
+ * @group      Mu-Core-Controller
  */
-class DelegatableMock extends \Mu\Core\Mixin\MixinAbstract {
+class AllTests extends TestSuite {
     /**
-     * Gets the array of implements for this mixin
-     * @var array
+     * Creates the Test Suite for Mu Framework - Core - Controller
+     * @return \PHPUnit_Framework_TestSuite
      */
-    static protected function _getImplements() {
-        return array('Mu\Core\Delegates\Delegatable' => array(
-            'delegates' => array(
-                'method1' => function() { return true; },
-                'method2' => function() { return false; },
-            )
-        ));
+    static public function suite() {
+        $suite = new \PHPUnit_Framework_TestSuite('Mu Framework - Core - Controller');
+
+        $suite->addTestSuite('\Tests\Lib\Mu\Core\Controller\ControllerTest');
+        return $suite;
     }
 }
