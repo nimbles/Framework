@@ -10,24 +10,22 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http
+ * @package    Mu-Https
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Http;
-
-use Mu\Core\Controller\ControllerAbstract;
+namespace Mu\Https;
 
 /**
  * @category   Mu
- * @package    Mu-Http
+ * @package    Mu-Https
  * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Controller\ControllerAbstract
+ * @uses       \Mu\Http\Controller
  */
-class Controller extends ControllerAbstract {}
+class Controller extends \Mu\Http\Controller {}

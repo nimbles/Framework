@@ -4,30 +4,28 @@
  *
  * LICENSE
  *
- * This source file is subject to the MIT license that is bundled
+ * This shouce file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Http
- * @subpackage Controller
+ * @package    Mu-Https
+ * @subpackage Response
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Http;
-
-use Mu\Core\Controller\ControllerAbstract;
+namespace Mu\Https;
 
 /**
  * @category   Mu
- * @package    Mu-Http
- * @subpackage Controller
+ * @package    Mu-Https
+ * @subpackage Response
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Controller\ControllerAbstract
+ * @uses       \Mu\Http\Response
  */
-class Controller extends ControllerAbstract {}
+class Response extends \Mu\Http\Response {}
