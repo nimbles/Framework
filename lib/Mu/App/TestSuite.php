@@ -10,24 +10,24 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Cli;
+namespace Mu\App;
 
 use Mu\Core;
 
 /**
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Exception
+ * @uses       \Mu\Core\TestSuite
  */
-class Exception extends Core\Exception {}
+class TestSuite extends Core\TestSuite {}

@@ -10,19 +10,19 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Cli
+ * @package    Mu-App
  * @subpackage Exception
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Cli;
+namespace Mu\App;
 
 use Mu\Core;
 
 /**
  * @category   Mu
- * @package    Mu-Cli
+ * @package    Mu-App
  * @subpackage Exception
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License

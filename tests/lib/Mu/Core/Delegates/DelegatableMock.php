@@ -9,19 +9,22 @@
  * It is also available at this URL:
  * http://mu-framework.com/license/mit
  *
- * @category  Mu
- * @package   \Mu\Core\Delegates
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Tests\Lib\Mu\Core\Delegates;
 
 /**
- * @category  Mu
- * @package   \Mu\Core\Delegates
- * @copyright Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license   http://mu-framework.com/license/mit MIT License
+ * @category   Mu
+ * @package    Mu-Core
+ * @subpackage Delegates
+ * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
+ * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
  */
 class DelegatableMock extends \Mu\Core\Mixin\MixinAbstract {
     /**

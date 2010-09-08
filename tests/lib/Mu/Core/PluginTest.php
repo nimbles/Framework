@@ -42,13 +42,19 @@ class PluginTest extends TestCase {
      * @return void
      */
     public function testPluginsAreUpdated() {
-        $plugin = $this->getMock('\Tests\Lib\Mu\Core\Plugin\PluginObserver', array('update'));
-        $plugin->expects($this->once())
+        $plugin1 = $this->getMock('\Tests\Lib\Mu\Core\Plugin\PluginObserver', array('update'));
+        $plugin1->expects($this->once())
+            ->method('update')
+            ->with($this->equalTo(true));
+
+        $plugin2 = $this->getMock('\Tests\Lib\Mu\Core\Plugin\PluginObserver', array('update'));
+        $plugin2->expects($this->once())
             ->method('update')
             ->with($this->equalTo(true));
 
         $plugins = new \Mu\Core\Plugin();
-        $plugins->attach('plugin', $plugin);
+        $plugins->attach('plugin1', $plugin1);
+        $plugins->attach('plugin2', $plugin2);
 
         $plugins->notify(true);
     }

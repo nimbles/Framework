@@ -11,23 +11,23 @@
  *
  * @category   Mu
  * @package    Mu-Cli
- * @subpackage Exception
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
 namespace Mu\Cli;
 
-use Mu\Core;
+use Mu\Core\Controller\ControllerAbstract;
 
 /**
  * @category   Mu
  * @package    Mu-Cli
- * @subpackage Exception
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Exception
+ * @uses       \Mu\Core\Controller\ControllerAbstract
  */
-class Exception extends Core\Exception {}
+class Controller extends ControllerAbstract {}

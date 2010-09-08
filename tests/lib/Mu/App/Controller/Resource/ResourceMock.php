@@ -10,24 +10,31 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
+namespace Tests\Lib\Mu\App\Controller\Resource;
 
-namespace Mu\Cli;
-
-use Mu\Core;
+use Mu\App\Controller\Resource\ResourceAbstract;
 
 /**
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Exception
+ * @uses       \Mu\App\Controller\Resource\ResourceAbstract
  */
-class Exception extends Core\Exception {}
+class ResourceMock extends ResourceAbstract {
+    protected $_counter = 0;
+
+    public function init() {
+        // increment counter to see how many times this has been initialized
+        $this->_counter++;
+        return 'resource' . $this->_counter;
+    }
+}

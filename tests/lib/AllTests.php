@@ -34,7 +34,7 @@ use Mu\Core\TestSuite;
 class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for All Tests
-     * @return \PHPUnit_Framework_TestSuite
+     * @return \Mu\Core\TestSuite
      */
     static public function suite() {
         $suite = new TestSuite('All Tests');

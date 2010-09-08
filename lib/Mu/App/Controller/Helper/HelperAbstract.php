@@ -10,24 +10,31 @@
  * http://mu-framework.com/license/mit
  *
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Cli;
+namespace Mu\App\Controller\Helper;
 
-use Mu\Core;
+use Mu\App\Controller\Plugin\PluginAbstract;
 
 /**
  * @category   Mu
- * @package    Mu-Cli
- * @subpackage Exception
+ * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Exception
+ * @uses       \Mu\App\Controller\Plugin\PluginAbstract
  */
-class Exception extends Core\Exception {}
+abstract class HelperAbstract extends PluginAbstract {
+    /**
+     * Invoke declared abstract as a helper must have an invoke magic method
+     * arguments to be obtained via func_get_args
+     * @return mixed
+     */
+    abstract public function __invoke();
+}
