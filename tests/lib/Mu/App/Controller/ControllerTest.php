@@ -18,6 +18,8 @@
 
 namespace Tests\Lib\Mu\App\Controller;
 
+use Tests\Lib\Mu\App\Controller\Plugin\ResponseSend;
+
 require_once 'ControllerMock.php';
 
 use Mu\App\TestCase,
@@ -137,16 +139,21 @@ class ControllerTest extends TestCase {
     /**
      * Tests using a helper within a controller
      * @param string $dispatchMethod
+     * @param string $expectedMethod The expected method to be called on the helper
      * @return void
      * @dataProvider actionHelperDispatchMethodProvider
      */
-    public function testActionHelper($dispatchMethod) {
+    public function testActionHelper($dispatchMethod, $expectedMethod) {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
-        $helper = new Helper\HelperMock();
+
+        $helper = $this->getMock(
+            'Tests\Lib\Mu\App\Controller\Helper\HelperMock',
+            array($expectedMethod)
+        );
+        $helper->expects($this->once())->method($expectedMethod);
         $controller->helpers->attach('states', $helper);
 
         $controller->dispatch($dispatchMethod);
-        $this->assertSame(array(ControllerAbstract::STATE_PREDISPATCH), $controller->dump);
     }
 
     /**
@@ -166,6 +173,27 @@ class ControllerTest extends TestCase {
         // dispatch again to check resource is the the same
         $controller->dispatch($dispatchMethod);
         $this->assertEquals('resource1', $controller->dump);
+    }
+
+    /**
+     * Tests that when dispatching the different action methods the send
+     * is always called
+     *
+     * @param string $action
+     * @return void
+     * @dataProvider actionProvider
+     */
+    public function testPluginSend($action) {
+        $response = $this->getMock(
+            'Tests\Lib\Mu\App\Controller\ResponseMock',
+            array('send')
+        );
+
+        $response->expects($this->once())->method('send');
+
+        $controller = new ControllerMock(new RequestMock(), $response);
+        $controller->plugins->attach('send', new ResponseSend());
+        $controller->dispatch('testAction');
     }
 
     /**
@@ -201,8 +229,8 @@ class ControllerTest extends TestCase {
      */
     public function actionHelperDispatchMethodProvider() {
         return array(
-            array('helperMethodAction'),
-            array('helperDirectAction'),
+            array('helperMethodAction', 'getStates'),
+            array('helperDirectAction', '__invoke'),
         );
     }
 
@@ -212,6 +240,20 @@ class ControllerTest extends TestCase {
      */
     public function actionResourceDispatchMethodProvider() {
         return array(
+            array('resourceMethodAction'),
+            array('resourceDirectAction'),
+        );
+    }
+
+    /**
+     * Data provider for the action methods names in the controller mock
+     * @return array
+     */
+    public function actionProvider() {
+        return array(
+            array('testAction'),
+            array('helperMethodAction'),
+            array('helperDirectAction'),
             array('resourceMethodAction'),
             array('resourceDirectAction'),
         );
