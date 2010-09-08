@@ -66,9 +66,11 @@ class Curl extends AdapterAbstract {
         if ($value instanceof \Mu\Core\Config) {
             $value = $value->getArrayCopy();
         }
+
         if (!is_array($value)) {
             throw new Curl\Exception('Curl options must an array or an instance of \\Mu\\Core\\Config');
         }
+
         $this->_curlOptions = $value;
         return $this;
     }
@@ -88,7 +90,7 @@ class Curl extends AdapterAbstract {
         $ch = curl_init();
         curl_setopt_array($ch, $curlOptions);
 
-        if(!$result = curl_exec($ch)) {
+        if (!$result = curl_exec($ch)) {
             throw new Curl\Exception(curl_error($ch));
         }
         curl_close($ch);

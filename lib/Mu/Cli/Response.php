@@ -38,15 +38,18 @@ class Response extends ResponseAbstract {
      * @var array
      */
     static protected function _getImplements() {
-        return array_merge_recursive(parent::_getImplements(), array(
-            'Mu\Core\Delegates\Delegatable' => array(
-                'delegates' => array(
-                    'write' => function($body) {
-                        file_put_contents('php://stdout', $body);
-                    }
+        return array_merge_recursive(
+            parent::_getImplements(),
+            array(
+                'Mu\Core\Delegates\Delegatable' => array(
+                    'delegates' => array(
+                        'write' => function($body) {
+                            file_put_contents('php://stdout', $body);
+                        }
+                    )
                 )
             )
-        ));
+        );
     }
 
     /**

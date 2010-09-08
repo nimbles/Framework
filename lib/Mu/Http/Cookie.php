@@ -160,7 +160,7 @@ class Cookie extends MixinAbstract {
      * @return \Mu\Http\Cookie
      */
     public function setExpires($expires) {
-        if(is_string($expires)) {
+        if (is_string($expires)) {
             $expires = strtotime($expires) - time();
         }
         $this->_expires = (is_int($expires) && (0 <= $expires)) ? $expires : $this->_expires;

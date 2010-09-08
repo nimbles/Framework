@@ -60,13 +60,16 @@ class Jar extends Collection {
      * @return void
      */
     public function __construct(array $array = null, array $options = null) {
-        parent::__construct($array, array_merge(is_array($options) ? $options : array(
-                'readonly' => false
-            ), array(
-                'type' => 'Mu\Http\Cookie',
-                'indexType' => static::INDEX_ASSOCITIVE
+        parent::__construct(
+            $array,
+            array_merge(
+                is_array($options) ? $options : array('readonly' => false),
+                array(
+                    'type' => 'Mu\Http\Cookie',
+                    'indexType' => static::INDEX_ASSOCITIVE
+                )
             )
-        ));
+        );
         $this->setFlags(self::ARRAY_AS_PROPS);
     }
 
