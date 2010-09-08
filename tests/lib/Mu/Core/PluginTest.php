@@ -129,6 +129,22 @@ class PluginTest extends TestCase {
     }
 
     /**
+     * Tests that only a single instance of the same class can be registered when singleInstance
+     * option is set to true.
+     * @return void
+     */
+    public function testPluginSingleInstance() {
+        $plugins = new \Mu\Core\Plugin(array(
+            'singleInstance' => true
+        ));
+
+        $plugins->attach('plugin1', new \stdClass());
+
+        $this->setExpectedException('\Mu\Core\Plugin\Exception\PluginAlreadyRegistered');
+        $plugins->attach('plugin2', new \stdClass());
+    }
+
+    /**
      * Tests loading a plugin by a string
      * @return void
      */

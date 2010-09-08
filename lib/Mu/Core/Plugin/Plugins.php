@@ -18,7 +18,10 @@
 
 namespace Mu\Core\Plugin;
 
-use Mu\Core\Mixin\MixinAbstract;
+use Mu\Core\Plugin,
+    Mu\Core\Mixin\MixinAbstract,
+    Mu\Core\ArrayObject,
+    Mu\Core\Config;
 
 /**
  * @category   Mu
@@ -30,8 +33,7 @@ use Mu\Core\Mixin\MixinAbstract;
  *
  * @uses       \Mu\Core\Mixin\MixinAbstract
  * @uses       \Mu\Core\Config\Options
- *
- * @uses       \ArrayObject
+ * @uses       \Mu\Core\ArrayObject
  *
  * @uses       \Mu\Core\Config
  * @uses       \Mu\Core\Plugin
@@ -57,8 +59,8 @@ class Plugins extends MixinAbstract {
      * @return \Mu\Core\Plugin|null
      */
     public function getType($type) {
-        if (!($this->_types instanceof \ArrayObject)) {
-            $this->_types = new \ArrayObject();
+        if (!($this->_types instanceof ArrayObject)) {
+            $this->_types = new ArrayObject();
         }
 
         if ($this->_types->offsetExists($type)) {
@@ -67,8 +69,8 @@ class Plugins extends MixinAbstract {
 
         $types = $this->getOption('types');
 
-        if (!($types instanceof \Mu\Core\Config)) {
-            $types = new \Mu\Core\Config($types);
+        if (!($types instanceof Config)) {
+            $types = new Config($types);
         }
 
         foreach ($types as $key => $options) {
@@ -78,7 +80,7 @@ class Plugins extends MixinAbstract {
             }
 
             if ($type === $key) {
-                $this->_types[$type] = new \Mu\Core\Plugin($options);
+                $this->_types[$type] = new Plugin($options);
                 return $this->_types[$type];
             }
         }
@@ -130,8 +132,8 @@ class Plugins extends MixinAbstract {
     public function notify($object = null) {
         $types = $this->getOption('types');
 
-        if (!($types instanceof \Mu\Core\Config)) {
-            $types = new \Mu\Core\Config($types);
+        if (!($types instanceof Config)) {
+            $types = new Config($types);
         }
 
         foreach ($types as $key => $options) {
