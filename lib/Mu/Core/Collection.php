@@ -128,11 +128,14 @@ class Collection extends ArrayObject {
             $options = array();
         }
 
-        $options = array_merge(array(
-            'type' => null,
-            'indexType' => static::INDEX_MIXED,
-            'readonly' => false,
-        ), $options);
+        $options = array_merge(
+            array(
+                'type' => null,
+                'indexType' => static::INDEX_MIXED,
+                'readonly' => false,
+            ),
+            $options
+        );
 
         if ((null !== $options['type']) && !is_string($options['type'])) {
             throw new Collection\Exception\InvalidType('Type must be a string');
@@ -166,7 +169,7 @@ class Collection extends ArrayObject {
             throw new Collection\Exception\ReadOnly('Cannot write to collection when it is read only');
         }
 
-        if  (null !== ($validator = $this->getTypeValidator())) {
+        if (null !== ($validator = $this->getTypeValidator())) {
             if (!call_user_func($validator, $value)) {
                 throw new Collection\Exception\InvalidType('Value must be of type: ' . $this->getType());
             }

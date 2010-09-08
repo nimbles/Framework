@@ -48,17 +48,20 @@ class Response extends ResponseAbstract {
      * @var array
      */
     static protected function _getImplements() {
-        return array_merge_recursive(parent::_getImplements(), array(
-            'Mu\Core\Delegates\Delegatable' => array(
-                'delegates' => array(
-                    'headers_sent' => 'headers_sent',
-                    'header' => 'header',
-                    'write' => function($body) {
-                        echo $body;
-                    }
+        return array_merge_recursive(
+            parent::_getImplements(),
+            array(
+                'Mu\Core\Delegates\Delegatable' => array(
+                    'delegates' => array(
+                        'headers_sent' => 'headers_sent',
+                        'header' => 'header',
+                        'write' => function($body) {
+                            echo $body;
+                        }
+                    )
                 )
             )
-        ));
+        );
     }
 
     /**
@@ -304,11 +307,7 @@ class Response extends ResponseAbstract {
      * @return mixed
      */
     public function __get($name) {
-        if (in_array($name, array(
-            'header',
-            'cookie',
-            'session'
-        ))) {
+        if (in_array($name, array('header', 'cookie', 'session'))) {
             $method = 'get' . ucfirst($name);
             return $this->$method();
         }

@@ -57,8 +57,8 @@ class Options extends Configurable {
                         array('get', 'is')
                     );
 
-                    foreach($methods as $method) {
-                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                    foreach ($methods as $method) {
+                        if (method_exists($object, $method) || false !== $object->methodExists($method)) {
                             return $object->$method();
                         }
                     }
@@ -73,8 +73,8 @@ class Options extends Configurable {
                         },
                         array('set', 'is')
                     );
-                    foreach($methods as $method) {
-                        if(method_exists($object, $method) || false !== $object->methodExists($method)) {
+                    foreach ($methods as $method) {
+                        if (method_exists($object, $method) || false !== $object->methodExists($method)) {
                             return $object->$method($value);
                         }
                     }

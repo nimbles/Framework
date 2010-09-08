@@ -52,10 +52,16 @@ class Collection extends \Mu\Core\Collection {
      * @return void
      */
     public function __construct($array = null, array $options = null) {
-        parent::__construct($array, array_merge(is_array($options) ? $options : array(), array(
-            'type' => 'Mu\Http\Header',
-            'indexType' => static::INDEX_ASSOCITIVE
-        )));
+        parent::__construct(
+            $array,
+            array_merge(
+                is_array($options) ? $options : array(),
+                array(
+                    'type' => 'Mu\Http\Header',
+                    'indexType' => static::INDEX_ASSOCITIVE
+                )
+            )
+        );
         $this->setFlags(self::ARRAY_AS_PROPS);
     }
 

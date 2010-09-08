@@ -56,9 +56,11 @@ class Response extends Http\Response {
         $headers = explode($lineEnding, $headers);
         foreach ($headers as $header) {
             if (strstr($header, ': ')) {
-                $header = explode(': ', $header);
-                switch(strtolower($header[0])) {
+                $header = explode(':', $header, 2);
+                // @todo check for 2 parts
+                switch (strtolower($header[0])) {
                     case 'set-cookie':
+                        // @todo create method on Mu\Http\Cookie to create from a header
                         $cookieParts = array_reverse(array_map('trim', explode(';', $header[1])));
                         list($name, $value) = explode('=', array_pop($cookieParts));
                         $options = array (
@@ -66,7 +68,7 @@ class Response extends Http\Response {
                             'value' => $value
                         );
 
-                        while(count($cookieParts) > 0) {
+                        while (count($cookieParts) > 0) {
                             list($name, $value) = explode('=', array_pop($cookieParts));
                             $options[$name] = $value;
                         }

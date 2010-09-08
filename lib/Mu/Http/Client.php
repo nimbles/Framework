@@ -146,7 +146,7 @@ class Client extends MixinAbstract {
      */
     protected function _setLastBatch($batch) {
         if (null !== ($cookieJar = $this->getCookieJar())) {
-            foreach($batch as $result) {
+            foreach ($batch as $result) {
                 $response = $result['response'];
                 if (null !== $response->getCookie() && 0 < $response->getCookie()->count()) {
                     $cookieJar->setCookies($response->getCookie()->getArrayCopy());
@@ -192,7 +192,7 @@ class Client extends MixinAbstract {
         if (is_array($request)) {
             // Check if all the items are request objects
             $preparedRequests = array();
-            foreach($request as $aRequest) {
+            foreach ($request as $aRequest) {
                 $preparedRequests[] = $this->_prepareRequestInstance($aRequest, $method);
             }
 

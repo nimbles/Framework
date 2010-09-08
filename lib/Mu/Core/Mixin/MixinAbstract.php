@@ -102,7 +102,7 @@ abstract class MixinAbstract {
      * @throws \BadMethodCallException
      */
     public function __call($method, $args) {
-        if(false !== ($mixin = $this->methodExists($method, true))) {
+        if (false !== ($mixin = $this->methodExists($method, true))) {
             $object = $mixin->getObject();
             return call_user_func_array(
                 $mixin->getMethod($method),

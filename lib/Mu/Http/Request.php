@@ -53,30 +53,33 @@ class Request extends RequestAbstract {
      * @var array
      */
     static protected function _getImplements() {
-        return array_merge_recursive(parent::_getImplements(), array(
-            'Mu\Core\Delegates\Delegatable' => array(
-                'delegates' => array(
-                    'getCookieRaw' => function() {
-                        return $_COOKIE;
-                    },
-                    'getQueryRaw' => function() {
-                        return $_GET;
-                    },
-                    'getPostRaw' => function() {
-                        return $_POST;
-                    },
-                    'getFilesRaw' => function() {
-                        return $_FILES;
-                    },
-                    'createSession' => function() {
-                        $session = new Session();
-                        $session->setDelegate('writeValue', function() {}); // do nothing, make read only
-                        $session->setDelegate('clearValues', function() {}); // do nothing, make read only
-                    },
-                    'getInput' => array('\Mu\Http\Request', 'getRequestInput')
+        return array_merge_recursive(
+            parent::_getImplements(),
+            array(
+                'Mu\Core\Delegates\Delegatable' => array(
+                    'delegates' => array(
+                        'getCookieRaw' => function() {
+                            return $_COOKIE;
+                        },
+                        'getQueryRaw' => function() {
+                            return $_GET;
+                        },
+                        'getPostRaw' => function() {
+                            return $_POST;
+                        },
+                        'getFilesRaw' => function() {
+                            return $_FILES;
+                        },
+                        'createSession' => function() {
+                            $session = new Session();
+                            $session->setDelegate('writeValue', function() {}); // do nothing, make read only
+                            $session->setDelegate('clearValues', function() {}); // do nothing, make read only
+                        },
+                        'getInput' => array('\Mu\Http\Request', 'getRequestInput')
+                    )
                 )
             )
-        ));
+        );
     }
 
     /**
@@ -234,9 +237,10 @@ class Request extends RequestAbstract {
      */
     public function getHeader($key = null) {
         if (null === $this->_headers) {
-            $this->_headers = new Header\Collection($this->getServer(), array(
-                'readonly' => true
-            ));
+            $this->_headers = new Header\Collection(
+                $this->getServer(),
+                array('readonly' => true)
+            );
         }
 
         if (null === $key) {
@@ -260,14 +264,7 @@ class Request extends RequestAbstract {
      * @return mixed
      */
     public function __get($name) {
-        if (in_array($name, array(
-            'query',
-            'post',
-            'file',
-            'header',
-            'cookie',
-            'session'
-        ))) {
+        if (in_array($name, array('query', 'post', 'file', 'header', 'cookie', 'session'))) {
             $method = 'get' . ucfirst($name);
             return $this->$method();
         }

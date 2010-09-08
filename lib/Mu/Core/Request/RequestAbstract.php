@@ -107,10 +107,7 @@ abstract class RequestAbstract extends MixinAbstract
      * @return mixed
      */
     public function __get($name) {
-        if (in_array($name, array(
-            'server',
-            'body'
-        ))) {
+        if (in_array($name, array('server','body'))) {
             $method = 'get' . ucfirst($name);
             return $this->$method();
         }
