@@ -84,30 +84,30 @@ class ControllerTest extends TestCase {
     public function testPlugins() {
         $controller = new ControllerMock(new RequestMock(), new ResponseMock());
 
-        $plugins = array();
         // add 3 plugins
         for($i = 0; $i < 3; $i++) {
             $plugin = $this->getMock(
                 'Tests\Lib\Mu\App\Controller\Plugin\PluginMock',
-                array('update')
+                array('update'),
+                array(),
+                'PluginMock' . $i
             );
             $plugin->expects($this->exactly(2))->method('update')->with($controller);
             $controller->plugins->attach('plugin' . $i, $plugin);
-
-            // add a second plugin to test states
-            $plugins[$i] = new Plugin\PluginMock();
-            $controller->plugins->attach('pluginStates' . $i, $plugins[$i]);
         }
+
+        $plugin = new Plugin\PluginMock();
+        $controller->plugins->attach('pluginStates', $plugin);
 
         $controller->dispatch('testAction');
 
-        // test the plugins were called pre and post dispatch
-        foreach($plugins as $plugin) {
-            $this->assertSame(array(
-                ControllerAbstract::STATE_PREDISPATCH,
-                ControllerAbstract::STATE_POSTDISPATCH
-            ), $plugin->getStates());
-        }
+        $this->assertSame(array(
+            ControllerAbstract::STATE_PREDISPATCH,
+            ControllerAbstract::STATE_POSTDISPATCH
+        ), $plugin->getStates());
+
+        $this->setExpectedException('Mu\Core\Plugin\Exception\PluginAlreadyRegistered');
+        $controller->plugins->attach('pluginStates2', $plugin);
     }
 
     /**
@@ -134,6 +134,9 @@ class ControllerTest extends TestCase {
             ControllerAbstract::STATE_PREDISPATCH,
             ControllerAbstract::STATE_POSTDISPATCH
         ), $helper->getStates());
+
+        $this->setExpectedException('Mu\Core\Plugin\Exception\PluginAlreadyRegistered');
+        $controller->helpers->attach('helper2', $helper);
     }
 
     /**

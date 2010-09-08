@@ -58,10 +58,12 @@ abstract class ControllerAbstract extends MixinAbstract {
                         'abstract' => 'Mu\App\Controller\Resource\ResourceAbstract'
                     ),
                     'helpers' => array(
-                        'abstract' => 'Mu\App\Controller\Helper\HelperAbstract'
+                        'abstract' => 'Mu\App\Controller\Helper\HelperAbstract',
+                        'singleInstance' => true
                     ),
                     'plugins' => array(
-                        'abstract' => 'Mu\App\Controller\Plugin\PluginAbstract'
+                        'abstract' => 'Mu\App\Controller\Plugin\PluginAbstract',
+                        'singleInstance' => true
                     )
                 )
             ),
