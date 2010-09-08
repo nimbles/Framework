@@ -18,12 +18,27 @@
 
 namespace Mu\Core;
 
+use Mu\Core\ArrayObject;
+
 /**
  * @category   Mu
  * @package    Mu-Core
  * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
+ * @version    $Id$
+ *
+ * @uses       \Mu\Core\Mixin\MixinAbstract
+ * @uses       \IteratorAggregate
+ * @uses       \Mu\Core\Config\Options
+ *
+ * @uses       \Traversable
+ *
+ * @uses       \Mu\Core\ArrayObject
+ * @uses       \Mu\Core\Plugin\Exception\InvalidAbstract
+ * @uses       \Mu\Core\Plugin\Exception\InvalidInterface
+ * @uses       \Mu\Core\Plugin\Exception\PluginNotFound
+ * @uses       \Mu\Core\Plugin\Exception
  */
 class Plugin extends Mixin\MixinAbstract
     implements \IteratorAggregate {
@@ -38,9 +53,15 @@ class Plugin extends Mixin\MixinAbstract
 
     /**
      * Plugin collection
-     * @var \ArrayObject
+     * @var \Mu\Core\ArrayObject
      */
     protected $_plugins;
+
+    /**
+     * The class names which have been attached
+     * @var array|null
+     */
+    protected $_classNames;
 
     /**
      * Checks if a plugin exists
@@ -74,8 +95,8 @@ class Plugin extends Mixin\MixinAbstract
      * @return array
      */
     public function getPlugins() {
-        if (!($this->_plugins instanceof \ArrayObject)) {
-            $this->_plugins = new \ArrayObject();
+        if (!($this->_plugins instanceof ArrayObject)) {
+            $this->_plugins = new ArrayObject();
         }
 
         return $this->_plugins;
@@ -144,6 +165,20 @@ class Plugin extends Mixin\MixinAbstract
     public function attach($name, $plugin) {
         try {
             $ref = new \ReflectionClass($plugin);
+            if (true === $this->getOption('singleInstance')) {
+                if (!is_array($this->_classNames)) {
+                    $this->_classNames = array();
+                }
+
+                if (in_array($ref->getName(), $this->_classNames)) {
+                    throw new Plugin\Exception\PluginAlreadyRegistered(
+                        'Cannot register duplicate instances of the same class when running in single instance mode'
+                    );
+                }
+
+                $this->_classNames[] = $ref->getName();
+            }
+
             if (null !== ($abstract = $this->getOption('abstract'))) {
                 if (!$ref->isSubclassOf($abstract)) {
                     throw new Plugin\Exception\InvalidAbstract('Plugin does not extend abstract ' . $abstract);
@@ -154,8 +189,8 @@ class Plugin extends Mixin\MixinAbstract
                 }
             }
 
-            if (!is_array($this->_plugins) && !($this->_plugins instanceof \ArrayObject)) {
-                $this->_plugins = new \ArrayObject();
+            if (!is_array($this->_plugins) && !($this->_plugins instanceof ArrayObject)) {
+                $this->_plugins = new ArrayObject();
             }
 
             $this->_plugins[$name] = $plugin;
