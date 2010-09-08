@@ -18,7 +18,7 @@
 
 namespace Mu\Cli;
 
-use Mu\Core\Controller\ControllerAbstract;
+use Mu\App\Controller\ControllerAbstract;
 
 /**
  * @category   Mu
@@ -28,6 +28,6 @@ use Mu\Core\Controller\ControllerAbstract;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\Controller\ControllerAbstract
+ * @uses       \Mu\App\Controller\ControllerAbstract
  */
 class Controller extends ControllerAbstract {}
