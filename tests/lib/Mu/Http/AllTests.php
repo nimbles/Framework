@@ -36,7 +36,7 @@ use Mu\Http\TestSuite;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Mu\Http\TestSuite
  *
  * @group      Mu
  * @group      Mu-Http
@@ -44,7 +44,7 @@ use Mu\Http\TestSuite;
 class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for Mu Framework - Http
-     * @return \PHPUnit_Framework_TestSuite
+     * @return \Mu\Http\TestSuite
      */
     static public function suite() {
         $suite = new TestSuite('Mu Framework - Http');

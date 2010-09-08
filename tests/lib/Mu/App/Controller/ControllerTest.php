@@ -18,8 +18,6 @@
 
 namespace Tests\Lib\Mu\App\Controller;
 
-use Tests\Lib\Mu\App\Controller\Plugin\ResponseSend;
-
 require_once 'ControllerMock.php';
 
 use Mu\App\TestCase,
@@ -195,7 +193,7 @@ class ControllerTest extends TestCase {
         $response->expects($this->once())->method('send');
 
         $controller = new ControllerMock(new RequestMock(), $response);
-        $controller->plugins->attach('send', new ResponseSend());
+        $controller->plugins->attach('send', new Plugin\ResponseSend());
         $controller->dispatch('testAction');
     }
 

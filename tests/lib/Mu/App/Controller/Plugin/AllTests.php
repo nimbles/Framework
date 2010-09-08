@@ -11,19 +11,21 @@
  *
  * @category   Mu
  * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\lib\Mu\App;
+namespace Tests\Lib\Mu\App\Controller\Plugin;
 
-require_once 'Controller/AllTests.php';
+require_once 'PluginTest.php';
 
 use Mu\App\TestSuite;
 
 /**
  * @category   Mu
  * @package    Mu-App
+ * @subpackage Controller
  * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
@@ -32,17 +34,17 @@ use Mu\App\TestSuite;
  *
  * @group      Mu
  * @group      Mu-App
+ * @group      Mu-App-Controller
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Mu Framework - App
+     * Creates the Test Suite for Mu Framework - App - Controller - Plugin
      * @return \Mu\App\TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('Mu Framework - App');
+        $suite = new TestSuite('Mu Framework - App - Controller - Plugin');
 
-        $suite->addTest(Controller\AllTests::suite());
-
+        $suite->addTestSuite('\Tests\Lib\Mu\App\Controller\Plugin\PluginTest');
         return $suite;
     }
 }

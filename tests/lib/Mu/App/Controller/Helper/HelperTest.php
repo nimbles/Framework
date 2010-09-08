@@ -16,14 +16,11 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\App\Controller;
+namespace Tests\Lib\Mu\App\Controller\Helper;
 
-require_once 'ControllerTest.php';
-require_once 'Helper/AllTests.php';
-require_once 'Plugin/AllTests.php';
-require_once 'Resource/AllTests.php';
+require_once 'HelperMock.php';
 
-use Mu\App\TestSuite;
+use Mu\App\TestCase;
 
 /**
  * @category   Mu
@@ -33,26 +30,31 @@ use Mu\App\TestSuite;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\App\TestSuite
+ * @uses       \Mu\App\TestCase
  *
  * @group      Mu
  * @group      Mu-App
  * @group      Mu-App-Controller
  */
-class AllTests extends TestSuite {
+class HelperTest extends TestCase {
     /**
-     * Creates the Test Suite for Mu Framework - App - Controller
-     * @return \Mu\App\TestSuite
+     * Tests that the helper abstract extends plugin abstract
+     * @return void
      */
-    static public function suite() {
-        $suite = new TestSuite('Mu Framework - App - Controller');
+    public function testAbstract() {
+        $helper = new HelperMock();
+        $this->assertType('Mu\App\Controller\Helper\HelperAbstract', $helper);
+        $this->assertType('Mu\App\Controller\Plugin\PluginAbstract', $helper);
+    }
 
-        $suite->addTestSuite('\Tests\Lib\Mu\App\Controller\ControllerTest');
+    /**
+     * Tests that a helper implements the __invoke method
+     * @return void
+     */
+    public function testInvoke() {
+        $helper = new HelperMock();
 
-        $suite->addTest(Helper\AllTests::suite());
-        $suite->addTest(Plugin\AllTests::suite());
-        $suite->addTest(Resource\AllTests::suite());
-
-        return $suite;
+        $this->assertTrue(method_exists($helper, '__invoke'));
+        $this->assertTrue(is_callable($helper));
     }
 }

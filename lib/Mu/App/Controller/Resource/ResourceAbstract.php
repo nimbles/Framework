@@ -47,15 +47,32 @@ abstract class ResourceAbstract extends MixinAbstract {
     protected $_resource;
 
     /**
+     * Indicates that the resource has been initialized
+     * @var bool
+     */
+    protected $_initialized = false;
+
+    /**
      * Gets the resource
      * @return object
      */
     public function getResource() {
-        if (null === $this->_resource) {
+        if (!$this->isInitialized() && (null === $this->_resource)) {
             $this->_resource = $this->init();
+            $this->isInitialized(true);
         }
 
         return $this->_resource;
+    }
+
+    /**
+     * Indicates that the resource has been initialized
+     *
+     * @param bool|null $initialized
+     * @return bool
+     */
+    public function isInitialized($initialized = null) {
+        return $this->_initialized = is_bool($initialized) ? $initialized : $this->_initialized;
     }
 
     /**
