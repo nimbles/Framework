@@ -143,49 +143,7 @@ class Response extends ResponseAbstract {
             $this->_headers = new Header\Collection();
         }
 
-        $append = (bool) $append;
-
-        // @todo move logic to Header\Collection and refactor
-        if (is_array($name) || ($name instanceof \ArrayObject)) {
-            foreach ($name as $index => $header) {
-                if (is_string($index)) {
-                    $this->setHeader($index, $header);
-                } else {
-                    $this->setHeader($header);
-                }
-            }
-        } else if ($name instanceof Header) {
-            $header = $name;
-            $name = $header->getName();
-
-            if ($append && $this->_headers->offsetExists($name)) {
-                $this->_headers[$name]->merge($header);
-            } else {
-                $this->_headers[$name] = $header;
-            }
-        } else if (is_string($name)) {
-            if ($value instanceof Header) {
-                $name = $value->getName(); // sync to the headers name
-                $value = $value->getValue(); // converts to null, string or array
-            }
-
-            if (is_string($value) || (null === $value)) {
-                $value = array($value);
-            }
-
-            foreach ($value as $string) {
-                $header = Header::factory($name, $string);
-                $name = $header->getName();
-
-                if ($append && array_key_exists($name, $this->_headers)) {
-                    $this->_headers[$name]->merge($header);
-                } else {
-                    $this->_headers[$name] = $header;
-                }
-            }
-        }
-
-
+        $this->_headers->setHeader($name, $value, $append);
         return $this;
     }
 

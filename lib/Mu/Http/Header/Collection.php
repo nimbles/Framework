@@ -17,6 +17,8 @@
  */
 namespace Mu\Http\Header;
 
+use Mu\Http\Header;
+
 /**
  * @category   Mu
  * @package    Mu-Http
@@ -91,5 +93,58 @@ class Collection extends \Mu\Core\Collection {
      */
     public function getHeader($name) {
         return $this[$name];
+    }
+
+    /**
+     * Sets a header
+     *
+     * @param string|\Mu\Http\Header             $name
+     * @param string|\Mu\Http\Header|array|null  $value
+     * @param bool                               $append
+     * @return \Mu\Http\Header\Collection
+     */
+    public function setHeader($name, $value = null, $append = false) {
+        $append = (bool) $append;
+
+        if (is_array($name) || ($name instanceof \ArrayObject)) {
+            foreach ($name as $index => $header) {
+                if (is_string($index)) {
+                    $this->setHeader($index, $header);
+                } else {
+                    $this->setHeader($header);
+                }
+            }
+        } else if ($name instanceof Header) {
+            $header = $name;
+            $name = $header->getName();
+
+            if ($append && $this->offsetExists($name)) {
+                $this[$name]->merge($header);
+            } else {
+                $this[$name] = $header;
+            }
+        } else if (is_string($name)) {
+            if ($value instanceof Header) {
+                $name = $value->getName(); // sync to the headers name
+                $value = $value->getValue(); // converts to null, string or array
+            }
+
+            if (is_string($value) || (null === $value)) {
+                $value = array($value);
+            }
+
+            foreach ($value as $string) {
+                $header = Header::factory($name, $string);
+                $name = $header->getName();
+
+                if ($append && array_key_exists($name, $this)) {
+                    $this[$name]->merge($header);
+                } else {
+                    $this[$name] = $header;
+                }
+            }
+        }
+
+        return $this;
     }
 }
