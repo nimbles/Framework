@@ -70,6 +70,7 @@ class Mu {
      * Setup environment variables
      * @return void
      */
+    /* @codeCoverageIgnoreStart */
     protected function _setupEnvironmentVars() {
         if (!defined('MU_PATH')) {
             define('MU_PATH', realpath(dirname(__FILE__) . '/'));
@@ -78,4 +79,5 @@ class Mu {
             define('MU_LIBRARY', realpath(MU_PATH . '/Mu/'));
         }
     }
+    /* @codeCoverageIgnoreEnd */
 }

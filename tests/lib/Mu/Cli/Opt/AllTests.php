@@ -15,12 +15,9 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Tests\Lib\Mu\Cli;
+namespace Tests\Lib\Mu\Cli\Opt;
 
-require_once 'RequestTest.php';
-require_once 'ResponseTest.php';
-require_once 'OptTest.php';
-require_once 'Opt/AllTests.php';
+require_once 'CollectionTest.php';
 
 use Mu\Cli\TestSuite;
 
@@ -35,20 +32,17 @@ use Mu\Cli\TestSuite;
  *
  * @group      Mu
  * @group      Mu-Cli
+ * @group      Mu-Cli-Opt
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Mu Framework - Cli
+     * Creates the Test Suite for Mu Framework - Cli - Opt - Collection
      * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('Mu Framework - Cli');
+        $suite = new TestSuite('Mu Framework - Cli - Opt - Collection');
 
-        $suite->addTestSuite('\Tests\Lib\Mu\Cli\RequestTest');
-        $suite->addTestSuite('\Tests\Lib\Mu\Cli\ResponseTest');
-        $suite->addTestSuite('\Tests\Lib\Mu\Cli\OptTest');
-
-        $suite->addTest(Opt\AllTests::suite());
+        $suite->addTestSuite('\Tests\Lib\Mu\Cli\CollectionTest');
 
         return $suite;
     }

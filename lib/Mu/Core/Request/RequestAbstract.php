@@ -51,9 +51,11 @@ abstract class RequestAbstract extends MixinAbstract
             'Mu\Core\Config\Options',
             'Mu\Core\Delegates\Delegatable' => array(
                     'delegates' => array(
+                        /* @codeCoverageIgnoreStart */
                         'getServerRaw' => function() {
                             return $_SERVER;
                         },
+                        /* @codeCoverageIgnoreEnd */
                     )
                 )
             );

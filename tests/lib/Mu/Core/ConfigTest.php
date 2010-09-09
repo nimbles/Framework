@@ -37,6 +37,14 @@ use Mu\Core\TestCase,
  */
 class ConfigTest extends TestCase {
     /**
+     * Tests getting an instance of the config
+     * @return void
+     */
+    public function testGetInstance() {
+        $this->assertType('Mu\Core\Config', Config::getInstance());
+    }
+
+    /**
      * Tests construct of config without any parameters
      * @return void
      */
@@ -200,6 +208,48 @@ class ConfigTest extends TestCase {
 
         $this->setExpectedException('\Mu\Core\Config\Exception\InvalidConfig');
         $config->merge(true);
+    }
+
+    /**
+     * Tests when not passing a key, the same config object is returned
+     * @return void
+     */
+    public function testGetSelf() {
+        $config = new Config();
+        $this->assertSame($config, $config->getConfig());
+
+        $config = Config::getInstance();
+        $this->assertSame($config, Config::getConfig());
+    }
+
+    /**
+     * Tests using the config statically
+     * @return void
+     */
+    public function testGetSetStatic() {
+        Config::setConfig('foo', 'bar');
+        $this->assertEquals('bar', Config::getConfig('foo'));
+    }
+
+    /**
+     * Tests that a \BadMethodCallException exception is thrown when trying to call a none
+     * existing method
+     * @retrun void
+     */
+    public function testBadMethod() {
+        $this->setExpectedException('BadMethodCallException');
+        $config = new Config();
+        $config->foo();
+    }
+
+    /**
+     * Tests that a \BadMethodCallException exception is thrown when trying to call a none
+     * existing static method
+     * @retrun void
+     */
+    public function testBadMethodStatic() {
+        $this->setExpectedException('BadMethodCallException');
+        Config::foo();
     }
 
     /**

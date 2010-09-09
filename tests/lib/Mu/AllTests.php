@@ -21,6 +21,7 @@ require_once 'MuTest.php';
 require_once 'Core/AllTests.php';
 require_once 'Cli/AllTests.php';
 require_once 'Http/AllTests.php';
+require_once 'Https/AllTests.php';
 require_once 'App/AllTests.php';
 
 use Mu\Core\TestSuite;
@@ -49,6 +50,7 @@ class AllTests extends TestSuite {
         $suite->addTest(Core\AllTests::suite());
         $suite->addTest(Cli\AllTests::suite());
         $suite->addTest(Http\AllTests::suite());
+        $suite->addTest(Https\AllTests::suite());
         $suite->addTest(App\AllTests::suite());
 
         return $suite;

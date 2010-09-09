@@ -18,7 +18,7 @@
 
 namespace Mu\Core;
 
-use ArrayObject,
+use Mu\Core\ArrayObject,
     BadMethodCallException,
     Mu\Core\Config;
 
@@ -46,12 +46,12 @@ class Config extends ArrayObject {
      * Gets the instance
      * @return \Mu\Core\Config
      */
-    public function getInstance() {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+    static public function getInstance() {
+        if (null === static::$_instance) {
+            static::$_instance = new static();
         }
 
-        return self::$_instance;
+        return static::$_instance;
     }
 
     /**

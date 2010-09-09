@@ -53,11 +53,13 @@ class Response extends ResponseAbstract {
             array(
                 'Mu\Core\Delegates\Delegatable' => array(
                     'delegates' => array(
+                        /* @codeCoverageIgnoreStart */
                         'headers_sent' => 'headers_sent',
                         'header' => 'header',
                         'write' => function($body) {
                             echo $body;
                         }
+                        /* @codeCoverageIgnoreEnd */
                     )
                 )
             )

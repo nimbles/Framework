@@ -18,7 +18,7 @@
 
 namespace Mu\Cli\Opt;
 
-use ArrayObject;
+use Mu\Core\ArrayObject;
 
 /**
  * @category   Mu
@@ -28,7 +28,7 @@ use ArrayObject;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \ArrayObject
+ * @uses       \Mu\Core\ArrayObject
  *
  * @uses       \Mu\Cli\Opt
  */
@@ -57,20 +57,9 @@ class Collection extends ArrayObject {
         $this->_longopts = array();
 
         if (null !== $opts) {
-            $opts = array_map(array('\Mu\Cli\Opt', 'factory'), $opts);
             foreach ($opts as $opt) {
-                $this->append($opt);
+                $this[] = $opt;
             }
-        }
-    }
-
-    /**
-     * Overrides append so that value the can passed through \Mu\Cli\Opt::factory, if required
-     * @param mixed $value
-     */
-    public function append ($value) {
-        if (null !== ($value = $this->_parseOpt($value))) {
-            parent::append($value);
         }
     }
 
@@ -91,7 +80,7 @@ class Collection extends ArrayObject {
      * @return \Mu\Cli\Opt|null
      */
     protected function _parseOpt($value) {
-        if (is_array($value)) {
+        if (is_array($value) || is_string($value)) {
             $value = \Mu\Cli\Opt::factory($value);
         }
 
@@ -148,11 +137,15 @@ class Collection extends ArrayObject {
      * @return array
      */
     public function getAliasArray() {
-        return array_map(
-            function($option) {
-                return $option->getFormattedAlias();
-            },
-            $this->getArrayCopy()
+        return array_values(
+            array_filter(
+                array_map(
+                    function($option) {
+                        return $option->getFormattedAlias();
+                    },
+                    $this->getArrayCopy()
+                )
+            )
         );
     }
 

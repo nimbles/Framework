@@ -16,7 +16,9 @@
  * @license    http://mu-framework.com/license/mit MIT License
  */
 
-namespace Mu\Https;
+namespace Tests\Lib\Mu\Https;
+
+use Mu\Https\TestCase;
 
 /**
  * @category   Mu
@@ -26,26 +28,19 @@ namespace Mu\Https;
  * @license    http://mu-framework.com/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Http\Request
+ * @uses       \Mu\Core\TestCase
+ *
+ * @group      Mu
+ * @group      Mu-Https
+ * @group      Mu-Https-Request
  */
-class Request extends \Mu\Http\Request {
+class RequestTest extends TestCase {
     /**
-     * Builds the request, used by factory
-     * @return \Mu\Https\Request|null
+     * Test that the request object extends the abstract
+     * @return void
      */
-    /* @codeCoverageIgnoreStart */
-    static public function build() {
-        if ('cli' !== PHP_SAPI) {
-            $request = new static();
-
-            if (('http' === $request->getScheme)) {
-                return null;
-            }
-
-            return $request;
-        }
-
-        return null;
+    public function testAbstract() {
+        $request = new \Mu\Https\Request();
+        $this->assertType('Mu\Http\Request', $request);
     }
-    /* @codeCoverageIgnoreEnd */
 }

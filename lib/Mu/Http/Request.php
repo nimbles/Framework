@@ -58,6 +58,7 @@ class Request extends RequestAbstract {
             array(
                 'Mu\Core\Delegates\Delegatable' => array(
                     'delegates' => array(
+                        /* @codeCoverageIgnoreStart */
                         'getCookieRaw' => function() {
                             return $_COOKIE;
                         },
@@ -76,6 +77,7 @@ class Request extends RequestAbstract {
                             $session->setDelegate('clearValues', function() {}); // do nothing, make read only
                         },
                         'getInput' => array('\Mu\Http\Request', 'getRequestInput')
+                        /* @codeCoverageIgnoreEnd */
                     )
                 )
             )
@@ -276,6 +278,7 @@ class Request extends RequestAbstract {
      * Gets the request input
      * @return string
      */
+    /* @codeCoverageIgnoreStart */
     static public function getRequestInput() {
         if (null === self::$_body) {
             self:setRequestInput();
@@ -283,15 +286,18 @@ class Request extends RequestAbstract {
 
         return self::$_body;
     }
+    /* @codeCoverageIgnoreEnd */
 
     /**
      * Sets the request input
      * @param string|null $body if null then body is set from php://input
      * @return \Mu\Http\Request
      */
+    /* @codeCoverageIgnoreStart */
     static public function setRequestInput($body = null) {
         self::$_body = (null === $body) ? file_get_contents('php://input') : $body;
     }
+    /* @codeCoverageIgnoreStart */
 
     /**
      * Gets the scheme of the request, http or https
@@ -394,9 +400,10 @@ class Request extends RequestAbstract {
      * Builds the request, used by factory
      * @return \Mu\Http\Request|null
      */
+    /* @codeCoverageIgnoreStart */
     static public function build() {
         if ('cli' !== PHP_SAPI) {
-            $request = new self();
+            $request = new static();
 
             if (('https' === $request->getScheme) && class_exists('Mu\Https\Request')) {
                 return null;
@@ -407,4 +414,5 @@ class Request extends RequestAbstract {
 
         return null;
     }
+    /* @codeCoverageIgnoreEnd */
 }

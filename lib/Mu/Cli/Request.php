@@ -46,7 +46,9 @@ class Request extends RequestAbstract {
             array(
                 'Mu\Core\Delegates\Delegatable' => array(
                     'delegates' => array(
+                        /* @codeCoverageIgnoreStart */
                         'getInput' => array('\Mu\Cli\Request', 'getStdin')
+                        /* @codeCoverageIgnoreEnd */
                     )
                 )
             )
@@ -75,12 +77,14 @@ class Request extends RequestAbstract {
      * Gets the stdin
      * @return string
      */
+    /* @codeCoverageIgnoreStart */
     static public function getStdin() {
         if (null === self::$_stdin) {
             self::$_stdin = file_get_contents('php://stdin');
         }
         return self::$_stdin;
     }
+    /* @codeCoverageIgnoreEnd */
 
     /**
      * Gets the options to be used by getopts
@@ -132,6 +136,7 @@ class Request extends RequestAbstract {
      * Builds the request, used by factory
      * @return \Mu\Cli\Request|null
      */
+    /* @codeCoverageIgnoreStart */
     static public function build() {
         if ('cli' === PHP_SAPI) {
             return new self();
@@ -139,4 +144,5 @@ class Request extends RequestAbstract {
 
         return null;
     }
+    /* @codeCoverageIgnoreEnd */
 }

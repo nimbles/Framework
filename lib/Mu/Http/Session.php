@@ -42,6 +42,7 @@ class Session extends MixinAbstract {
         return array(
             'Mu\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
+                    /* @codeCoverageIgnoreStart */
                     'session_start'             => 'session_start',
                     'session_id'                => 'session_id',
                     'session_name'              => 'session_name',
@@ -68,6 +69,7 @@ class Session extends MixinAbstract {
                     'offsetExists'              => function($key) {
                         return array_key_exists($key, $_SESSION);
                     }
+                    /* @codeCoverageIgnoreEnd */
                 )
             ),
             'Mu\Core\Config\Options'

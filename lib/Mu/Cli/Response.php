@@ -43,9 +43,11 @@ class Response extends ResponseAbstract {
             array(
                 'Mu\Core\Delegates\Delegatable' => array(
                     'delegates' => array(
+                        /* @codeCoverageIgnoreStart */
                         'write' => function($body) {
                             file_put_contents('php://stdout', $body);
                         }
+                        /* @codeCoverageIgnoreEnd */
                     )
                 )
             )

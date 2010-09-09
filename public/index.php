@@ -4,3 +4,5 @@ date_default_timezone_set(@date_default_timezone_get());
 
 require_once realpath(dirname(__FILE__) . '/../lib/Mu.php');
 new Mu();
+
+phpinfo();

@@ -191,4 +191,18 @@ class Collection extends ArrayObject {
 
         return parent::offsetSet($index, $value);
     }
+
+    /**
+     * Overrides the default behavior of offsetUnset so that items cannot be
+     * unset if the collection is readonly
+     *
+     * @param string|int $index
+     * @return void
+     */
+    public function offsetUnset($index) {
+        if ($this->isReadOnly()) {
+            throw new Collection\Exception\ReadOnly('Cannot unset to collection when it is read only');
+        }
+        return parent::offsetUnset($index);
+    }
 }
