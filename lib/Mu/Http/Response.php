@@ -135,7 +135,7 @@ class Response extends ResponseAbstract {
      * Sets a header
      * @param string|\Mu\Http\Header             $name
      * @param string|\Mu\Http\Header|array|null  $value
-     * @param bool                                 $append
+     * @param bool                               $append
      * @return \Mu\Http\Response
      */
     public function setHeader($name, $value = null, $append = false) {
@@ -143,6 +143,9 @@ class Response extends ResponseAbstract {
             $this->_headers = new Header\Collection();
         }
 
+        $append = (bool) $append;
+
+        // @todo move logic to Header\Collection and refactor
         if (is_array($name) || ($name instanceof \ArrayObject)) {
             foreach ($name as $index => $header) {
                 if (is_string($index)) {
@@ -155,7 +158,7 @@ class Response extends ResponseAbstract {
             $header = $name;
             $name = $header->getName();
 
-            if ($this->_headers->offsetExists($name)) {
+            if ($append && $this->_headers->offsetExists($name)) {
                 $this->_headers[$name]->merge($header);
             } else {
                 $this->_headers[$name] = $header;
@@ -174,7 +177,7 @@ class Response extends ResponseAbstract {
                 $header = Header::factory($name, $string);
                 $name = $header->getName();
 
-                if (array_key_exists($name, $this->_headers)) {
+                if ($append && array_key_exists($name, $this->_headers)) {
                     $this->_headers[$name]->merge($header);
                 } else {
                     $this->_headers[$name] = $header;
