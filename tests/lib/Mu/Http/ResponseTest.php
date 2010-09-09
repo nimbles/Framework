@@ -119,9 +119,9 @@ class ResponseTest extends TestCase {
     public function testCompressed() {
         $response = new \Mu\Http\Response();
 
-        $this->assertFalse($response->getCompressed());
-        $response->setCompressed(true);
-        $this->assertTrue($response->getCompressed());
+        $this->assertFalse($response->isCompressed());
+        $response->isCompressed(true);
+        $this->assertTrue($response->isCompressed());
     }
 
     /**

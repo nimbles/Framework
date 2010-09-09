@@ -247,21 +247,12 @@ class Response extends ResponseAbstract {
     }
 
     /**
-     * Gets if the response should be compressed
-     * @return bool
-     */
-    public function getCompressed() {
-        return $this->_compressed;
-    }
-
-    /**
-     * Sets if the response should be compressed
+     * Indicates if the response should be compressed
      * @param bool $compressed
      * @return \Mu\Http\Response
      */
-    public function setCompressed($compressed) {
-        $this->_compressed = is_bool($compressed) ? $compressed : $this->_compressed;
-        return $this;
+    public function isCompressed($compressed = null) {
+        return $this->_compressed = is_bool($compressed) ? $compressed : $this->_compressed;
     }
 
     /**
@@ -284,10 +275,7 @@ class Response extends ResponseAbstract {
      */
     public function send() {
         if (!$this->headers_sent()) {
-            // @todo call send on collection once available
-            foreach ($this->getHeader() as $header) {
-                $header->send();
-            }
+            $this->getHeader()->send();
             $this->getCookie()->send();
 
             // set the status last due to php changing the status if a location header has been sent
@@ -301,7 +289,7 @@ class Response extends ResponseAbstract {
             return; // no body should be sent
         }
 
-        if ($this->getCompressed() && extension_loaded('zlib')) {
+        if ($this->isCompressed() && extension_loaded('zlib')) {
             ini_set('zlib.output_compression', '1');
         }
 

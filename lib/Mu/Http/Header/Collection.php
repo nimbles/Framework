@@ -147,4 +147,14 @@ class Collection extends \Mu\Core\Collection {
 
         return $this;
     }
+
+    /**
+     * Sends the headers
+     * @return void
+     */
+    public function send() {
+        foreach ($this as $header) {
+            $header->send();
+        }
+    }
 }
