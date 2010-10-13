@@ -1,18 +1,18 @@
 <?php
 /**
- * Mu Framework
+ * Nimbles Framework
  *
  * LICENSE
  *
  * This source file is subject to the MIT license that is bundled
  * with the package in the file LICENSE.md.
  * It is also available at this URL:
- * http://mu-framework.com/license/mit
+ * http://nimbl.es/license/mit
  *
- * @category   Mu
- * @package    Mu
- * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license    http://mu-framework.com/license/mit MIT License
+ * @category   Nimbles
+ * @package    Nimbles
+ * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
+ * @license    http://nimbl.es/license/mit MIT License
  */
 
 namespace Tests;
@@ -20,21 +20,21 @@ namespace Tests;
 require_once 'PHPUnit/Framework.php';
 require_once 'lib/AllTests.php';
 
-use Mu\Core\TestSuite;
+use Nimbles\Core\TestSuite;
 
 /**
- * @category   Mu
- * @package    Mu
- * @copyright  Copyright (c) 2010 Mu Framework (http://mu-framework.com)
- * @license    http://mu-framework.com/license/mit MIT License
+ * @category   Nimbles
+ * @package    Nimbles
+ * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
+ * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Mu\Core\TestSuite
+ * @uses       \Nimbles\Core\TestSuite
  */
 class AllTests extends TestSuite {
     /**
      * Creates the Test Suite for All Tests
-     * @return \Mu\Core\TestSuite
+     * @return \Nimbles\Core\TestSuite
      */
     static public function suite() {
         $suite = new TestSuite('All Tests');
