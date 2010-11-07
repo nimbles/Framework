@@ -35,8 +35,11 @@
 
 	<target name="phpunit">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg
-				line="--log-junit ${basedir}/build/logs/junit.xml --coverage-clover build/logs/clover.xml ${basedir}/tests" />
+			<arg line="--bootstrap ${basedir}/tests/bootstrap.php"/>
+			<arg line="--no-globals-backup"/>
+			<arg line="--log-junit ${basedir}/build/logs/junit.xml"/>
+			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml"/>
+			<arg line="${basedir}/tests" />
 		</exec>
 	</target>
 	

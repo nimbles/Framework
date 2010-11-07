@@ -281,7 +281,7 @@ class Request extends RequestAbstract {
     /* @codeCoverageIgnoreStart */
     static public function getRequestInput() {
         if (null === self::$_body) {
-            self:setRequestInput();
+            self::setRequestInput();
         }
 
         return self::$_body;

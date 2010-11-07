@@ -18,8 +18,6 @@
 
 namespace Nimbles\Core;
 
-require_once 'PHPUnit/Framework.php';
-
 use PHPUnit_Framework_TestCase;
 
 /**

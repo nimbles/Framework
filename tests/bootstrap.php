@@ -1,17 +1,22 @@
 <?php
 define('APPLICATION_ENV', 'test');
 
-PHPUnit_Util_Filter::addDirectoryToFilter(dirname(__FILE__));
-PHPUnit_Util_Filter::addDirectoryToWhitelist(realpath(dirname(__FILE__) . '/../lib/'));
+PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist(dirname(__FILE__));
+PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(realpath(dirname(__FILE__) . '/../lib/'));
 
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Core/TestCase.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Core/TestSuite.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Cli/TestCase.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Cli/TestSuite.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Http/TestCase.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/Http/TestSuite.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/App/TestCase.php'));
-PHPUnit_Util_Filter::addFileToFilter(realpath(dirname(__FILE__) . '/../lib/Nimbles/App/TestSuite.php'));
+$dirs = scandir(realpath(dirname(__FILE__) . '/../lib/Nimbles'));
+$testFiles = array();
+foreach ($dirs as $dir) {
+    if (false !== ($testcase = realpath(dirname(__FILE__) . '/../lib/Mu/' . $dir . '/TestCase.php'))) {
+        $testFiles[]= $testcase;
+    }
+
+    if (false !== ($testsuite = realpath(dirname(__FILE__) . '/../lib/Mu/' . $dir . '/TestSuite.php'))) {
+    	$testFiles[]= $testsuite;
+    }
+}
+
+PHP_CodeCoverage_Filter::getInstance()->addFilesToBlacklist($testFiles);
 
 // surpress warnings if timezone has not been set on the system
 date_default_timezone_set(@date_default_timezone_get());

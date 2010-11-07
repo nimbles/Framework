@@ -64,8 +64,10 @@ class LoaderTest extends TestCase {
 
         \Nimbles\Core\Loader::register();
         $this->assertSame($includepaths, explode(PATH_SEPARATOR, get_include_path()));
-        $functions[] = array('Nimbles\Core\Loader', 'autoload');
-        $this->assertSame($functions, spl_autoload_functions());
+        $autoload = array('Nimbles\Core\Loader', 'autoload');
+        $registered = array_reverse(spl_autoload_functions());
+        
+        $this->assertSame($autoload, array_shift($registered));
     }
 
     /**
