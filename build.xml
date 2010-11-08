@@ -3,16 +3,15 @@
 	<target name="clean">
 		<delete dir="${basedir}/build" />
 	</target>
-	
+
 	<target name="prepare">
 		<mkdir dir="${basedir}/build/logs" />
 		<mkdir dir="${basedir}/build/docs" />
 	</target>
-	
+
 	<target name="phpdoc">
 		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
-			<arg
-				line="-t ${basedir}/build/docs/
+			<arg line="-t ${basedir}/build/docs/
 			  --directory ${basedir}/lib/
 			  -ti 'Test Job Docs'
 			  --parseprivate on
@@ -20,13 +19,19 @@
 			  --output HTML:Smarty:PHP" />
 		</exec>
 	</target>
-		
-	<target name="phpcpd">
-		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-			<arg line="--log-pmd ${basedir}/build/logs/pmd.xml ${basedir}/lib" />
+
+	<target name="phpmd">
+		<exec executable="phpmd">
+			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/lib" />
 		</exec>
 	</target>
-	
+
+	<target name="phpcpd">
+		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
+			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/lib" />
+		</exec>
+	</target>
+
 	<target name="pdepend">
 		<exec dir="${basedir}" executable="pdepend" failonerror="true">
 			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/lib" />
@@ -35,14 +40,13 @@
 
 	<target name="phpunit">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--bootstrap ${basedir}/tests/bootstrap.php"/>
-			<arg line="--no-globals-backup"/>
-			<arg line="--log-junit ${basedir}/build/logs/junit.xml"/>
-			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml"/>
+			<arg line="--bootstrap ${basedir}/tests/bootstrap.php" />
+			<arg line="--no-globals-backup" />
+			<arg line="--log-junit ${basedir}/build/logs/junit.xml" />
+			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
 			<arg line="${basedir}/tests" />
 		</exec>
 	</target>
-	
-	<target name="build"
-		depends="clean,prepare, phpcpd, pdepend, phpunit" />
+
+	<target name="build" depends="clean, prepare, pdepend, phpmd, phpcpd, phpunit" />
 </project>
