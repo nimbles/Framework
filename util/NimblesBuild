@@ -1,0 +1,13 @@
+#!/usr/bin/php
+<?php
+require_once 'Builder.php';
+
+use Nimbles\Build\Builder;
+
+try {
+$builder = new Builder();
+$builder->build();
+} catch (\Exception $ex) {
+	echo $ex->getMessage();
+	exit(1);
+}
