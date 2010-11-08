@@ -10,8 +10,8 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Collection
+ * @package    Nimbles-Build
+ * @subpackage Builder
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
