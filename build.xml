@@ -4,49 +4,62 @@
 		<delete dir="${basedir}/build" />
 	</target>
 
+	<!-- creates the directory -->
 	<target name="prepare">
 		<mkdir dir="${basedir}/build/logs" />
 		<mkdir dir="${basedir}/build/docs" />
+		<mkdir dir="${basedir}/build/dest" />
 	</target>
 
-	<target name="phpdoc">
-		<exec dir="${basedir}" executable="phpdoc" failonerror="true">
-			<arg line="-t ${basedir}/build/docs/
-			  --directory ${basedir}/lib/
-			  -ti 'Test Job Docs'
-			  --parseprivate on
-			  --undocumentedelements on
-			  --output HTML:Smarty:PHP" />
+	<!-- compiles the code -->
+	<target name="compile" depends="prepare">
+		<exec executable="${basedir}/util/NimblesBuild">
+			<arg line="-s ${basedir}/src" />
+			<arg line="-d ${basedir}/build/dest" />
+			<arg line="-q" />
 		</exec>
 	</target>
 
-	<target name="phpmd">
+	<!-- generate mess report -->
+	<target name="phpmd" depends="compile">
 		<exec executable="phpmd">
-			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/lib" />
+			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/build/dest" />
 		</exec>
 	</target>
 
-	<target name="phpcpd">
+	<!-- generate copy paste detection report -->
+	<target name="phpcpd" depends="compile">
 		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/lib" />
+			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/build/dest" />
 		</exec>
 	</target>
 
-	<target name="pdepend">
+	<!-- generate jdepend report -->
+	<target name="pdepend" depends="compile">
 		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/lib" />
+			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest" />
 		</exec>
 	</target>
 
-	<target name="phpunit">
+	<!-- execute phpunit -->
+	<target name="phpunit" depends="compile">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--bootstrap ${basedir}/tests/bootstrap.php" />
+			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
+			<arg line="--no-globals-backup ${group}" />
+			<arg line="${basedir}/build/dest/tests/AllTests.php" />
+		</exec>
+	</target>
+
+	<!-- generate code coverage, depends on unit tests for faster failures -->
+	<target name="code-coverage" depends="phpunit">
+		<exec dir="${basedir}" executable="phpunit" failonerror="true">
+			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
 			<arg line="--no-globals-backup" />
 			<arg line="--log-junit ${basedir}/build/logs/junit.xml" />
 			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
-			<arg line="${basedir}/tests" />
+			<arg line="${basedir}/build/dest/tests/AllTests.php" />
 		</exec>
 	</target>
 
-	<target name="build" depends="clean, prepare, pdepend, phpmd, phpcpd, phpunit" />
+	<target name="build" depends="clean, prepare, compile, pdepend, phpmd, phpcpd, phpunit, code-coverage" />
 </project>

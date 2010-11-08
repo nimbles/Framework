@@ -84,7 +84,8 @@ class Collection extends ArrayObject {
             'string',
             'bool',
             'object',
-            'array'
+            'array',
+        	'callable'
         );
 
         if (in_array($type, $types)) {
@@ -177,7 +178,7 @@ class Collection extends ArrayObject {
 
         switch ($this->getIndexType()) {
             case static::INDEX_NUMERIC :
-                if (!is_numeric($index)) {
+                if (!is_numeric($index) && (null !== $index)) { // appending may have a null index
                     throw new Collection\Exception\InvalidIndex('Index must be numeric');
                 }
                 break;

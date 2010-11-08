@@ -15,7 +15,7 @@ class Source {
                 	$directory
                 )
             ),
-            '/^.+\.php$/i',
+            '/^.+$/i',
             \RecursiveRegexIterator::GET_MATCH
         );
 

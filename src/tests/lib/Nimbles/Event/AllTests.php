@@ -10,35 +10,41 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles
+ * @package    Nimbles-Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests;
+namespace Tests\lib\Nimbles\Event;
 
-require_once 'PHPUnit/Framework.php';
-require_once 'lib/AllTests.php';
+require_once 'CollectionTest.php';
+require_once 'EventsTest.php';
 
-use Nimbles\Core\TestSuite;
+use Nimbles\Event\TestSuite;
 
 /**
  * @category   Nimbles
- * @package    Nimbles
+ * @package    Nimbles-Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\TestSuite
+ *
+ * @group      Nimbles
+ * @group      Nimbles-Event
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for All Tests
-     * @return \Nimbles\Core\TestSuite
+     * Creates the Test Suite for Nimbles Framework - Event
+     * @return \PHPUnit_Framework_TestSuite
      */
     static public function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
+        $suite = new TestSuite('Nimbles Framework - Event');
+        
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Event\CollectionTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Event\EventsTest');
+        
         return $suite;
     }
 }
