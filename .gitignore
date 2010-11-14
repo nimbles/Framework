@@ -1,6 +1,7 @@
 .project
 .buildpath
 .settings
+.externalToolBuilders
 org.eclipse.php.core.prefs
 org.eclipse.php.ui.prefs
 public/coverage
