@@ -62,7 +62,7 @@ class Collection extends Core\Collection {
     
 	/**
      * Factory method for creating plugins
-     * @param string|array|\Nimbles\Plugins\Plugin $plugins
+     * @param string|array|\Nimbles\Plugins\Plugin $plugin
      * @return \Nimbles\Plugins\Plugin|null
      */
     static public function factory($plugin) {
@@ -75,7 +75,7 @@ class Collection extends Core\Collection {
         }
         
         if ($plugin instanceof Plugin) {
-            return $event;
+            return $plugin;
         }
         
         return null;
