@@ -32,30 +32,31 @@ namespace Nimbles\Plugins;
  */
 class Plugin extends \Nimbles\Core\Collection {
 	/**
-     * The plugin name
+     * The plugin type
      * @var string
      */
-    protected $_name;
+    protected $_type;
 
     /**
-     * Gets the plugin name
+     * Gets the plugin type
      * @return string
      */
-    public function getName() {
-        return $this->_name;
+    public function getType() {
+        return $this->_type;
     }
     
 	/**
-     * Sets the plugin name
-     * @param string $name
+     * Sets the plugin type
+     * @param string $type
      * @return \Nimbles\Plugins\Plugin
+     * @throws \Nimbles\Plugins\Exception\InvalidType
      */
-    public function setName($name) {
-        if (!is_string($name)) {
-            throw new Plugins\Exception\InvalidName('Plugin name must be a string: ' . $name);
+    public function setType($type) {
+        if (!is_string($type)) {
+            throw new Plugins\Exception\InvalidType('Plugin type must be a string: ' . $name);
         }
 
-        $this->_name = $name;
+        $this->_type = $type;
         return $this;
     }
     
@@ -65,10 +66,42 @@ class Plugin extends \Nimbles\Core\Collection {
      * @return void
      */
     public function __construct($array = null, array $options = null) {        
-        if (array_key_exists('name', $options)) {
-            $this->setName($options['name']);
+        $options = array_merge(
+            (null === $options) ? array() : $options,
+            array(
+                'indexType' => static::INDEX_ASSOCITIVE,
+                'readonly' => false
+            )
+        );
+        
+        if (array_key_exists('type', $options)) {
+            $this->setType($options['type']);
         }
         
         parent::__construct($array, $options);
+    }
+    
+    /**
+     * Attaches a plugin
+     * @param string $name
+     * @param mixed $plugin
+     * @return \Nimbles\Plugins\Plugin
+     */
+    public function attach($name, $plugin) {
+        $this[$name] = $plugin;
+        return $this;
+    }
+    
+    /**
+     * Detaches a plugin
+     * @param string $name
+     * @return \Nimbles\Plugins\Plugin
+     */
+    public function detach($name) {
+        if ($this->offsetExists($name)) {
+            $this->offsetUnset($name);
+        }
+        
+        return $this;
     }
 }
