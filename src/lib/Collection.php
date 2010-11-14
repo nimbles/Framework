@@ -18,6 +18,8 @@
 
 namespace Nimbles\Event;
 
+use Nimbles\Core;
+
 /**
  * @category   Nimbles
  * @package    Nimbles-Event
@@ -30,7 +32,7 @@ namespace Nimbles\Event;
  *
  * @uses       \Nimbles\Event\Event
  */
-class Collection extends \Nimbles\Core\Collection {
+class Collection extends Core\Collection {
     /**
      * Class construct
      * @param array|\ArrayObject|null $array
