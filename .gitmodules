@@ -1,0 +1,3 @@
+[submodule "Nimbles-Event"]
+	path = Nimbles-Event
+	url = git@github.com:mightymephisto/Nimbles-Event.git
