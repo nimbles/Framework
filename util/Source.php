@@ -49,19 +49,20 @@ class Source {
 	 * @return void
 	 */
 	public function __construct($directory) {
-		$files = new \RegexIterator(
-			new \RecursiveIteratorIterator(
-            	new \RecursiveDirectoryIterator(
-                	$directory
-                )
-            ),
-            '/^.+$/i',
-            \RecursiveRegexIterator::GET_MATCH
+		$files = new \RecursiveIteratorIterator(
+        	new \RecursiveDirectoryIterator(
+            	$directory,
+            	\FilesystemIterator::UNIX_PATHS |
+                	\FilesystemIterator::FOLLOW_SYMLINKS |
+                	\FilesystemIterator::SKIP_DOTS 
+            )
         );
 
         $this->_files = array();
         foreach ($files as $index => $file) {
-            $this->_files[] = realpath($file[0]);
+            if ($file instanceof \SplFileInfo) {
+                $this->_files[] = $file->getPathname();
+            }
         }
         sort($this->_files);
 	}
