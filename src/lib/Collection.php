@@ -54,6 +54,7 @@ class Collection extends \Nimbles\Core\Collection {
      * @param string|\Nimbles\Event\Event|\Nimbles\Event\Event\SelfConnectInterface $event
      * @param mixed                                                                 $callable
      * @return void
+     * @throws \Nimbles\Event\Exception\InvalidConnections
      */
     public function connect($event, $callable = null) {
         if ($event instanceof SelfConnectInterface) { // self connect the object
@@ -109,5 +110,26 @@ class Collection extends \Nimbles\Core\Collection {
         if ($this->offsetExists($name)) {
             call_user_func_array(array($this[$name], 'fireUntil'), $args);
         }
+    }
+    
+	/**
+     * Factory method for creating events
+     * @param string|array|\Nimbles\Event\Event $event
+     * @return \Nimbles\Event\Event|null
+     */
+    static public function factory($event) {
+        if (is_string($event)) {
+            $event = new Event(null, array(
+                'type' => $event
+            ));
+        } else if (is_array($event)) { // treat as options
+            $event = new Event($event);
+        }
+        
+        if ($event instanceof Event) {
+            return $event;
+        }
+        
+        return null;
     }
 }

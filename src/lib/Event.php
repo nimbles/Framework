@@ -48,11 +48,12 @@ class Event extends \Nimbles\Core\Collection {
     /**
      * Sets the event name
      * @param string $name
-     * @return \Nimbles\Event
+     * @return \Nimbles\Event\Event
+     * @throws \Nimbles\Event\Exception\InvalidName
      */
     public function setName($name) {
         if (!is_string($name)) {
-            throw new Event\Exception\InvalidName('Event name must be a string: ' . $name);
+            throw new Exception\InvalidName('Event name must be a string: ' . $name);
         }
 
         $this->_name = $name;
