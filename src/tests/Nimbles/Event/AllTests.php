@@ -29,7 +29,7 @@ use Nimbles\Event\TestSuite;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestSuite
+ * @uses       \Nimbles\Event\TestSuite
  *
  * @group      Nimbles
  * @group      Nimbles-Event
