@@ -11,7 +11,7 @@
  *
  * @category   Nimbles
  * @package    Nimbles-Event
- * @subpackage Collection
+ * @subpackage EventsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
@@ -21,6 +21,7 @@ namespace Tests\Lib\Nimbles\Event;
 /**
  * @category   Nimbles
  * @package    Nimbles-Event
+ * @subpackage EventsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
