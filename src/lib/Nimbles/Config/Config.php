@@ -68,6 +68,7 @@ class Config extends Collection {
         );
         
         parent::__construct($array, $options);
+        $this->setFlags(static::ARRAY_AS_PROPS);
     }
     
     /**

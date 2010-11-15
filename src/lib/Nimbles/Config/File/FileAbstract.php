@@ -34,6 +34,14 @@ use Nimbles\Config\Config,
  */
 abstract class FileAbstract {
     /**
+     * Format types
+     * @var string
+     */
+    const TYPE_PHP  = 'Php';
+    const TYPE_JSON = 'Json';
+    const TYPE_YAML = 'Yaml';
+    
+    /**
      * Full path to the file
      * @var string
      */
@@ -117,25 +125,25 @@ abstract class FileAbstract {
         }
         
         if (null === $type) { // select type based file extension
-            if (false === ($pos = strrpos($file, '.')) {
+            if (false === ($pos = strrpos($file, '.'))) {
                 throw new Exception\InvalidFile('Cannot parse file extension from file');
             }
             
             $extension = substr($file, $pos);
             
             switch ($extension) {
-                case '.json' :
-                case '.js' :
-                    $type = 'Json';
-                    break;
-                	
                 case '.php' :
                 case '.inc' :
-                    $type = 'Php';
+                    $type = static::TYPE_PHP;
                     break;
                     
+                case '.json' :
+                case '.js' :
+                    $type = static::TYPE_JSON;
+                    break;
+                
                 case '.yml' :
-                    $type = 'Yaml';
+                    $type = static::TYPE_YAML;
                     break;
             }
         }

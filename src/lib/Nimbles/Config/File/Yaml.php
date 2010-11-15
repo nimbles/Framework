@@ -34,7 +34,7 @@ use Nimbles\Config\Config,
  * @uses       \Nimbles\Config\Config
  * @uses       \Nimbles\Config\File\Exception\InvalidFile
  */
-class Php extends FileAbstract {
+class Yaml extends FileAbstract {
     /**
      * Parses the file
      * @return \Nimbles\Config\Config
