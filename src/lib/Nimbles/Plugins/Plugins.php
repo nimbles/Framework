@@ -12,9 +12,18 @@ trait Plugins {
      * Gets the plugin or collection
      * @param string|null $type if null the plugins collection is returned
      * @return \Nimbles\Plugins\Collection|\Nimbles\Plugins\Plugin|null 
+     * @throws \Nimbles\Plugins\Exception\InvalidConfig
      */
     public function getPlugin($type = null) {
         if (null === $this->_plugins) {
+            if (!method_exists($this, 'getConfig')) {
+                throw new \Nimbles\Plugins\Exception\InvalidConfig('When implmenting Plugins, a getConfig method must exist');           
+            }
+            
+            if (!is_array($config = $this->getConfig('plugins'))) {
+                throw new \Nimbles\Plugins\Exception\InvalidConfig('When implmenting Plugins, getConfig should provide an array for plugins');
+            }
+            
             $this->_plugins = new \Nimbles\Plugins\Collection();
         }
         
