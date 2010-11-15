@@ -42,13 +42,14 @@ class Collection extends Core\Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'type' => 'Nimbles\Plugins\Plugin',
+                'type'      => 'Nimbles\Plugins\Plugin',
                 'indexType' => static::INDEX_ASSOCITIVE,
-                'readonly' => true
+                'readonly'  => true
             )
         );
 
         parent::__construct($array, $options);
+        $this->setFlags(self::ARRAY_AS_PROPS);
     }
     
     /**
@@ -68,7 +69,7 @@ class Collection extends Core\Collection {
     static public function factory($plugin) {
         if (is_string($plugin)) {
             $plugin = new Plugin(null, array(
-                'type' => $plugin
+                'name' => $plugin
             ));
         } else if (is_array($plugin)) { // treat as options
             $plugin = new Plugin($plugin);

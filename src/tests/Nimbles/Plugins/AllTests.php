@@ -15,13 +15,16 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\Plugins;
+namespace Tests\Lib\Nimbles\Plugins;
+
+require_once 'PluginTest.php';
+require_once 'CollectionTest.php';
 
 use Nimbles\Plugins\TestSuite;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Plugins
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -38,6 +41,9 @@ class AllTests extends TestSuite {
      */
     static public function suite() {
         $suite = new TestSuite('Nimbles Framework - Plugins');
+        
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugins\PluginTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugins\CollectionTest');
         
         return $suite;
     }

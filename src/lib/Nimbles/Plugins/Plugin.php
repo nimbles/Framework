@@ -32,31 +32,31 @@ namespace Nimbles\Plugins;
  */
 class Plugin extends \Nimbles\Core\Collection {
 	/**
-     * The plugin type
+     * The plugin name
      * @var string
      */
-    protected $_type;
+    protected $_name;
 
     /**
-     * Gets the plugin type
+     * Gets the plugin name
      * @return string
      */
-    public function getType() {
-        return $this->_type;
+    public function getName() {
+        return $this->_name;
     }
     
 	/**
-     * Sets the plugin type
-     * @param string $type
+     * Sets the plugin name
+     * @param string $name
      * @return \Nimbles\Plugins\Plugin
-     * @throws \Nimbles\Plugins\Exception\InvalidType
+     * @throws \Nimbles\Plugins\Exception\InvalidName
      */
-    public function setType($type) {
-        if (!is_string($type)) {
-            throw new Plugins\Exception\InvalidType('Plugin type must be a string: ' . $name);
+    public function setName($name) {
+        if (!is_string($name)) {
+            throw new Plugins\Exception\InvalidName('Plugin name must be a string: ' . $name);
         }
 
-        $this->_type = $type;
+        $this->_name = $name;
         return $this;
     }
     
@@ -74,11 +74,12 @@ class Plugin extends \Nimbles\Core\Collection {
             )
         );
         
-        if (array_key_exists('type', $options)) {
-            $this->setType($options['type']);
+        if (array_key_exists('name', $options)) {
+            $this->setName($options['name']);
         }
         
         parent::__construct($array, $options);
+        $this->setFlags(self::ARRAY_AS_PROPS);
     }
     
     /**
