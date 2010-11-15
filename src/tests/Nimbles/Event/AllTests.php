@@ -15,7 +15,7 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\Event;
+namespace Tests\Lib\Nimbles\Event;
 
 require_once 'CollectionTest.php';
 require_once 'EventsTest.php';

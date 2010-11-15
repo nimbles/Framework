@@ -49,6 +49,7 @@ class Collection extends Core\Collection {
         );
 
         parent::__construct($array, $options);
+        $this->setFlags(self::ARRAY_AS_PROPS);
     }
 
     /**
