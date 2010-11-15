@@ -41,7 +41,7 @@ class Loader {
             );
         }
 
-        spl_autoload_register('Nimbles\Core\Loader::autoload');
+        spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
     }
 
     /**

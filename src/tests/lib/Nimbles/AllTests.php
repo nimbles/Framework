@@ -18,12 +18,8 @@
 namespace Tests\Lib\Nimbles;
 
 require_once 'NimblesTest.php';
-require_once 'Core/AllTests.php';
 require_once 'Event/AllTests.php';
-require_once 'Cli/AllTests.php';
-require_once 'Http/AllTests.php';
-require_once 'Https/AllTests.php';
-require_once 'App/AllTests.php';
+require_once 'Plugins/AllTests.php';
 
 use Nimbles\Core\TestSuite;
 
@@ -47,13 +43,9 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\NimblesTest');
-
-        $suite->addTest(Core\AllTests::suite());
+        
         $suite->addTest(Event\AllTests::suite());
-        $suite->addTest(Cli\AllTests::suite());
-        $suite->addTest(Http\AllTests::suite());
-        $suite->addTest(Https\AllTests::suite());
-        $suite->addTest(App\AllTests::suite());
+        $suite->addTest(Plugins\AllTests::suite());
 
         return $suite;
     }
