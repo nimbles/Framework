@@ -37,10 +37,11 @@ use Nimbles\Config\Config,
 class Json extends FileAbstract {
     /**
      * Parses the file
+     * @param string $section
      * @return \Nimbles\Config\Config
      * @throws \Nimbles\Config\File\Exception\InvalidFormat
      */
-    public function parse() {
+    public function parse($section = null) {
         if (!extension_loaded('json')) {
             throw new Exception\InvalidFormat('Cannot parse file, json extension not loaded');
         }
@@ -52,6 +53,6 @@ class Json extends FileAbstract {
             throw new Exception\InvalidFormat('Invalid file contents, must result in an associtive array');
         }
         
-        return new Config($data);
+        return $this->getSection($data, $section);
     }
 }

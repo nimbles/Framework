@@ -37,20 +37,32 @@ use Nimbles\Config\Config,
 class Yaml extends FileAbstract {
     /**
      * Parses the file
+     * @param string $section
      * @return \Nimbles\Config\Config
      * @throws \Nimbles\Config\File\Exception\InvalidFormat
      */
-    public function parse() {
+    public function parse($section = null) {
         if (!extension_loaded('yaml')) {
             throw new Exception\InvalidFormat('Cannot parse file, yaml extension not loaded');
         }
         
-        $data = yaml_parse_file($this->getFile());
+        $data = yaml_parse_file($this->getFile(), -1);
         
         if (!is_array($data)) {
             throw new Exception\InvalidFormat('Invalid file contents, must result in an associtive array');
         }
         
-        return new Config($data);
+        /*
+         *  when getting all docs, yaml_parse_file returns a numerical array
+         *  containing each document, so for config, we need to get the first
+         *  element in each
+         */
+        $configData = array();
+        foreach ($data as $index => $config) {
+            reset($config);
+            $configData[key($config)] = current($config);
+        }
+        
+        return $this->getSection($configData, $section);
     }
 }
