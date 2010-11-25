@@ -33,34 +33,29 @@ use Nimbles\Event\Collection;
  */
 trait Events {
 	/**
-	 * The collection of events
-	 * @var \Nimbles\Event\Collection
-	 */
-	protected $_events;
-	
-	/**
 	 * Gets the event object or the collection if no event key is specified
 	 * @param string|null $event
 	 * @return \Nimbles\Event\Event|\Nimbles\Event\Collection
 	 */
 	public function getEvent($event = null) {
-		if (null === $this->_events) {
-			$this->_events = new \Nimbles\Event\Collection();
+	    static $events;
+		if (null === $events) {
+			$events = new \Nimbles\Event\Collection();
 		}
-		
+
 		if (null === $event) {
-			return $this->_events;
+			return $events;
 		}
-		
-		return $this->_events->offsetExists($event) ? $this->_events[$event] : null;
+
+		return $events->offsetExists($event) ? $events[$event] : null;
 	}
-	
+
 	/**
      * Connects a callable to an event.
-     * 
+     *
      * If an instanceof \Nimbles\Event\Event\SelfConnectInterface then this will automatically
      * connect to multiple events
-     *  
+     *
      * @param string|\Nimbles\Event\Event|\Nimbles\Event\Event\SelfConnectInterface $event
      * @param mixed                                                                 $callable
      * @return void
@@ -68,7 +63,7 @@ trait Events {
 	public function connect($event, $callable = null) {
 		return $this->getEvent()->connect($event, $callable);
 	}
-	
+
 	/**
      * Fires the event, calling all handlers
      * @param string $name
@@ -78,7 +73,7 @@ trait Events {
 		$args = func_get_args();
 		return call_user_func_array(array($this->getEvent(), 'fireEvent'), $args);
 	}
-	
+
 	/**
      * Fires the event, calling all handlers until one returns true
      * @param string $name
