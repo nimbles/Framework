@@ -38,6 +38,18 @@ use Nimbles\Event\TestCase;
  */
 class EventsTest extends TestCase {
     /**
+     * Tests that the mock has the traits methods
+     * @return void
+     */
+    public function testTrait() {
+        $eventsMock = new EventsMock();
+        $this->assertTrue(method_exists($eventsMock, 'getEvent'));
+        $this->assertTrue(method_exists($eventsMock, 'connect'));
+        $this->assertTrue(method_exists($eventsMock, 'fireEvent'));
+        $this->assertTrue(method_exists($eventsMock, 'fireEventUntil'));
+    }
+    
+    /**
      * Tests connecting callables to the events mixin
      * @return void
      */
