@@ -170,7 +170,7 @@ class Collection extends ArrayObject {
             throw new Collection\Exception\ReadOnly('Cannot write to collection when it is read only');
         }
         
-        $value = static::factory($value);
+        $value = static::factory($index, $value);
 
         if (null !== ($validator = $this->getTypeValidator())) {
             if (!call_user_func($validator, $value)) {
@@ -213,10 +213,11 @@ class Collection extends ArrayObject {
      * Static method for parent collections to overload
      * 
      * This method automatically called by offsetSet
-     * @param mixed $value
+     * @param int|string $index
+     * @param mixed      $value
      * @return mixed
      */
-    static public function factory($value) {
+    static public function factory($index, $value) {
         return $value;
     }
 }
