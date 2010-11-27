@@ -18,6 +18,7 @@
 namespace Tests\Lib\Nimbles\Config;
 
 require_once 'ConfigTest.php';
+require_once 'ConfigurableTest.php';
 require_once 'File/AllTests.php';
 
 use Nimbles\Config\TestSuite;
@@ -43,6 +44,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Config');
         
         $suite->addTestSuite('\Tests\Lib\Nimbles\Config\ConfigTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Config\ConfigurableTest');
         $suite->addTest(File\AllTests::suite());
         
         return $suite;

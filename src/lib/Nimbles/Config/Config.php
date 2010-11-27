@@ -102,7 +102,7 @@ class Config extends Collection {
      * @return scalar|\Nimbles\Config\Config
      * @throws \Nimbles\Config\Exception\InvalidValue
      */
-    static public function factory($value) {
+    static public function factory($index, $value) {
         if (is_scalar($value) || (null === $value)) {
             return $value;
         }

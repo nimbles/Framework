@@ -11,7 +11,7 @@
  *
  * @category   Nimbles
  * @package    Nimbles-Config
- * @subpackage Collection
+ * @subpackage ConfigTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
@@ -24,7 +24,7 @@ use Nimbles\Config\TestCase,
 /**
  * @category   Nimbles
  * @package    Nimbles-Config
- * @subpackage Collection
+ * @subpackage ConfigTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
