@@ -1,9 +1,9 @@
-[submodule "Nimbles-Event"]
-	path = Nimbles-Event
-	url = git@github.com:mightymephisto/Nimbles-Event.git
-[submodule "Nimbles-Plugins"]
-	path = Nimbles-Plugins
-	url = git@github.com:mightymephisto/Nimbles-Plugins.git
-[submodule "Nimbles-Config"]
-	path = Nimbles-Config
-	url = git@github.com:mightymephisto/Nimbles-Config.git
+[submodule "Config"]
+	path = Config
+	url = git://github.com/nimbles/Config.git
+[submodule "Plugin"]
+	path = Plugin
+	url = git://github.com/nimbles/Plugin.git
+[submodule "Event"]
+	path = Event
+	url = git://github.com/nimbles/Event.git
