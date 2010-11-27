@@ -37,15 +37,62 @@ use Nimbles\Config\TestCase,
  */
 class FileTest extends TestCase {
     /**
+     * Tests loading config from a .php file
+     * @return void
+     */
+    public function testPhpConfig() {
+        $this->_testFactory(realpath(dirname(__FILE__) . '/_files/data.php'), FileAbstract::TYPE_PHP);
+    }
+    
+    /**
+     * Tests loading config from a .inc file
+     * @return void
+     */
+    public function testIncConfig() {
+        $this->_testFactory(realpath(dirname(__FILE__) . '/_files/data.inc'), FileAbstract::TYPE_PHP);
+    }
+    
+    /**
+     * Tests loading config from a .json file
+     * @return void
+     */
+    public function testJsonConfig() {
+        if (!extension_loaded('json')) {
+            $this->markTestSkipped('The json extension is not available');
+        }
+        $this->_testFactory(realpath(dirname(__FILE__) . '/_files/data.json'), FileAbstract::TYPE_JSON);
+    }
+    
+    /**
+     * Tests loading config from a .js file
+     * @return void
+     */
+    public function testJsConfig() {
+        if (!extension_loaded('json')) {
+            $this->markTestSkipped('The json extension is not available');
+        }
+        $this->_testFactory(realpath(dirname(__FILE__) . '/_files/data.js'), FileAbstract::TYPE_JSON);
+    }
+    
+    /**
+     * Tests loading config from a .yaml file
+     * @return void
+     */
+    public function testYamlConfig() {
+        if (!extension_loaded('yaml')) {
+            $this->markTestSkipped('The yaml extension is not available');
+        }
+        $this->_testFactory(realpath(dirname(__FILE__) . '/_files/data.yml'), FileAbstract::TYPE_YAML);
+    }
+    
+    /**
      * Tests creating config from multiple file types
      * 
      * @param string $file
      * @param string|null $type
      * @return void
-     * 
-     * @dataProvider fileProvider
      */
-    public function testFactory($file, $type) {
+    public function _testFactory($file, $type) {
         $config = FileAbstract::factory($file, null, $type);
         
         $this->assertEquals(1, $config->level1->a);
@@ -63,19 +110,5 @@ class FileTest extends TestCase {
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(5, $config->d->e);
         $this->assertEquals(6, $config->d->f);
-    }
-    
-    /**
-     * Data provider for factory
-     * @return array
-     */
-    public function fileProvider() {
-        return array(
-            array(realpath(dirname(__FILE__) . '/_files/data.php'), FileAbstract::TYPE_PHP),
-            array(realpath(dirname(__FILE__) . '/_files/data.inc'), FileAbstract::TYPE_PHP),
-            array(realpath(dirname(__FILE__) . '/_files/data.json'), FileAbstract::TYPE_JSON),
-            array(realpath(dirname(__FILE__) . '/_files/data.js'), FileAbstract::TYPE_JSON),
-            array(realpath(dirname(__FILE__) . '/_files/data.yml'), FileAbstract::TYPE_YAML),
-        );
     }
 }
