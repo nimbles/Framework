@@ -128,7 +128,7 @@ class EventsTest extends TestCase {
         $eventsMock->connect('event2', array($mock, 'listen3'));
 
         $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Event\Event'), $this->equalTo('hello'));
-        $mock->expects($this->never())->method('listen2');
+        $mock->expects($this->never())->method('listen3');
 
         $eventsMock->fireEventUntil('event1', 'hello');
         $eventsMock->fireEventUntil('event2');
