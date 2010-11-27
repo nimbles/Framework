@@ -51,15 +51,15 @@ class ConfigTest extends TestCase {
     public function testDefaultOptions() {
         $config = new Config();
         $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
-        $this->assertTrue($config->isReadOnly());
+        $this->assertFalse($config->isReadOnly());
         
         $config = new Config(null, array(
             'indexType' => Config::INDEX_NUMERIC,
-            'readonly'  => false
+            'readonly'  => true
         ));
         
         $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
-        $this->assertFalse($config->isReadOnly());
+        $this->assertTrue($config->isReadOnly());
     }
     
     /**
@@ -75,7 +75,9 @@ class ConfigTest extends TestCase {
             'd' => new Config(array('e' => 4))
         );
         
-        $config = new Config($data);
+        $config = new Config($data, array(
+            'readonly'  => true
+        ));
         
         $this->assertEquals(1, $config->a);
         $this->assertType('Nimbles\Config\Config', $config->b);

@@ -60,7 +60,7 @@ class Config extends Collection {
     public function __construct($array = null, array $options = null) {
         $options = array_merge(
             (null === $options) ? array(
-                'readonly' => true,
+                'readonly' => false,
             ) : $options,
             array(
                 'indexType' => static::INDEX_ASSOCITIVE,
@@ -69,6 +69,28 @@ class Config extends Collection {
         
         parent::__construct($array, $options);
         $this->setFlags(static::ARRAY_AS_PROPS);
+    }
+    
+	/**
+     * Merges a source config with overriding values
+     * @param array|\ArrayObject $override
+     * @return array
+     * @throws \Nimbles\Config\Exception\InvalidConfig
+     */
+    public function merge($override) {
+        if (!(is_array($override) || ($override instanceof \ArrayObject))) {
+            throw new Config\Exception\InvalidConfig('Override must be an array or an instanceof \ArrayObject, recieved: ' . gettype($override));
+        }
+
+        foreach ($override as $key => $value) {
+            if ($this->offsetExists($key) && ($this->$key instanceof Config) &&
+                (is_array($value) || ($value instanceof \ArrayObject))
+            ) {
+                $this->$key->merge($value);
+            } else {
+                $this->$key = $value;
+            }
+        }
     }
     
     /**

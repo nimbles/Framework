@@ -37,10 +37,11 @@ use Nimbles\Config\Config,
 class Php extends FileAbstract {
     /**
      * Parses the file
+     * @param string $section
      * @return \Nimbles\Config\Config
      * @throws \Nimbles\Config\File\Exception\InvalidFormat
      */
-    public function parse() {
+    public function parse($section = null) {
         $data = include $this->getFile();
         
         if ($data instanceof Config) {
@@ -51,6 +52,6 @@ class Php extends FileAbstract {
             throw new Exception\InvalidFormat('Invalid file contents, must return an array or Config');
         }
         
-        return new Config($data);
+        return $this->getSection($data, $section);
     }
 }
