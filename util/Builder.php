@@ -56,15 +56,23 @@ class Builder {
 	protected $_quiet;
 	
 	/**
+	 * Flag if traits should (true) be used or compiled (false)
+	 * @var bool
+	 */
+	protected $_useTraits;
+	
+	/**
 	 * Class construct
 	 * @return void
 	 */
 	public function __construct() {
-		$options = getopt('s:d:t:q');
+		$options = function_exists('get_declared_traits') ? getopt('s:d:t:qu') : getopt('s:d:t:q'); 
+		
 		$this->_source = realpath(array_key_exists('s', $options) ? $options['s'] : './src');
 		$this->_dest = realpath(array_key_exists('d', $options) ? $options['d'] : './build/lib');
 		$this->_traitPath = realpath(array_key_exists('t', $options) ? $options['t'] : $this->_source . '/lib');
 		$this->_quiet = array_key_exists('q', $options) ? true : false;
+		$this->_useTraits = array_key_exists('u', $options) ? true : false;
 	}
 	
 	/**
@@ -105,10 +113,7 @@ class Builder {
 				}	
 			}
 			
-			/**
-			 * @todo needs to be better, as a trait might exist elsewhere
-			 */
-			if (false === strpos($contents, 'trait')) {
+			if (false === strpos($contents, '@trait')) {
 				file_put_contents($path, $contents);
 			}
 		} else {
@@ -131,14 +136,18 @@ class Builder {
 		// get the class header and footer, separated by the first openning {
 		list($classHeader, $classFooter) = explode('{', $contents, 2);
 		
-		$traitContents = file_get_contents($traitFile);
-		$traitStart = strpos($traitContents, '{');
-		$traitEnd = strrpos($traitContents, '}');
-		
-		$traitBody = substr($traitContents, $traitStart + 1, $traitEnd - $traitStart - 2);
+		if ($this->_useTraits) {
+		    $traitBody = "\n    use $trait;";
+		} else {
+		    $traitContents = file_get_contents($traitFile);
+    		$traitStart = strpos($traitContents, '{');
+    		$traitEnd = strrpos($traitContents, '}');
+    		
+    		$traitBody = substr($traitContents, $traitStart + 1, $traitEnd - $traitStart - 2);
+		}
 		
 		$contents = $classHeader . '{' . $traitBody . "\n" . $classFooter;
-		$contents = preg_replace('/@trait\s+' . preg_quote($trait) . '/', '@uses        ' . $trait, $contents);
+		$contents = preg_replace('/@trait\s+' . preg_quote($trait) . '/', '@uses       ' . $trait, $contents);
 		
 		return $contents;
 	}

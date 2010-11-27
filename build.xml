@@ -17,6 +17,7 @@
 			<arg line="-s ${basedir}/src" />
 			<arg line="-d ${basedir}/build/dest" />
 			<arg line="-q" />
+			<arg line="${compile}"/>
 		</exec>
 	</target>
 
