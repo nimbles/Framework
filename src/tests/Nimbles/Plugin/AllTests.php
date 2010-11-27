@@ -18,6 +18,7 @@
 namespace Tests\Lib\Nimbles\Plugin;
 
 require_once 'PluginTest.php';
+require_once 'PluginsTest.php';
 require_once 'CollectionTest.php';
 
 use Nimbles\Plugin\TestSuite;
@@ -43,6 +44,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Plugins');
         
         $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\PluginTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\PluginsTest');
         $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\CollectionTest');
         
         return $suite;

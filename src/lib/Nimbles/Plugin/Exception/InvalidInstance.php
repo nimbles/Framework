@@ -11,31 +11,23 @@
  *
  * @category   Nimbles
  * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Plugin;
+namespace Nimbles\Plugin\Exception;
+
+use Nimbles\Plugin\Exception;
 
 /**
  * @category   Nimbles
  * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- * 
- * @trait \Nimbles\Plugin\Plugins
- * @trait \Nimbles\Config\Configurable
+ *
+ * @uses       \Nimbles\Plugin\Exception
  */
-class PluginsMock {
-    /**
-     * Class construct
-     * @param array $plugins
-     * @return void
-     */
-    public function __construct(array $plugins) {
-        $this->getConfig()->plugins = $plugins;
-    }
-}
+class InvalidInstance extends Exception {}
