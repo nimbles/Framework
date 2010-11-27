@@ -10,17 +10,17 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins;
+namespace Nimbles\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -28,7 +28,7 @@ namespace Nimbles\Plugins;
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Plugins\Exception\InvalidName
+ * @uses       \Nimbles\Plugin\Exception\InvalidName
  */
 class Plugin extends \Nimbles\Core\Collection {
 	/**
@@ -48,8 +48,8 @@ class Plugin extends \Nimbles\Core\Collection {
 	/**
      * Sets the plugin name
      * @param string $name
-     * @return \Nimbles\Plugins\Plugin
-     * @throws \Nimbles\Plugins\Exception\InvalidName
+     * @return \Nimbles\Plugin\Plugin
+     * @throws \Nimbles\Plugin\Exception\InvalidName
      */
     public function setName($name) {
         if (!is_string($name)) {
@@ -86,7 +86,7 @@ class Plugin extends \Nimbles\Core\Collection {
      * Attaches a plugin
      * @param string $name
      * @param mixed $plugin
-     * @return \Nimbles\Plugins\Plugin
+     * @return \Nimbles\Plugin\Plugin
      */
     public function attach($name, $plugin) {
         $this[$name] = $plugin;
@@ -96,7 +96,7 @@ class Plugin extends \Nimbles\Core\Collection {
     /**
      * Detaches a plugin
      * @param string $name
-     * @return \Nimbles\Plugins\Plugin
+     * @return \Nimbles\Plugin\Plugin
      */
     public function detach($name) {
         if ($this->offsetExists($name)) {

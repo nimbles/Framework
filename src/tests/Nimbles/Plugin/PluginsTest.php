@@ -10,24 +10,34 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage Exception
+ * @package    Nimbles-Plugin
+ * @subpackage PluginTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins\Exception;
+namespace Tests\lib\Nimbles\Plugin;
 
-use Nimbles\Plugins\Exception;
+require_once 'PluginsMock.php';
+
+use Nimbles\Plugin\TestCase,
+    Nimbles\Plugin\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage Exception
+ * @package    Nimbles-Plugin
+ * @subpackage PluginTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Plugins\Exception
+ * @uses       \Nimbles\Plugin\TestSuite
+ *
+ * @group      Nimbles
+ * @group      Nimbles-Plugin
  */
-class InvalidType extends Exception {}
+class PluginsTest extends TestCase {
+    public function testGetPlugin() {
+        
+    }
+}

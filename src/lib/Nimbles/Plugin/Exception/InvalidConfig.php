@@ -10,24 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins\Exception;
+namespace Nimbles\Plugin\Exception;
 
-use Nimbles\Plugins\Exception;
+use Nimbles\Plugin\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Plugins\Exception
+ * @uses       \Nimbles\Plugin\Exception
  */
 class InvalidConfig extends Exception {}

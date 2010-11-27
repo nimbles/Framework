@@ -10,22 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage TestSuite
+ * @package    Nimbles-Plugin
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins;
+namespace Nimbles\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage TestSuite
+ * @package    Nimbles-Plugin
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestSuite
+ * @uses       \Nimbles\Core\Exception
  */
-class TestSuite extends \Nimbles\Core\TestSuite {}
+class Exception extends \Nimbles\Core\Exception {}

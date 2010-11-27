@@ -10,22 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage PluginsMock
+ * @package    Nimbles-Plugin
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Plugins;
+namespace Nimbles\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage PluginsMock
+ * @package    Nimbles-Plugin
+ * @subpackage TestSuite
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- * 
- * @trait \Nimbles\Plugins\Plugins
+ *
+ * @uses       \Nimbles\Core\TestSuite
  */
-class PluginsMock {}
+class TestSuite extends \Nimbles\Core\TestSuite {}

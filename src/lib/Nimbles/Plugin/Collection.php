@@ -10,19 +10,19 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Collection
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins;
+namespace Nimbles\Plugin;
 
 use Nimbles\Core;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage Collection
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -30,7 +30,7 @@ use Nimbles\Core;
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Plugins\Plugin
+ * @uses       \Nimbles\Plugin\Plugin
  */
 class Collection extends Core\Collection {
     /**
@@ -42,7 +42,7 @@ class Collection extends Core\Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'type'      => 'Nimbles\Plugins\Plugin',
+                'type'      => 'Nimbles\Plugin\Plugin',
                 'indexType' => static::INDEX_ASSOCITIVE,
                 'readonly'  => true
             )
@@ -55,7 +55,7 @@ class Collection extends Core\Collection {
     /**
      * Gets a plugin by name
      * @param string $name
-     * @return \Nimbles\Plugins\Plugin
+     * @return \Nimbles\Plugin\Plugin
      */
     public function getPlugin($name) {
         return $this->offsetExists($name) ? $this[$name] : null;
@@ -63,8 +63,8 @@ class Collection extends Core\Collection {
     
 	/**
      * Factory method for creating plugins
-     * @param string|array|\Nimbles\Plugins\Plugin $plugin
-     * @return \Nimbles\Plugins\Plugin|null
+     * @param string|array|\Nimbles\Plugin\Plugin $plugin
+     * @return \Nimbles\Plugin\Plugin|null
      */
     static public function factory($plugin) {
         if (is_string($plugin)) {

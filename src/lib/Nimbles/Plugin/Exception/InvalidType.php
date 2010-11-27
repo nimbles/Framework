@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage TestCase
+ * @package    Nimbles-Plugin
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins;
+namespace Nimbles\Plugin\Exception;
+
+use Nimbles\Plugin\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage TestCase
+ * @package    Nimbles-Plugin
+ * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestCase
+ * @uses       \Nimbles\Plugin\Exception
  */
-class TestCase extends \Nimbles\Core\TestCase {}
+class InvalidType extends Exception {}

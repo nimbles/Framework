@@ -10,22 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage Exception
+ * @package    Nimbles-Plugin
+ * @subpackage PluginsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugins;
+namespace Tests\Lib\Nimbles\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
- * @subpackage Exception
+ * @package    Nimbles-Plugin
+ * @subpackage PluginsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- *
- * @uses       \Nimbles\Core\Exception
+ * 
+ * @trait \Nimbles\Plugin\Plugins
  */
-class Exception extends \Nimbles\Core\Exception {}
+class PluginsMock {}

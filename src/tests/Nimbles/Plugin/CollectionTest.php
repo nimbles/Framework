@@ -10,30 +10,30 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage CollectionTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\Plugins;
+namespace Tests\lib\Nimbles\Plugin;
 
-use Nimbles\Plugins\TestCase,
-    Nimbles\Plugins\Collection,
-    Nimbles\Plugins\Plugin;
+use Nimbles\Plugin\TestCase,
+    Nimbles\Plugin\Collection,
+    Nimbles\Plugin\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugins
+ * @package    Nimbles-Plugin
  * @subpackage CollectionTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Plugins\TestSuite
+ * @uses       \Nimbles\Plugin\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Plugins
+ * @group      Nimbles-Plugin
  */
 class CollectionTest extends TestCase {
 /**
@@ -57,7 +57,7 @@ class CollectionTest extends TestCase {
             'readonly'  => true
         ));
         
-        $this->assertEquals('Nimbles\Plugins\Plugin', $collection->getType());
+        $this->assertEquals('Nimbles\Plugin\Plugin', $collection->getType());
         $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
         $this->assertTrue($collection->isReadOnly());
     }
@@ -76,9 +76,9 @@ class CollectionTest extends TestCase {
             'baz' => new Plugin()
         ));
         
-        $this->assertType('Nimbles\Plugins\Plugin', $collection->foo);
-        $this->assertType('Nimbles\Plugins\Plugin', $collection->bar);
-        $this->assertType('Nimbles\Plugins\Plugin', $collection->baz);
+        $this->assertType('Nimbles\Plugin\Plugin', $collection->foo);
+        $this->assertType('Nimbles\Plugin\Plugin', $collection->bar);
+        $this->assertType('Nimbles\Plugin\Plugin', $collection->baz);
         
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $collection['test'] = new Plugin();
