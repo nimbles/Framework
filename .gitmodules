@@ -7,3 +7,6 @@
 [submodule "Event"]
 	path = Event
 	url = git://github.com/nimbles/Event.git
+[submodule "Container"]
+	path = Container
+	url = git://github.com/nimbles/Container.git
