@@ -67,7 +67,7 @@ class Collection extends Core\Collection {
      * @param string|array|\Nimbles\Plugin\Plugin $plugin
      * @return \Nimbles\Plugin\Plugin|null
      */
-    static public function factory($index, $plugin) {
+    public static function factory($index, $plugin) {
         if (is_array($plugin)) { // treat as options
             $plugin = new Plugin($plugin);
         } else if (!($plugin instanceof Plugin)) { // empty plugin
