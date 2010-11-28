@@ -115,7 +115,7 @@ trait Options {
         }
         
         if (!is_array($options) && !($options instanceof \ArrayObject)) {
-            throw new \BadMethodCallException('Invalid options, must be an array or instance of an ArrayObject')
+            throw new \BadMethodCallException('Invalid options, must be an array or instance of an ArrayObject');
         }
         
         if (null !== $required) {
