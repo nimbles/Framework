@@ -85,7 +85,7 @@ class Collection extends ArrayObject {
             'bool',
             'object',
             'array',
-        	'callable'
+            'callable'
         );
 
         if (in_array($type, $types)) {
@@ -217,7 +217,7 @@ class Collection extends ArrayObject {
      * @param mixed      $value
      * @return mixed
      */
-    static public function factory($index, $value) {
+    public static function factory($index, $value) {
         return $value;
     }
 }

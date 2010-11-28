@@ -34,7 +34,7 @@ class Request extends \Nimbles\Http\Request {
      * @return \Nimbles\Https\Request|null
      */
     /* @codeCoverageIgnoreStart */
-    static public function build() {
+    public static function build() {
         if ('cli' !== PHP_SAPI) {
             $request = new static();
 

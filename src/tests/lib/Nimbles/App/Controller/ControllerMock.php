@@ -71,7 +71,7 @@ class ControllerMock extends ControllerAbstract {
 class RequestMock extends RequestAbstract {
     public function getBody() {}
 
-    static public function build() {}
+    public static function build() {}
 }
 
 /**

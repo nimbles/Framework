@@ -33,5 +33,5 @@ interface RequestInterface {
      * Builds the request, used by factory
      * @return \Nimbles\Core\Request|null
      */
-    static public function build();
+    public static function build();
 }

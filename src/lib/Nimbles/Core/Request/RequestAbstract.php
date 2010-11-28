@@ -46,7 +46,7 @@ abstract class RequestAbstract extends MixinAbstract
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Config\Options',
             'Nimbles\Core\Delegates\Delegatable' => array(
@@ -122,7 +122,7 @@ abstract class RequestAbstract extends MixinAbstract
      * @return \Nimbles\Core\Request|null
      * @throws \Nimbles\Core\Request\Exception\NimblesPathUndefined
      */
-    static public function factory() {
+    public static function factory() {
         if (!defined('NIMBLES_LIBRARY')) {
             throw new Request\Exception\NimblesPathUndefined('NIMBLES_LIBRARY constant is not defined');
         }

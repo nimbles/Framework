@@ -40,7 +40,7 @@ class Request extends RequestAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array_merge_recursive(
             parent::_getImplements(),
             array(
@@ -59,7 +59,7 @@ class Request extends RequestAbstract {
      * Gets the input from stdin
      * @var string
      */
-    static protected $_stdin;
+    protected static $_stdin;
 
     /**
      * The command line options
@@ -78,7 +78,7 @@ class Request extends RequestAbstract {
      * @return string
      */
     /* @codeCoverageIgnoreStart */
-    static public function getStdin() {
+    public static function getStdin() {
         if (null === self::$_stdin) {
             self::$_stdin = file_get_contents('php://stdin');
         }
@@ -137,7 +137,7 @@ class Request extends RequestAbstract {
      * @return \Nimbles\Cli\Request|null
      */
     /* @codeCoverageIgnoreStart */
-    static public function build() {
+    public static function build() {
         if ('cli' === PHP_SAPI) {
             return new self();
         }

@@ -35,7 +35,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for All Tests
      * @return \Nimbles\Core\TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('All Tests');
         $suite->addTest(Lib\AllTests::suite());
         return $suite;

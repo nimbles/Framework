@@ -29,32 +29,32 @@ namespace Nimbles\Build;
  * @uses       \Nimbles\Build\Source
  */
 class Source {
-	/**
-	 * The collection of files
-	 * @var array
-	 */
-	protected $_files;
-	
-	/**
-	 * Gets the files collection
-	 * @return array
-	 */
-	public function getFiles() {
-		return $this->_files;
-	}
-	
-	/**
-	 * Class construct
-	 * @param string $directory
-	 * @return void
-	 */
-	public function __construct($directory) {
-		$files = new \RecursiveIteratorIterator(
-        	new \RecursiveDirectoryIterator(
-            	$directory,
-            	\FilesystemIterator::UNIX_PATHS |
-                	\FilesystemIterator::FOLLOW_SYMLINKS |
-                	\FilesystemIterator::SKIP_DOTS 
+    /**
+     * The collection of files
+     * @var array
+     */
+    protected $_files;
+    
+    /**
+     * Gets the files collection
+     * @return array
+     */
+    public function getFiles() {
+        return $this->_files;
+    }
+    
+    /**
+     * Class construct
+     * @param string $directory
+     * @return void
+     */
+    public function __construct($directory) {
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
+                $directory,
+                \FilesystemIterator::UNIX_PATHS |
+                    \FilesystemIterator::FOLLOW_SYMLINKS |
+                    \FilesystemIterator::SKIP_DOTS 
             )
         );
 
@@ -65,5 +65,5 @@ class Source {
             }
         }
         sort($this->_files);
-	}
+    }
 }

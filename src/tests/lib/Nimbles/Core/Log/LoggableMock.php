@@ -36,7 +36,7 @@ class LoggableMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Nimbles\Core\Log\Loggable');
     }
 }

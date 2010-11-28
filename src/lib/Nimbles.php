@@ -31,14 +31,14 @@ class Nimbles {
      * Nimbles instance
      * @var \Nimbles
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Gets and instance of Nimbles
      * @return \Nimbles
      * @todo require and use \Nimbles\Core\Singleton
      */
-    static public function getInstance() {
+    public static function getInstance() {
         if (null === static::$_instance) {
             new Nimbles();
         }
@@ -50,7 +50,7 @@ class Nimbles {
      * @param Nimbles $instance
      * @return void
      */
-    static public function setInstance(Nimbles $instance = null) {
+    public static function setInstance(Nimbles $instance = null) {
         static::$_instance = $instance;
     }
 

@@ -38,7 +38,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - App
      * @return \Nimbles\App\TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - App');
 
         $suite->addTest(Controller\AllTests::suite());

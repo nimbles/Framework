@@ -37,7 +37,7 @@ class OptionsMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Nimbles\Core\Config\Options');
     }
 
@@ -76,7 +76,7 @@ class OptionsWithDefaultsMock extends OptionsMock {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Config\Options' => array(
                 'test' => 'hello world'
@@ -101,7 +101,7 @@ class OptionsWithOtherMixinMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Config\Options',
             'Tests\Lib\Nimbles\Core\Config\MixinableMock'

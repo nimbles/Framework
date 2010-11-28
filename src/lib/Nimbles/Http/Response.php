@@ -47,7 +47,7 @@ class Response extends ResponseAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array_merge_recursive(
             parent::_getImplements(),
             array(

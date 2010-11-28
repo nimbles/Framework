@@ -42,7 +42,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Http - Client
      * @return \PHPUnit_Framework_TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Http - Client');
 
         $suite->addTest(Adapter\AllTests::suite());

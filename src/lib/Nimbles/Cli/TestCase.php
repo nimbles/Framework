@@ -34,13 +34,13 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Argv used during test cases
      * @var array
      */
-    static protected $_argv;
+    protected static $_argv;
 
     /**
      * Gets the Argv to be used during test cases
      * @return array
      */
-    static public function getArgv() {
+    public static function getArgv() {
         return static::$_argv;
     }
 
@@ -49,7 +49,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param array $argv
      * @return void
      */
-    static public function setArgv(array $argv) {
+    public static function setArgv(array $argv) {
         static::$_argv = $argv;
     }
 

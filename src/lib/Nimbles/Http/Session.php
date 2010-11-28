@@ -38,7 +38,7 @@ class Session extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
@@ -80,7 +80,7 @@ class Session extends MixinAbstract {
      * Indicates that the session has started
      * @var bool
      */
-    static protected $_started = false;
+    protected static $_started = false;
 
     /**
      * The session name

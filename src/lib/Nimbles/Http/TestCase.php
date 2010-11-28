@@ -34,49 +34,49 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Indicates that the headers have been sent
      * @var bool
      */
-    static protected $_headersSent;
+    protected static $_headersSent;
 
     /**
      * Array of sent headers
      * @var array
      */
-    static protected $_headers;
+    protected static $_headers;
 
     /**
      * Array of query variables
      * @var array
      */
-    static protected $_query;
+    protected static $_query;
 
     /**
      * Array of post variables
      * @var array
      */
-    static protected $_post;
+    protected static $_post;
 
     /**
      * Array of cookies
      * @var array
      */
-    static protected $_cookies;
+    protected static $_cookies;
 
     /**
      * The session data
      * @var array
      */
-    static protected $_session = array();
+    protected static $_session = array();
 
     /**
      * The session id
      * @var string
      */
-    static protected $_sessionId = '';
+    protected static $_sessionId = '';
 
     /**
      * The session name
      * @var string
      */
-    static protected $_sessionName = 'PHPSESSID';
+    protected static $_sessionName = 'PHPSESSID';
 
     /**
      * Creates a \Nimbles\Http\Request with the test delegate methods
@@ -162,7 +162,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Indicates that the headers have been sent
      * @return bool
      */
-    static public function isHeadersSent($headersSent = null) {
+    public static function isHeadersSent($headersSent = null) {
         static::$_headersSent = is_bool($headersSent) ? $headersSent : static::$_headersSent;
         return static::$_headersSent;
     }
@@ -173,7 +173,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param string $header
      * @return void
      */
-    static public function header($header) {
+    public static function header($header) {
         static::$_headers[] = $header;
     }
 
@@ -181,7 +181,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Gets the cookies
      * @return array
      */
-    static public function getCookie() {
+    public static function getCookie() {
         return static::$_cookies;
     }
 
@@ -189,7 +189,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Gets the query variables
      * @return array
      */
-    static public function getQuery() {
+    public static function getQuery() {
         return static::$_query;
     }
 
@@ -197,7 +197,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Gets the post variables
      * @return array
      */
-    static public function getPost() {
+    public static function getPost() {
         return static::$_post;
     }
 
@@ -206,7 +206,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param array $options
      * @return \Nimbles\Http\Session
      */
-    static public function getSession($options = null) {
+    public static function getSession($options = null) {
         $session = new Session($options);
         $session->isStarted(false);
 
@@ -231,7 +231,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param array $options
      * @return \Nimbles\Http\Session
      */
-    static public function getReadOnlySession($options = null) {
+    public static function getReadOnlySession($options = null) {
         $session = static::getSession($options);
         $session->setDelegate('writeValue', function() {});
         $session->setDelegate('clearValues', function() {});
@@ -249,7 +249,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param bool   $secure
      * @param bool   $httponly
      */
-    static public function setcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
+    public static function setcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
         return static::setrawcookie($name, urldecode($value), $expire, $path, $domain, $secure, $httponly);
     }
 
@@ -264,7 +264,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param bool   $secure
      * @param bool   $httponly
      */
-    static public function setrawcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
+    public static function setrawcookie($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false) {
         $header = sprintf('Set-Cookie: %s=%s', $name, $value);
 
         if (0 !== $expire) {
@@ -292,7 +292,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Starts the session
      * @return bool
      */
-    static public function sessionStart() {
+    public static function sessionStart() {
         if ('' === static::$_sessionId) {
             static::generateSessionId();
         }
@@ -304,7 +304,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param string|null $id
      * @return void
      */
-    static public function sessionId($id = null) {
+    public static function sessionId($id = null) {
         return static::$_sessionId = (null === $id) ? static::$_sessionId : $id;
     }
 
@@ -313,14 +313,14 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param string|null $name
      * @return void
      */
-    static public function sessionName($name = null) {
+    public static function sessionName($name = null) {
         return static::$_sessionName = (null === $name) ? static::$_sessionName : $name;
     }
 
     /**
      * Destroys the session
      */
-    static public function sessionDestroy() {
+    public static function sessionDestroy() {
         static::$_sessionId = '';
         static::$_sessionName = 'PHPSESSID';
         static::$_session = array();
@@ -331,7 +331,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Generates a session id
      * @return bool
      */
-    static public function generateSessionId($deleteOld = false) {
+    public static function generateSessionId($deleteOld = false) {
         static::$_sessionId = md5((string) (time() + rand(0, 1000)));
         return true;
     }
@@ -341,7 +341,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param string $key
      * @return mixed
      */
-    static public function readSession($key) {
+    public static function readSession($key) {
         if ('' === static::$_sessionId) {
             if (null === $key) {
                 return array();
@@ -363,7 +363,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param mixed $value
      * @return void
      */
-    static public function writeSession($key, $value) {
+    public static function writeSession($key, $value) {
         static::$_session[$key] = $value;
     }
 
@@ -371,7 +371,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * Clears the session
      * @return void
      */
-    static public function clearSession() {
+    public static function clearSession() {
         static::$_session = array();
     }
 
@@ -380,7 +380,7 @@ class TestCase extends \Nimbles\Core\TestCase {
      * @param string $key
      * @return bool
      */
-    static public function sessionKeyExists($key) {
+    public static function sessionKeyExists($key) {
         return array_key_exists($key, static::$_session);
     }
 

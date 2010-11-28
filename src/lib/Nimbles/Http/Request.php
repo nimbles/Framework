@@ -52,7 +52,7 @@ class Request extends RequestAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array_merge_recursive(
             parent::_getImplements(),
             array(
@@ -124,7 +124,7 @@ class Request extends RequestAbstract {
      * The request input
      * @var string
      */
-    static protected $_input;
+    protected static $_input;
 
     /**
      * Gets a query variable
@@ -279,7 +279,7 @@ class Request extends RequestAbstract {
      * @return string
      */
     /* @codeCoverageIgnoreStart */
-    static public function getRequestInput() {
+    public static function getRequestInput() {
         if (null === self::$_body) {
             self::setRequestInput();
         }
@@ -294,7 +294,7 @@ class Request extends RequestAbstract {
      * @return \Nimbles\Http\Request
      */
     /* @codeCoverageIgnoreStart */
-    static public function setRequestInput($body = null) {
+    public static function setRequestInput($body = null) {
         self::$_body = (null === $body) ? file_get_contents('php://input') : $body;
     }
     /* @codeCoverageIgnoreStart */
@@ -401,7 +401,7 @@ class Request extends RequestAbstract {
      * @return \Nimbles\Http\Request|null
      */
     /* @codeCoverageIgnoreStart */
-    static public function build() {
+    public static function build() {
         if ('cli' !== PHP_SAPI) {
             $request = new static();
 

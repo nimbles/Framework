@@ -41,7 +41,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Core - Config
      * @return \Nimbles\Core\TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Core - Adapter');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Adapter\AdaptableTest');

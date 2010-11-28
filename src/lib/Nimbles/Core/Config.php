@@ -40,13 +40,13 @@ class Config extends ArrayObject {
      * Static instance
      * @var \Nimbles\Core\Config
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Gets the instance
      * @return \Nimbles\Core\Config
      */
-    static public function getInstance() {
+    public static function getInstance() {
         if (null === static::$_instance) {
             static::$_instance = new static();
         }
@@ -198,7 +198,7 @@ class Config extends ArrayObject {
      * @return \Nimbles\Core\Config|scalar
      * @throws \BadMethodCallException
      */
-    static public function __callStatic($method, $args) {
+    public static function __callStatic($method, $args) {
         $object = self::getInstance();
 
         if ('getConfig' === $method) {

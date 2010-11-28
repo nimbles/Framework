@@ -8,6 +8,6 @@ try {
 $builder = new Builder();
 $builder->build();
 } catch (\Exception $ex) {
-	echo $ex->getMessage();
-	exit(1);
+    echo $ex->getMessage();
+    exit(1);
 }

@@ -38,7 +38,7 @@ class Log extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Plugin\Pluginable' => array(
                 'types' => array(
@@ -52,13 +52,13 @@ class Log extends MixinAbstract {
      * Instance of Log
      * @var \Nimbles\Core\Log
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Gets an instance of the Log
      * @return \Nimbles\Core\Log
      */
-    static public function getInstance() {
+    public static function getInstance() {
         if (null === self::$_instance) {
             self::$_instance = new Log();
         }

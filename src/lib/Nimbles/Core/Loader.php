@@ -31,7 +31,7 @@ class Loader {
      * Registers the autoloader
      * @return void
      */
-    static public function register() {
+    public static function register() {
         $includepaths = explode(PATH_SEPARATOR, get_include_path());
 
         if (!in_array(NIMBLES_PATH, $includepaths)) {
@@ -49,7 +49,7 @@ class Loader {
      * @param string $class
      * @return void
      */
-    static public function autoload($class) {
+    public static function autoload($class) {
         // only need to replace back slashes with forward slashes since php 5.3
         $file = str_replace('\\', '/', $class) . '.php';
         if (static::fileExists($file)) {
@@ -62,7 +62,7 @@ class Loader {
      * @param string $file
      * @return bool
      */
-    static public function fileExists($file) {
+    public static function fileExists($file) {
         if (false !== realpath($file)) {
             return true;
         }

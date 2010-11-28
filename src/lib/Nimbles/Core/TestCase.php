@@ -35,25 +35,25 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * Input to be used during test cases
      * @var string
      */
-    static protected $_input = '';
+    protected static $_input = '';
 
     /**
      * Output to be used during test cases
      * @var string
      */
-    static protected $_output = '';
+    protected static $_output = '';
 
     /**
      * The server variables
      * @var array
      */
-    static protected $_server;
+    protected static $_server;
 
     /**
      * Gets input to be used during test cases
      * @return string
      */
-    static public function getInput() {
+    public static function getInput() {
         return static::$_input;
     }
 
@@ -62,7 +62,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param string $input
      * @return void
      */
-    static public function setInput($input) {
+    public static function setInput($input) {
         static::$_input = is_string($input) ? $input : static::$_input;
     }
 
@@ -70,7 +70,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * Gets output to be used during test cases
      * @return string
      */
-    static public function getOutput() {
+    public static function getOutput() {
         return static::$_output;
     }
 
@@ -78,7 +78,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * Sets output to be used during test cases
      * @param string $output
      */
-    static public function setOutput($output) {
+    public static function setOutput($output) {
         static::$_output = is_string($output) ? $output : static::$_output;
     }
 
@@ -86,7 +86,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * Gets the server variables
      * @return array
      */
-    static public function getServer() {
+    public static function getServer() {
         return static::$_server;
     }
 

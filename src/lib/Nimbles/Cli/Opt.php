@@ -41,7 +41,7 @@ class Opt extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Nimbles\Core\Config\Options');
     }
 
@@ -232,7 +232,7 @@ class Opt extends MixinAbstract {
      * @return \Nimbles\Cli\Request\Opt
      * @throws \Nimbles\Cli\Request\Opt\Exception\Parse
      */
-    static public function factory($option) {
+    public static function factory($option) {
         if ($option instanceof Opt) {
             return $option;
         }

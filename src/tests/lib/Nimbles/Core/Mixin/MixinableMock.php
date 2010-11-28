@@ -38,7 +38,7 @@ class MixinPropertiesMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Tests\Lib\Nimbles\Core\Mixin\MixinableProperties');
     }
 }
@@ -95,7 +95,7 @@ class MixinMethodsMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Tests\Lib\Nimbles\Core\Mixin\MixinableMethods');
     }
 }
@@ -142,7 +142,7 @@ class MixinPropertiesAndMethodsMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Tests\Lib\Nimbles\Core\Mixin\MixinableProperties',
             'Tests\Lib\Nimbles\Core\Mixin\MixinableMethods'

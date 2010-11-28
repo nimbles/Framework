@@ -42,7 +42,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Core - Mixin
      * @return \PHPUnit_Framework_TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Core - Mixin');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Mixin\MixinTest');

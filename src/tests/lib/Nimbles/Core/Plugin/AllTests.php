@@ -42,7 +42,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Core - Plugin
      * @return \PHPUnit_Framework_TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new \PHPUnit_Framework_TestSuite('Nimbles Framework - Core - Plugin');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Plugin\PluginsTest');

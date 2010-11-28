@@ -12,7 +12,7 @@ foreach ($dirs as $dir) {
     }
 
     if (false !== ($testsuite = realpath(dirname(__FILE__) . '/../lib/Nimbles/' . $dir . '/TestSuite.php'))) {
-    	$testFiles[]= $testsuite;
+        $testFiles[]= $testsuite;
     }
 }
 

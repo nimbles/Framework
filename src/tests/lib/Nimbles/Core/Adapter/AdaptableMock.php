@@ -35,7 +35,7 @@ class AdaptableSingleMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Adapter\Adaptable' => array(
                 'namespaces' => array(
@@ -61,7 +61,7 @@ class AdaptableSingleNoPathsMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array('Nimbles\Core\Adapter\Adaptable');
     }
 }
@@ -81,7 +81,7 @@ class AdaptableAbstractMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Adapter\Adaptable' => array(
                 'abstract' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterAbstract',
@@ -108,7 +108,7 @@ class AdaptableInterfaceMock extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Adapter\Adaptable' => array(
                 'interface' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterInterface',

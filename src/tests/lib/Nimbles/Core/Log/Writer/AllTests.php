@@ -42,7 +42,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Core - Log - Writer
      * @return \PHPUnit_Framework_TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Core - Log - Writer');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Log\Writer\MockTest');

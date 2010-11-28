@@ -40,7 +40,7 @@ class Header extends MixinAbstract {
      * Gets the array of implements for this mixin
      * @var array
      */
-    static protected function _getImplements() {
+    protected static function _getImplements() {
         return array(
             'Nimbles\Core\Delegates\Delegatable' => array(
                 'delegates' => array(
@@ -184,7 +184,7 @@ class Header extends MixinAbstract {
      * @param bool              $fromServerVars indicates that the name and string came from the $_SERVER variables
      * @return \Nimbles\Http\Header
      */
-    static public function factory($name, $value = null, $fromServerVars = false) {
+    public static function factory($name, $value = null, $fromServerVars = false) {
         if (0 === strpos($name, 'HTTP_')) {
             $name = substr($name, 5);
         } else if ($fromServerVars) {

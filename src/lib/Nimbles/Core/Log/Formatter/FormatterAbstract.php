@@ -65,7 +65,7 @@ abstract class FormatterAbstract extends MixinAbstract {
      * @throws \Nimbles\Core\Log\Formatter\Exception\InvalidOptions
      * @throws \Nimbles\Core\Log\Formatter\Exception\InvalidFormatterType
      */
-    static public function factory($options) {
+    public static function factory($options) {
         if ($options instanceof self) { // already a formatter so just return it
             return $options;
         }

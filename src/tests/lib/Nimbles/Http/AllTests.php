@@ -46,7 +46,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Http
      * @return \Nimbles\Http\TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Http');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Http\ClientTest');

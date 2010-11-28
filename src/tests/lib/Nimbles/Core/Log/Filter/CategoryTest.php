@@ -74,10 +74,10 @@ class CategoryTest extends TestCase {
     public function categoryProvider() {
         return array(
             array(new Log\Entry(array(
-	            'message' => 'This is a test message',
-	            'category' => 'hit'
-	        )), true),
-	        array(new Log\Entry(array(
+                'message' => 'This is a test message',
+                'category' => 'hit'
+            )), true),
+            array(new Log\Entry(array(
                 'message' => 'This is a test message',
                 'category' => 'miss'
             )), false),

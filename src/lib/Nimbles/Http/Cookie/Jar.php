@@ -43,13 +43,13 @@ class Jar extends Collection {
      * Instance of the Cookie Jar
      * @var \Nimbles\Http\Cookie\Jar
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Gets an instanceof the Cookie Jar
      * @return \Nimbles\Http\Cookie\Jar
      */
-    static public function getInstance() {
+    public static function getInstance() {
         return self::$_instance ?: self::$_instance = new static();
     }
 

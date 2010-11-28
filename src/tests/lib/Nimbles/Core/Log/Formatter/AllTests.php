@@ -42,7 +42,7 @@ class AllTests extends TestSuite {
      * Creates the Test Suite for Nimbles Framework - Core - Log - Formatter
      * @return \PHPUnit_Framework_TestSuite
      */
-    static public function suite() {
+    public static function suite() {
         $suite = new \PHPUnit_Framework_TestSuite('Nimbles Framework - Core - Log - Formatter');
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Log\Formatter\SimpleTest');
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Log\Formatter\FormatterTest');
