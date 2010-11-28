@@ -50,18 +50,18 @@ class ConfigTest extends TestCase {
      */
     public function testDefaultOptions() {
         $config = new Config();
-        $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
+        $this->assertEquals(Config::INDEX_MIXED, $config->getIndexType());
         $this->assertFalse($config->isReadOnly());
-        
+
         $config = new Config(null, array(
             'indexType' => Config::INDEX_NUMERIC,
             'readonly'  => true
         ));
-        
-        $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
+
+        $this->assertEquals(Config::INDEX_MIXED, $config->getIndexType());
         $this->assertTrue($config->isReadOnly());
     }
-    
+
     /**
      * Tests that creating a config object from a construct
      * @return void
@@ -74,16 +74,16 @@ class ConfigTest extends TestCase {
             ),
             'd' => new Config(array('e' => 4))
         );
-        
+
         $config = new Config($data, array(
             'readonly'  => true
         ));
-        
+
         $this->assertEquals(1, $config->a);
         $this->assertType('Nimbles\Config\Config', $config->b);
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(4, $config->d->e);
-        
+
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $config->f = 'foo';
     }
