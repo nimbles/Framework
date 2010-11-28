@@ -121,7 +121,7 @@ class Collection extends Core\Collection {
      * @param string|array|\Nimbles\Event\Event $event
      * @return \Nimbles\Event\Event|null
      */
-    static public function factory($index, $event) {
+    public static function factory($index, $event) {
         if (is_string($event)) {
             $event = new Event(null, array(
                 'type' => $event
