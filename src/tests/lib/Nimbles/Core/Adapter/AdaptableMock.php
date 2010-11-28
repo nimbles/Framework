@@ -18,8 +18,6 @@
 
 namespace Tests\Lib\Nimbles\Core\Adapter;
 
-use Nimbles\Core\Mixin\MixinAbstract;
-
 /**
  * @category   Nimbles
  * @package    Nimbles-Core
@@ -28,19 +26,14 @@ use Nimbles\Core\Mixin\MixinAbstract;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\MixinAbstract
+ * @trait       \Nimbles\Core\Adapter\Adaptable
+ * @trait       \Nimbles\Config\Configurable
  */
-class AdaptableSingleMock extends MixinAbstract {
-    /**
-     * Gets the array of implements for this mixin
-     * @var array
-     */
-    protected static function _getImplements() {
-        return array(
-            'Nimbles\Core\Adapter\Adaptable' => array(
-                'namespaces' => array(
-                    '\Tests\Lib\Nimbles\Core\Adapter'
-                )
+class AdaptableSingleMock {
+    public function __construct() {
+        $this->getConfig()->adaptable = array(
+            'namespaces' => array(
+                '\Tests\Lib\Nimbles\Core\Adapter'
             )
         );
     }
@@ -54,17 +47,9 @@ class AdaptableSingleMock extends MixinAbstract {
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\MixinAbstract
+ * @trait       \Nimbles\Core\Adapter\Adaptable
  */
-class AdaptableSingleNoPathsMock extends MixinAbstract {
-    /**
-     * Gets the array of implements for this mixin
-     * @var array
-     */
-    protected static function _getImplements() {
-        return array('Nimbles\Core\Adapter\Adaptable');
-    }
-}
+class AdaptableSingleNoPathsMocks {}
 
 /**
  * @category   Nimbles
@@ -74,21 +59,16 @@ class AdaptableSingleNoPathsMock extends MixinAbstract {
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\MixinAbstract
+ * @trait       \Nimbles\Core\Adapter\Adaptable
+ * @trait       \Nimbles\Config\Configurable
  */
-class AdaptableAbstractMock extends MixinAbstract {
-    /**
-     * Gets the array of implements for this mixin
-     * @var array
-     */
-    protected static function _getImplements() {
-        return array(
-            'Nimbles\Core\Adapter\Adaptable' => array(
-                'abstract' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterAbstract',
-                'namespaces' => array(
-                    '\Tests\Lib\Nimbles\Core\Adapter'
-                )
-            )
+class AdaptableAbstractMock {
+    public function __construct() {
+        $this->getConfig()->adaptable = array(
+            'abstract' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterAbstract',
+            'namespaces' => array(
+                '\Tests\Lib\Nimbles\Core\Adapter'
+             )
         );
     }
 }
@@ -101,20 +81,15 @@ class AdaptableAbstractMock extends MixinAbstract {
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\MixinAbstract
+ * @trait       \Nimbles\Core\Adapter\Adaptable
+ * @trait       \Nimbles\Config\Configurable
  */
-class AdaptableInterfaceMock extends MixinAbstract {
-    /**
-     * Gets the array of implements for this mixin
-     * @var array
-     */
-    protected static function _getImplements() {
-        return array(
-            'Nimbles\Core\Adapter\Adaptable' => array(
-                'interface' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterInterface',
-                'namespaces' => array(
-                    '\Tests\Lib\Nimbles\Core\Adapter'
-                )
+class AdaptableInterfaceMock {
+    public function __construct() {
+        $this->getConfig()->adaptable = array(
+            'interface' => '\Tests\Lib\Nimbles\Core\Adapter\AdapterInterface',
+            'namespaces' => array(
+                '\Tests\Lib\Nimbles\Core\Adapter'
             )
         );
     }

@@ -18,7 +18,7 @@
 namespace Tests\lib\Nimbles\Core;
 
 require_once 'Adapter/AllTests.php';
-require_once 'CollectionTest.php';
+/*require_once 'CollectionTest.php';
 require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
 require_once 'DelegatesTest.php';
@@ -28,7 +28,7 @@ require_once 'LogTest.php';
 require_once 'Log/AllTests.php';
 require_once 'Mixin/AllTests.php';
 require_once 'PluginTest.php';
-require_once 'Plugin/AllTests.php';
+require_once 'Plugin/AllTests.php';*/
 
 use Nimbles\Core\TestSuite;
 
@@ -53,7 +53,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Core');
 
         $suite->addTest(Adapter\AllTests::suite());
-
+/*
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\CollectionTest');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\ConfigTest');
@@ -71,7 +71,7 @@ class AllTests extends TestSuite {
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
         $suite->addTest(Plugin\AllTests::suite());
-
+*/
         return $suite;
     }
 }

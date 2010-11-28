@@ -18,8 +18,7 @@
 
 namespace Nimbles\Core\Adapter;
 
-use Nimbles\Core\Mixin\Mixinable\MixinableAbstract,
-    Nimbles\Core\Adapter;
+use Nimbles\Core\Adapter;
 
 /**
  * @category   Nimbles
@@ -29,21 +28,18 @@ use Nimbles\Core\Mixin\Mixinable\MixinableAbstract,
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\Mixinable\MixinableAbstract
+ * @uses       \Nimbles\Config\Config
  */
-class Adaptable extends MixinableAbstract {
-    /**
-     * The adapter for the given object
-     * @var object
-     */
-    protected $_adapter;
-
+trait Adaptable {
     /**
      * Gets the adapter
      * @return object
      */
     public function getAdapter() {
-        return $this->_adapter;
+        if (!isset($this->adapter)) {
+            $this->adapter = null;
+        }
+        return $this->adapter;
     }
 
     /**
@@ -52,9 +48,20 @@ class Adaptable extends MixinableAbstract {
      * @return \Nimbles\Core\Adapter\Adaptable
      */
     public function setAdapter($adapter) {
-        if (null !== ($config = $this->getConfig())) {
+
+        if (!method_exists($this, 'getConfig')) {
+            throw new Adapter\Exception('Dependency fail, getConfig() is missing');
+        }
+
+        $config = $this->getConfig();
+        if (!$config instanceof \Nimbles\Config\Config) {
+            throw new Adapter\Exception('getConfig() must return a \Nimbles\Config object');
+        }
+
+        if (null !== $config) {
+            $config = $config->adaptable;
             // check if namespaces have been defined, if not we cannot accept by string
-            if ((null === ($namespaces = $config->namespaces)) && !is_object($adapter)) {
+            if (isset($config->namespaces) && (null === ($namespaces = $config->namespaces)) && !is_object($adapter)) {
                 throw new Adapter\Exception\InvalidAdapter('Adapter must be an object when no namespaces are provided in config');
             }
 
@@ -88,11 +95,11 @@ class Adaptable extends MixinableAbstract {
             $ref = new \ReflectionClass($adapter);
 
             // check abstract and interface
-            if (null !== ($abstract = $config->abstract)) {
+            if (isset($config->abstract) && null !== ($abstract = $config->abstract)) {
                 if (!$ref->isSubclassOf($abstract)) {
                     throw new Adapter\Exception\InvalidAbstract('Adapter does not extend abstract ' . $abstract);
                 }
-            } else if (null !== ($interface = $config->interface)) {
+            } else if (isset($config->interface) && null !== ($interface = $config->interface)) {
                 if (!$ref->implementsInterface($interface)) {
                     throw new Adapter\Exception\InvalidInterface('Adapter does not implement interface ' . $interface);
                 }
@@ -113,57 +120,7 @@ class Adaptable extends MixinableAbstract {
             throw new Adapter\Exception\InvalidAdapter('Adapter must be an object when no config is provided');
         }
 
-        $this->_adapter = $adapter;
+        $this->adapter = $adapter;
         return $this;
-    }
-
-    /**
-     * Reference to self, so that the saved adapter can be accessed
-     * @return \Nimbles\Core\Adapter\Adaptable
-     */
-    public function getObject() {
-        return $this;
-    }
-
-    /**
-     * Gets the mixed in methods
-     * @return array
-     */
-    public function getMethods() {
-        if (null === $this->_methods) {
-            $this->_methods = array(
-                'getAdapter' => function($object, &$adaptable) {
-                    return $adaptable->getAdapter();
-                },
-
-                'setAdapter' => function($object, &$adaptable, $value) {
-                    $adaptable->setAdapter($value);
-                    return $object;
-                }
-            );
-        }
-
-        return $this->_methods;
-    }
-
-    /**
-     * Gets the mixed in properties
-     * @return array
-     */
-    public function getProperties() {
-        if (null === $this->_properties) {
-            $this->_properties = array(
-                'adapter' => function($object, &$adaptable, $get, $property, array $value = null) {
-                    if (!$get) {
-                        $object->setAdapter($value);
-                        return $value;
-                    }
-
-                    return $object->getAdapter();
-                }
-            );
-        }
-
-        return $this->_properties;
     }
 }
