@@ -37,13 +37,13 @@ class Config extends Collection {
      * Static instance
      * @var \Nimbles\Config\Config
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Gets the instance
      * @return \Nimbles\Config\Config
      */
-    static public function getInstance() {
+    public static function getInstance() {
         if (null === static::$_instance) {
             static::$_instance = new static();
         }
@@ -102,7 +102,7 @@ class Config extends Collection {
      * @return scalar|\Nimbles\Config\Config
      * @throws \Nimbles\Config\Exception\InvalidValue
      */
-    static public function factory($index, $value) {
+    public static function factory($index, $value) {
         if (is_scalar($value) || (null === $value)) {
             return $value;
         }

@@ -161,7 +161,7 @@ abstract class FileAbstract {
      * @throws \Nimbles\Config\File\Exception\InvalidFile
      * @throws \Nimbles\Config\File\Exception\InvalidFormat
      */
-    static public function factory($file, $section = null, $type = null) {
+    public static function factory($file, $section = null, $type = null) {
         if (!is_string($file)) {
             throw new Exception\InvalidFile('File must be a string');
         }
