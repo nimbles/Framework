@@ -50,7 +50,7 @@ class Container extends Collection {
      */
     public static function factory($index, $value) {
         if (is_array($value)) {
-            $value['id'] => $index;
+            $value['id'] = $index;
             $value = new Definition($value);
         }
         

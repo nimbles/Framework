@@ -186,7 +186,7 @@ class Definition {
                 $instance = $ref->newInstanceArgs($parameters);
             }
         } catch (\Exception $ex) {
-            throw new Exception\CreateInstanceFailure('Failed to create an instance of ' : $class, 0, $ex);
+            throw new Exception\CreateInstanceFailure('Failed to create an instance of : ' . $class, 0, $ex);
         }
         
         if (!$this->isShared()) {
