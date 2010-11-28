@@ -77,8 +77,8 @@ class Definition {
      * @return void
      */
     public function setId($id) {
-        if (!is_string($id)) {
-            // throw;
+        if (!is_string($id) || (1 > strlen($id))) {
+            throw new Exception\InvalidId('Invalid id, value must be a string with a length greater than zero');
         }
         
         $this->_id = $id;
@@ -100,8 +100,8 @@ class Definition {
      * @throws \Nimbles\Container\Exception\InvalidClass
      */
     public function setClass($class) {
-        if (!is_string($class)) {
-            throw new Exception\InvalidClass('Invalid class, value must be a string');
+        if (!is_string($class) || !class_exists($class)) {
+            throw new Exception\InvalidClass('Invalid class, value must be a string and class name must exist');
         }
         
         $this->_class = $class;
