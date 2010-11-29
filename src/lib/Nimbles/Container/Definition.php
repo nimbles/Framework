@@ -16,7 +16,6 @@ namespace Nimbles\Container;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Collection
  * @uses       \Nimbles\Core\Definition
  * @trait      \Nimbles\Core\Options
  */
