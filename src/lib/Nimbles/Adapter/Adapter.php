@@ -116,7 +116,7 @@ class Adapter {
         }
         
         // check type is valid
-        if (!is_a($adapter, $this->getType)) {
+        if (!is_a($adapter, $this->getType())) {
             throw new Exception\InvalidAdapter('Provided adapter is not of given type: ' . $this->getType());
         }
         
