@@ -50,7 +50,7 @@ class ConfigTest extends TestCase {
      */
     public function testDefaultOptions() {
         $config = new Config();
-        $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
+        $this->assertEquals(Config::INDEX_MIXED, $config->getIndexType());
         $this->assertFalse($config->isReadOnly());
         
         $config = new Config(null, array(
@@ -58,7 +58,7 @@ class ConfigTest extends TestCase {
             'readonly'  => true
         ));
         
-        $this->assertEquals(Config::INDEX_ASSOCITIVE, $config->getIndexType());
+        $this->assertEquals(Config::INDEX_MIXED, $config->getIndexType());
         $this->assertTrue($config->isReadOnly());
     }
     

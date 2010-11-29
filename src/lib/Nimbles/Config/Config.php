@@ -63,7 +63,7 @@ class Config extends Collection {
                 'readonly' => false,
             ) : $options,
             array(
-                'indexType' => static::INDEX_ASSOCITIVE,
+                'indexType' => static::INDEX_MIXED,
             )
         );
         
