@@ -10,3 +10,6 @@
 [submodule "Container"]
 	path = Container
 	url = git://github.com/nimbles/Container.git
+[submodule "Adapter"]
+	path = Adapter
+	url = git://github.com/nimbles/Adapter.git

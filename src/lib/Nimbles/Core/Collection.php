@@ -18,7 +18,8 @@
 
 namespace Nimbles\Core;
 
-use Nimbles\Core\Collection;
+use Nimbles\Core\Collection,
+    Nimbles\Core\Util\Type;
 
 /**
  * @category   Nimbles
@@ -67,40 +68,7 @@ class Collection extends ArrayObject {
     public function getType() {
         return $this->_type;
     }
-
-    /**
-     * Gets the type validation callback
-     * @return string|array|\Closure
-     */
-    public function getTypeValidator() {
-        if ((null === ($type = $this->getType())) || ('' === $type)) {
-            return null;
-        }
-
-        $types = array(
-            'float',
-            'int',
-            'numeric',
-            'string',
-            'bool',
-            'object',
-            'array',
-            'callable'
-        );
-
-        if (in_array($type, $types)) {
-            return 'is_' . $type;
-        }
-
-        if ('null' === $type) {
-            return 'is_null';
-        }
-
-        return function ($value) use ($type) {
-            return is_a($value, $type);
-        };
-    }
-
+    
     /**
      * Gets the index type
      * @return int
@@ -172,10 +140,8 @@ class Collection extends ArrayObject {
         
         $value = static::factory($index, $value);
 
-        if (null !== ($validator = $this->getTypeValidator())) {
-            if (!call_user_func($validator, $value)) {
-                throw new Collection\Exception\InvalidType('Value must be of type: ' . $this->getType());
-            }
+        if (!Type::isType($type = $this->getType(), $value)) {
+            throw new Collection\Exception\InvalidType('Value must be of type: ' . $type);
         }
 
         switch ($this->getIndexType()) {
