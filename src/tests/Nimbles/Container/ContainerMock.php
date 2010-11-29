@@ -27,6 +27,28 @@ namespace Tests\Lib\Nimbles\Container;
  */
 class ContainerMock {
     /**
+     * The instanceCount
+     * @var int
+     */
+    protected static $_instanceCount = 0;
+    
+    /**
+     * Gets the instance count
+     * @return int
+     */
+    public static function getInstanceCount() {
+        return static::$_instanceCount;
+    }
+    
+    /**
+     * Class construct, increments counter
+     * @return void
+     */
+    public function __construct() {
+        static::$_instanceCount++;
+    }
+    
+    /**
      * Needed by tests
      * @return array
      */
@@ -43,7 +65,7 @@ class ContainerMock {
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  */
-class ContainerParametersMock {
+class ContainerParametersMock extends ContainerMock {
     /**
      * Parameter 1
      * @var mixed
@@ -75,5 +97,7 @@ class ContainerParametersMock {
     public function __construct($param1, $param2) {
         $this->param1 = $param1;
         $this->param2 = $param2;
+        
+        parent::__construct();
     }
 }

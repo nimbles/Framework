@@ -68,9 +68,18 @@ class DefinitionTest extends TestCase {
         $instance = $definition->getInstance();
         $this->assertType($options['class'], $instance);
         
+        $count = call_user_func(array($options['class'], 'getInstanceCount'));
+        
         $instance = $definition(); // check that definition is invokable
         $this->assertType($options['class'], $instance);
         $this->assertSame($options['parameters'], $instance->getParameters());
+        
+        $newCount = call_user_func(array($options['class'], 'getInstanceCount'));
+        if ($options['shared']) {
+            $this->assertEquals($count, $newCount, 'New instance of class was created when meant to be shared');
+        } else {
+            $this->assertGreaterThan($count, $newCount, 'No new instance of class was created when not meant to be shared');
+        }
     }
     
     /**
@@ -102,10 +111,22 @@ class DefinitionTest extends TestCase {
             )),
             array(array(
                 'id' => 'mock2',
+                'class' => 'Tests\Lib\Nimbles\Container\ContainerMock',
+                'parameters' => array(),
+                'shared' => true
+            )),
+            array(array(
+                'id' => 'mock3',
                 'class' => 'Tests\Lib\Nimbles\Container\ContainerParametersMock',
                 'parameters' => array('param1' => 1, 'param2' => 2),
                 'shared' => false
-            ))
+            )),
+            array(array(
+                'id' => 'mock4',
+                'class' => 'Tests\Lib\Nimbles\Container\ContainerParametersMock',
+                'parameters' => array('param1' => 1, 'param2' => 2),
+                'shared' => true
+            )),
         );
     }
 }
