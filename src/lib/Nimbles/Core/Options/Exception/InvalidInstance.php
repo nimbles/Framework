@@ -16,9 +16,9 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Core\Mixin\Exception;
+namespace Nimbles\Core\Options\Exception;
 
-use Nimbles\Core\Mixin\Exception;
+use Nimbles\Core\Options\Exception;
 
 /**
  * @category   Nimbles
@@ -28,6 +28,6 @@ use Nimbles\Core\Mixin\Exception;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Mixin\Exception
+ * @uses       \Nimbles\Core\Options\Exception
  */
 class InvalidInstance extends Exception {}

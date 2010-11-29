@@ -16,7 +16,7 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Core\Mixin;
+namespace Nimbles\Core\Options;
 
 /**
  * @category   Nimbles

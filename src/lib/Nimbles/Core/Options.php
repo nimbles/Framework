@@ -36,8 +36,8 @@ trait Options {
      */
     public function getOption($option) {
         $methods = array_map(
-            function($prefix) use ($key) {
-                return $prefix . ucfirst($key);
+            function($prefix) use ($option) {
+                return $prefix . ucfirst($option);
             },
             array('get', 'is')
         );
@@ -72,8 +72,8 @@ trait Options {
         }
         
         $methods = array_map(
-            function($prefix) use ($key) {
-                return $prefix . ucfirst($key);
+            function($prefix) use ($option) {
+                return $prefix . ucfirst($option);
             },
             array('set', 'is')
         );
