@@ -18,7 +18,7 @@
 namespace Tests\Lib\Nimbles;
 
 require_once 'NimblesTest.php';
-require_once 'Config/AllTests.php
+require_once 'Config/AllTests.php';
 require_once 'Container/AllTests.php';
 require_once 'Core/AllTests.php';
 require_once 'Event/AllTests.php';

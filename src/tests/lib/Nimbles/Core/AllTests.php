@@ -52,7 +52,7 @@ class AllTests extends TestSuite {
     public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Core');
 
-        $suite->addTest(Adapter\AllTests::suite());
+        //$suite->addTest(Adapter\AllTests::suite());
 /*
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\CollectionTest');
 

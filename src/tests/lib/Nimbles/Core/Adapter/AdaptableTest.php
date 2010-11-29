@@ -73,7 +73,7 @@ class AdaptableTest extends TestCase {
      */
     public function mockProvider() {
         return array(
-            array(new AdaptableSingleMock(), new AdapterSingle(), null, '\Nimbles\Core\Adapter\Exception\InvalidAdapter', null),
+            array(new AdaptableSingleMock(), new AdapterSingle(), null, 'Nimbles\Core\Adapter\Exception\InvalidAdapter', null),
             //array(new AdaptableAbstractMock(), new AdapterConcrete(), null, '\Nimbles\Core\Adapter\Exception\InvalidAbstract', new AdapterSingle()),
             //array(new AdaptableInterfaceMock(), new AdapterImplementor(), null, '\Nimbles\Core\Adapter\Exception\InvalidInterface', new AdapterSingle()),
 

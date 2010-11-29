@@ -42,7 +42,7 @@ trait Adaptable {
         return $this->adapter;
     }
 
-    /**
+    /** 
      * Sets the adapter
      * @param object $adapter
      * @return \Nimbles\Core\Adapter\Adaptable
