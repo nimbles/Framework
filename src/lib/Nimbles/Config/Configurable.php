@@ -41,11 +41,11 @@ trait Configurable {
         } else if (!($this->config instanceof \Nimbles\Config\Config)) {
             throw new \Nimbles\Config\Exception\InvalidInstance('config property is not an instance of Nimbles\Config\Config');
         }
-        
+
         if ($key === null) {
             return $this->config;
         }
-        
+
         return $this->config->offsetExists($key) ? $this->config[$key] : null;
     }
 }

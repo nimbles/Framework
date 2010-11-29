@@ -50,10 +50,10 @@ class Config extends Collection {
 
         return static::$_instance;
     }
-    
+
     /**
      * Class construct
-     * 
+     *
      * @param array|\ArrayObject $array
      * @param array $options
      */
@@ -66,11 +66,11 @@ class Config extends Collection {
                 'indexType' => static::INDEX_MIXED,
             )
         );
-        
+
         parent::__construct($array, $options);
         $this->setFlags(static::ARRAY_AS_PROPS);
     }
-    
+
 	/**
      * Merges a source config with overriding values
      * @param array|\ArrayObject $override
@@ -92,12 +92,12 @@ class Config extends Collection {
             }
         }
     }
-    
+
     /**
      * Factory method to create allowed config values
-     * 
+     *
      * This is called when adding a value to a Config value
-     * 
+     *
      * @param mixed $value
      * @return scalar|\Nimbles\Config\Config
      * @throws \Nimbles\Config\Exception\InvalidValue
@@ -106,15 +106,15 @@ class Config extends Collection {
         if (is_scalar($value) || (null === $value)) {
             return $value;
         }
-        
+
         if ($value instanceof Config) {
-            return $value;   
+            return $value;
         }
-        
+
         if (is_array($value) || ($value instanceof \ArrayObject)) {
             return new Config($value);
         }
-        
+
         throw new Exception\InvalidValue('Config values can only be array or scalar');
     }
 }
