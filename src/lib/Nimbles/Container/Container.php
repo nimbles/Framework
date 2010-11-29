@@ -50,14 +50,24 @@ class Container extends Collection {
      */
     public static function factory($index, $value) {
         if (is_array($value)) {
-            $value['id'] = $index;
-            $value = new Definition($value);
+            $value['id'] = $index; // keep index and id in sync
+            return new Definition($value);
+        }
+        
+        if (is_string($value)) {
+            $options = array(
+                'id' => $index,
+                'class' => $value
+            );
+            
+            return new Definition($options);
         }
         
         if ($value instanceof Definition) {
-            $value->setId($index);
+            $value->setId($index); // keep index and id in sync
+            return $value;
         }
         
-        return $value;
+        return null;
     }
 }
