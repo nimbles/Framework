@@ -18,6 +18,7 @@
 namespace Tests\Lib\Nimbles\Container;
 
 require_once 'ContainerTest.php';
+require_once 'DefinitionTest.php';
 
 use Nimbles\Container\TestSuite;
 
@@ -42,6 +43,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Container');
         
         $suite->addTestSuite('\Tests\Lib\Nimbles\Container\ContainerTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Container\DefinitionTest');
         
         return $suite;
     }

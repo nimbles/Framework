@@ -131,7 +131,7 @@ class Definition {
             throw new Exception\InvalidParameters('Invalid parameters, value must be an array or instance of an ArrayObject');
         }
         
-        $this->_parameters = $paramaters;
+        $this->_parameters = $parameters;
         return $this;
     }
     

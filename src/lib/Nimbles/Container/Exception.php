@@ -16,7 +16,7 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config;
+namespace Nimbles\Container;
 
 /**
  * @category   Nimbles

@@ -25,7 +25,15 @@ namespace Tests\Lib\Nimbles\Container;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  */
-class ContainerMock {}
+class ContainerMock {
+    /**
+     * Needed by tests
+     * @return array
+     */
+    public function getParameters() {
+        return array();
+    }
+}
 
 /**
  * @category   Nimbles
@@ -47,6 +55,17 @@ class ContainerParametersMock {
      * @var mixed
      */
     public $param2;
+    
+    /**
+     * Needed by tests
+     * @return array
+     */
+    public function getParameters() {
+        return array(
+            'param1' => $this->param1,
+            'param2' => $this->param2
+        );
+    }
     
     /**
      * Class construct
