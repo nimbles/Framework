@@ -16,13 +16,12 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Adapter;
+namespace Tests\Lib\Nimbles\Core\Pattern;
 
 require_once 'AdapterMock.php';
 
-use Nimbles\Adapter\TestCase,
-    Nimbles\Adapter\Adapter,
-    Tests\Lib\Nimbles\Adapter as TestAdapter;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Pattern\Adapter;
 
 /**
  * @category   Nimbles
@@ -80,58 +79,58 @@ class AdapterTest extends TestCase {
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterSingle',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterSingle',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
-                array(new TestAdapter\AdapterSingle())
+                array(new AdapterSingle())
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterSingle',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterSingle',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterSingle')
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterParameters',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterParameters',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
-                array(new TestAdapter\AdapterParameters(1, 2))
+                array(new AdapterParameters(1, 2))
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterParameters',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterParameters',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterParameters', 1, 2)
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterAbstract',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterAbstract',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
-                array(new TestAdapter\AdapterConcrete())
+                array(new AdapterConcrete())
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterAbstract',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterAbstract',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterConcrete')
             ),
             
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterInterface',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
-                array(new TestAdapter\AdapterImplementor())
+                array(new AdapterImplementor())
             ),
             array(
                 array(
-                    'type' => 'Tests\Lib\Nimbles\Adapter\AdapterInterface',
-                    'namespaces' => array('Tests\Lib\Nimbles\Adapter')
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterImplementor')
             ),

@@ -10,24 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter\Exception;
+namespace Nimbles\Core\Pattern\Adapter\Exception;
 
-use Nimbles\Adapter\Exception;
+use Nimbles\Core\Pattern\Adapter\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Adapter\Exception
+ * @uses       \Nimbles\Core\Pattern\Adapter\Exception
  */
 class InvalidAdapter extends Exception {}

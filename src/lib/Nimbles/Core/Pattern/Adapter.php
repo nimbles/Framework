@@ -10,21 +10,21 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Adapter
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter;
+namespace Nimbles\Core\Pattern;
 
 use Nimbles\Core\Util\Type,
     Nimbles\Core\Util\Instance;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Adapter
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -92,26 +92,31 @@ class Adapter {
      * attempt to create an instance of the class within the provided options
      * 
      * @param string|object $adapter
-     * @return \Nimbles\Adapter\Adapter
-     * @throws \Nimbles\Adapter\Exception\InvalidAdapter
+     * @return \Nimbles\Core\Pattern\Adapter
+     * @throws \Nimbles\Core\Pattern\Adapter\Exception\InvalidAdapter
+     * @throws \Nimbles\Core\Pattern\Adapter\Exception\CreateInstanceFailure
      */
     public function setAdapter($adapter) {
         if (is_string($adapter)) {
-            $adapter = $this->_getMappedClass($adapter);
+            $class = $this->_getMappedClass($adapter);
             
-            if (!class_exists($adapter)) {
-                throw new Exception\InvalidAdapter('Cannot set adapter by a string because the given class does not exist');
+            if (!class_exists($class)) {
+                throw new Adapter\Exception\InvalidAdapter('Cannot set adapter by a string because the given class does not exist');
             }
             
             $args = func_get_args();
             array_shift($args);
             
-            $adapter = Instance::getInstance($adapter, $args);
+            try {
+                $adapter = Instance::getInstance($class, $args);
+            } catch (\Exception $ex) {
+                throw new Adapter\Exception\CreateInstanceFailure('Failed to create an instance of : ' . $class, 0, $ex);
+            }
         }
         
         // check type is valid
         if (!is_a($adapter, $this->getType())) {
-            throw new Exception\InvalidAdapter('Provided adapter is not of given type: ' . $this->getType());
+            throw new Adapter\Exception\InvalidAdapter('Provided adapter is not of given type: ' . $this->getType());
         }
         
         $this->_adapter = $adapter;
@@ -129,12 +134,12 @@ class Adapter {
     /**
      * Sets the namespaces used to map a class to
      * @param array|null $namespaces
-     * @return \Nimbles\Adapter\Adapter
-     * @throw \Nimbles\Adapter\Exception\InvalidNamespaces
+     * @return \Nimbles\Core\Pattern\Adapter\Adapter
+     * @throws \Nimbles\Core\Pattern\Adapter\Exception\InvalidNamespaces
      */
     public function setNamespaces($namespaces) {
         if (!((null === $namespaces) || is_array($namespaces))) {
-            throw new Exception\InvalidNamespaces('Namespaces must either be null or an array');
+            throw new Adapter\Exception\InvalidNamespaces('Namespaces must either be null or an array');
         }
         
         $this->_namespaces = $namespaces;
@@ -152,11 +157,12 @@ class Adapter {
     /**
      * Sets the type the adapter should be restricted to
      * @param string|null $type
-     * @return \Nimbles\Adapter\Adapter
+     * @return \Nimbles\Core\Pattern\Adapter\Adapter
+     * @throws \Nimbles\Core\Pattern\Adapter\Exception\InvalidType
      */
     public function setType($type) {
         if (!((null === $type) || is_string($type))) {
-            throw new Exception\InvalidType('Type must be either null or a string');
+            throw new Adapter\Exception\InvalidType('Type must be either null or a string');
         }
         
         $this->_type = $type;
@@ -167,7 +173,7 @@ class Adapter {
      * Mapps a class according to the provided namepspaces
      * @param string $class
      * @return string
-     * @throw \Nimbles\Adapter\Exception\InvalidNamespaces
+     * @throws \Nimbles\Core\Pattern\Adapter\Exception\InvalidNamespaces
      */
     protected function _getMappedClass($class) {
         if (!class_exists($class) && is_array($namespaces = $this->getNamespaces())) {
@@ -183,7 +189,7 @@ class Adapter {
             );
             
             if (0 === count($classes)) {
-                throw new Exception\InvalidNamespaces('Could not locate class according to namespace mapping');
+                throw new Adapter\Exception\InvalidNamespaces('Could not locate class according to namespace mapping');
             }
             
             $class = array_shift($classes);

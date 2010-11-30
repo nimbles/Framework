@@ -10,24 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter\Exception;
-
-use Nimbles\Adapter\Exception;
+namespace Nimbles\Core\Pattern;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Adapter\Exception
+ * @uses       \Nimbles\Core\Exception
  */
-class InvalidNamespaces extends Exception {}
+class Exception extends \Nimbles\Core\Exception {}

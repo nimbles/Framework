@@ -17,8 +17,10 @@
 
 namespace Tests\lib\Nimbles\Core;
 
-require_once 'Adapter/AllTests.php';
-/*require_once 'CollectionTest.php';
+require_once 'Pattern/AllTests.php';
+
+/*require_once 'Adapter/AllTests.php';
+require_once 'CollectionTest.php';
 require_once 'ConfigTest.php';
 require_once 'Config/AllTests.php';
 require_once 'DelegatesTest.php';
@@ -72,6 +74,8 @@ class AllTests extends TestSuite {
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
         $suite->addTest(Plugin\AllTests::suite());
 */
+        $suite->addTest(Pattern\AllTests::suite());
+        
         return $suite;
     }
 }

@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage TestSuite
+ * @package    Nimbles-Core
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter;
+namespace Nimbles\Core\Pattern\Adapter\Exception;
+
+use Nimbles\Core\Pattern\Adapter\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
- * @subpackage TestSuite
+ * @package    Nimbles-Core
+ * @subpackage Pattern
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestSuite
+ * @uses       \Nimbles\Core\Pattern\Adapter\Exception
  */
-class TestSuite extends \Nimbles\Core\TestSuite {}
+class CreateInstanceFailure extends Exception {}

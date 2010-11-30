@@ -10,16 +10,16 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Adapter;
+namespace Tests\Lib\Nimbles\Core\Pattern;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage AdapterSingle
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -29,7 +29,7 @@ class AdapterSingle {}
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage AdapterParameters
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -61,7 +61,7 @@ class AdapterParameters {
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage AdapterAbstract
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -71,7 +71,7 @@ abstract class AdapterAbstract {}
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage AdapterConcrete
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -83,7 +83,7 @@ class AdapterConcrete extends AdapterAbstract {}
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage Interface
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -93,7 +93,7 @@ interface AdapterInterface {}
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Adapter
+ * @package    Nimbles-Core
  * @subpackage Implementor
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License

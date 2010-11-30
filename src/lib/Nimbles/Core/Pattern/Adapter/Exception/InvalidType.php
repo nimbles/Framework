@@ -16,7 +16,9 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter;
+namespace Nimbles\Adapter\Exception;
+
+use Nimbles\Adapter\Exception;
 
 /**
  * @category   Nimbles
@@ -26,6 +28,6 @@ namespace Nimbles\Adapter;
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Exception
+ * @uses       \Nimbles\Core\Pattern\Adapter\Exception
  */
-class Exception extends \Nimbles\Core\Exception {}
+class InvalidType extends Exception {}
