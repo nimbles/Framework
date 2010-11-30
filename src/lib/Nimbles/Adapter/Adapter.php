@@ -18,7 +18,8 @@
 
 namespace Nimbles\Adapter;
 
-use Nimbles\Core\Util\Type;
+use Nimbles\Core\Util\Type,
+    Nimbles\Core\Util\Instance;
 
 /**
  * @category   Nimbles
@@ -102,17 +103,10 @@ class Adapter {
                 throw new Exception\InvalidAdapter('Cannot set adapter by a string because the given class does not exist');
             }
             
-            // use reflection to create a new instance
-            $ref = new \ReflectionClass($adapter);
-            
             $args = func_get_args();
             array_shift($args);
             
-            if ((null === ($constructor = $ref->getConstructor()) || (0 === count($constructor->getParameters())))) {
-                $adapter = new $adapter();
-            } else {
-                $adapter = $ref->newInstanceArgs($args);
-            }
+            $adapter = Instance::getInstance($adapter, $args);
         }
         
         // check type is valid

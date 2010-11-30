@@ -8,6 +8,8 @@
  */
 namespace Nimbles\Container;
 
+use Nimbles\Core\Util\Instance;
+
 /**
  * @category   Nimbles
  * @package    Nimbles-Container
@@ -178,12 +180,7 @@ class Definition {
         $class = $this->getClass();
         
         try {
-            if (empty($parameters)) {
-                $instance = new $class();
-            } else {
-                $ref = new \ReflectionClass($class);
-                $instance = $ref->newInstanceArgs($parameters);
-            }
+            $instance = Instance::getInstance($class, $parameters);
         } catch (\Exception $ex) {
             throw new Exception\CreateInstanceFailure('Failed to create an instance of : ' . $class, 0, $ex);
         }
