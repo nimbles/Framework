@@ -38,16 +38,17 @@ trait Events {
 	 * @return \Nimbles\Event\Event|\Nimbles\Event\Collection
 	 */
 	public function getEvent($event = null) {
-	    static $events;
-		if (null === $events) {
-			$events = new \Nimbles\Event\Collection();
+		if (!isset($this->events)) {
+			$this->events = new \Nimbles\Event\Collection();
+		} else if (!($this->events instanceof \Nimbles\Event\Collection)) {
+		    throw new \Nimbles\Event\Exception\InvalidInstance('events property is not an instance of Nimbles\Event\Collection');
 		}
 
 		if (null === $event) {
-			return $events;
+			return $this->events;
 		}
 
-		return $events->offsetExists($event) ? $events[$event] : null;
+		return $this->events->offsetExists($event) ? $this->events[$event] : null;
 	}
 
 	/**
@@ -80,7 +81,7 @@ trait Events {
      * @return void
      */
 	public function fireEventUntil($name) {
-		$args = func_get_args();
+	    $args = func_get_args();
 		return call_user_func_array(array($this->getEvent(), 'fireEventUntil'), $args);
 	}
 }
