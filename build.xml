@@ -46,7 +46,7 @@
 	<target name="phpunit" depends="compile">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
 			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
-			<arg line="--no-globals-backup ${group}" />
+			<arg line="--no-globals-backup ${phpunit}" />
 			<arg line="${basedir}/build/dest/tests/AllTests.php" />
 		</exec>
 	</target>
@@ -57,7 +57,7 @@
 			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
 			<arg line="--no-globals-backup" />
 			<arg line="--log-junit ${basedir}/build/logs/junit.xml" />
-			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
+			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml ${phpunit}" />
 			<arg line="${basedir}/build/dest/tests/AllTests.php" />
 		</exec>
 	</target>
