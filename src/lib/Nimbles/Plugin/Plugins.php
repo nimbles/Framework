@@ -42,18 +42,24 @@ trait Plugins {
     public function getPlugin($type = null) {
         if (!isset($this->plugins)) {
             if (!method_exists($this, 'getConfig')) {
-                throw new \Nimbles\Plugin\Exception\InvalidConfig('When implmenting Plugins, a getConfig method must exist');           
+                throw new \Nimbles\Plugin\Exception\InvalidConfig(
+                	'When implmenting Plugins, a getConfig method must exist'
+                );           
             }
             
             $config = $this->getConfig('plugins');
             
-            if (!is_array($config) && !($config instanceof \Nimbles\Config\Config)) {
-                throw new \Nimbles\Plugin\Exception\InvalidConfig('When implmenting Plugins, getConfig should provide an array for plugins');
+            if (!is_array($config) && !($config instanceof \ArrayObject)) {
+                throw new \Nimbles\Plugin\Exception\InvalidConfig(
+                	'When implmenting Plugins, getConfig should provide an array for plugins'
+                );
             }
             
             $this->plugins = new \Nimbles\Plugin\Collection($config);
         } else if (!($this->plugins instanceof \Nimbles\Plugin\Collection)) {
-            throw new \Nimbles\Plugin\Exception\InvalidInstance('plugins property is not an instanceof Nimbles\Plugin\Collection');
+            throw new \Nimbles\Plugin\Exception\InvalidInstance(
+            	'plugins property is not an instanceof Nimbles\Plugin\Collection'
+            );
         }
         
         if (null === $type) {

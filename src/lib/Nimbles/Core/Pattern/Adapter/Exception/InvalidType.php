@@ -16,9 +16,9 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Adapter\Exception;
+namespace Nimbles\Core\Pattern\Adapter\Exception;
 
-use Nimbles\Adapter\Exception;
+use Nimbles\Core\Pattern\Adapter\Exception;
 
 /**
  * @category   Nimbles

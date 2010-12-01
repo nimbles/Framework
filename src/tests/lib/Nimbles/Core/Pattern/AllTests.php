@@ -18,6 +18,7 @@
 namespace Tests\Lib\Nimbles\Core\Pattern;
 
 require_once 'AdapterTest.php';
+require_once 'AdaptableTest.php';
 
 use Nimbles\Core\TestSuite;
 
@@ -43,6 +44,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Core - Pattern');
         
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Pattern\AdapterTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Pattern\AdaptableTest');
         
         return $suite;
     }

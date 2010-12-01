@@ -79,7 +79,7 @@ class Adapter {
     
     /**
      * Gets the adapter
-     * @return object
+     * @return object|null
      */
     public function getAdapter() {
         return $this->_adapter;
@@ -115,7 +115,7 @@ class Adapter {
         }
         
         // check type is valid
-        if (!is_a($adapter, $this->getType())) {
+        if ((null !== ($type = $this->getType())) && !is_a($adapter, $type)) {
             throw new Adapter\Exception\InvalidAdapter('Provided adapter is not of given type: ' . $this->getType());
         }
         
@@ -138,8 +138,12 @@ class Adapter {
      * @throws \Nimbles\Core\Pattern\Adapter\Exception\InvalidNamespaces
      */
     public function setNamespaces($namespaces) {
-        if (!((null === $namespaces) || is_array($namespaces))) {
+        if (!((null === $namespaces) || is_array($namespaces) || ($namespaces instanceof \ArrayObject))) {
             throw new Adapter\Exception\InvalidNamespaces('Namespaces must either be null or an array');
+        }
+        
+        if ($namespaces instanceof \ArrayObject) {
+            $namespaces = $namespaces->getArrayCopy();
         }
         
         $this->_namespaces = $namespaces;
