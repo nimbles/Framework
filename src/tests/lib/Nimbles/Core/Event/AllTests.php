@@ -15,12 +15,12 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Event;
+namespace Tests\Lib\Nimbles\Core\Event;
 
 require_once 'CollectionTest.php';
 require_once 'EventsTest.php';
 
-use Nimbles\Event\TestSuite;
+use Nimbles\Core\TestSuite;
 
 /**
  * @category   Nimbles
@@ -42,8 +42,8 @@ class AllTests extends TestSuite {
     public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Event');
         
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Event\CollectionTest');
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Event\EventsTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Event\CollectionTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Event\EventsTest');
         
         return $suite;
     }

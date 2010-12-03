@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage TestSuite
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event;
+namespace Nimbles\Core\Event\Exception;
+
+use Nimbles\Core\Event\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage TestSuite
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestSuite
+ * @uses       \Nimbles\Core\Event\Exception
  */
-class TestSuite extends \Nimbles\Core\TestSuite {}
+class InvalidInstance extends Exception {}

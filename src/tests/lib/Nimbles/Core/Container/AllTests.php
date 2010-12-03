@@ -31,7 +31,8 @@ use Nimbles\Core\TestSuite;
  * @uses       \Nimbles\Container\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Container
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Container
  */
 class AllTests extends TestSuite {
     /**

@@ -10,24 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event\Exception;
-
-use Nimbles\Event\Exception;
+namespace Nimbles\Core\Event;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Event\Exception
+ * @uses       \Nimbles\Core\Exception
  */
-class InvalidInstance extends Exception {}
+class Exception extends \Nimbles\Core\Exception {}

@@ -10,24 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event\Exception;
+namespace Nimbles\Core\Event\Exception;
 
-use Nimbles\Event\Exception;
+use Nimbles\Core\Event\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Event\Exception
+ * @uses       \Nimbles\Core\Event\Exception
  */
 class InvalidName extends Exception {}

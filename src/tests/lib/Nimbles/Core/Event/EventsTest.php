@@ -16,12 +16,12 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Event;
+namespace Tests\Lib\Nimbles\Core\Event;
 
 require_once 'ListenerMock.php';
 require_once 'EventsMock.php';
 
-use Nimbles\Event\TestCase;
+use Nimbles\Core\TestCase;
 
 /**
  * @category   Nimbles
@@ -34,7 +34,8 @@ use Nimbles\Event\TestCase;
  * @uses       \Nimbles\Event\TestCase
  *
  * @group      Nimbles
- * @group      Nimbles-Event
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Event
  */
 class EventsTest extends TestCase {
     /**
@@ -60,10 +61,10 @@ class EventsTest extends TestCase {
 
         $eventsMock->connect('event1', array($listenMock, 'listen1'));
 
-        $this->assertType('Nimbles\Event\Collection', $eventsMock->getEvent());
+        $this->assertType('Nimbles\Core\Event\Collection', $eventsMock->getEvent());
         $this->assertEquals(1, $eventsMock->getEvent()->count());
 
-        $this->assertType('Nimbles\Event\Event', $eventsMock->getEvent('event1'));
+        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event1'));
         $this->assertEquals('event1', $eventsMock->getEvent('event1')->getName());
         $this->assertEquals(1, $eventsMock->getEvent('event1')->count());
         $this->assertSame(array(array($listenMock, 'listen1')), $eventsMock->getEvent('event1')->getArrayCopy());
@@ -79,7 +80,7 @@ class EventsTest extends TestCase {
 
         $this->assertEquals(2, $eventsMock->getEvent()->count());
 
-        $this->assertType('Nimbles\Event\Event', $eventsMock->getEvent('event2'));
+        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event2'));
         $this->assertEquals(1, $eventsMock->getEvent('event2')->count());
         $this->assertEquals('event2', $eventsMock->getEvent('event2')->getName());
         $this->assertSame(array(array($listenMock, 'listen3')), $eventsMock->getEvent('event2')->getArrayCopy());
@@ -94,12 +95,12 @@ class EventsTest extends TestCase {
         $this->assertEquals(2, $eventsMock->getEvent('event2')->count());
         $this->assertSame(array(array($listenMock, 'listen3'), array($listenMockSelf, 'listen2')), $eventsMock->getEvent('event2')->getArrayCopy());
 
-        $this->assertType('Nimbles\Event\Event', $eventsMock->getEvent('event3'));
+        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event3'));
         $this->assertEquals('event3', $eventsMock->getEvent('event3')->getName());
         $this->assertEquals(1, $eventsMock->getEvent('event3')->count());
         $this->assertSame(array(array($listenMockSelf, 'listen3')), $eventsMock->getEvent('event3')->getArrayCopy());
 
-        $this->setExpectedException('Nimbles\Event\Exception\InvalidConnections');
+        $this->setExpectedException('Nimbles\Core\Event\Exception\InvalidConnections');
         $eventsMock->connect(new ListenerMockInvalidSelfConnect());
     }
 
@@ -109,16 +110,16 @@ class EventsTest extends TestCase {
      */
     public function testFireEvent() {
         $eventsMock = new EventsMock();
-        $mock = $this->getMock('Tests\Lib\Nimbles\Event\ListenerMock');
+        $mock = $this->getMock('Tests\Lib\Nimbles\Core\Event\ListenerMock');
 
         $eventsMock->connect('event1', array($mock, 'listen1'));
         $eventsMock->connect('event1', array($mock, 'listen2'));
         $eventsMock->connect('event2', array($mock, 'listen2'));
         $eventsMock->connect('event2', array($mock, 'listen3'));
 
-        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Event\Event'));
-        $mock->expects($this->exactly(2))->method('listen2')->with($this->isInstanceOf('Nimbles\Event\Event'));
-        $mock->expects($this->once())->method('listen3')->with($this->isInstanceOf('Nimbles\Event\Event'), $this->equalTo('hello'));
+        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Core\Event'));
+        $mock->expects($this->exactly(2))->method('listen2')->with($this->isInstanceOf('Nimbles\Core\Event'));
+        $mock->expects($this->once())->method('listen3')->with($this->isInstanceOf('Nimbles\Core\Event'), $this->equalTo('hello'));
 
         $eventsMock->fireEvent('event1');
         $eventsMock->fireEvent('event2', 'hello');
@@ -130,7 +131,7 @@ class EventsTest extends TestCase {
      */
     public function testFireEventUntil() {
         $eventsMock = new EventsMock();
-        $mock = $this->getMock('Tests\Lib\Nimbles\Event\ListenerMock', array('listen1', 'listen3'));
+        $mock = $this->getMock('Tests\Lib\Nimbles\Core\Event\ListenerMock', array('listen1', 'listen3'));
 
         $eventsMock->connect('event1', array($mock, 'listen1'));
         $eventsMock->connect('event1', array($mock, 'listen2'));
@@ -139,7 +140,7 @@ class EventsTest extends TestCase {
         $eventsMock->connect('event2', array($mock, 'listen2'));
         $eventsMock->connect('event2', array($mock, 'listen3'));
 
-        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Event\Event'), $this->equalTo('hello'));
+        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Core\Event'), $this->equalTo('hello'));
         $mock->expects($this->never())->method('listen3');
 
         $eventsMock->fireEventUntil('event1', 'hello');

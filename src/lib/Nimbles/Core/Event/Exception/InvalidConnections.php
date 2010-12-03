@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage TestCase
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event;
+namespace Nimbles\Core\Event\Exception;
+
+use Nimbles\Core\Event\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage TestCase
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestCase
+ * @uses       \Nimbles\Core\Event\Exception
  */
-class TestCase extends \Nimbles\Core\TestCase {}
+class InvalidConnections extends Exception {}

@@ -10,19 +10,19 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
  * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event;
+namespace Nimbles\Core\Event;
 
-use Nimbles\Event\Collection;
+use Nimbles\Core\Event\Collection;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
  * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -35,13 +35,13 @@ trait Events {
 	/**
 	 * Gets the event object or the collection if no event key is specified
 	 * @param string|null $event
-	 * @return \Nimbles\Event\Event|\Nimbles\Event\Collection
+	 * @return \Nimbles\Core\Event|\Nimbles\Core\Event\Collection
 	 */
 	public function getEvent($event = null) {
 		if (!isset($this->events)) {
-			$this->events = new \Nimbles\Event\Collection();
-		} else if (!($this->events instanceof \Nimbles\Event\Collection)) {
-		    throw new \Nimbles\Event\Exception\InvalidInstance('events property is not an instance of Nimbles\Event\Collection');
+			$this->events = new \Nimbles\Core\Event\Collection();
+		} else if (!($this->events instanceof \Nimbles\Core\Event\Collection)) {
+		    throw new \Nimbles\Core\Event\Exception\InvalidInstance('events property is not an instance of Nimbles\Event\Collection');
 		}
 
 		if (null === $event) {
@@ -54,10 +54,10 @@ trait Events {
 	/**
      * Connects a callable to an event.
      *
-     * If an instanceof \Nimbles\Event\Event\SelfConnectInterface then this will automatically
+     * If an instanceof Nimbles\Core\Event\SelfConnectInterface then this will automatically
      * connect to multiple events
      *
-     * @param string|\Nimbles\Event\Event|\Nimbles\Event\Event\SelfConnectInterface $event
+     * @param string|\Nimbles\Core\Event|\Nimbles\Core\Event\SelfConnectInterface $event
      * @param mixed                                                                 $callable
      * @return void
      */

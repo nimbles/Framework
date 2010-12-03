@@ -10,23 +10,23 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Event;
+namespace Tests\Lib\Nimbles\Core\Event;
 
 require_once 'ListenerMock.php';
 
-use Nimbles\Event\TestCase,
-    Nimbles\Event\Collection;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Event\Collection;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -46,7 +46,7 @@ class CollectionTest extends TestCase {
     public function testOptions($options) {
         $collection = new Collection(null, $options);
 
-        $this->assertEquals('Nimbles\Event\Event', $collection->getType());
+        $this->assertEquals('Nimbles\Core\Event', $collection->getType());
         $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
         $this->assertFalse($collection->isReadonly());
     }
@@ -63,7 +63,7 @@ class CollectionTest extends TestCase {
         $collection->connect('event1', array($mock, 'listen1'));
 
         $this->assertEquals(1, $collection->count());
-        $this->assertType('Nimbles\Event\Event', $collection['event1']);
+        $this->assertType('Nimbles\Core\Event', $collection['event1']);
         $this->assertEquals('event1', $collection['event1']->getName());
         $this->assertEquals(1, $collection['event1']->count());
         $this->assertSame(array(array($mock, 'listen1')), $collection['event1']->getArrayCopy());
@@ -78,7 +78,7 @@ class CollectionTest extends TestCase {
 
         $this->assertEquals(2, $collection->count());
 
-        $this->assertType('Nimbles\Event\Event', $collection['event2']);
+        $this->assertType('Nimbles\Core\Event', $collection['event2']);
         $this->assertEquals('event2', $collection['event2']->getName());
         $this->assertEquals(1, $collection['event2']->count());
         $this->assertSame(array(array($mock, 'listen3')), $collection['event2']->getArrayCopy());
@@ -93,12 +93,12 @@ class CollectionTest extends TestCase {
         $this->assertEquals(2, $collection['event2']->count());
         $this->assertSame(array(array($mock, 'listen3'), array($mockself, 'listen2')), $collection['event2']->getArrayCopy());
 
-        $this->assertType('Nimbles\Event\Event', $collection['event3']);
+        $this->assertType('Nimbles\Core\Event', $collection['event3']);
         $this->assertEquals('event3', $collection['event3']->getName());
         $this->assertEquals(1, $collection['event3']->count());
         $this->assertSame(array(array($mockself, 'listen3')), $collection['event3']->getArrayCopy());
 
-        $this->setExpectedException('Nimbles\Event\Exception\InvalidConnections');
+        $this->setExpectedException('Nimbles\Core\Event\Exception\InvalidConnections');
         $collection->connect(new ListenerMockInvalidSelfConnect());
     }
 
@@ -108,16 +108,16 @@ class CollectionTest extends TestCase {
      */
     public function testFireEvent() {
         $collection = new Collection();
-        $mock = $this->getMock('Tests\Lib\Nimbles\Event\ListenerMock');
+        $mock = $this->getMock('Tests\Lib\Nimbles\Core\Event\ListenerMock');
 
         $collection->connect('event1', array($mock, 'listen1'));
         $collection->connect('event1', array($mock, 'listen2'));
         $collection->connect('event2', array($mock, 'listen2'));
         $collection->connect('event2', array($mock, 'listen3'));
 
-        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Event\Event'));
-        $mock->expects($this->exactly(2))->method('listen2')->with($this->isInstanceOf('Nimbles\Event\Event'));
-        $mock->expects($this->once())->method('listen3')->with($this->isInstanceOf('Nimbles\Event\Event'), $this->equalTo('hello'));
+        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Core\Event'));
+        $mock->expects($this->exactly(2))->method('listen2')->with($this->isInstanceOf('Nimbles\Core\Event'));
+        $mock->expects($this->once())->method('listen3')->with($this->isInstanceOf('Nimbles\Core\Event'), $this->equalTo('hello'));
 
         $collection->fireEvent('event1');
         $collection->fireEvent('event2', 'hello');
@@ -129,7 +129,7 @@ class CollectionTest extends TestCase {
      */
     public function testFireEventUntil() {
         $collection = new Collection();
-        $mock = $this->getMock('Tests\Lib\Nimbles\Event\ListenerMock', array('listen1', 'listen3'));
+        $mock = $this->getMock('Tests\Lib\Nimbles\Core\Event\ListenerMock', array('listen1', 'listen3'));
 
         $collection->connect('event1', array($mock, 'listen1'));
         $collection->connect('event1', array($mock, 'listen2'));
@@ -138,7 +138,7 @@ class CollectionTest extends TestCase {
         $collection->connect('event2', array($mock, 'listen2'));
         $collection->connect('event2', array($mock, 'listen3'));
 
-        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Event\Event'), $this->equalTo('hello'));
+        $mock->expects($this->once())->method('listen1')->with($this->isInstanceOf('Nimbles\Core\Event'), $this->equalTo('hello'));
         $mock->expects($this->never())->method('listen2');
 
         $collection->fireEventUntil('event1', 'hello');

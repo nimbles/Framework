@@ -10,17 +10,17 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
  * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event;
+namespace Nimbles\Core;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
  * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -28,7 +28,7 @@ namespace Nimbles\Event;
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Event\Exception\InvalidName
+ * @uses       \Nimbles\Core\Event\Exception\InvalidName
  */
 class Event extends \Nimbles\Core\Collection {
     /**
@@ -48,8 +48,8 @@ class Event extends \Nimbles\Core\Collection {
     /**
      * Sets the event name
      * @param string $name
-     * @return \Nimbles\Event\Event
-     * @throws \Nimbles\Event\Exception\InvalidName
+     * @return \Nimbles\Core\Event
+     * @throws \Nimbles\Core\Event\Exception\InvalidName
      */
     public function setName($name) {
         if (!is_string($name)) {

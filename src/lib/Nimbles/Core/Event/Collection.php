@@ -10,27 +10,28 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Event;
+namespace Nimbles\Core\Event;
 
-use Nimbles\Core;
+use Nimbles\Core,
+    Nimbles\Core\Event;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Event\Event
+ * @uses       \Nimbles\Core\Event
  */
 class Collection extends Core\Collection {
     /**
@@ -42,7 +43,7 @@ class Collection extends Core\Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'type' => 'Nimbles\Event\Event',
+                'type' => 'Nimbles\Core\Event',
                 'indexType' => static::INDEX_ASSOCITIVE,
                 'readonly' => false
             )
@@ -54,10 +55,10 @@ class Collection extends Core\Collection {
 
     /**
      * Connects a callable to an event
-     * @param string|\Nimbles\Event\Event|\Nimbles\Event\Event\SelfConnectInterface $event
+     * @param string|\Nimbles\Core\Event|\Nimbles\Core\Event\SelfConnectInterface $event
      * @param mixed                                                                 $callable
      * @return void
-     * @throws \Nimbles\Event\Exception\InvalidConnections
+     * @throws \Nimbles\Core\Event\Exception\InvalidConnections
      */
     public function connect($event, $callable = null) {
         if ($event instanceof SelfConnectInterface) { // self connect the object
@@ -118,8 +119,8 @@ class Collection extends Core\Collection {
 	/**
      * Factory method for creating events
      * @param string|int                        $index
-     * @param string|array|\Nimbles\Event\Event $event
-     * @return \Nimbles\Event\Event|null
+     * @param string|array|\Nimbles\Core\Event $event
+     * @return \Nimbles\Core\Event|null
      */
     public static function factory($index, $event) {
         if (is_string($event)) {

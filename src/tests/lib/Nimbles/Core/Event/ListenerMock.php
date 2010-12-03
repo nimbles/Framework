@@ -10,18 +10,20 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Event;
+namespace Tests\Lib\Nimbles\Core\Event;
 
-use Nimbles\Event\SelfConnectInterface;
+use Nimbles\Core\Event\SelfConnectInterface;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -42,7 +44,8 @@ class ListenerMock {
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -61,7 +64,8 @@ class ListenerMockSelfConnect extends ListenerMock
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Event
+ * @package    Nimbles-Core
+ * @subpackage Event
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
