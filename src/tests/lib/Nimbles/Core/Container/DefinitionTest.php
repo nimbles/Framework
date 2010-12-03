@@ -10,16 +10,16 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage DefinitionTest
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Container;
+namespace Tests\Lib\Nimbles\Core\Container;
 
-use Nimbles\Container\TestCase,
-    Nimbles\Container\Definition;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Container\Definition;
 
 require_once 'ContainerMock.php';
 
@@ -31,10 +31,11 @@ require_once 'ContainerMock.php';
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Container\TestCase
+ * @uses       \Nimbles\Core\TestCase
  *
  * @group      Nimbles
- * @group      Nimbles-Container
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Container
  */
 class DefinitionTest extends TestCase {
     /**
@@ -91,9 +92,9 @@ class DefinitionTest extends TestCase {
             array('foo', 'BadMethodCallException'),
             array(array('id' => 'foo'), 'Nimbles\Core\Options\Exception\MissingOption'),
             array(array('class' => 'foo'), 'Nimbles\Core\Options\Exception\MissingOption'),
-            array(array('id' => 'foo', 'class' => 'bar'), 'Nimbles\Container\Exception\InvalidClass'),
-            array(array('id' => '', 'class' => 'bar'), 'Nimbles\Container\Exception\InvalidId'),
-            array(array('id' => 'foo', 'class' => 'stdClass', 'parameters' => null), 'Nimbles\Container\Exception\InvalidParameters'),
+            array(array('id' => 'foo', 'class' => 'bar'), 'Nimbles\Core\Container\Exception\InvalidClass'),
+            array(array('id' => '', 'class' => 'bar'), 'Nimbles\Core\Container\Exception\InvalidId'),
+            array(array('id' => 'foo', 'class' => 'stdClass', 'parameters' => null), 'Nimbles\Core\Container\Exception\InvalidParameters'),
         );
     }
     
@@ -105,25 +106,25 @@ class DefinitionTest extends TestCase {
         return array(
             array(array(
                 'id' => 'mock1',
-                'class' => 'Tests\Lib\Nimbles\Container\ContainerMock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock',
                 'parameters' => array(),
                 'shared' => false
             )),
             array(array(
                 'id' => 'mock2',
-                'class' => 'Tests\Lib\Nimbles\Container\ContainerMock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock',
                 'parameters' => array(),
                 'shared' => true
             )),
             array(array(
                 'id' => 'mock3',
-                'class' => 'Tests\Lib\Nimbles\Container\ContainerParametersMock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerParametersMock',
                 'parameters' => array('param1' => 1, 'param2' => 2),
                 'shared' => false
             )),
             array(array(
                 'id' => 'mock4',
-                'class' => 'Tests\Lib\Nimbles\Container\ContainerParametersMock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerParametersMock',
                 'parameters' => array('param1' => 1, 'param2' => 2),
                 'shared' => true
             )),

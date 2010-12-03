@@ -1,25 +1,25 @@
 <?php
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
-namespace Nimbles\Container;
+namespace Nimbles\Core;
 
-use Nimbles\Core\Collection;
+use Nimbles\Core\Container\Definition;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\Collection
- * @uses       \Nimbles\Core\Definition
+ * @uses       \Nimbles\Core\Container\Definition
  */
 class Container extends Collection {
     /**
@@ -32,7 +32,7 @@ class Container extends Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'type' => 'Nimbles\Container\Definition',
+                'type' => 'Nimbles\Core\Container\Definition',
                 'indexType' => static::INDEX_ASSOCITIVE,
                 'readonly' => false
             )

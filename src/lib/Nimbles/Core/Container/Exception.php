@@ -10,24 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Container\Exception;
-
-use Nimbles\Container\Exception;
+namespace Nimbles\Core\Container;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\Exception
+ * @uses       \Nimbles\Core\Exception
  */
-class CreateInstanceFailure extends Exception {}
+class Exception extends \Nimbles\Core\Exception {}

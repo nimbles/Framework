@@ -11,21 +11,38 @@
  *
  * @category   Nimbles
  * @package    Nimbles-Container
- * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Container;
+namespace Tests\Lib\Nimbles\Core\Container;
+
+require_once 'DefinitionTest.php';
+
+use Nimbles\Core\TestSuite;
 
 /**
  * @category   Nimbles
  * @package    Nimbles-Container
- * @subpackage Exception
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Exception
+ * @uses       \Nimbles\Container\TestSuite
+ *
+ * @group      Nimbles
+ * @group      Nimbles-Container
  */
-class Exception extends \Nimbles\Core\Exception {}
+class AllTests extends TestSuite {
+    /**
+     * Creates the Test Suite for Nimbles Framework - Container
+     * @return \PHPUnit_Framework_TestSuite
+     */
+    public static function suite() {
+        $suite = new TestSuite('Nimbles Framework - Container');
+        
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Container\DefinitionTest');
+        
+        return $suite;
+    }
+}

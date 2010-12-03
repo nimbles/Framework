@@ -1,24 +1,29 @@
 <?php
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Definition
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
-namespace Nimbles\Container;
+namespace Nimbles\Core\Container;
 
-use Nimbles\Core\Util\Instance;
+use Nimbles\Core\Util\Instance,
+    Nimbles\Core\Container\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Definition
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\Definition
+ * @uses       \Nimbles\Core\Util\Instance
+ * @uses       \Nimbles\Core\Container\Exception\InvalidId
+ * @uses       \Nimbles\Core\Container\Exception\InvalidClass
+ * @uses       \Nimbles\Core\Container\Exception\InvalidParameters
+ * @uses       \Nimbles\Core\Container\Exception\CreateInstanceFailure
  * @trait      \Nimbles\Core\Options
  */
 class Definition {
@@ -76,6 +81,7 @@ class Definition {
      * Sets the id
      * @param string $id
      * @return void
+     * @throws \Nimbles\Core\Container\Exception\InvalidId
      */
     public function setId($id) {
         if (!is_string($id) || (1 > strlen($id))) {
@@ -97,8 +103,8 @@ class Definition {
     /**
      * Sets the class this definition is for
      * @param string $class
-     * @return \Nimbles\Container\Definition
-     * @throws \Nimbles\Container\Exception\InvalidClass
+     * @return \Nimbles\Core\Container\Definition
+     * @throws \Nimbles\Core\Container\Exception\InvalidClass
      */
     public function setClass($class) {
         if (!is_string($class) || !class_exists($class)) {
@@ -120,8 +126,8 @@ class Definition {
     /**
      * Sets the constructor parameters for this class
      * @param array|\ArrayObject $parameters
-     * @return \Nimbles\Container\Definition
-     * @throws \Nimbles\Container\Exception\InvalidParameters
+     * @return \Nimbles\Core\Container\Definition
+     * @throws \Nimbles\Core\Container\Exception\InvalidParameters
      */
     public function setParameters($parameters) {
         if ($parameters instanceof \ArrayObject) {
@@ -162,6 +168,7 @@ class Definition {
     /**
      * Gets an instance of the defined class
      * @return object
+     * @throws \Nimbles\Core\Container\Exception\CreateInstanceFailure
      */
     public function getInstance() {
         $id = $this->getId();

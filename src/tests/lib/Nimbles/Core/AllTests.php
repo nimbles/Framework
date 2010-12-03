@@ -17,20 +17,20 @@
 
 namespace Tests\lib\Nimbles\Core;
 
+require_once 'CollectionTest.php';
+require_once 'ContainerTest.php';
+require_once 'Container/AllTests.php';
+require_once 'LoaderTest.php';
 require_once 'Pattern/AllTests.php';
 
-/*require_once 'Adapter/AllTests.php';
-require_once 'CollectionTest.php';
-require_once 'ConfigTest.php';
-require_once 'Config/AllTests.php';
+/*
 require_once 'DelegatesTest.php';
 require_once 'Delegates/AllTests.php';
-require_once 'LoaderTest.php';
+
 require_once 'LogTest.php';
 require_once 'Log/AllTests.php';
 require_once 'Mixin/AllTests.php';
-require_once 'PluginTest.php';
-require_once 'Plugin/AllTests.php';*/
+*/
 
 use Nimbles\Core\TestSuite;
 
@@ -54,25 +54,21 @@ class AllTests extends TestSuite {
     public static function suite() {
         $suite = new TestSuite('Nimbles Framework - Core');
 
-        //$suite->addTest(Adapter\AllTests::suite());
-/*
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\CollectionTest');
-
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\ConfigTest');
-        $suite->addTest(Config\AllTests::suite());
+        
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\ContainerTest');
+        $suite->addTest(Container\AllTests::suite());
+        
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LoaderTest');
+/*
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\DelegatesTest');
         $suite->addTest(Delegates\AllTests::suite());
-
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LoaderTest');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LogTest');
         $suite->addTest(Log\AllTests::suite());
 
         $suite->addTest(Mixin\AllTests::suite());
-
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
-        $suite->addTest(Plugin\AllTests::suite());
 */
         $suite->addTest(Pattern\AllTests::suite());
         

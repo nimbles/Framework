@@ -10,34 +10,35 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage ContainerTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Container;
+namespace Tests\Lib\Nimbles\Core;
 
 use Nimbles\Cli\Opt\Collection;
 
-use Nimbles\Container\TestCase,
-    Nimbles\Container\Container,
-    Nimbles\Container\Definition;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Container,
+    Nimbles\Core\Container\Definition;
 
-require_once 'ContainerMock.php';
+require_once 'Container/ContainerMock.php';
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage ContainerTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Container\TestCase
+ * @uses       \Nimbles\Core\TestCase
  *
  * @group      Nimbles
- * @group      Nimbles-Container
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Container
  */
 class ContainerTest extends TestCase {
     /**
@@ -49,7 +50,7 @@ class ContainerTest extends TestCase {
         
         $this->assertType('Nimbles\Core\Collection', $container);
         
-        $this->assertEquals('Nimbles\Container\Definition', $container->getType());
+        $this->assertEquals('Nimbles\Core\Container\Definition', $container->getType());
         $this->assertEquals(Container::INDEX_ASSOCITIVE, $container->getIndexType());
         $this->assertFalse($container->isReadOnly());
     }
@@ -65,7 +66,7 @@ class ContainerTest extends TestCase {
             'readonly' => false
         ));
         
-        $this->assertEquals('Nimbles\Container\Definition', $container->getType());
+        $this->assertEquals('Nimbles\Core\Container\Definition', $container->getType());
         $this->assertEquals(Container::INDEX_ASSOCITIVE, $container->getIndexType());
         $this->assertFalse($container->isReadOnly());
     }
@@ -80,7 +81,7 @@ class ContainerTest extends TestCase {
     public function testFactory($value) {
         $definition = Container::factory('foo', $value);
                 
-        $this->assertType('Nimbles\Container\Definition', $definition);
+        $this->assertType('Nimbles\Core\Container\Definition', $definition);
         $this->assertEquals('foo', $definition->getId());
     }
     
@@ -92,26 +93,26 @@ class ContainerTest extends TestCase {
         $container = new Container(
             array(
             	'foo' => array(
-                	'class' => 'Tests\Lib\Nimbles\Container\ContainerMock'
+                	'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
                 ),
-                'bar' => 'Tests\Lib\Nimbles\Container\ContainerMock',
+                'bar' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock',
                 'baz' => new Definition(array(
                     'id' => 'baz',
-                    'class' => 'Tests\Lib\Nimbles\Container\ContainerMock'
+                    'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
                 ))
             )
         );
         
-        $this->assertType('Nimbles\Container\Definition', $container->foo);
-        $this->assertType('Nimbles\Container\Definition', $container->bar);
-        $this->assertType('Nimbles\Container\Definition', $container->baz);
+        $this->assertType('Nimbles\Core\Container\Definition', $container->foo);
+        $this->assertType('Nimbles\Core\Container\Definition', $container->bar);
+        $this->assertType('Nimbles\Core\Container\Definition', $container->baz);
         
-        $container->quz = 'Tests\Lib\Nimbles\Container\ContainerMock';
-        $this->assertType('Nimbles\Container\Definition', $container->quz);
+        $container->quz = 'Tests\Lib\Nimbles\Core\Container\ContainerMock';
+        $this->assertType('Nimbles\Core\Container\Definition', $container->quz);
         
         
         $instance = $container->foo->getInstance();
-        $this->assertType('Tests\Lib\Nimbles\Container\ContainerMock', $instance);
+        $this->assertType('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
         
         /*
          * due a limitation in php, this cannot be done
@@ -120,7 +121,7 @@ class ContainerTest extends TestCase {
                 
         $definition = $container->foo;
         $instance = $definition();
-        $this->assertType('Tests\Lib\Nimbles\Container\ContainerMock', $instance);
+        $this->assertType('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
     }
     
     /**
@@ -131,13 +132,13 @@ class ContainerTest extends TestCase {
         return array(
             array(array(
                 'id' => 'bar',
-                'class' => 'Tests\Lib\Nimbles\Container\ContainerMock'
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
             )),
-            array('Tests\Lib\Nimbles\Container\ContainerMock'),
+            array('Tests\Lib\Nimbles\Core\Container\ContainerMock'),
             array(
                 new Definition(array(
                     'id' => 'bar',
-                    'class' => 'Tests\Lib\Nimbles\Container\ContainerMock'
+                    'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
                 ))
             )
         );

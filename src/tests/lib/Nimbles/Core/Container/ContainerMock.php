@@ -10,16 +10,16 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage ContainerMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
-namespace Tests\Lib\Nimbles\Container;
+namespace Tests\Lib\Nimbles\Core\Container;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
+ * @package    Nimbles-Core
  * @subpackage ContainerMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License

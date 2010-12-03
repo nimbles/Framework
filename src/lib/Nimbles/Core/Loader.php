@@ -47,14 +47,17 @@ class Loader {
     /**
      * The autoloader for Nimbles classes
      * @param string $class
-     * @return void
+     * @return bool
      */
     public static function autoload($class) {
         // only need to replace back slashes with forward slashes since php 5.3
         $file = str_replace('\\', '/', $class) . '.php';
         if (static::fileExists($file)) {
             require_once $file;
+            return true;
         }
+        
+        return false;
     }
 
     /**

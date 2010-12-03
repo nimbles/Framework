@@ -10,24 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Container\Exception;
+namespace Nimbles\Core\Container\Exception;
 
-use Nimbles\Container\Exception;
+use Nimbles\Core\Container\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Container
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Container
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\Exception
+ * @uses       \Nimbles\Core\Container\Exception
  */
-class InvalidId extends Exception {}
+class InvalidParameters extends Exception {}
