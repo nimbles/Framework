@@ -15,7 +15,8 @@
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
-namespace Nimbles\Core\Pattern;
+
+namespace Tests\Lib\Nimbles\Core\Pattern;
 
 /**
  * @category   Nimbles
@@ -24,26 +25,17 @@ namespace Nimbles\Core\Pattern;
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
+ *
+ * @trait      \Nimbles\Core\Pattern\Multiton
  */
-trait Multiton {
-    /**
-     * Gets an instance of the class based on arguements.
-     * @return object
-     */
-    public static function getInstance() {
-        static $instances;
+class BasicMultiton {
+    protected $_value;
 
-        if (null === $instances) {
-            $instances = array();
-        }
+    public function __construct($value = '') {
+        $this->_value = $value;
+    }
 
-        $args = func_get_args();
-        $key = serialize($args);
-
-        if (!array_key_exists($key, $instances)) {
-            $instances[$key] = \Nimbles\Core\Util\Instance::getInstance(get_class(), $args);
-        }
-
-        return $instances[$key];
+    public function getValue() {
+        return $this->_value;
     }
 }

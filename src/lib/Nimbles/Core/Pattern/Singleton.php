@@ -28,17 +28,22 @@ namespace Nimbles\Core\Pattern;
 trait Singleton {
     /**
      * Gets an instance of the class.
-     * 
+     *
      * The class which uses this trait must not rely on any constructor arguments
      * @return object
      */
     public static function getInstance() {
         static $instance;
-        
+
         if (null === $instance) {
             $instance = new static();
         }
-        
+
         return $instance;
+    }
+
+    public function __clone()
+    {
+        throw new \Nimbles\Core\Pattern\Exception('Clone no supported');
     }
 }
