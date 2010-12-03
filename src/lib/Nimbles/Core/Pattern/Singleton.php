@@ -44,6 +44,6 @@ trait Singleton {
 
     public function __clone()
     {
-        throw new Exception('Clone no supported');
+        throw new \Nimbles\Core\Pattern\Exception('Clone no supported');
     }
 }
