@@ -24,24 +24,17 @@
 	<!-- generate mess report -->
 	<target name="phpmd" depends="compile">
 		<exec executable="phpmd">
-			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/build/dest" />
+			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/src/lib" />
 		</exec>
 	</target>
 
 	<!-- generate copy paste detection report -->
 	<target name="phpcpd" depends="compile">
 		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/build/dest" />
+			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/src/lib" />
 		</exec>
 	</target>
-
-	<!-- generate jdepend report -->
-	<target name="pdepend" depends="compile">
-		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest" />
-		</exec>
-	</target>
-
+	
 	<!-- execute phpunit -->
 	<target name="phpunit" depends="compile">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
@@ -62,5 +55,5 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="clean, prepare, compile, pdepend, phpmd, phpcpd, phpunit, code-coverage" />
+	<target name="build" depends="clean, prepare, compile, phpmd, phpcpd, phpunit, code-coverage" />
 </project>
