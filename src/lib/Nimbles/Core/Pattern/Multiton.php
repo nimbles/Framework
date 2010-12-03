@@ -32,18 +32,18 @@ trait Multiton {
      */
     public static function getInstance() {
         static $instances;
-        
+
         if (null === $instances) {
             $instances = array();
         }
-        
-        $args = func_get_args();        
+
+        $args = func_get_args();
         $key = serialize($args);
-        
-        if (!array_key_exists($key, $instance)) {
-            $instances[$key] = \Nimbles\Core\Util\Instance::getInstance(get_class(), $args); 
+
+        if (!array_key_exists($key, $instances)) {
+            $instances[$key] = \Nimbles\Core\Util\Instance::getInstance(get_class(), $args);
         }
-        
+
         return $instances[$key];
     }
 }
