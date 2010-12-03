@@ -7,6 +7,7 @@
 	<!-- creates the directory -->
 	<target name="prepare">
 		<mkdir dir="${basedir}/build/logs" />
+		<mkdir dir="${basedir}/build/coverage" />
 		<mkdir dir="${basedir}/build/docs" />
 		<mkdir dir="${basedir}/build/dest" />
 	</target>
@@ -57,7 +58,8 @@
 			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
 			<arg line="--no-globals-backup" />
 			<arg line="--log-junit ${basedir}/build/logs/junit.xml" />
-			<arg line="--coverage-clover ${basedir}/build/logs/clover.xml ${phpunit}" />
+			<arg line="--coverage-html ${basedir}/build/coverage" />
+			<arg line="--coverage-clover ${basedir}/build/coverage/clover.xml ${phpunit}" />
 			<arg line="${basedir}/build/dest/tests/AllTests.php" />
 		</exec>
 	</target>
