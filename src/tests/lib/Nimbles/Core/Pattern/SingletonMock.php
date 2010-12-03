@@ -15,7 +15,8 @@
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
-namespace Nimbles\Core\Pattern;
+
+namespace Tests\Lib\Nimbles\Core\Pattern;
 
 /**
  * @category   Nimbles
@@ -24,26 +25,19 @@ namespace Nimbles\Core\Pattern;
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
+ *
+ * @trait      \Nimbles\Core\Pattern\Singleton
  */
-trait Singleton {
-    /**
-     * Gets an instance of the class.
-     *
-     * The class which uses this trait must not rely on any constructor arguments
-     * @return object
-     */
-    public static function getInstance() {
-        static $instance;
+class A {}
 
-        if (null === $instance) {
-            $instance = new static();
-        }
-
-        return $instance;
-    }
-
-    public function __clone()
-    {
-        throw new Exception('Clone no supported');
-    }
-}
+/**
+ * @category   Nimbles
+ * @package    Nimbles-Core
+ * @subpackage Pattern
+ * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
+ * @license    http://nimbl.es/license/mit MIT License
+ * @version    $Id$
+ *
+ * @trait      \Nimbles\Core\Pattern\Singleton
+ */
+class B {}
