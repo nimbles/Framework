@@ -108,6 +108,7 @@ class Builder {
         if ('.php' === substr($file, -4)) {
             $fullFilename = $this->_source . $file;
             $contents = file_get_contents($fullFilename);
+
             if (0 !== preg_match_all('/(abstract\s)?class\s+(?P<class>[^\s]*).*{/', $contents, $matches)) {
                 for ($i = 0; $i < count($matches[0]); $i++) {
                     $startOfClass = strpos($contents, $matches[0][$i]);
@@ -128,7 +129,13 @@ class Builder {
                         }
                     }
                 }
+            } else if (!$this->_useTraits && (0 !== preg_match_all('/trait\s+(?P<trait>[^\s]*).*{/', $contents, $matches))) {
+                for ($i = 0; $i < count($matches[0]); $i++) {
+                    $startOfTrait = strpos($contents, $matches[0][$i]);
+                    $contents = substr($contents, 0, $startOfTrait);
+                }
             }
+            
             file_put_contents($path, $contents);
         } else {
             copy($this->_source . $file, $path);
