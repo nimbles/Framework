@@ -27,6 +27,7 @@ require_once 'OptionsTest.php';
 require_once 'Pattern/AllTests.php';
 require_once 'PluginTest.php';
 require_once 'Plugin/AllTests.php';
+require_once 'Util/AllTests.php';
 
 /*
 require_once 'DelegatesTest.php';
@@ -69,6 +70,7 @@ class AllTests extends TestSuite {
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
         $suite->addTest(Plugin\AllTests::suite());
         $suite->addTest(Pattern\AllTests::suite());
+        $suite->addTest(Util\AllTests::suite());
         
         return $suite;
     }

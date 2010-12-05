@@ -10,15 +10,13 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginTest
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
 namespace Tests\Lib\Nimbles\Core\Plugin;
-
-use Tests\Lib\Nimbles\Core\Plugin\PluginsStandaloneMock;
 
 require_once 'PluginsMock.php';
 require_once 'PluginsStandaloneMock.php';
@@ -29,8 +27,8 @@ use Nimbles\Core\TestCase,
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginTest
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -38,7 +36,8 @@ use Nimbles\Core\TestCase,
  * @uses       \Nimbles\Plugin\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Plugin
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Plugin
  */
 class PluginsTest extends TestCase {
     /**

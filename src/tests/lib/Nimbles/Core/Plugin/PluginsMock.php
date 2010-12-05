@@ -10,8 +10,8 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
@@ -20,8 +20,8 @@ namespace Tests\Lib\Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$

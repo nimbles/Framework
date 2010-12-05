@@ -38,11 +38,15 @@ class Instance {
      * @param array|null $args
      */
     public static function getInstance($class, array $args = null) {
-        if ((null === $args) || (0 === count($args))) {
-            return new $class();
+        try {
+            if ((null === $args) || (0 === count($args))) {
+                return new $class();
+            }
+            
+            $ref = new \ReflectionClass($class);
+            return $ref->newInstanceArgs($args);
+        } catch (\Exception $ex) {
+            throw new Exception\CreateInstanceFailure('Failed to create an instance of ' . $class, 0, $ex);
         }
-        
-        $ref = new \ReflectionClass($class);
-        return $ref->newInstanceArgs($args);
     }
 }
