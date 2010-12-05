@@ -41,9 +41,4 @@ trait Singleton {
 
         return $instance;
     }
-
-    public function __clone()
-    {
-        throw new \Nimbles\Core\Pattern\Exception('Clone no supported');
-    }
 }

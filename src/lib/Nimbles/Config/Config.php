@@ -29,28 +29,11 @@ use Nimbles\Core\Collection;
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\Collection
+ * @trait      \Nimbles\Core\Pattern\Singleton
  *
  * @uses       \Nimbles\Config\Exception\InvalidValue
  */
 class Config extends Collection {
-	/**
-     * Static instance
-     * @var \Nimbles\Config\Config
-     */
-    protected static $_instance;
-
-    /**
-     * Gets the instance
-     * @return \Nimbles\Config\Config
-     */
-    public static function getInstance() {
-        if (null === static::$_instance) {
-            static::$_instance = new static();
-        }
-
-        return static::$_instance;
-    }
-
     /**
      * Class construct
      *

@@ -49,12 +49,4 @@ class SingletonTest extends TestCase {
         $b = B::getInstance();
         $this->assertNotEquals($a1, $b);
     }
-    /**
-     * Test to ensure __clone throws an exception
-     */
-    public function testClone() {
-        $a = new A();
-        $this->setExpectedException('Nimbles\Core\Pattern\Exception');
-        $b = clone $a;
-    }
 }
