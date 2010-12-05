@@ -43,7 +43,11 @@ class AdapterTest extends TestCase {
      * 
      * @dataProvider optionsProvider
      */
-    public function testAdapter(array $options, $adapter = null) {
+    public function testAdapter(array $options, $adapter = null, $exception = null) {
+        if (null !== $exception) {
+            $this->setExpectedException($exception);
+        }
+        
         $instance = new Adapter($options);
         
         $this->assertEquals($options['type'], $instance->getType());
@@ -93,6 +97,13 @@ class AdapterTest extends TestCase {
             ),
             array(
                 array(
+                    'adapter' => new AdapterSingle(),
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterSingle',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern'),
+                ),
+            ),
+            array(
+                array(
                     'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterParameters',
                     'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
@@ -104,6 +115,14 @@ class AdapterTest extends TestCase {
                     'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterParameters', 1, 2)
+            ),
+            array(
+                array(
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterParameters',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
+                ),
+                array('AdapterParameters'),
+                'Nimbles\Core\Pattern\Adapter\Exception\CreateInstanceFailure'
             ),
             array(
                 array(
@@ -119,7 +138,15 @@ class AdapterTest extends TestCase {
                 ),
                 array('AdapterConcrete')
             ),
-            
+            array(
+                array(
+                    'adapter' => new AdapterSingle(),
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterAbstract',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
+                ),
+                null,
+                'Nimbles\Core\Pattern\Adapter\Exception\InvalidAdapter',
+            ),
             array(
                 array(
                     'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
@@ -133,6 +160,40 @@ class AdapterTest extends TestCase {
                     'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
                 ),
                 array('AdapterImplementor')
+            ),
+            array(
+                array(
+                    'adapter' => 'AdapterImplemented',
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
+                ),
+                null,
+                'Nimbles\Core\Pattern\Adapter\Exception\InvalidNamespaces',
+            ),
+            array(
+                array(
+                    'adapter' => 'AdapterImplemented',
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
+                ),
+                null,
+                'Nimbles\Core\Pattern\Adapter\Exception\InvalidAdapter',
+            ),
+            array(
+                array(
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterInterface',
+                    'namespaces' => 123,
+                ),
+                null,
+                'Nimbles\Core\Pattern\Adapter\Exception\InvalidNamespaces'
+            ),
+            
+            array(
+                array(
+                    'type' => 123,
+                    'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
+                ),
+                null,
+                'Nimbles\Core\Pattern\Adapter\Exception\InvalidType'
             ),
         );
     }
