@@ -57,6 +57,9 @@ trait Options {
         }
         
         unset($instance->options);
+        $this->assertNull($instance->getOption('foo'));
+        
+        unset($instance->options);
         $instance->setOption('foo', 'bar');
         $this->assertEquals('bar', $instance->getOption('foo'));
         
@@ -138,13 +141,13 @@ trait Options {
      * @dataProvider getSetOptionsProvider
      */
     public function testGetSetOptions($instance, $options, $initialOptions = array(), $dynamicOptions = array()) {
-        $this->assertSame($initialOptions, $instance->getOptions());
+        $this->assertSame($initialOptions, $instance->getOptions(), 'Initial options do not match expected');
         $instance->setOptions($options);
         
         foreach ($options as $option => $value) {
-            $this->assertEquals($value, $instance->getOption($option));
+            $this->assertEquals($value, $instance->getOption($option), 'Option ' . $option . ' does not match expected value');
         }
         
-        $this->assertSame($dynamicOptions, $instance->getOptions());
+        $this->assertSame($dynamicOptions, $instance->getOptions(), 'Dynamic options do not match expected');
     }
 }

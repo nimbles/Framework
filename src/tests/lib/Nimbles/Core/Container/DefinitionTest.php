@@ -32,6 +32,7 @@ require_once 'ContainerMock.php';
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\TestCase
+ * @trait      \Tests\Lib\Nimbles\Core\Options
  *
  * @group      Nimbles
  * @group      Nimbles-Core
@@ -158,6 +159,52 @@ class DefinitionTest extends TestCase {
                 'parameters' => array('param1' => 1, 'param2' => 2),
                 'shared' => true
             )),
+        );
+    }
+    
+	/**
+     * Data provider for options instance
+     * @return array
+     */
+    public function optionsInstanceProvider() {
+        return array(
+            array(new Definition(array(
+                'id' => 'mock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerParametersMock',
+            )))
+        );
+    }
+    
+    /**
+     * Data provider for getting and setting an option on a given instance
+     * @return void
+     */
+    public function getSetOptionProvider() {
+        return array(
+            array(new Definition(array(
+                'id' => 'mock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerParametersMock',
+            )), 'id', 'mock2', 'mock')
+        );
+    }
+    
+	/**
+     * Data provider for getting and setting options on a given instance
+     * @return void
+     */
+    public function getSetOptionsProvider() {
+        return array(
+            array(new Definition(array(
+                'id' => 'mock',
+                'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerParametersMock',
+            )), array(
+                'parameters' => array('param1' => 1, 'param2' => 2),
+                'foo' => 123
+            ),
+            array(),
+            array(
+                'foo' => 123
+            ))
         );
     }
 }
