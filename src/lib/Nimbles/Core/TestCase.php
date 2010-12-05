@@ -111,6 +111,36 @@ class TestCase extends PHPUnit_Framework_TestCase {
             $this->assertType($type, $value, $message);
         }
     }
+    
+    /**
+     * Asserts that the object has the given method
+     * 
+     * @param object $object
+     * @param string $method
+     * @param string $message
+     */
+    public function assertHasMethod($object, $method, $message = '') {
+        $this->assertThat(
+            method_exists($object, $method),
+            self::isTrue(),
+            '' === $message ? 'Object does not have method ' . $method : $message
+        );
+    }
+    
+	/**
+     * Asserts that the object has the given method
+     * 
+     * @param object $object
+     * @param string $method
+     * @param string $message
+     */
+    public function assertNotHasMethod($object, $method, $message = '') {
+        $this->assertThat(
+            method_exists($object, $method),
+            self::isFalse(),
+            '' === $message ? 'Object has method ' . $method : $message
+        );
+    }
 
     /**
      * Resets input and output

@@ -19,6 +19,7 @@
 namespace Nimbles\Build;
 
 require_once 'Source.php';
+require_once 'IsTraitIterator.php';
 
 /**
  * @category   Nimbles
@@ -151,9 +152,9 @@ class Builder {
      * @throws \Exception
      */
     protected function _addTrait($class, $contents, $trait) {
-        $traitFile = $this->_traitPath . '/' . str_replace('\\', '/', $trait) . '.php';
-        if (!is_file($traitFile)) {
-            throw new \Exception('Failed to import trait, ' . $traitFile . ' does not exist for ' . $class);
+        $traitFile = $this->_findTrait($trait);
+        if (!file_exists($traitFile)) {
+            throw new \Exception('Failed to import trait, ' . $trait . ' does not exist for ' . $class);
         }
         // get the class header and footer, separated by the first openning {
         list($classHeader, $classFooter) = explode($class, $contents, 2);
@@ -170,5 +171,53 @@ class Builder {
 
         $contents = $classHeader . $class . $traitBody . "\n" . $classFooter;
         return $contents;
+    }
+    
+    /**
+     * Attempts to search for the trait
+     * @param string $trait
+     * @return string
+     */
+    protected function _findTrait($trait) {
+        $namespace = implode('\\', explode('\\', trim($trait, '\\'), -1));
+        $traitName = substr(trim($trait, '\\'), strlen($namespace) + 1);        
+        
+        // try first with just the single file
+        $traitFiles = new \ArrayObject(
+            array($this->_traitPath . '/' . str_replace('\\', '/', $trait) . '.php')
+        );
+        
+        $iterator = new IsTraitIteractor($traitFiles->getIterator(), $namespace, $traitName);
+        
+        foreach ($iterator as $file) {
+            return $file;
+        }
+        
+        $iterator = new IsTraitIteractor(
+            new \RegexIterator( 
+                new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator(
+                        $this->_source,
+                        \FilesystemIterator::UNIX_PATHS |
+                            \FilesystemIterator::FOLLOW_SYMLINKS |
+                            \FilesystemIterator::SKIP_DOTS 
+                    )
+                ),
+                '/^.+\/' . preg_quote($traitName, '/') . '\.php$/i',
+                \RecursiveRegexIterator::GET_MATCH
+            ),
+            $namespace,
+            $traitName
+        );
+
+        foreach ($iterator as $file) {
+            if ($file instanceof \SplFileInfo) {
+                return $file->getPathname();
+            }
+            
+            return $file[0];
+        }
+        
+        return '';
     }
 }
