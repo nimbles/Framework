@@ -56,24 +56,20 @@ class Adapter {
      * @return void
      */
     public function __construct($options = null) {
-        $options = array_merge(
-            array(
-                'type' => null
-            ),
-            $options
-        );
+        $adapter = null;
         
         if (isset($options['adapter'])) {
             // unset adapter to ensure that the options are loaded first
             $adapter = $options['adapter'];
             unset($options['adapter']);
-            
-            $this->setOptions($options);
-            
-            // load after options are loaded
+        }
+        
+        $this->setOptions($options, null, array(
+            'type' => null
+        ));
+        
+        if (null !== $adapter) {
             $this->setAdapter($adapter);
-        } else {
-            $this->setOptions($options);
         }
     }
     

@@ -61,7 +61,7 @@ trait Options {
      * Sets an option
      * @param string $option
      * @param mixed  $value
-     * @return void
+     * @return object The instance of the class which uses the trait
      * @throws \Nimbles\Core\Options\Exception\InvalidInstance
      */
     public function setOption($option, $value) {
@@ -85,6 +85,7 @@ trait Options {
         }
         
         $this->options[$option] = $value;
+        return $this;
     }
     
     /**
@@ -105,31 +106,31 @@ trait Options {
     /**
      * Sets the options
      * @param array|\ArrayObject $options
-     * @return void
+     * @return The instance of the class which uses the trait
      * @throws \BadMethodCallException
      * @throws \Nimbles\Core\Options\Exception\MissingOption
      */
-    public function setOptions($options, array $required = null) {
+    public function setOptions($options, array $required = null, array $default = null) {
         if (null === $options) {
-            return;
+            return $this;
         }
         
         if (!is_array($options) && !($options instanceof \ArrayObject)) {
             throw new \BadMethodCallException('Invalid options, must be an array or instance of an ArrayObject');
         }
         
+        if ($options instanceof \ArrayObject) {
+            $options = $options->getArrayCopy();
+        }
+        
+        if (null !== $default) {
+            $options = array_merge($default, $options);
+        }
+        
         if (null !== $required) {
-            if (is_array($options)) {
-                foreach ($required as $requiredOption) {
-                    if (!array_key_exists($requiredOption, $options)) {
-                        throw new \Nimbles\Core\Options\Exception\MissingOption('Missing required option ' . $requiredOption);
-                    }
-                }
-            } else if ($options instanceof \ArrayObject) {
-                foreach ($required as $requiredOption) {
-                    if (!$options->offsetExists($requiredOption)) {
-                        throw new \Nimbles\Core\Options\Exception\MissingOption('Missing required option ' . $requiredOption);
-                    }
+            foreach ($required as $requiredOption) {
+                if (!array_key_exists($requiredOption, $options)) {
+                    throw new \Nimbles\Core\Options\Exception\MissingOption('Missing required option ' . $requiredOption);
                 }
             }
         }
@@ -137,5 +138,7 @@ trait Options {
         foreach ($options as $option => $value) {
             $this->setOption($option, $value);
         }
+        
+        return $this;
     }
 }

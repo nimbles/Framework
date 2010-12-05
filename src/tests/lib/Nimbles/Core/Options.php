@@ -38,6 +38,85 @@ trait Options {
         $this->assertHasMethod($instance, 'setOption');
         $this->assertHasMethod($instance, 'getOptions');
         $this->assertHasMethod($instance, 'setOptions');
+        
+        $this->assertType(get_class($instance), $instance->setOptions(null));
+        
+        try {
+            $instance->setOptions('foo');
+        } catch (\Exception $ex) {
+            $this->assertType('BadMethodCallException', $ex, 'Expected exception BadMethodCallException');
+        }
+        
+        $this->assertNull($instance->getOption('foo'));
+        $instance->options = new \stdClass();
+        
+        try {
+            $instance->getOption('foo');
+        } catch (\Exception $ex) {
+            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+        }
+        
+        unset($instance->options);
+        $instance->setOption('foo', 'bar');
+        $this->assertEquals('bar', $instance->getOption('foo'));
+        
+        try {
+            $instance->options = new \stdClass();
+            $instance->setOption('foo', 'bar');
+        } catch (\Exception $ex) {
+            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+        }
+        
+        unset($instance->options);
+        $this->assertSame(array(), $instance->getOptions());
+        
+        try {
+            $instance->options = new \stdClass();
+            $instance->getOptions();
+        } catch (\Exception $ex) {
+            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+        }
+        
+        unset($instance->options);
+        $instance->setOptions(array(), null, array('foo' => 'bar'));
+        $this->assertEquals('bar', $instance->getOption('foo'));
+        
+        unset($instance->options);
+        $instance->setOptions(new \ArrayObject(), null, array('foo' => 'bar'));
+        $this->assertEquals('bar', $instance->getOption('foo'));
+        
+        try {
+            unset($instance->options);
+            $instance->setOptions(
+                array(
+                	'foo' => 123
+                ),
+                array (
+                    'foo',
+                    'bar',
+                    'baz'
+                ), array(
+                    'bar' => 456
+                )
+            );
+        }  catch (\Exception $ex) {
+            $this->assertType('Nimbles\Core\Options\Exception\MissingOption', $ex, 'Expected exception Nimbles\Core\Options\Exception\MissingOption');
+        }
+        
+        unset($instance->options);
+        $instance->setOptions(
+            array(
+            	'foo' => 123
+            ),
+            array (
+                'foo',
+                'bar'
+            ), array(
+                'bar' => 456
+            )
+        );
+        $this->assertEquals(123, $instance->getOption('foo'));
+        $this->assertEquals(456, $instance->getOption('bar'));
     }    
     
     /**

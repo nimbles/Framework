@@ -32,6 +32,7 @@ use Nimbles\Core\TestCase,
  * @version    $Id$
  *
  * @uses       \Nimbles\Adapter\TestCase
+ * @trait      \Tests\Lib\Nimbles\Core\Options
  *
  * @group      Nimbles
  * @group      Nimbles-Adapter
@@ -195,6 +196,42 @@ class AdapterTest extends TestCase {
                 null,
                 'Nimbles\Core\Pattern\Adapter\Exception\InvalidType'
             ),
+        );
+    }
+    
+	/**
+     * Data provider for options instance
+     * @return array
+     */
+    public function optionsInstanceProvider() {
+        return array(
+            array(new Adapter())
+        );
+    }
+    
+    /**
+     * Data provider for getting and setting an option on a given instance
+     * @return void
+     */
+    public function getSetOptionProvider() {
+        return array(
+            array(new Adapter(), 'type', null)
+        );
+    }
+    
+	/**
+     * Data provider for getting and setting options on a given instance
+     * @return void
+     */
+    public function getSetOptionsProvider() {
+        return array(
+            array(
+                new Adapter(),
+                array(
+                    'type' => null,
+                    'namespaces' => null  
+                )
+            )
         );
     }
 }
