@@ -20,6 +20,7 @@ namespace Tests\Lib\Nimbles;
 require_once 'NimblesTest.php';
 require_once 'Config/AllTests.php';
 require_once 'Core/AllTests.php';
+require_once 'App/AllTests.php';
 
 use Nimbles\Core\TestSuite;
 
@@ -46,6 +47,7 @@ class AllTests extends TestSuite {
 
         $suite->addTest(Config\AllTests::suite());
         $suite->addTest(Core\AllTests::suite());
+        $suite->addTest(App\AllTests::suite());
 
         return $suite;
     }

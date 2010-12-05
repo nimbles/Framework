@@ -17,8 +17,6 @@
 
 namespace Tests\lib\Nimbles\App;
 
-require_once 'Controller/AllTests.php';
-
 use Nimbles\App\TestSuite;
 
 /**
@@ -40,8 +38,6 @@ class AllTests extends TestSuite {
      */
     public static function suite() {
         $suite = new TestSuite('Nimbles Framework - App');
-
-        $suite->addTest(Controller\AllTests::suite());
 
         return $suite;
     }
