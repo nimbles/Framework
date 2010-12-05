@@ -43,6 +43,7 @@ trait Options {
         
         try {
             $instance->setOptions('foo');
+            $this->fail('Expected exception BadMethodCallException');
         } catch (\Exception $ex) {
             $this->assertType('BadMethodCallException', $ex, 'Expected exception BadMethodCallException');
         }
@@ -52,6 +53,7 @@ trait Options {
         
         try {
             $instance->getOption('foo');
+            $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
             $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
@@ -66,6 +68,7 @@ trait Options {
         try {
             $instance->options = new \stdClass();
             $instance->setOption('foo', 'bar');
+            $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
             $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
@@ -76,6 +79,7 @@ trait Options {
         try {
             $instance->options = new \stdClass();
             $instance->getOptions();
+            $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
             $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
@@ -102,6 +106,7 @@ trait Options {
                     'bar' => 456
                 )
             );
+            $this->fail('Expected exception Nimbles\Core\Options\Exception\MissingOption');
         }  catch (\Exception $ex) {
             $this->assertType('Nimbles\Core\Options\Exception\MissingOption', $ex, 'Expected exception Nimbles\Core\Options\Exception\MissingOption');
         }

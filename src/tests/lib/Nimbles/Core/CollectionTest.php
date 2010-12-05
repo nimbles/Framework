@@ -237,8 +237,40 @@ class CollectionTest extends TestCase {
             'readonly' => true
         ));
 
+        try {
+            $collection[] = 4;
+            $this->fail('Expected exception Nimbles\Core\Collection\Exception\ReadOnly');
+        } catch (\Exception $ex) {
+            $this->assertType('Nimbles\Core\Collection\Exception\ReadOnly', $ex, 'Expected exception Nimbles\Core\Collection\Exception\ReadOnly');
+        }
+        
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
-        $collection[] = 4;
+        unset($collection[0]);
+    }
+    
+    /**
+     * Tests creating a collection with options
+     * @param mixed $options
+     * @return void
+     * 
+     * @dataProvider optionsProvider
+     */
+    public function testConstructOptions($options) {
+        $collection = new Collection(null, $options);
+
+        $this->assertEquals(null, $collection->getType());
+        $this->assertEquals(Collection::INDEX_MIXED, $collection->getIndexType());
+        $this->assertFalse($collection->isReadOnly());
+    }
+    
+    /**
+     * Tests that when trying to create a collection with an invalid type that
+     * an instance of Nimbles\Core\Collection\Exception\InvalidType is thrown
+     * @return void
+     */
+    public function testInvalidType() {
+        $this->setExpectedException('Nimbles\Core\Collection\Exception\InvalidType');
+        $collection = new Collection(null, array('type' => 123));
     }
 
     /**
@@ -317,6 +349,18 @@ class CollectionTest extends TestCase {
             array('foo'),
             array(null),
             array(true)
+        );
+    }
+    
+    /**
+     * Data provider of options
+     * @return array
+     */
+    public function optionsProvider() {
+        return array(
+            array(null),
+            array(array()),
+            array(array('type' => null, 'indexType' => Collection::INDEX_MIXED, 'readonly' => false))
         );
     }
 }
