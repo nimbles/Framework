@@ -52,6 +52,30 @@ class DefinitionTest extends TestCase {
     }
     
     /**
+     * Tests getting and setting parameters on a defintion
+     * @return void
+     */
+    public function testGetSetParamaters() {
+        $definition = new Definition(array(
+            'id' => 'mock',
+            'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
+        ));
+        
+        $this->assertType('array', $definition->getParameters());
+        
+        $definition->setParameters(array('param1' => 1));
+        $this->assertType('array', $definition->getParameters());
+        $this->assertSame(array('param1' => 1), $definition->getParameters());
+        
+        $definition->setParameters(new \ArrayObject(array('param1' => 1)));
+        $this->assertType('array', $definition->getParameters());
+        $this->assertSame(array('param1' => 1), $definition->getParameters());
+        
+        $this->setExpectedException('Nimbles\Core\Container\Exception\InvalidParameters');
+        $definition->setParameters(123);
+    }
+    
+    /**
      * Tests creating the mocks
      * @param array $options
      * @return void
@@ -80,6 +104,12 @@ class DefinitionTest extends TestCase {
             $this->assertEquals($count, $newCount, 'New instance of class was created when meant to be shared');
         } else {
             $this->assertGreaterThan($count, $newCount, 'No new instance of class was created when not meant to be shared');
+            
+            if (!empty($options['parameters'])) {
+                $this->setExpectedException('Nimbles\Core\Container\Exception\CreateInstanceFailure');
+                $definition->setParameters(array());
+                $instance = $definition();
+            }
         }
     }
     

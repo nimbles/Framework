@@ -20,6 +20,7 @@ namespace Tests\lib\Nimbles\Core;
 require_once 'CollectionTest.php';
 require_once 'ContainerTest.php';
 require_once 'Container/AllTests.php';
+require_once 'EventTest.php';
 require_once 'Event/AllTests.php';
 require_once 'LoaderTest.php';
 require_once 'Pattern/AllTests.php';
@@ -60,6 +61,7 @@ class AllTests extends TestSuite {
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\CollectionTest');
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\ContainerTest');
         $suite->addTest(Container\AllTests::suite());
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\EventTest');
         $suite->addTest(Event\AllTests::suite());
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LoaderTest');
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
