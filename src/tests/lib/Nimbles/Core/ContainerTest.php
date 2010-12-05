@@ -74,15 +74,20 @@ class ContainerTest extends TestCase {
     /**
      * Tests the factory method for the factory
      * @param mixed $options
+     * @param bool  $valid   If FALSE, then returned value from factory should be null
      * @return void
      * 
      * @dataProvider factoryProvider
      */
-    public function testFactory($value) {
+    public function testFactory($value, $valid = true) {
         $definition = Container::factory('foo', $value);
                 
-        $this->assertType('Nimbles\Core\Container\Definition', $definition);
-        $this->assertEquals('foo', $definition->getId());
+        if ($valid) {
+            $this->assertType('Nimbles\Core\Container\Definition', $definition);
+            $this->assertEquals('foo', $definition->getId());
+        } else {
+            $this->assertNull($definition);
+        }
     }
     
     /**
@@ -140,7 +145,8 @@ class ContainerTest extends TestCase {
                     'id' => 'bar',
                     'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
                 ))
-            )
+            ),
+            array(1, false)
         );
     }
 }

@@ -74,12 +74,8 @@ class Collection extends Core\Collection {
         } else if (!($plugin instanceof Plugin)) { // empty plugin
             $plugin = new Plugin();
         }
-        
-        if ($plugin instanceof Plugin) {
-            $plugin->setName($index); // name name and index in sync
-            return $plugin;
-        }
-        
-        return null;
+    
+        $plugin->setName($index); // name name and index in sync
+        return $plugin;
     }
 } 

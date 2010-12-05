@@ -70,6 +70,9 @@ class PluginTest extends TestCase {
         
         $plugin = new Plugin(null, array('name' => 'bar'));
         $this->assertEquals('bar', $plugin->getName());
+        
+        $this->setExpectedException('Nimbles\Core\Plugin\Exception\InvalidName');
+        $plugin->setName(123);
     }
     
     /**

@@ -84,4 +84,31 @@ class CollectionTest extends TestCase {
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $collection['test'] = new Plugin();
     }
+    
+    /**
+     * Tests the factory method for the plugin collection
+     * @param string|int $index
+     * @param mixed $value
+     * @param string|null $expectedType
+     * 
+     * @dataProvider factoryProvider
+     */
+    public function testFactory($index, $value, $expectedType) {
+        $plugin = Collection::factory($index, $value);
+        if (null !== $expectedType) {
+            $this->assertType($expectedType, $plugin);
+        } else {
+            $this->assertNull($plugin);
+        }
+    }
+    
+    public function factoryProvider() {
+        return array(
+            array('foo', 'foo', 'Nimbles\Core\Plugin'),
+            array('bar', array(
+                'name' => 'bar',
+                'type' => 'string'
+            ), 'Nimbles\Core\Plugin')
+        );
+    }
 }
