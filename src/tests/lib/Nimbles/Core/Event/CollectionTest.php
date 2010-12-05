@@ -21,6 +21,7 @@ namespace Tests\Lib\Nimbles\Core\Event;
 require_once 'ListenerMock.php';
 
 use Nimbles\Core\TestCase,
+    Nimbles\Core\Event,
     Nimbles\Core\Event\Collection;
 
 /**
@@ -74,7 +75,7 @@ class CollectionTest extends TestCase {
         $this->assertEquals(2, $collection['event1']->count());
         $this->assertSame(array(array($mock, 'listen1'), array($mock, 'listen2')), $collection['event1']->getArrayCopy());
 
-        $collection->connect('event2', array($mock, 'listen3'));
+        $collection->connect('event2', array(array($mock, 'listen3')));
 
         $this->assertEquals(2, $collection->count());
 
@@ -144,6 +145,25 @@ class CollectionTest extends TestCase {
         $collection->fireEventUntil('event1', 'hello');
         $collection->fireEventUntil('event2');
     }
+    
+    /**
+     * Tests the factory method on the collection
+     * @param string|int $index
+     * @param mixed $value
+     * @param bool $valid
+     * 
+     * @dataProvider factoryProvider
+     */
+    public function testFactory($index, $value, $valid = true) {
+        $event = Collection::factory($index, $value);
+        
+        if ($valid) {
+            $this->assertType('Nimbles\Core\Event', $event);
+            $this->assertEquals($index, $event->getName());
+        } else {
+            $this->assertNull($event);
+        }
+    }
 
     /**
      * Data provider for collection options
@@ -156,6 +176,19 @@ class CollectionTest extends TestCase {
             array(array('type' => 'string'), null),
             array(array('indexType' => Collection::INDEX_MIXED), null),
             array(array('readonly' => true), null),
+        );
+    }
+    
+    /**
+     * Data provider for factory method
+     * @return array
+     */
+    public function factoryProvider() {
+        return array(
+            array('foo', 'bar'),
+            array('foo', array()),
+            array('foo', new Event()),
+            array('foo', false, false)
         );
     }
 }

@@ -125,13 +125,14 @@ class Collection extends Core\Collection {
     public static function factory($index, $event) {
         if (is_string($event)) {
             $event = new Event(null, array(
-                'type' => $event
+                'name' => $event
             ));
         } else if (is_array($event)) { // treat as options
             $event = new Event($event);
         }
         
         if ($event instanceof Event) {
+            $event->setName($index); // keep index and name in sync
             return $event;
         }
         
