@@ -10,29 +10,30 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
  * @subpackage ConfigTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Config;
+namespace Tests\Lib\Nimbles\App;
 
-use Nimbles\Config\TestCase,
-    Nimbles\Config\Config;
+use Nimbles\App\TestCase,
+    Nimbles\App\Config;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
  * @subpackage ConfigTest
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\TestCase
+ * @uses       \Nimbles\App\TestCase
  *
  * @group      Nimbles
- * @group      Nimbles-Config
+ * @group      Nimbles-App
+ * @group      Nimbles-App-Config
  */
 class ConfigTest extends TestCase {
     /**
@@ -79,7 +80,7 @@ class ConfigTest extends TestCase {
         ));
 
         $this->assertEquals(1, $config->a);
-        $this->assertType('Nimbles\Config\Config', $config->b);
+        $this->assertType('Nimbles\App\Config', $config->b);
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(4, $config->d->e);
 

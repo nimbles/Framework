@@ -10,36 +10,36 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage Configuration
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config;
+namespace Nimbles\App\Config;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage Configuration
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\Config
- * @uses       \Nimbles\Config\Exception\InvalidInstance
+ * @uses       \Nimbles\App\Config
+ * @uses       \Nimbles\App\Config\Exception\InvalidInstance
  */
 trait Configurable {
     /**
      * Gets the config or config value
-     * @return \Nimbles\Config\Config|scalar|null
-     * @throws \Nimbles\Config\Exception\InvalidInstance
+     * @return \Nimbles\App\Config|scalar|null
+     * @throws \Nimbles\App\Config\Exception\InvalidInstance
      */
     public function getConfig($key = null) {
         if (!isset($this->config)) {
-            $this->config = new \Nimbles\Config\Config();
-        } else if (!($this->config instanceof \Nimbles\Config\Config)) {
-            throw new \Nimbles\Config\Exception\InvalidInstance('config property is not an instance of Nimbles\Config\Config');
+            $this->config = new \Nimbles\App\Config();
+        } else if (!($this->config instanceof \Nimbles\App\Config)) {
+            throw new \Nimbles\App\Config\Exception\InvalidInstance('config property is not an instance of Nimbles\App\Config');
         }
 
         if ($key === null) {

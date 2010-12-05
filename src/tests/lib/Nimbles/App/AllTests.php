@@ -15,7 +15,10 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\App;
+namespace Tests\Lib\Nimbles\App;
+
+require_once 'ConfigTest.php';
+require_once 'Config/AllTests.php';
 
 use Nimbles\App\TestSuite;
 
@@ -38,6 +41,9 @@ class AllTests extends TestSuite {
      */
     public static function suite() {
         $suite = new TestSuite('Nimbles Framework - App');
+        
+        $suite->addTestSuite('Tests\Lib\Nimbles\App\ConfigTest');
+        $suite->addTest(Config\AllTests::suite());
 
         return $suite;
     }

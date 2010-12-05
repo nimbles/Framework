@@ -27,7 +27,7 @@ namespace Tests\Lib\Nimbles\Core\Plugin;
  * @version    $Id$
  * 
  * @trait \Nimbles\Core\Plugin\Plugins
- * @trait \Nimbles\Config\Configurable
+ * @trait \Nimbles\App\Config\Configurable
  */
 class PluginsMock {
     /**

@@ -10,22 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config\File;
+namespace Nimbles\App\Config\File;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Nimbles\Config\Exception
  */
-class Exception extends \Nimbles\Config\Exception {}
+class Exception extends \Nimbles\App\Config\Exception {}

@@ -10,27 +10,27 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage Collection
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Config\File;
+namespace Tests\Lib\Nimbles\App\Config\File;
 
-use Nimbles\Config\TestCase,
-    Nimbles\Config\Config,
-    Nimbles\Config\File\FileAbstract;
+use Nimbles\App\TestCase,
+    Nimbles\App\Config,
+    Nimbles\App\Config\File\FileAbstract;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage Collection
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\TestCase
+ * @uses       \Nimbles\App\TestCase
  *
  * @group      Nimbles
  * @group      Nimbles-Config
@@ -96,7 +96,7 @@ class FileTest extends TestCase {
         $config = FileAbstract::factory($file, null, $type);
         
         $this->assertEquals(1, $config->level1->a);
-        $this->assertType('Nimbles\Config\Config', $config->level1->b);
+        $this->assertType('Nimbles\App\Config', $config->level1->b);
         $this->assertEquals(2, $config->level1->b->c);
         $this->assertEquals(4, $config->level1->d->e);
         
@@ -106,7 +106,7 @@ class FileTest extends TestCase {
         $config = FileAbstract::factory($file, 'level2');
         
         $this->assertEquals(2, $config->a);
-        $this->assertType('Nimbles\Config\Config', $config->b);
+        $this->assertType('Nimbles\App\Config', $config->b);
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(5, $config->d->e);
         $this->assertEquals(6, $config->d->f);

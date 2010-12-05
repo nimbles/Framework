@@ -43,7 +43,7 @@ class AdaptableSingleNoConfigMocks {}
  * @version    $Id$
  *
  * @trait      \Nimbles\Core\Pattern\Adapter\Adaptable
- * @trait      \Nimbles\Config\Configurable
+ * @trait      \Nimbles\App\Config\Configurable
  */
 class AdaptableSingleMock {
     public function __construct() {
@@ -64,7 +64,7 @@ class AdaptableSingleMock {
  * @version    $Id$
  *
  * @trait      \Nimbles\Core\Pattern\Adapter\Adaptable
- * @trait      \Nimbles\Config\Configurable
+ * @trait      \Nimbles\App\Config\Configurable
  */
 class AdaptableTypedMock {
     public function __construct() {

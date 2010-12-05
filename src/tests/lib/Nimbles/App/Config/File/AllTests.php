@@ -10,38 +10,41 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Config\File;
+namespace Tests\Lib\Nimbles\App\Config\File;
 
 require_once 'FileTest.php';
 
-use Nimbles\Config\TestSuite;
+use Nimbles\App\TestSuite;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\TestSuite
+ * @uses       \Nimbles\App\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Config
+ * @group      Nimbles-App
+ * @group      Nimbles-App-Config
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Nimbles Framework - Config - File
+     * Creates the Test Suite for Nimbles Framework - App - Config - File
      * @return \PHPUnit_Framework_TestSuite
      */
     public static function suite() {
-        $suite = new TestSuite('Nimbles Framework - Config - File');
+        $suite = new TestSuite('Nimbles Framework - App- Config - File');
         
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Config\File\FileTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\App\Config\File\FileTest');
         
         return $suite;
     }

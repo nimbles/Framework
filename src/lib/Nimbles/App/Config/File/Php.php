@@ -10,36 +10,36 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config\File;
+namespace Nimbles\App\Config\File;
 
-use Nimbles\Config\Config,
-    Nimbles\Config\File\Exception;
+use Nimbles\App\Config,
+    Nimbles\App\Config\File\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\File\FileAbstract
+ * @uses       \Nimbles\App\Config\File\FileAbstract
  *
- * @uses       \Nimbles\Config\Config
- * @uses       \Nimbles\Config\File\Exception\InvalidFormat
+ * @uses       \Nimbles\App\Config
+ * @uses       \Nimbles\App\Config\File\Exception\InvalidFile
  */
 class Php extends FileAbstract {
     /**
      * Parses the file
      * @param string $section
-     * @return \Nimbles\Config\Config
-     * @throws \Nimbles\Config\File\Exception\InvalidFormat
+     * @return \Nimbles\App\Config
+     * @throws \Nimbles\App\Config\File\Exception\InvalidFormat
      */
     public function parse($section = null) {
         $data = include $this->getFile();

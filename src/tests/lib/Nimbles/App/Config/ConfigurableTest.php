@@ -10,31 +10,32 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage ConfigurableTest
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Config;
+namespace Tests\Lib\Nimbles\App\Config;
 
-use Nimbles\Config\TestCase,
-    Nimbles\Config\Config;
+use Nimbles\App\TestCase,
+    Nimbles\App\Config;
     
 require_once 'ConfigurableMock.php';
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage ConfigurableTest
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\TestCase
+ * @uses       \Nimbles\App\TestCase
  *
  * @group      Nimbles
- * @group      Nimbles-Config
+ * @group      Nimbles-App
+ * @group      Nimbles-App-Config
  */
 class ConfigurableTest extends TestCase {
     /**
@@ -54,7 +55,7 @@ class ConfigurableTest extends TestCase {
     public function testGetConfig() {
         $configMock = new ConfigurableMock();
         
-        $this->assertType('Nimbles\Config\Config', $configMock->getConfig());
+        $this->assertType('Nimbles\App\Config', $configMock->getConfig());
         
         $configMock->getConfig()->foo = 'bar';
         $this->assertEquals('bar', $configMock->getConfig()->foo);

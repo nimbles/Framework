@@ -10,22 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage ConfigurableMock
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Config;
+namespace Tests\Lib\Nimbles\App\Config;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage ConfigurableMock
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  * 
- * @trait \Nimbles\Config\Configurable
+ * @trait      \Nimbles\App\Config\Configurable
  */
 class ConfigurableMock {}

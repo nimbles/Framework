@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage TestCase
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config;
+namespace Nimbles\App\Config\File\Exception;
+
+use Nimbles\App\Config\File\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage TestCase
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestCase
+ * @uses       \Nimbles\Config\File\Exception
  */
-class TestCase extends \Nimbles\Core\TestCase {}
+class InvalidFormat extends Exception {}

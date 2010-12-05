@@ -10,27 +10,27 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config\File;
+namespace Nimbles\App\Config\File;
 
-use Nimbles\Config\Config,
-    Nimbles\Config\File\Exception;
+use Nimbles\App\Config,
+    Nimbles\App\Config\File\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
- * @subpackage File
+ * @package    Nimbles-App
+ * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Config\Config
- * @uses       \Nimbles\Config\File\Exception\InvalidFile
+ * @uses       \Nimbles\App\Config
+ * @uses       \Nimbles\App\Config\File\Exception\InvalidFile
  */
 abstract class FileAbstract {
     /**
@@ -49,7 +49,7 @@ abstract class FileAbstract {
     
     /**
      * Config loaded by file
-     * @var \Nimbles\Config\Config
+     * @var \Nimbles\App\Config
      */
     protected $_config;
     
@@ -64,8 +64,8 @@ abstract class FileAbstract {
     /**
      * Sets the full path to the file
      * @param string $file
-     * @return \Nimbles\Config\File\FileAbstract
-     * @throws \Nimbles\Config\File\Exception\InvalidFile
+     * @return \Nimbles\App\Config\File\FileAbstract
+     * @throws \Nimbles\App\Config\File\Exception\InvalidFile
      */
     public function setFile($file) {
         if (!file_exists($file)) {
@@ -78,7 +78,7 @@ abstract class FileAbstract {
 
     /**
      * Gets the config
-     * @return \Nimbles\Config\Config
+     * @return \Nimbles\App\Config
      */
     public function getConfig() {
         if (null === $this->_config) {
@@ -90,8 +90,8 @@ abstract class FileAbstract {
     
     /**
      * Sets the config
-     * @param \Nimbles\Config\Config $config
-     * @return \Nimbles\Config\File\FileAbstract
+     * @param \Nimbles\App\Config $config
+     * @return \Nimbles\App\Config\File\FileAbstract
      */
     public function setConfig(Config $config) {
         $this->_config = $config;
@@ -112,7 +112,7 @@ abstract class FileAbstract {
     /**
      * Parses the file
      * @param string $section
-     * @return \Nimbles\Config\Config
+     * @return \Nimbles\App\Config
      * @throws \Nimbles\Config\File\Exception\InvalidFormat
      */
     abstract public function parse($section = null);
@@ -121,7 +121,7 @@ abstract class FileAbstract {
      * Gets the given section's config
      * @param array $data
      * @param string $section
-     * @return \Nimbles\Config\Config
+     * @return \Nimbles\App\Config
      */
     public function getSection(array $data, $section = null) {
         if (null === $section) {
@@ -158,8 +158,8 @@ abstract class FileAbstract {
      * @param string 	  $file
      * @param string|null $section
      * @param string|null $type
-     * @throws \Nimbles\Config\File\Exception\InvalidFile
-     * @throws \Nimbles\Config\File\Exception\InvalidFormat
+     * @throws \Nimbles\App\Config\File\Exception\InvalidFile
+     * @throws \Nimbles\App\Config\File\Exception\InvalidFormat
      */
     public static function factory($file, $section = null, $type = null) {
         if (!is_string($file)) {
@@ -190,7 +190,7 @@ abstract class FileAbstract {
             }
         }
         
-        $class = ('Nimbles\Config\File\\' !== substr($type, 0, 20)) ? 'Nimbles\Config\File\\' . $type : $type;
+        $class = ('Nimbles\App\Config\File\\' !== substr($type, 0, 20)) ? 'Nimbles\App\Config\File\\' . $type : $type;
         
         if (!class_exists($class)) {
             throw new Exception\InvalidFile('No parser for found for type: ' . $type);

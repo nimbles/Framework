@@ -10,19 +10,19 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
  * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Config;
+namespace Nimbles\App;
 
 use Nimbles\Core\Collection;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Config
+ * @package    Nimbles-App
  * @subpackage Config
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -31,7 +31,8 @@ use Nimbles\Core\Collection;
  * @uses       \Nimbles\Core\Collection
  * @trait      \Nimbles\Core\Pattern\Singleton
  *
- * @uses       \Nimbles\Config\Exception\InvalidValue
+ * @uses       \Nimbles\App\Config\Exception\InvalidValue
+ * @uses       \Nimbles\App\Config\Exception\InvalidConfig
  */
 class Config extends Collection {
     /**
@@ -82,7 +83,7 @@ class Config extends Collection {
      * This is called when adding a value to a Config value
      *
      * @param mixed $value
-     * @return scalar|\Nimbles\Config\Config
+     * @return scalar|\Nimbles\App\Config
      * @throws \Nimbles\Config\Exception\InvalidValue
      */
     public static function factory($index, $value) {
