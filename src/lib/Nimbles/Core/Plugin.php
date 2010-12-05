@@ -10,17 +10,17 @@
  * http://Nimbles-framework.com/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
+ * @package    Nimbles-Core
  * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugin;
+namespace Nimbles\Core;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
+ * @package    Nimbles-Core
  * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
@@ -28,9 +28,9 @@ namespace Nimbles\Plugin;
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Plugin\Exception\InvalidName
+ * @uses       \Nimbles\Core\Plugin\Exception\InvalidName
  */
-class Plugin extends \Nimbles\Core\Collection {
+class Plugin extends Collection {
 	/**
      * The plugin name
      * @var string
@@ -48,12 +48,12 @@ class Plugin extends \Nimbles\Core\Collection {
 	/**
      * Sets the plugin name
      * @param string $name
-     * @return \Nimbles\Plugin\Plugin
-     * @throws \Nimbles\Plugin\Exception\InvalidName
+     * @return \Nimbles\Plugin
+     * @throws \Nimbles\Core\Plugin\Exception\InvalidName
      */
     public function setName($name) {
         if (!is_string($name)) {
-            throw new Plugins\Exception\InvalidName('Plugin name must be a string: ' . $name);
+            throw new Plugin\Exception\InvalidName('Plugin name must be a string: ' . $name);
         }
 
         $this->_name = $name;
@@ -86,7 +86,7 @@ class Plugin extends \Nimbles\Core\Collection {
      * Attaches a plugin
      * @param string $name
      * @param mixed $plugin
-     * @return \Nimbles\Plugin\Plugin
+     * @return \Nimbles\Core\Plugin
      */
     public function attach($name, $plugin) {
         $this[$name] = $plugin;

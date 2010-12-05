@@ -2,7 +2,7 @@
 define('APPLICATION_ENV', 'test');
 
 PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist(dirname(__FILE__));
-PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(realpath(dirname(__FILE__) . '/../lib'));
+//PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(realpath(dirname(__FILE__) . '/../lib'));
 
 $dirs = scandir(realpath(dirname(__FILE__) . '/../lib/Nimbles'));
 $testFiles = array();

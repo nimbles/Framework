@@ -10,22 +10,23 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Plugin;
+namespace Tests\Lib\Nimbles\Core\Plugin;
 
-require_once 'PluginTest.php';
 require_once 'PluginsTest.php';
 require_once 'CollectionTest.php';
 
-use Nimbles\Plugin\TestSuite;
+use Nimbles\Core\TestSuite;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -33,19 +34,19 @@ use Nimbles\Plugin\TestSuite;
  * @uses       \Nimbles\Plugin\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Plugin
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Plugin
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Nimbles Framework - Plugins
+     * Creates the Test Suite for Nimbles Framework - Core- Plugin
      * @return \PHPUnit_Framework_TestSuite
      */
     public static function suite() {
-        $suite = new TestSuite('Nimbles Framework - Plugins');
+        $suite = new TestSuite('Nimbles Framework - Core- Plugin');
         
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\PluginTest');
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\PluginsTest');
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Plugin\CollectionTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Plugin\PluginsTest');
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\Plugin\CollectionTest');
         
         return $suite;
     }

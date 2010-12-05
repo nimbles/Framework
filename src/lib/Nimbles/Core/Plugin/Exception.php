@@ -10,32 +10,22 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Plugin;
+namespace Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage PluginsMock
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- * 
- * @trait \Nimbles\Plugin\Plugins
- * @trait \Nimbles\Config\Configurable
+ *
+ * @uses       \Nimbles\Core\Exception
  */
-class PluginsMock {
-    /**
-     * Class construct
-     * @param array $plugins
-     * @return void
-     */
-    public function __construct(array $plugins) {
-        $this->getConfig()->plugins = $plugins;
-    }
-}
+class Exception extends \Nimbles\Core\Exception {}

@@ -10,30 +10,31 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage CollectionTest
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\Plugin;
+namespace Tests\lib\Nimbles\Core\Plugin;
 
-use Nimbles\Plugin\TestCase,
-    Nimbles\Plugin\Collection,
-    Nimbles\Plugin\Plugin;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Plugin,
+    Nimbles\Core\Plugin\Collection;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage CollectionTest
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Plugin\TestSuite
+ * @uses       \Nimbles\Core\TestSuite
  *
  * @group      Nimbles
- * @group      Nimbles-Plugin
+ * @group      Nimbles-Core
+ * @group      Nimbles-Core-Plugin
  */
 class CollectionTest extends TestCase {
 /**
@@ -57,7 +58,7 @@ class CollectionTest extends TestCase {
             'readonly'  => true
         ));
         
-        $this->assertEquals('Nimbles\Plugin\Plugin', $collection->getType());
+        $this->assertEquals('Nimbles\Core\Plugin', $collection->getType());
         $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
         $this->assertTrue($collection->isReadOnly());
     }
@@ -76,9 +77,9 @@ class CollectionTest extends TestCase {
             'baz' => new Plugin()
         ));
         
-        $this->assertType('Nimbles\Plugin\Plugin', $collection->foo);
-        $this->assertType('Nimbles\Plugin\Plugin', $collection->bar);
-        $this->assertType('Nimbles\Plugin\Plugin', $collection->baz);
+        $this->assertType('Nimbles\Core\Plugin', $collection->foo);
+        $this->assertType('Nimbles\Core\Plugin', $collection->bar);
+        $this->assertType('Nimbles\Core\Plugin', $collection->baz);
         
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $collection['test'] = new Plugin();

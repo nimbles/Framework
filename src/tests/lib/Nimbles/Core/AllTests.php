@@ -23,6 +23,8 @@ require_once 'Container/AllTests.php';
 require_once 'Event/AllTests.php';
 require_once 'LoaderTest.php';
 require_once 'Pattern/AllTests.php';
+require_once 'PluginTest.php';
+require_once 'Plugin/AllTests.php';
 
 /*
 require_once 'DelegatesTest.php';
@@ -56,23 +58,12 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - Core');
 
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\CollectionTest');
-        
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\ContainerTest');
         $suite->addTest(Container\AllTests::suite());
-        
         $suite->addTest(Event\AllTests::suite());
-        
         $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LoaderTest');
-/*
-
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\DelegatesTest');
-        $suite->addTest(Delegates\AllTests::suite());
-
-        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\LogTest');
-        $suite->addTest(Log\AllTests::suite());
-
-        $suite->addTest(Mixin\AllTests::suite());
-*/
+        $suite->addTestSuite('\Tests\Lib\Nimbles\Core\PluginTest');
+        $suite->addTest(Plugin\AllTests::suite());
         $suite->addTest(Pattern\AllTests::suite());
         
         return $suite;

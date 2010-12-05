@@ -16,16 +16,16 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\lib\Nimbles\Plugin;
+namespace Tests\Lib\Nimbles\Core\Plugin;
 
-use Tests\Lib\Nimbles\Plugin\PluginsStandaloneMock;
+use Tests\Lib\Nimbles\Core\Plugin\PluginsStandaloneMock;
 
 require_once 'PluginsMock.php';
 require_once 'PluginsStandaloneMock.php';
 require_once 'PluginsInvalidMock.php';
 
-use Nimbles\Plugin\TestCase,
-    Nimbles\Plugin\Plugin;
+use Nimbles\Core\TestCase,
+    Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
@@ -77,7 +77,7 @@ class PluginsTest extends TestCase {
      */
     public function testInvalidMock() {
         $mock = new PluginsInvalidMock();
-        $this->setExpectedException('Nimbles\Plugin\Exception\InvalidConfig');
+        $this->setExpectedException('Nimbles\Core\Plugin\Exception\InvalidConfig');
         $mock->getPlugin();
     }
     
@@ -98,13 +98,13 @@ class PluginsTest extends TestCase {
             )
         ));
         
-        $this->assertType('Nimbles\Plugin\Collection', $mock->getPlugin());
+        $this->assertType('Nimbles\Core\Plugin\Collection', $mock->getPlugin());
         
-        $this->assertType('Nimbles\Plugin\Plugin', $mock->getPlugin()->foo);
-        $this->assertType('Nimbles\Plugin\Plugin', $mock->getPlugin('foo'));
+        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin()->foo);
+        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin('foo'));
         
-        $this->assertType('Nimbles\Plugin\Plugin', $mock->getPlugin()->bar);
-        $this->assertType('Nimbles\Plugin\Plugin', $mock->getPlugin('bar'));
+        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin()->bar);
+        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin('bar'));
         
         $this->assertEquals('foo', $mock->getPlugin()->foo->getName());
         $this->assertEquals('bar', $mock->getPlugin()->bar->getName());
@@ -128,8 +128,8 @@ class PluginsTest extends TestCase {
      */
     public function mockProvider() {
         return array(
-            array('Tests\Lib\Nimbles\Plugin\PluginsMock'),
-            array('Tests\Lib\Nimbles\Plugin\PluginsStandaloneMock'),
+            array('Tests\Lib\Nimbles\Core\Plugin\PluginsMock'),
+            array('Tests\Lib\Nimbles\Core\Plugin\PluginsStandaloneMock'),
         );   
     }
     

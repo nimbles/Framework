@@ -10,27 +10,28 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugin;
+namespace Nimbles\Core\Plugin;
 
-use Nimbles\Core;
+use Nimbles\Core,
+    Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage Collection
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
  * @uses       \Nimbles\Core\Collection
  *
- * @uses       \Nimbles\Plugin\Plugin
+ * @uses       \Nimbles\Core\Plugin
  */
 class Collection extends Core\Collection {
     /**
@@ -42,7 +43,7 @@ class Collection extends Core\Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'type'      => 'Nimbles\Plugin\Plugin',
+                'type'      => 'Nimbles\Core\Plugin',
                 'indexType' => static::INDEX_ASSOCITIVE,
                 'readonly'  => true
             )
@@ -64,8 +65,8 @@ class Collection extends Core\Collection {
 	/**
      * Factory method for creating plugins
      * @param string|int                          $index
-     * @param string|array|\Nimbles\Plugin\Plugin $plugin
-     * @return \Nimbles\Plugin\Plugin|null
+     * @param string|array|\Nimbles\Core\Plugin $plugin
+     * @return \Nimbles\Core\Plugin|null
      */
     public static function factory($index, $plugin) {
         if (is_array($plugin)) { // treat as options

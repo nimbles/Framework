@@ -10,24 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugin\Exception;
+namespace Nimbles\Core\Plugin\Exception;
 
-use Nimbles\Plugin\Exception;
+use Nimbles\Core\Plugin\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage Exception
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Plugin\Exception
+ * @uses       \Nimbles\Core\Plugin\Exception
  */
 class InvalidType extends Exception {}

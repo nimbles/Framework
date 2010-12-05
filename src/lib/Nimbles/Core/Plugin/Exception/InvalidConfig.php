@@ -10,22 +10,24 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage TestCase
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Plugin;
+namespace Nimbles\Core\Plugin\Exception;
+
+use Nimbles\Core\Plugin\Exception;
 
 /**
  * @category   Nimbles
- * @package    Nimbles-Plugin
- * @subpackage TestCase
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
  *
- * @uses       \Nimbles\Core\TestCase
+ * @uses       \Nimbles\Core\Plugin\Exception
  */
-class TestCase extends \Nimbles\Core\TestCase {}
+class InvalidConfig extends Exception {}

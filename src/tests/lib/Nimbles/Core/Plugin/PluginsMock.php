@@ -11,49 +11,31 @@
  *
  * @category   Nimbles
  * @package    Nimbles-Plugin
- * @subpackage PluginsStandaloneMock
+ * @subpackage PluginsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\Plugin;
+namespace Tests\Lib\Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
  * @package    Nimbles-Plugin
- * @subpackage PluginsStandaloneMock
+ * @subpackage PluginsMock
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- *
- * @trait \Nimbles\Plugin\Plugins
+ * 
+ * @trait \Nimbles\Core\Plugin\Plugins
+ * @trait \Nimbles\Config\Configurable
  */
-class PluginsStandaloneMock {
-    /**
-     * Array of plugins
-     * @var array
-     */
-    public $config;
-    
-    /**
-     * Gets the config
-     * @param string $type
-     * @return array
-     */
-    public function getConfig($type) {
-        if ('plugins' === $type) {
-            return $this->config;
-        }
-        
-        return array();
-    }
-    
+class PluginsMock {
     /**
      * Class construct
      * @param array $plugins
      * @return void
      */
     public function __construct(array $plugins) {
-        $this->config = $plugins;
+        $this->getConfig()->plugins = $plugins;
     }
 }
