@@ -16,7 +16,7 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\Core\Loader;
+namespace Tests\Lib\Nimbles\Core\Loader;
 
 /**
  * @category   Nimbles

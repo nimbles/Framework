@@ -87,18 +87,9 @@ class LoaderTest extends TestCase {
     public function testAutoload() {        
         \Nimbles\Core\Loader::autoload('Nimbles');
         $this->assertTrue(class_exists('Nimbles', false));
-        
-        $includePath = get_include_path();
-        
-        set_include_path(
-            $includePath . PATH_SEPARATOR .
-            realpath(dirname(__FILE__) . '/../../') 
-        );
 
-        $this->assertFalse(class_exists('Nimbles\Core\Loader\Mock', false));
-        $this->assertTrue(\Nimbles\Core\Loader::autoload('Nimbles\Core\Loader\Mock'), 'Failed to locate file for Mock');
-        $this->assertTrue(class_exists('Nimbles\Core\Loader\Mock'), 'Mock class does not exist');
-        
-        set_include_path($includePath);
+        $this->assertFalse(class_exists('Tests\Lib\Nimbles\Core\Loader\Mock', false));
+        $this->assertTrue(\Nimbles\Core\Loader::autoload('Tests\Lib\Nimbles\Core\Loader\Mock'), 'Failed to locate file for Mock');
+        $this->assertTrue(class_exists('Tests\Lib\Nimbles\Core\Loader\Mock'), 'Mock class does not exist');
     }
 }
