@@ -25,21 +25,21 @@
 	<!-- generate mess report -->
 	<target name="phpmd" depends="compile">
 		<exec executable="phpmd">
-			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/src/lib" />
+			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/src/Lib" />
 		</exec>
 	</target>
 
 	<!-- generate copy paste detection report -->
 	<target name="phpcpd" depends="compile">
 		<exec dir="${basedir}" executable="phpcpd" failonerror="true">
-			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/src/lib" />
+			<arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${basedir}/src/Lib" />
 		</exec>
 	</target>
 
 	<!-- generate jdepend report -->
 	<target name="pdepend" depends="compile">
 		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest/lib" />
+			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest/Lib" />
 		</exec>
 	</target>
 
