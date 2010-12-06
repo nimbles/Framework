@@ -48,25 +48,25 @@ class PluginsTest extends TestCase {
         $mock1 = new PluginsMock(array());
         
         // this mock uses 2 traits
-        $this->assertTrue(method_exists($mock1, 'getConfig'));
-        $this->assertTrue(method_exists($mock1, 'getPlugin'));
-        $this->assertTrue(method_exists($mock1, 'attach'));
-        $this->assertTrue(method_exists($mock1, 'detach'));
+        $this->assertHasMethod($mock1, 'getOption');
+        $this->assertHasMethod($mock1, 'getPlugin');
+        $this->assertHasMethod($mock1, 'attach');
+        $this->assertHasMethod($mock1, 'detach');
         $mock2 = new PluginsStandaloneMock(array());
         
-        // this mock defines its own getConfig
-        $this->assertTrue(method_exists($mock2, 'getConfig'));
-        $this->assertTrue(method_exists($mock2, 'getPlugin'));
-        $this->assertTrue(method_exists($mock2, 'attach'));
-        $this->assertTrue(method_exists($mock2, 'detach'));
+        // this mock defines its own getOption
+        $this->assertHasMethod($mock2, 'getOption');
+        $this->assertHasMethod($mock2, 'getPlugin');
+        $this->assertHasMethod($mock2, 'attach');
+        $this->assertHasMethod($mock2, 'detach');
         
         $mock3 = new PluginsInvalidMock();
         
-        // this mock should not have getConfig
-        $this->assertFalse(method_exists($mock3, 'getConfig'));
-        $this->assertTrue(method_exists($mock3, 'getPlugin'));
-        $this->assertTrue(method_exists($mock3, 'attach'));
-        $this->assertTrue(method_exists($mock3, 'detach'));
+        // this mock should not have getOption
+        $this->assertNotHasMethod($mock3, 'getOption');
+        $this->assertHasMethod($mock3, 'getPlugin');
+        $this->assertHasMethod($mock3, 'attach');
+        $this->assertHasMethod($mock3, 'detach');
     }
     
     /**

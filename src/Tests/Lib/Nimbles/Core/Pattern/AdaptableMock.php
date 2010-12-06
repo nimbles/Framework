@@ -43,15 +43,15 @@ class AdaptableSingleNoConfigMocks {}
  * @version    $Id$
  *
  * @trait      \Nimbles\Core\Pattern\Adapter\Adaptable
- * @trait      \Nimbles\App\Config\Configurable
+ * @trait      \Nimbles\Core\Options
  */
 class AdaptableSingleMock {
     public function __construct() {
-        $this->getConfig()->adapter = array(
+        $this->setOption('adaptable', array(
             'namespaces' => array(
                 '\Tests\Lib\Nimbles\Core\Pattern'
             )
-        );
+        ));
     }
 }
 
@@ -64,15 +64,15 @@ class AdaptableSingleMock {
  * @version    $Id$
  *
  * @trait      \Nimbles\Core\Pattern\Adapter\Adaptable
- * @trait      \Nimbles\App\Config\Configurable
+ * @trait      \Nimbles\Core\Options
  */
 class AdaptableTypedMock {
     public function __construct() {
-        $this->getConfig()->adapter = array(
+        $this->setOption('adaptable', array(
             'type' => '\Tests\Lib\Nimbles\Core\Pattern\AdapterAbstract',
             'namespaces' => array(
                 '\Tests\Lib\Nimbles\Core\Pattern'
              )
-        );
+        ));
     }
 }

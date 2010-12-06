@@ -5,7 +5,7 @@
 	</target>
 
 	<!-- creates the directory -->
-	<target name="prepare">
+	<target name="prepare" depends="clean">
 		<mkdir dir="${basedir}/build/logs" />
 		<mkdir dir="${basedir}/build/coverage" />
 		<mkdir dir="${basedir}/build/docs" />
@@ -46,21 +46,21 @@
 	<!-- execute phpunit -->
 	<target name="phpunit" depends="compile">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
+			<arg line="--bootstrap ${basedir}/build/dest/Tests/bootstrap.php" />
 			<arg line="--no-globals-backup ${phpunit}" />
-			<arg line="${basedir}/build/dest/tests/AllTests.php" />
+			<arg line="${basedir}/build/dest/Tests/AllTests.php" />
 		</exec>
 	</target>
 
 	<!-- generate code coverage, depends on unit tests for faster failures -->
 	<target name="code-coverage" depends="phpunit">
 		<exec dir="${basedir}" executable="phpunit" failonerror="true">
-			<arg line="--bootstrap ${basedir}/build/dest/tests/bootstrap.php" />
+			<arg line="--bootstrap ${basedir}/build/dest/Tests/bootstrap.php" />
 			<arg line="--no-globals-backup" />
 			<arg line="--log-junit ${basedir}/build/logs/junit.xml" />
 			<arg line="--coverage-html ${basedir}/build/coverage" />
 			<arg line="--coverage-clover ${basedir}/build/coverage/clover.xml ${phpunit}" />
-			<arg line="${basedir}/build/dest/tests/AllTests.php" />
+			<arg line="${basedir}/build/dest/Tests/AllTests.php" />
 		</exec>
 	</target>
 

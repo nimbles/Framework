@@ -55,25 +55,25 @@ trait Adaptable {
      */
     public function getAdapterObject() {
         if (!isset($this->adapter)) {
-            if (!method_exists($this, 'getConfig')) {
+            if (!method_exists($this, 'getOption')) {
                 throw new \Nimbles\Core\Pattern\Adapter\Exception\InvalidConfig(
-                	'When implmenting Adaptable, a getConfig method must exist'
+                	'When implmenting Adaptable, a getOption method must exist'
                 );           
             }
+
+            $option = $this->getOption('adaptable');
             
-            $config = $this->getConfig('adapter');
-            
-            if (!is_array($config) && !($config instanceof \ArrayObject)) {
+            if (!is_array($option) && !($option instanceof \ArrayObject)) {
                 throw new \Nimbles\Core\Pattern\Adapter\Exception\InvalidConfig(
-                	'When implmenting Adaptable, getConfig should provide an array for adapter'
+                	'When implmenting Adaptable, getOption should provide an array for adaptable'
                 );
             }
             
-            if ($config instanceof \ArrayObject) {
-                $config = $config->getArrayCopy();
+            if ($option instanceof \ArrayObject) {
+                $option = $option->getArrayCopy();
             }
             
-            $this->adapter = new \Nimbles\Core\Pattern\Adapter($config);
+            $this->adapter = new \Nimbles\Core\Pattern\Adapter($option);
         } else if (!($this->adapter instanceof \Nimbles\Core\Pattern\Adapter)) {
             throw new \Nimbles\Core\Pattern\Adapter\Exception\InvalidInstance(
         		'adapter property is not an instance of Nimbles\Core\Pattern\Adapter'

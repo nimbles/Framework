@@ -10,34 +10,32 @@
  * http://nimbl.es/license/mit
  *
  * @category   Nimbles
- * @package    Nimbles
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests;
-
-require_once 'lib/AllTests.php';
-
-use Nimbles\Core\TestSuite;
+namespace Tests\Lib\Nimbles\Core\Plugin;
 
 /**
  * @category   Nimbles
- * @package    Nimbles
+ * @package    Nimbles-Core
+ * @subpackage Plugin
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
- *
- * @uses       \Nimbles\Core\TestSuite
+ * 
+ * @trait      \Nimbles\Core\Plugin\Plugins
+ * @trait      \Nimbles\Core\Options
  */
-class AllTests extends TestSuite {
+class PluginsMock {
     /**
-     * Creates the Test Suite for All Tests
-     * @return \Nimbles\Core\TestSuite
+     * Class construct
+     * @param array $plugins
+     * @return void
      */
-    public static function suite() {
-        $suite = new TestSuite('All Tests');
-        $suite->addTest(Lib\AllTests::suite());
-        return $suite;
+    public function __construct(array $plugins) {
+        $this->setOption('plugins', $plugins);
     }
 }

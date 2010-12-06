@@ -64,7 +64,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
         $this->assertThat(
             method_exists($object, $method),
             self::isTrue(),
-            '' === $message ? 'Object does not have method ' . $method : $message
+            '' === $message ? get_class($object) . ' does not have method ' . $method : $message
         );
     }
     
@@ -79,7 +79,7 @@ class TestCase extends PHPUnit_Framework_TestCase {
         $this->assertThat(
             method_exists($object, $method),
             self::isFalse(),
-            '' === $message ? 'Object has method ' . $method : $message
+            '' === $message ? get_class($object) . ' has method ' . $method : $message
         );
     }
 }
