@@ -48,7 +48,7 @@ class CollectionTest extends TestCase {
         $collection = new Collection(null, $options);
 
         $this->assertEquals('Nimbles\Core\Event', $collection->getType());
-        $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
+        $this->assertEquals(Collection::INDEX_ASSOCIATIVE, $collection->getIndexType());
         $this->assertFalse($collection->isReadonly());
     }
 

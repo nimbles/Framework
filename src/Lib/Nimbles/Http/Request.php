@@ -135,7 +135,7 @@ class Request extends RequestAbstract {
         if (null === $this->_query) {
             $this->_query = new Collection($this->getQueryRaw(), array(
                 'type' => 'string',
-                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'indexType' => Collection::INDEX_ASSOCIATIVE,
                 'readonly' => true
             ));
             $this->_query->setFlags(Collection::ARRAY_AS_PROPS);
@@ -157,7 +157,7 @@ class Request extends RequestAbstract {
         if (null === $this->_post) {
             $this->_post = new Collection($this->getPostRaw(), array(
                 'type' => 'string',
-                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'indexType' => Collection::INDEX_ASSOCIATIVE,
                 'readonly' => true
             ));
             $this->_post->setFlags(Collection::ARRAY_AS_PROPS);
@@ -179,7 +179,7 @@ class Request extends RequestAbstract {
         if (null === $this->_files) {
             $this->_files = new Collection($this->getFilesRaw(), array(
                 'type' => 'string',
-                'indexType' => Collection::INDEX_ASSOCITIVE,
+                'indexType' => Collection::INDEX_ASSOCIATIVE,
                 'readonly' => true
             ));
             $this->_files->setFlags(Collection::ARRAY_AS_PROPS);

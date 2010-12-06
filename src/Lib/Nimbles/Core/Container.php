@@ -33,7 +33,7 @@ class Container extends Collection {
             (null === $options) ? array() : $options,
             array(
                 'type' => 'Nimbles\Core\Container\Definition',
-                'indexType' => static::INDEX_ASSOCITIVE,
+                'indexType' => static::INDEX_ASSOCIATIVE,
                 'readonly' => false
             )
         );

@@ -69,7 +69,7 @@ class Plugin extends Collection {
         $options = array_merge(
             (null === $options) ? array() : $options,
             array(
-                'indexType' => static::INDEX_ASSOCITIVE,
+                'indexType' => static::INDEX_ASSOCIATIVE,
                 'readonly' => false
             )
         );

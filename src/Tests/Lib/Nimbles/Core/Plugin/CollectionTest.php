@@ -44,7 +44,7 @@ class CollectionTest extends TestCase {
     public function testAbstract() {
         $collection = new Collection();
         $this->assertType('Nimbles\Core\Collection', $collection);
-        $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
+        $this->assertEquals(Collection::INDEX_ASSOCIATIVE, $collection->getIndexType());
     }
     
     /**
@@ -59,7 +59,7 @@ class CollectionTest extends TestCase {
         ));
         
         $this->assertEquals('Nimbles\Core\Plugin', $collection->getType());
-        $this->assertEquals(Collection::INDEX_ASSOCITIVE, $collection->getIndexType());
+        $this->assertEquals(Collection::INDEX_ASSOCIATIVE, $collection->getIndexType());
         $this->assertTrue($collection->isReadOnly());
     }
     

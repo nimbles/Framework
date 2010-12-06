@@ -45,7 +45,7 @@ class Collection extends \Nimbles\Core\Collection {
      * @return int
      */
     public function getIndexType() {
-        return static::INDEX_ASSOCITIVE;
+        return static::INDEX_ASSOCIATIVE;
     }
 
     /**
@@ -60,7 +60,7 @@ class Collection extends \Nimbles\Core\Collection {
                 is_array($options) ? $options : array(),
                 array(
                     'type' => 'Nimbles\Http\Header',
-                    'indexType' => static::INDEX_ASSOCITIVE
+                    'indexType' => static::INDEX_ASSOCIATIVE
                 )
             )
         );

@@ -66,7 +66,7 @@ class Jar extends Collection {
                 is_array($options) ? $options : array('readonly' => false),
                 array(
                     'type' => 'Nimbles\Http\Cookie',
-                    'indexType' => static::INDEX_ASSOCITIVE
+                    'indexType' => static::INDEX_ASSOCIATIVE
                 )
             )
         );

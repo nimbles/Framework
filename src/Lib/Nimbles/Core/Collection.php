@@ -39,9 +39,9 @@ class Collection extends ArrayObject {
      * The different index types
      * @var int
      */
-    const INDEX_NUMERIC    = 0;
-    const INDEX_ASSOCITIVE = 1;
-    const INDEX_MIXED      = 2;
+    const INDEX_NUMERIC     = 0;
+    const INDEX_ASSOCIATIVE = 1;
+    const INDEX_MIXED       = 2;
 
     /**
      * The type of elements this collection can contain
@@ -111,7 +111,7 @@ class Collection extends ArrayObject {
         }
         $this->_type = $options['type'];
 
-        if (!in_array($options['indexType'], array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCITIVE), true)) {
+        if (!in_array($options['indexType'], array(static::INDEX_MIXED, static::INDEX_NUMERIC, static::INDEX_ASSOCIATIVE), true)) {
             throw new Collection\Exception\InvalidIndex('Index type must be mixed, numeric or associtive');
         }
         $this->_indexType = $options['indexType'];
@@ -151,7 +151,7 @@ class Collection extends ArrayObject {
                 }
                 break;
 
-            case static::INDEX_ASSOCITIVE :
+            case static::INDEX_ASSOCIATIVE :
                 if (!is_string($index) || is_numeric($index)) {
                     throw new Collection\Exception\InvalidIndex('Index must be associtive');
                 }

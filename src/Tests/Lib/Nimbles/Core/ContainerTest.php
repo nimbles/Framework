@@ -51,7 +51,7 @@ class ContainerTest extends TestCase {
         $this->assertType('Nimbles\Core\Collection', $container);
         
         $this->assertEquals('Nimbles\Core\Container\Definition', $container->getType());
-        $this->assertEquals(Container::INDEX_ASSOCITIVE, $container->getIndexType());
+        $this->assertEquals(Container::INDEX_ASSOCIATIVE, $container->getIndexType());
         $this->assertFalse($container->isReadOnly());
     }
     
@@ -67,7 +67,7 @@ class ContainerTest extends TestCase {
         ));
         
         $this->assertEquals('Nimbles\Core\Container\Definition', $container->getType());
-        $this->assertEquals(Container::INDEX_ASSOCITIVE, $container->getIndexType());
+        $this->assertEquals(Container::INDEX_ASSOCIATIVE, $container->getIndexType());
         $this->assertFalse($container->isReadOnly());
     }
     

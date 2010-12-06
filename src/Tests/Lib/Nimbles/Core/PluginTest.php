@@ -42,7 +42,7 @@ class PluginTest extends TestCase {
     public function testAbstract() {
         $plugin = new Plugin();
         $this->assertType('Nimbles\Core\Collection', $plugin);
-        $this->assertEquals(Plugin::INDEX_ASSOCITIVE, $plugin->getIndexType());
+        $this->assertEquals(Plugin::INDEX_ASSOCIATIVE, $plugin->getIndexType());
     }
     
     /**
@@ -55,7 +55,7 @@ class PluginTest extends TestCase {
             'readonly'  => true
         ));
         
-        $this->assertEquals(Plugin::INDEX_ASSOCITIVE, $plugin->getIndexType());
+        $this->assertEquals(Plugin::INDEX_ASSOCIATIVE, $plugin->getIndexType());
         $this->assertFalse($plugin->isReadOnly());
     }
     

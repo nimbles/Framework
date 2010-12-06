@@ -157,7 +157,7 @@ class CollectionTest extends TestCase {
     public function testAssocitiveCollection($type, array $validValues, array $invalidValues) {
         $collection = new Collection(null, array(
             'type' => $type,
-            'indexType' => Collection::INDEX_ASSOCITIVE
+            'indexType' => Collection::INDEX_ASSOCIATIVE
         ));
 
         $validIndexes = array();
@@ -183,14 +183,14 @@ class CollectionTest extends TestCase {
 
         $collection = new Collection($validIndexes, array(
             'type' => $type,
-            'indexType' => Collection::INDEX_ASSOCITIVE
+            'indexType' => Collection::INDEX_ASSOCIATIVE
         ));
 
         if (!empty($invalidValues)) {
             try {
                 $collection = new Collection($invalidValues, array(
                     'type' => $type,
-                    'indexType' => Collection::INDEX_ASSOCITIVE
+                    'indexType' => Collection::INDEX_ASSOCIATIVE
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
@@ -203,7 +203,7 @@ class CollectionTest extends TestCase {
                 // the validValues array has invalidIndexes
                 $collection = new Collection($validValues, array(
                     'type' => $type,
-                    'indexType' => Collection::INDEX_ASSOCITIVE
+                    'indexType' => Collection::INDEX_ASSOCIATIVE
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
