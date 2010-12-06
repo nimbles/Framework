@@ -45,7 +45,7 @@ class Php extends FileAbstract {
         $data = include $this->getFile();
         
         if ($data instanceof Config) {
-            return $data;
+            $data = $data->getArrayCopy();
         }
         
         if (!is_array($data)) {

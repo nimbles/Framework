@@ -93,18 +93,18 @@ abstract class FileAbstract {
      * @param \Nimbles\App\Config $config
      * @return \Nimbles\App\Config\File\FileAbstract
      */
-    public function setConfig(Config $config) {
+    public function setConfig(Config $config = null) {
         $this->_config = $config;
         return $this;
     }
     
     /**
-     * Class construct
+     * Class construct, protected as should only be launced via factory
      * @param string      $file
      * @param string|null $section
      * @return void
      */
-    public function __construct($file, $section = null) {
+    protected function __construct($file, $section = null) {
         $this->setFile($file)
             ->setConfig($this->parse($section));
     }

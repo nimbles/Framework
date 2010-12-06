@@ -42,15 +42,13 @@ class Yaml extends FileAbstract {
      * @throws \Nimbles\App\Config\File\Exception\InvalidFormat
      */
     public function parse($section = null) {
+        // @codeCoverageIgnoreStart
         if (!extension_loaded('yaml')) {
             throw new Exception\InvalidFormat('Cannot parse file, yaml extension not loaded');
         }
+        // @codeCoverageIgnoreEnd
         
         $data = yaml_parse_file($this->getFile(), -1);
-        
-        if (!is_array($data)) {
-            throw new Exception\InvalidFormat('Invalid file contents, must result in an associtive array');
-        }
         
         /*
          *  when getting all docs, yaml_parse_file returns a numerical array
@@ -59,6 +57,9 @@ class Yaml extends FileAbstract {
          */
         $configData = array();
         foreach ($data as $index => $config) {
+            if (!is_array($config)) {
+                throw new Exception\InvalidFormat('Invalid file contents, must result in an associtive array');
+            }
             reset($config);
             $configData[key($config)] = current($config);
         }
