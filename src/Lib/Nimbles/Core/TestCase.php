@@ -82,4 +82,30 @@ class TestCase extends PHPUnit_Framework_TestCase {
             '' === $message ? get_class($object) . ' has method ' . $method : $message
         );
     }
+    
+    /**
+     * Replaces native php function with code for testing
+     * @param string $name
+     * @param string $args The new argument list
+     * @param string $code The code to be eval'd
+     * @return void
+     * 
+     * @throws \BadMethodCallException
+     * @throws \RuntimeException
+     */
+    public static function replaceFunction($name, $args, $code, $copy = null) {
+        if (!function_exists($name)) {
+            throw new \BadMethodCallException('Function does not exist: ' . $name);
+        } 
+        
+        if (!extension_loaded('runkit')) {
+            throw new \RuntimeException('Runkit extension is not loaded');
+        }
+        
+        if (null !== $copy) {
+            \runkit_function_copy($name, $copy);
+        }
+        
+        \runkit_function_redefine($name, $args, $code);
+    }
 }
