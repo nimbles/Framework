@@ -52,7 +52,13 @@ class AdapterTest extends TestCase {
         $instance = new Adapter($options);
         
         $this->assertEquals($options['type'], $instance->getType());
-        $this->assertEquals($options['namespaces'], $instance->getNamespaces());
+        
+        $namespaces = $options['namespaces'];
+        if ($namespaces instanceof \ArrayObject) {
+            $namespaces = $namespaces->getArrayCopy();
+        }
+        
+        $this->assertEquals($namespaces, $instance->getNamespaces());
         
         if (null !== $adapter) {         
             call_user_func_array(array($instance, 'setAdapter'), $adapter);
@@ -86,6 +92,13 @@ class AdapterTest extends TestCase {
                 array(
                     'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterSingle',
                     'namespaces' => array('Tests\Lib\Nimbles\Core\Pattern')
+                ),
+                array(new AdapterSingle())
+            ),
+            array(
+                array(
+                    'type' => 'Tests\Lib\Nimbles\Core\Pattern\AdapterSingle',
+                    'namespaces' => new \ArrayObject(array('Tests\Lib\Nimbles\Core\Pattern'))
                 ),
                 array(new AdapterSingle())
             ),

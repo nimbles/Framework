@@ -3,7 +3,7 @@ define('APPLICATION_ENV', 'test');
 
 define('TESTS_PATH', realpath(dirname(__FILE__) . '/'));
 
-PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(TESTS_PATH . '/../Lib');
+//PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(TESTS_PATH . '/../Lib');
 
 $dirs = scandir(TESTS_PATH . '/../Lib/Nimbles');
 $testFiles = array();
