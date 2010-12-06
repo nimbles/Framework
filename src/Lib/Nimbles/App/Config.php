@@ -59,7 +59,7 @@ class Config extends Collection {
      * Merges a source config with overriding values
      * @param array|\ArrayObject $override
      * @return array
-     * @throws \Nimbles\Config\Exception\InvalidConfig
+     * @throws \Nimbles\App\Config\Exception\InvalidConfig
      */
     public function merge($override) {
         if (!(is_array($override) || ($override instanceof \ArrayObject))) {
@@ -84,7 +84,7 @@ class Config extends Collection {
      *
      * @param mixed $value
      * @return scalar|\Nimbles\App\Config
-     * @throws \Nimbles\Config\Exception\InvalidValue
+     * @throws \Nimbles\App\Config\Exception\InvalidValue
      */
     public static function factory($index, $value) {
         if (is_scalar($value) || (null === $value)) {
@@ -99,6 +99,6 @@ class Config extends Collection {
             return new Config($value);
         }
 
-        throw new Exception\InvalidValue('Config values can only be array or scalar');
+        throw new Config\Exception\InvalidValue('Config values can only be array or scalar');
     }
 }

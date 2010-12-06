@@ -37,12 +37,47 @@ use Nimbles\App\TestCase,
  */
 class ConfigTest extends TestCase {
     /**
+     * Config data before each test
+     * @var array
+     */
+    protected $_configData;
+    
+    /**
+     * Case set up
+     * @return void 
+     */
+    public function setUp() {
+        $this->_configData = Config::getInstance()->getArrayCopy();
+    }
+    
+    /**
+     * Case tear down
+     * @return void
+     */
+    public function tearDown() {
+        Config::getInstance()->exchangeArray($this->_configData);
+    }
+    
+    /**
      * Tests that the Config class extends the Nimbles\Core\Collection class
      * @return void
      */
     public function testAbstract() {
         $config = new Config();
         $this->assertType('Nimbles\Core\Collection', $config);
+    }
+    
+    /**
+     * Tests getting an instance of config
+     * @return void
+     */
+    public function testInstance() {
+        $config = Config::getInstance();        
+        $this->assertType('Nimbles\App\Config', $config);
+        
+        $config->foo = 'bar';
+        $config = Config::getInstance();
+        $this->assertEquals('bar', $config->foo);
     }
 
     /**
@@ -86,5 +121,55 @@ class ConfigTest extends TestCase {
 
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $config->f = 'foo';
+    }
+    
+    /**
+     * Tests setting and getting config values
+     * @return void
+     */
+    public function testAssignData() {
+        $config = new Config();
+        $config->foo = 123;
+        
+        $this->assertEquals(123, $config->foo);
+        
+        $config->bar = array('baz' => 456);
+        $this->assertType('Nimbles\App\Config', $config->bar);
+        $this->assertEquals(456, $config->bar->baz);
+        
+        $this->setExpectedException('Nimbles\App\Config\Exception\InvalidValue');
+        $config->quz = new \stdClass();
+    }
+    
+    /**
+     * Tests merging config objects
+     * @return void
+     */
+    public function testMerge() {
+        $config1 = new Config(array(
+            'foo' => 123,
+            'bar' => 456,
+            'baz' => array(
+                1,2,3
+            )
+        ));
+        
+        $config2 = new Config(array(
+            'foo' => false,
+            'baz' => array(
+                4,5,6
+            ),
+            'quz' => true
+        ));
+        
+        $config1->merge($config2);
+        
+        $this->assertFalse($config1->foo);
+        $this->assertEquals(456, $config1->bar);
+        $this->assertSame(array(4,5,6), $config1->baz->getArrayCopy());
+        $this->assertTrue($config1->quz);
+        
+        $this->setExpectedException('Nimbles\App\Config\Exception\InvalidConfig');
+        $config1->merge(123);
     }
 }
