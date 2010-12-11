@@ -34,4 +34,37 @@ class NimblesTest extends \Nimbles\Core\TestCase {
         \Nimbles::setInstance();
         $this->assertType('\Nimbles', \Nimbles::getInstance());
     }
+    
+    /**
+     * Tests that the environment vars are setup when creating a new Nimbles object
+     * @return void
+     */
+    public function testSetupEnvVars() {
+        if (!extension_loaded('runkit')) {
+            $this->markTestSkipped('Runkit extension is needed for this test');
+        }
+        
+        if (!defined('NIMBLES_PATH')) {
+            $this->markTestSkipped('Previous NIMBLES_PATH value is needed');
+        }
+        
+        if (!defined('NIMBLES_LIBRARY')) {
+            $this->markTestSkipped('Previous NIMBLES_LIBRARY value is needed');
+        }
+        
+        \Nimbles::setInstance();
+        $path = NIMBLES_PATH;
+        $lib = NIMBLES_LIBRARY;
+
+        \runkit_constant_remove('NIMBLES_PATH');
+        \runkit_constant_remove('NIMBLES_LIBRARY');
+        
+        $this->assertType('\Nimbles', \Nimbles::getInstance());
+        
+        $this->assertTrue(defined('NIMBLES_PATH'));
+        $this->assertEquals($path, NIMBLES_PATH);
+        
+        $this->assertTrue(defined('NIMBLES_LIBRARY'));
+        $this->assertEquals($lib, NIMBLES_LIBRARY);
+    }
 }

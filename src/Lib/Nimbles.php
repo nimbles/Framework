@@ -70,7 +70,6 @@ class Nimbles {
      * Setup environment variables
      * @return void
      */
-    /* @codeCoverageIgnoreStart */
     protected function _setupEnvironmentVars() {
         if (!defined('NIMBLES_PATH')) {
             define('NIMBLES_PATH', realpath(dirname(__FILE__) . '/'));
@@ -79,5 +78,4 @@ class Nimbles {
             define('NIMBLES_LIBRARY', realpath(NIMBLES_PATH . '/Nimbles/'));
         }
     }
-    /* @codeCoverageIgnoreEnd */
 }
