@@ -11,6 +11,7 @@
  *
  * @category   Nimbles
  * @package    Nimbles-App
+ * @subpackage Http
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
@@ -18,12 +19,14 @@
 namespace Tests\Lib\Nimbles\App\Http;
 
 require_once 'HeaderTest.php';
+require_once 'ParametersTest.php';
 
 use Nimbles\App\TestSuite;
 
 /**
  * @category   Nimbles
  * @package    Nimbles-App
+ * @subpackage Http
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -43,6 +46,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - App - Http');
         
         $suite->addTestSuite('Tests\Lib\Nimbles\App\Http\HeaderTest');
+        $suite->addTestSuite('Tests\Lib\Nimbles\App\Http\ParametersTest');
         
         return $suite;
     }
