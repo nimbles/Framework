@@ -66,7 +66,7 @@ class Http extends ResponseAbstract {
             if (is_string($value)) {
                 $original[] = $value;
             } else if (is_array($value)) {
-                $original += $value;
+                $original = array_merge($original, $value);
             }
             
             $value = $original;

@@ -84,7 +84,7 @@ class Http extends RequestAbstract {
             if (is_string($value)) {
                 $original[] = $value;
             } else if (is_array($value)) {
-                $original += $value;
+                $original = array_merge($original, $value);
             }
             
             $value = $original;
@@ -106,7 +106,7 @@ class Http extends RequestAbstract {
             return $this->_query;
         }
         
-        return $this->_query->offsetExists($key) ? $this->_query[$key] : null
+        return $this->_query->offsetExists($key) ? $this->_query[$key] : null;
     }
     
     /**
@@ -133,7 +133,7 @@ class Http extends RequestAbstract {
             return $this->_post;
         }
         
-        return $this->_post->offsetExists($key) ? $this->_post[$key] : null
+        return $this->_post->offsetExists($key) ? $this->_post[$key] : null;
     }
     
     /**

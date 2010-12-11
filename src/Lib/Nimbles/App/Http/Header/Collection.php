@@ -16,7 +16,7 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Nimbles\App\Http;
+namespace Nimbles\App\Http\Header;
 
 use Nimbles\Core,
     Nimbles\App\Http\Header;
@@ -24,7 +24,7 @@ use Nimbles\Core,
 /**
  * @category   Nimbles
  * @package    Nimbles-App
- * @subpackage Request
+ * @subpackage Http
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -38,7 +38,7 @@ class Collection extends Core\Collection {
      * @param array|null $options
      * @return void
      */
-    public function __construct($values = null, array $options = null) {
+    public function __construct($array = null, array $options = null) {
         $fixed = array(
             'type'      => 'Nimbles\App\Http\Header',
             'indexType' => static::INDEX_ASSOCIATIVE

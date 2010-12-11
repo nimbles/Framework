@@ -11,23 +11,21 @@
  *
  * @category   Nimbles
  * @package    Nimbles-App
+ * @subpackage Request
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\App;
+namespace Tests\Lib\Nimbles\App\Request;
 
-require_once 'ConfigTest.php';
-require_once 'Config/AllTests.php';
-require_once 'Http/AllTests.php';
-require_once 'Request/AllTests.php';
-require_once 'Response/AllTests.php';
+require_once 'HttpTest.php';
 
 use Nimbles\App\TestSuite;
 
 /**
  * @category   Nimbles
  * @package    Nimbles-App
+ * @subpackage Request
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
@@ -36,21 +34,18 @@ use Nimbles\App\TestSuite;
  *
  * @group      Nimbles
  * @group      Nimbles-App
+ * @group      Nimbles-App-Request
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Nimbles Framework - App
+     * Creates the Test Suite for Nimbles Framework - App - Request
      * @return \Nimbles\App\TestSuite
      */
     public static function suite() {
-        $suite = new TestSuite('Nimbles Framework - App');
+        $suite = new TestSuite('Nimbles Framework - App - Request');
         
-        $suite->addTestSuite('Tests\Lib\Nimbles\App\ConfigTest');
-        $suite->addTest(Config\AllTests::suite());
-        $suite->addTest(Http\AllTests::suite());
-        $suite->addTest(Request\AllTests::suite());
-        $suite->addTest(Response\AllTests::suite());
-
+        $suite->addTestSuite('Tests\Lib\Nimbles\App\Request\HttpTest');
+        
         return $suite;
     }
 }

@@ -19,6 +19,7 @@
 namespace Tests\Lib\Nimbles\App\Http;
 
 require_once 'HeaderTest.php';
+require_once 'Header/AllTests.php';
 require_once 'ParametersTest.php';
 
 use Nimbles\App\TestSuite;
@@ -46,6 +47,7 @@ class AllTests extends TestSuite {
         $suite = new TestSuite('Nimbles Framework - App - Http');
         
         $suite->addTestSuite('Tests\Lib\Nimbles\App\Http\HeaderTest');
+        $suite->addTest(Header\AllTests::suite());
         $suite->addTestSuite('Tests\Lib\Nimbles\App\Http\ParametersTest');
         
         return $suite;
