@@ -73,6 +73,12 @@ class TestCase extends Core\TestCase {
         );
         
         static::replaceFunction(
+        	'header_remove',
+        	'$name = null',
+            '\Nimbles\App\TestCase::header_remove($name);'
+        );
+        
+        static::replaceFunction(
             'headers_list',
             '',
             'return \Nimbles\App\TestCase::headers_list();'
@@ -115,19 +121,38 @@ class TestCase extends Core\TestCase {
     }
     
     /**
+     * Removes a header by name
+     * @param string $name
+     * @return void
+     */
+    public static function header_remove($name = null) {
+        if (null === $name) {
+            static::$_headers = array();
+        }
+        
+        if (array_key_exists($name, static::$_headers)) {
+            if (1 < count(static::$_headers[$name])) {
+                array_shift(static::$_headers[$name]);
+            } else {
+                unset(static::$_headers[$name]);
+            }
+        }
+    }
+    
+    /**
      * Gets the headers that have been or will be sent
      * @return array
      */
-    public static function header_list() {
-        $return = array();
+    public static function headers_list() {
+        $list = array();
         
         foreach (static::$_headers as $header => $values) {
             foreach ($values as $value) {
-                $return[] = sprintf('%d: %d', $header, $value);
+                $list[] = sprintf('%d: %d', $header, $value);
             }
         }
         
-        return $return;
+        return $list;
     }
     
     /**
