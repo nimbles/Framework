@@ -15,11 +15,9 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-namespace Tests\Lib\Nimbles\App;
+namespace Tests\Lib\Nimbles\App\Http;
 
-require_once 'ConfigTest.php';
-require_once 'Config/AllTests.php';
-require_once 'Http/AllTests.php';
+require_once 'HeaderTest.php';
 
 use Nimbles\App\TestSuite;
 
@@ -34,19 +32,18 @@ use Nimbles\App\TestSuite;
  *
  * @group      Nimbles
  * @group      Nimbles-App
+ * @group      Nimbles-App-Http
  */
 class AllTests extends TestSuite {
     /**
-     * Creates the Test Suite for Nimbles Framework - App
+     * Creates the Test Suite for Nimbles Framework - App - Http
      * @return \Nimbles\App\TestSuite
      */
     public static function suite() {
-        $suite = new TestSuite('Nimbles Framework - App');
+        $suite = new TestSuite('Nimbles Framework - App - Http');
         
-        $suite->addTestSuite('Tests\Lib\Nimbles\App\ConfigTest');
-        $suite->addTest(Config\AllTests::suite());
-        $suite->addTest(Http\AllTests::suite());
-
+        $suite->addTestSuite('Tests\Lib\Nimbles\App\Http\HeaderTest');
+        
         return $suite;
     }
 }

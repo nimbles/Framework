@@ -43,7 +43,7 @@ class Header extends Collection {
      * @param array|null $options
      * @return void
      */
-    public function __construct($values = null, array $options = null) {
+    public function __construct($array = null, array $options = null) {
         $fixed = array(
             'type'      => 'string',
             'indexType' => static::INDEX_NUMERIC
@@ -128,6 +128,6 @@ class Header extends Collection {
      * @return string
      */
     public function __toString() {
-        return sprintf('%s: %s', $this->getName(), implode($this));   
+        return sprintf('%s: %s', $this->getName(), implode(', ', $this->getArrayCopy()));   
     }
 }
