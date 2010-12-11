@@ -30,13 +30,7 @@ use Nimbles\Core;
  *
  * @uses       \Nimbles\Core\TestCase
  */
-class TestCase extends Core\TestCase {
-    /**
-     * Flag to set if functions have been defined
-     * @var bool
-     */
-    protected static $_functionsDefined = false;
-    
+class TestCase extends Core\TestCase {    
     /**
      * The array of headers for this case
      * @var array
@@ -60,27 +54,35 @@ class TestCase extends Core\TestCase {
      * @return void
      */
     public function runBare() {
-        if (!static::$_functionsDefined) {
-            static::_defineFunctions();    
-        }
-        
         static::$_headers = array();
+        static::$_headersSent = false;
+        static::$_statusCode = 200;
         
         return parent::runBare();
     }
     
     /**
-     * Define functions to help running the tests
+     * Define header functions
      * @return void
      */
-    protected static function _defineFunctions() {
+    protected static function overrideHeader() {
         static::replaceFunction(
         	'header',
         	'$header, $replace = true, $code = null',
             '\Nimbles\App\TestCase::header($header, $replace, $code);'
         );
         
-        static::$_functionsDefined = true;
+        static::replaceFunction(
+            'headers_list',
+            '',
+            'return \Nimbles\App\TestCase::headers_list();'
+        );
+        
+        static::replaceFunction(
+            'headers_sent',
+            '',
+            'return \Nimbles\App\TestCase::headers_sent();'
+        );
     }
     
     /**
@@ -95,13 +97,130 @@ class TestCase extends Core\TestCase {
             return;
         }
         
-        list($key, $value) = explode(':', $header, 2);
-        if ($replace || !array_key_exists($key, static::$_headers)) {
-            static::$_headers[$key] = array($value);
+        list($key, $value) = array_map('trim', explode(':', $header, 2));
+        
+        if (false !== strpos($value, ',')) {
+            $values = array_map('trim', explode(',', $value));
         } else {
-            static::$_headers[$key][] = $value;
+            $values = array($value);
+        }
+       
+        if ($replace || !array_key_exists($key, static::$_headers)) {
+            static::$_headers[$key] = $values;
+        } else {
+            static::$_headers[$key] += $values;
         }
         
         static::$_statusCode = $code;
+    }
+    
+    /**
+     * Gets the headers that have been or will be sent
+     * @return array
+     */
+    public static function header_list() {
+        $return = array();
+        
+        foreach (static::$_headers as $header => $values) {
+            foreach ($values as $value) {
+                $return[] = sprintf('%d: %d', $header, $value);
+            }
+        }
+        
+        return $return;
+    }
+    
+    /**
+     * Gets the a flag to say if the headers have been sent
+     * @return bool
+     */
+    public static function headers_sent() {
+        return static::$_headersSent;
+    }
+    
+    /**
+     * Marks the headers as sent
+     * @return void
+     */
+    public static function sendHeaders() {
+        static::$_headersSent = true;
+    }
+    
+    /**
+     * Asserts that a header of the given name has the given value
+     * @param string $name
+     * @param string $value
+     * @param string $message
+     * @return void
+     */
+    public function assertHeaderEquals($name, $value, $message = '') {
+        static::assertHeaderExists($name, $message);
+        static::assertContains(
+            $value,
+            static::$_headers[$name],
+            '' === $message ? 'Header ' . $name . ' does not contain value ' . $value : $message
+        );
+    }
+    
+    /**
+     * Asserts that a header of the given name does not have the given value
+     * @param string $name
+     * @param string $value
+     * @param string $message
+     * @return void
+     */
+    public function assertHeaderNotEquals($name, $value, $message = '') {
+        if (array_key_exists($name, static::$_headers)) {
+            static::assertNotContains($value, static::$_headers[$name], $message);
+        }
+        $this->pass();
+    }
+    
+    /**
+     * Asserts that a header exists
+     * @param string $name
+     * @param string $message
+     * @return void
+     */
+    public function assertHeaderExists($name, $message = '') {
+        if (!array_key_exists($name, static::$_headers)) {
+            $this->fail('Header ' . $name . ' does not exist');
+        }
+        
+        static::assertArrayHasKey(
+            $name,
+            static::$_headers,
+            '' === $message ? 'Header ' . $name . ' does not exist' : $message
+        );
+    }
+    
+    /**
+     * Asserts that a header does not exist
+     * @param string $name
+     * @param string $message
+     * @return void
+     */
+    public function assertHeaderNotExists($name, $message = '') {
+        static::assertArrayNotHasKey($name, static::$_headers, $message);
+    }
+    
+    /**
+     * Asserts that the status code is of the given value
+     * @param int $code
+     * @param string $message
+     * @return void
+     */
+    public function assertStatusCodeEquals($code, $message = '') {
+        static::assertEquals($code, static::$_statusCode, $message);
+    }
+    
+    /**
+     * Asserts that the status code is not of the given value
+     * @param int $code
+     * @param string $message
+     * @return void
+     */
+    public function assertStatusCodeNotEquals($code, $message = '') {
+        static::assertNotEquals($code, static::$_statusCode, $message);
     }
 }

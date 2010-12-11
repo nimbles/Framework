@@ -172,8 +172,4 @@ class ConfigTest extends TestCase {
         $this->setExpectedException('Nimbles\App\Config\Exception\InvalidConfig');
         $config1->merge(123);
     }
-    
-    public function testHeader() {
-        header('Fook me', false, 301);
-    }
 }
