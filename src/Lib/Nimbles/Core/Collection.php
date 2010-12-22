@@ -62,32 +62,9 @@ class Collection extends ArrayObject {
     protected $_readonly;
 
     /**
-     * Gets the collection type
-     * @return string|null
-     */
-    public function getType() {
-        return $this->_type;
-    }
-    
-    /**
-     * Gets the index type
-     * @return int
-     */
-    public function getIndexType() {
-        return $this->_indexType;
-    }
-
-    /**
-     * Indicates that the collection is redaonly
-     * @return bool
-     */
-    public function isReadOnly() {
-        return $this->_readonly;
-    }
-
-    /**
      * Class construct
      * @param array|\ArrayObject|null $array
+     * @param array|null              $options
      * @return void
      */
     public function __construct($array = null, array $options = null) {
@@ -124,6 +101,30 @@ class Collection extends ArrayObject {
         }
 
         $this->_readonly = (bool) $options['readonly'];
+    }
+    
+    /**
+     * Gets the collection type
+     * @return string|null
+     */
+    public function getType() {
+        return $this->_type;
+    }
+    
+    /**
+     * Gets the index type
+     * @return int
+     */
+    public function getIndexType() {
+        return $this->_indexType;
+    }
+
+    /**
+     * Indicates that the collection is redaonly
+     * @return bool
+     */
+    public function isReadOnly() {
+        return $this->_readonly;
     }
 
     /**
