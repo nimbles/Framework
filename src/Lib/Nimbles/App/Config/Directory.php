@@ -28,6 +28,8 @@ use Nimbles\App\Config,
  * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
  * @license    http://nimbl.es/license/mit MIT License
  * @version    $Id$
+ * 
+ * @trait      \Nimbles\Core\Options
  *
  * @uses       \Nimbles\App\Config
  * @uses       \Nimbles\App\Config\File\FileAbstract
@@ -61,7 +63,7 @@ class Directory {
         $this->setOptions($options, array(
             'directory',
             'section'
-        ))
+        ));
     }
     
     /**
