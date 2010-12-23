@@ -63,7 +63,8 @@ class Type {
             'bool',
             'object',
             'array',
-            'callable'
+            'callable',
+            'scalar'
         );
 
         if (in_array($type, $types)) {

@@ -40,8 +40,9 @@ class Loader {
                 get_include_path()
             );
         }
-
-        spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
+        
+        spl_autoload_extensions('.php');
+        spl_autoload_register(array('Nimbles\Core\Loader', 'autoload'), false, true);
     }
 
     /**

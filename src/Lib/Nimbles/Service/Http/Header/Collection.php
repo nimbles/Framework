@@ -56,7 +56,7 @@ class Collection extends Core\Collection {
      * @param mixed      $value
      * @return mixed
      */
-    public static function factory($index, $value) {
+    public static function factory($index, $value) {        
         if (is_string($value)) {
             return new Header(
                 array($value),

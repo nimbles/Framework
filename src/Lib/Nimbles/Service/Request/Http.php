@@ -73,11 +73,16 @@ class Http extends RequestAbstract {
     
     /**
      * Sets a header
-     * @param string $name
-     * @param string|array $value
+     * @param string|\Nimbles\Service\Http\Header\Collection $name
+     * @param string|array|null                              $value
      * @param bool $append
      */
-    public function setHeader($name, $value, $append = false) {
+    public function setHeader($name, $value = null, $append = false) {
+        if ($name instanceof Header\Collection) {
+            $this->_headers = $name;
+            return $this;
+        }
+        
         if ($append && $this->getHeader()->offsetExists($name)) {
             $original = $this->getHeader($name)->getArrayCopy();
             
@@ -93,7 +98,7 @@ class Http extends RequestAbstract {
     }
     
     /**
-     * Gets a query paramater by key
+     * Gets a query parameter by key
      * @param string|null $key If null all parameters are returned
      * @return \Nimbles\Service\Http\Parameters|string|null
      */
@@ -111,16 +116,22 @@ class Http extends RequestAbstract {
     
     /**
      * Sets a query value
-     * @param string $key
-     * @param string $value
+     * @param string|\Nimbles\Service\Http\Parameters $key
+     * @param string|null $value
+     * @return \Nimbles\Service\Request\Http
      */
-    public function setQuery($key, $value) {
+    public function setQuery($key, $value = null) {
+        if ($key instanceof Parameters) {
+            $this->_query = $key;
+            return $this;
+        }
+        
         $this->getQuery()->offsetSet($key, $value);
         return $this;
     }
     
 	/**
-     * Gets a post paramater by key
+     * Gets a post parameter by key
      * @param string|null $key If null all parameters are returned
      * @return \Nimbles\Service\Http\Parameters|string|null
      */
@@ -138,10 +149,16 @@ class Http extends RequestAbstract {
     
     /**
      * Sets a post value
-     * @param string $key
-     * @param string $value
+     * @param string|\Nimbles\Service\Http\Parameters $key
+     * @param string|null $value
+     * @return \Nimbles\Service\Request\Http
      */
-    public function setPost($key, $value) {
+    public function setPost($key, $value = null) {
+        if ($key instanceof Parameters) {
+            $this->_post = $key;
+            return $this;
+        }
+        
         $this->getPost()->offsetSet($key, $value);
         return $this;
     }
