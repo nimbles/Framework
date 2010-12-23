@@ -1,9 +1,42 @@
 <?php
+/**
+ * Nimbles Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with the package in the file LICENSE.md.
+ * It is also available at this URL:
+ * http://Nimbles-framework.com/license/mit
+ *
+ * @category   Nimbles
+ * @package    Nimbles-App
+ * @subpackage Request
+ * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
+ * @license    http://nimbl.es/license/mit MIT License
+ */
 namespace Nimbles\App\Request;
 
 use Nimbles\Service,
     Nimbles\Core\Collection;
 
+/**
+ * @category   Nimbles
+ * @package    Nimbles-App
+ * @subpackage Config
+ * @copyright  Copyright (c) 2010 Nimbles Framework (http://nimbl.es)
+ * @license    http://nimbl.es/license/mit MIT License
+ * @version    $Id$
+ * 
+ * @uses       \Nimbles\App\Request\RequestAbstract
+ * 
+ * @uses       \Nimbles\Service\Request\Http
+ * @uses       \Nimbles\Service\Http\Parameters
+ * @uses       \Nimbles\Service\Http\Header
+ * @uses       \Nimbles\Service\Http\Header\Collection
+ * 
+ * @uses       \Nimbles\Core\Collection
+ */
 class Http extends RequestAbstract {
     /**
      * Internal http request
@@ -180,7 +213,8 @@ class Http extends RequestAbstract {
     public static function build() {
         $http = new static();
         
-        $headers = array();
+        // create the header objects here so that the name is normalised
+        $headers = array();        
         foreach ($_SERVER as $key => $value) {
             if (0 === strpos($key, 'HTTP_')) {
                 $header = new Service\Http\Header(
@@ -192,6 +226,7 @@ class Http extends RequestAbstract {
             }
         }
         
+        // set the server variables and then the internal http request
         $http->_setServer(new Collection(
             $_SERVER,
             array(
