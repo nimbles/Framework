@@ -54,6 +54,12 @@ class App {
     protected $_environment;
     
     /**
+     * The request object which started the application
+     * @var \Nimbles\App\Request\RequestAbstract
+     */
+    protected $_request;
+    
+    /**
      * An instance of the application
      * @var \Nimbles\App
      */
@@ -136,6 +142,18 @@ class App {
     }
     
     /**
+     * Gets the request that started this application
+     * @return \Nimbles\App\Request\RequestAbstract
+     */
+    public function getRequest() {
+        if (null === $this->_request) {
+            $this->_request = RequestAbstract::factory();
+        }
+        
+        return $this->_request;
+    }
+    
+    /**
      * Bootstrap the application
      * @return \Nimbles\App
      */
@@ -150,10 +168,6 @@ class App {
      * @return \Nimbles\App
      */
     public function run() {
-        $request = RequestAbstract::factory();
-        
-        print_r($request);
-        
         return $this;
     }
     

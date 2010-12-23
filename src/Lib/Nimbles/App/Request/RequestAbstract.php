@@ -42,4 +42,10 @@ abstract class RequestAbstract
         
         return Http::build();
     }
+    
+    /**
+     * Gets the request path that should be routed
+     * @return string
+     */
+    abstract public function getRequestPath();
 }

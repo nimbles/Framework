@@ -45,6 +45,12 @@ class Http extends RequestAbstract {
     protected $_http;
     
     /**
+     * The request path that should be routed
+     * @var string
+     */
+    protected $_path;
+    
+    /**
      * The server variables
      * @var \Nimbles\Service\Http\Parameters
      */
@@ -143,6 +149,18 @@ class Http extends RequestAbstract {
         }
 
         return $this->getServer('REQUEST_URI');
+    }
+    
+    /**
+     * Gets the request path that should be routed
+     * @return string
+     */
+    public function getRequestPath() {
+        if (null === $this->_path) {
+            $this->_path = parse_url($this->getRequestUri(), PHP_URL_PATH);
+        }
+        
+        return $this->_path;
     }
     
 	/**
