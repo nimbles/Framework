@@ -72,7 +72,10 @@ trait Events {
      */
 	public function fireEvent($name) {
 		$args = func_get_args();
-		return call_user_func_array(array($this->getEvent(), 'fireEvent'), $args);
+		
+		if (null !== ($event = $this->getEvent($name))) {
+		    return call_user_func_array(array($event, 'fire'), array_slice($args, 1));
+		}
 	}
 
 	/**
@@ -82,6 +85,9 @@ trait Events {
      */
 	public function fireEventUntil($name) {
 	    $args = func_get_args();
-		return call_user_func_array(array($this->getEvent(), 'fireEventUntil'), $args);
+	    
+	    if (null !== ($event = $this->getEvent($name))) {
+		    return call_user_func_array(array($event, 'fireUntil'), array_slice($args, 1));
+	    }
 	}
 }

@@ -131,8 +131,8 @@ abstract class FileAbstract {
         $config = new Config();
         
         foreach ($data as $key => &$subconfig) {
-            if (preg_match('/^[a-z0-9]+:[a-z0-9]+$/i', $key)) {
-                list($child, $parent) = explode(':', $key);
+            if (preg_match('/^[a-z0-9]+\s*:\s*[a-z0-9]+$/i', $key)) {
+                list($child, $parent) = array_map('trim', explode(':', $key));
 
                 if (!$config->offsetExists($parent)) {
                     throw new Exception\InvalidConfig('Invalid config, parent config not defined: ' . $parent);
