@@ -64,9 +64,12 @@ class LoaderTest extends TestCase {
 
         \Nimbles\Core\Loader::register();
         $this->assertSame($includepaths, explode(PATH_SEPARATOR, get_include_path()));
-        $autoload = array('Nimbles\Core\Loader', 'autoload');
+        if (function_exists('spl_autoload_case_sensitive')) {
+            $autoload = 'spl_autoload';
+        } else {
+            $autoload = array('Nimbles\Core\Loader', 'autoload');
+        }
         $registered = array_reverse(spl_autoload_functions());
-        
         $this->assertContains($autoload, $registered);
     }
 
@@ -84,7 +87,7 @@ class LoaderTest extends TestCase {
      * Tests autoloading classes
      * @return void
      */
-    public function testAutoload() {        
+    public function testAutoload() {
         \Nimbles\Core\Loader::autoload('Nimbles');
         $this->assertTrue(class_exists('Nimbles', false));
 

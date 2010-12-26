@@ -41,7 +41,13 @@ class Loader {
             );
         }
 
-        spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
+        if (function_exists('spl_autoload_case_sensitive')) {
+            spl_autoload_extensions('.php');
+            spl_autoload_case_sensitive(false);
+            spl_autoload_register('spl_autoload', false, true);
+        } else {
+            spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
+        }
     }
 
     /**
@@ -56,7 +62,7 @@ class Loader {
             require_once $file;
             return true;
         }
-        
+
         return false;
     }
 
