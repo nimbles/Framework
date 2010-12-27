@@ -152,7 +152,7 @@ class Http extends RequestAbstract {
     }
     
     /**
-     * Gets the request path that should be routed
+     * Gets the request path
      * @return string
      */
     public function getRequestPath() {

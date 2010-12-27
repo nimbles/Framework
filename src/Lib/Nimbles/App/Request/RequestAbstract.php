@@ -44,7 +44,7 @@ abstract class RequestAbstract
     }
     
     /**
-     * Gets the request path that should be routed
+     * Gets the request path
      * @return string
      */
     abstract public function getRequestPath();

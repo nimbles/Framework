@@ -175,11 +175,15 @@ class App {
      * Applies the application config
      * @return \Nimbles\App
      */
-    protected function _applyConfig() {
+    protected function _applyConfig() {        
         foreach ($this->getConfig() as $key => $value) {
             switch ($key) {
                 case 'php' :
                     $this->_applyPhpIniSettings($value);
+                    break;
+                
+                case 'app' :
+                    $this->_applyApplicationSettings($value);
                     break;
             }
         }
@@ -196,6 +200,23 @@ class App {
         foreach ($settings as $name => $value) {
             ini_set($name, $value);
         }
+        return $this;
+    }
+    
+    /**
+     * Applies the application settings
+     * @param \ArrayObject $settings
+     * @return \Nimbles\App
+     */
+    protected function _applyApplicationSettings(\ArrayObject $settings) {
+        foreach ($settings as $name => $value) {
+            switch ($name) {
+                case 'includepath' : // add to the include path
+                    set_include_path(get_include_path() . PATH_SEPARATOR . $value);
+                    break;
+            }
+        }
+        
         return $this;
     }
 }
