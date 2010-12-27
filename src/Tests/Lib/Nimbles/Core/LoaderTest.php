@@ -69,7 +69,7 @@ class LoaderTest extends TestCase {
         } else {
             $autoload = array('Nimbles\Core\Loader', 'autoload');
         }
-        $registered = array_reverse(spl_autoload_functions());
+        $registered = spl_autoload_functions();
         $this->assertContains($autoload, $registered);
     }
 
@@ -79,7 +79,13 @@ class LoaderTest extends TestCase {
      */
     public function testFileExists() {
         $this->assertTrue(\Nimbles\Core\Loader::fileExists(__FILE__));
-        $this->assertTrue(\Nimbles\Core\Loader::fileExists('Nimbles.php'));
+        
+        if (!\Nimbles\Core\Loader::fileExists('Nimbles.php')) {
+            $this->assertTrue(\Nimbles\Core\Loader::fileExists('nimbles.php'));
+        } else {
+            $this->assertTrue(\Nimbles\Core\Loader::fileExists('Nimbles.php'));
+        }
+        
         $this->assertFalse(\Nimbles\Core\Loader::fileExists(dirname(__FILE__) . PATH_SEPARATOR . 'Foo.php'));
     }
 

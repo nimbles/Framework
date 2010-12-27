@@ -17,15 +17,16 @@
 		<exec executable="${basedir}/util/NimblesBuild">
 			<arg line="-s ${basedir}/src" />
 			<arg line="-d ${basedir}/build/dest" />
+			<arg line="-l ${basedir}/src/Lib" />
 			<arg line="-q" />
-			<arg line="${compile}"/>
+			<arg line="${compile}" />
 		</exec>
 	</target>
 
 	<!-- generate mess report -->
 	<target name="phpmd" depends="compile">
-		<exec executable="phpmd">
-			<arg line=". xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml ${basedir}/src/Lib" />
+		<exec dir="${basedir}" executable="phpmd">
+			<arg line="${basedir}/src/Lib xml codesize,unusedcode,naming --reportfile ${basedir}/build/logs/pmd.xml" />
 		</exec>
 	</target>
 
@@ -39,7 +40,7 @@
 	<!-- generate jdepend report -->
 	<target name="pdepend" depends="compile">
 		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest/Lib" />
+			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest" />
 		</exec>
 	</target>
 

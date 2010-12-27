@@ -40,10 +40,17 @@ class Loader {
                 get_include_path()
             );
         }
-
-        if (function_exists('spl_autoload_case_sensitive')) {
-            spl_autoload_extensions('.php');
-            spl_autoload_case_sensitive(false);
+        
+        spl_autoload_extensions('.php');
+        
+        /**
+         * Add support for lower case build mode
+         */
+        if ('loader.php' === basename(__FILE__)) {
+            spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
+            spl_autoload_register('spl_autoload', false, true);
+        } else if (function_exists('spl_autoload_case_sensitive')) {
+            spl_autoload_case_sensitive(true);
             spl_autoload_register('spl_autoload', false, true);
         } else {
             spl_autoload_register('Nimbles\Core\Loader::autoload', false, true);
@@ -56,7 +63,6 @@ class Loader {
      * @return bool
      */
     public static function autoload($class) {
-        // only need to replace back slashes with forward slashes since php 5.3
         $file = str_replace('\\', '/', $class) . '.php';
         if (static::fileExists($file)) {
             require_once $file;
