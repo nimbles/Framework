@@ -55,7 +55,7 @@ class FormatterTest extends TestCase {
      */
     public function testValidOptionsFactory($options) {
         $formatter = \Nimbles\Core\Log\Formatter\FormatterAbstract::factory($options);
-        $this->assertType('\Nimbles\Core\Log\Formatter\Simple', $formatter);
+        $this->assertInstanceOf('\Nimbles\Core\Log\Formatter\Simple', $formatter);
     }
 
     /**

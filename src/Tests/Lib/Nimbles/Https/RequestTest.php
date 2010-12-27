@@ -41,6 +41,6 @@ class RequestTest extends TestCase {
      */
     public function testAbstract() {
         $request = new \Nimbles\Https\Request();
-        $this->assertType('Nimbles\Http\Request', $request);
+        $this->assertInstanceOf('Nimbles\Http\Request', $request);
     }
 }

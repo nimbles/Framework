@@ -59,7 +59,7 @@ class CollectionTest extends TestCase {
                 $collection[$index] = $value;
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
 
@@ -76,7 +76,7 @@ class CollectionTest extends TestCase {
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
     }
@@ -103,7 +103,7 @@ class CollectionTest extends TestCase {
                 $collection['index' . (string) $index] = $value;
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
             }
         }
 
@@ -112,7 +112,7 @@ class CollectionTest extends TestCase {
                 $collection[$index] = $value;
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
 
@@ -129,7 +129,7 @@ class CollectionTest extends TestCase {
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
 
@@ -141,7 +141,7 @@ class CollectionTest extends TestCase {
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
             }
         }
     }
@@ -168,7 +168,7 @@ class CollectionTest extends TestCase {
                 $collection[$index] = $value;
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
             }
         }
 
@@ -177,7 +177,7 @@ class CollectionTest extends TestCase {
                 $collection[$index] = $value;
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
 
@@ -194,7 +194,7 @@ class CollectionTest extends TestCase {
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidType');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidType', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidType', $ex);
             }
         }
 
@@ -207,7 +207,7 @@ class CollectionTest extends TestCase {
                 ));
                 $this->fail('Excpected exception Nimbles\Core\Collection\Exception\InvalidIndex');
             } catch (\Exception $ex) {
-                $this->assertType('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
+                $this->assertInstanceOf('Nimbles\Core\Collection\Exception\InvalidIndex', $ex);
             }
         }
     }
@@ -241,7 +241,7 @@ class CollectionTest extends TestCase {
             $collection[] = 4;
             $this->fail('Expected exception Nimbles\Core\Collection\Exception\ReadOnly');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\Core\Collection\Exception\ReadOnly', $ex, 'Expected exception Nimbles\Core\Collection\Exception\ReadOnly');
+            $this->assertInstanceOf('Nimbles\Core\Collection\Exception\ReadOnly', $ex, 'Expected exception Nimbles\Core\Collection\Exception\ReadOnly');
         }
         
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');

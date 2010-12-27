@@ -61,10 +61,10 @@ class EventsTest extends TestCase {
 
         $eventsMock->connect('event1', array($listenMock, 'listen1'));
 
-        $this->assertType('Nimbles\Core\Event\Collection', $eventsMock->getEvent());
+        $this->assertInstanceOf('Nimbles\Core\Event\Collection', $eventsMock->getEvent());
         $this->assertEquals(1, $eventsMock->getEvent()->count());
 
-        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event1'));
+        $this->assertInstanceOf('Nimbles\Core\Event', $eventsMock->getEvent('event1'));
         $this->assertEquals('event1', $eventsMock->getEvent('event1')->getName());
         $this->assertEquals(1, $eventsMock->getEvent('event1')->count());
         $this->assertSame(array(array($listenMock, 'listen1')), $eventsMock->getEvent('event1')->getArrayCopy());
@@ -80,7 +80,7 @@ class EventsTest extends TestCase {
 
         $this->assertEquals(2, $eventsMock->getEvent()->count());
 
-        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event2'));
+        $this->assertInstanceOf('Nimbles\Core\Event', $eventsMock->getEvent('event2'));
         $this->assertEquals(1, $eventsMock->getEvent('event2')->count());
         $this->assertEquals('event2', $eventsMock->getEvent('event2')->getName());
         $this->assertSame(array(array($listenMock, 'listen3')), $eventsMock->getEvent('event2')->getArrayCopy());
@@ -95,7 +95,7 @@ class EventsTest extends TestCase {
         $this->assertEquals(2, $eventsMock->getEvent('event2')->count());
         $this->assertSame(array(array($listenMock, 'listen3'), array($listenMockSelf, 'listen2')), $eventsMock->getEvent('event2')->getArrayCopy());
 
-        $this->assertType('Nimbles\Core\Event', $eventsMock->getEvent('event3'));
+        $this->assertInstanceOf('Nimbles\Core\Event', $eventsMock->getEvent('event3'));
         $this->assertEquals('event3', $eventsMock->getEvent('event3')->getName());
         $this->assertEquals(1, $eventsMock->getEvent('event3')->count());
         $this->assertSame(array(array($listenMockSelf, 'listen3')), $eventsMock->getEvent('event3')->getArrayCopy());

@@ -64,7 +64,7 @@ class ConfigTest extends TestCase {
      */
     public function testAbstract() {
         $config = new Config();
-        $this->assertType('Nimbles\Core\Collection', $config);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $config);
     }
     
     /**
@@ -73,7 +73,7 @@ class ConfigTest extends TestCase {
      */
     public function testInstance() {
         $config = Config::getInstance();        
-        $this->assertType('Nimbles\App\Config', $config);
+        $this->assertInstanceOf('Nimbles\App\Config', $config);
         
         $config->foo = 'bar';
         $config = Config::getInstance();
@@ -115,7 +115,7 @@ class ConfigTest extends TestCase {
         ));
 
         $this->assertEquals(1, $config->a);
-        $this->assertType('Nimbles\App\Config', $config->b);
+        $this->assertInstanceOf('Nimbles\App\Config', $config->b);
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(4, $config->d->e);
 
@@ -134,7 +134,7 @@ class ConfigTest extends TestCase {
         $this->assertEquals(123, $config->foo);
         
         $config->bar = array('baz' => 456);
-        $this->assertType('Nimbles\App\Config', $config->bar);
+        $this->assertInstanceOf('Nimbles\App\Config', $config->bar);
         $this->assertEquals(456, $config->bar->baz);
         
         $this->setExpectedException('Nimbles\App\Config\Exception\InvalidValue');

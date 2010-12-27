@@ -43,7 +43,7 @@ class AdaptableTest extends TestCase {
      */
     public function testGetAdapterObject() {
         $mock = new AdaptableSingleMock();
-        $this->assertType('Nimbles\Core\Pattern\Adapter', $mock->getAdapterObject());
+        $this->assertInstanceOf('Nimbles\Core\Pattern\Adapter', $mock->getAdapterObject());
         
         // invalidate the apater object
         $mock->adapter = 'adapter';
@@ -66,13 +66,13 @@ class AdaptableTest extends TestCase {
             return;
         }
         
-        $this->assertType('Nimbles\Core\Pattern\Adapter', $mock->getAdapterObject());
+        $this->assertInstanceOf('Nimbles\Core\Pattern\Adapter', $mock->getAdapterObject());
 
         $mock->setAdapter(new AdapterConcrete());
-        $this->assertType('Tests\Lib\Nimbles\Core\Pattern\AdapterConcrete', $mock->getAdapter());
+        $this->assertInstanceOf('Tests\Lib\Nimbles\Core\Pattern\AdapterConcrete', $mock->getAdapter());
         
         $mock->setAdapter('AdapterConcrete');
-        $this->assertType('Tests\Lib\Nimbles\Core\Pattern\AdapterConcrete', $mock->getAdapter());
+        $this->assertInstanceOf('Tests\Lib\Nimbles\Core\Pattern\AdapterConcrete', $mock->getAdapter());
     }
     
     /**

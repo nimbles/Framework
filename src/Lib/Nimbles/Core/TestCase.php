@@ -30,7 +30,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @uses       \PHPUnit_Framework_TestCase
  */
-class TestCase extends PHPUnit_Framework_TestCase {
+class TestCase extends PHPUnit_Framework_TestCase {    
     /**
      * Array of overrides which have been applied
      * @var array
@@ -45,18 +45,11 @@ class TestCase extends PHPUnit_Framework_TestCase {
      * @param $message
      */
     public function assertCollection($type, $array, $message = '') {
-        $this->assertThat(
-            $array,
-            $this->logicalOr(
-                new \PHPUnit_Framework_Constraint_IsType('array'),
-                new \PHPUnit_Framework_Constraint_IsInstanceOf('\ArrayObject')
-            ),
-            'Array must be an array or an instance of ArrayObject'
-        );
-
-        foreach ($array as $value) {
-            $this->assertType($type, $value, $message);
+        if ($array instanceof \ArrayObject) {
+            $array = $array->getIterator();
         }
+        
+        $this->assertContainsOnly($type, $array, $message);
     }
     
     /**

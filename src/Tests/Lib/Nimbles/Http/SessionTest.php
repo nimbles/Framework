@@ -130,7 +130,7 @@ class SessionTest extends TestCase {
             $session->write('hello', 'world');
             $this->fail('Expected exception Nimbles\Http\Session\Exception\SessionStarted');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\Http\Session\Exception\SessionStarted', $ex);
+            $this->assertInstanceOf('Nimbles\Http\Session\Exception\SessionStarted', $ex);
         }
 
         $session->start();

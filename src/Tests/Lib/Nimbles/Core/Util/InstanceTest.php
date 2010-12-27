@@ -52,7 +52,7 @@ class InstanceTest extends TestCase {
             $this->setExpectedException('Nimbles\Core\Util\Exception\CreateInstanceFailure');
         }
         $instance = Instance::getInstance($class, $args);
-        $this->assertType($class, $instance);
+        $this->assertInstanceOf($class, $instance);
     }
     
     /**

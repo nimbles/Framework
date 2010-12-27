@@ -46,7 +46,7 @@ class ResponseTest extends TestCase {
 
         $response->send();
 
-        $this->assertType('Nimbles\Core\Response\ResponseAbstract', $response);
+        $this->assertInstanceOf('Nimbles\Core\Response\ResponseAbstract', $response);
         $this->assertEquals('hello world', $this->getOutput());
         $this->assertEquals('hello world', $response->getBody());
         $this->assertEquals('hello world', $response->body);
@@ -62,7 +62,7 @@ class ResponseTest extends TestCase {
 
         $response->send();
 
-        $this->assertType('Nimbles\Core\Response\ResponseAbstract', $response);
+        $this->assertInstanceOf('Nimbles\Core\Response\ResponseAbstract', $response);
         $this->assertEquals('hello world', $this->getOutput());
     }
 
@@ -76,7 +76,7 @@ class ResponseTest extends TestCase {
 
         $response->send();
 
-        $this->assertType('Nimbles\Core\Response\ResponseAbstract', $response);
+        $this->assertInstanceOf('Nimbles\Core\Response\ResponseAbstract', $response);
         $this->assertEquals('hello world', $this->getOutput());
     }
 }

@@ -43,7 +43,7 @@ class RequestTest extends TestCase {
         $this->setInput('hello world');
 
         $request = $this->createRequest();
-        $this->assertType('Nimbles\Core\Request\RequestAbstract', $request);
+        $this->assertInstanceOf('Nimbles\Core\Request\RequestAbstract', $request);
         $this->assertEquals('hello world', $request->getBody());
         $this->assertEquals('hello world', $request->body);
     }

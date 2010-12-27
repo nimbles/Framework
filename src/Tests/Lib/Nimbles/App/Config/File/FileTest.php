@@ -126,7 +126,7 @@ class FileTest extends TestCase {
         $config = FileAbstract::factory($file, null, $type);
         
         $this->assertEquals(1, $config->level1->a, 'Failed to load non section based config');
-        $this->assertType('Nimbles\App\Config', $config->level1->b);
+        $this->assertInstanceOf('Nimbles\App\Config', $config->level1->b);
         $this->assertEquals(2, $config->level1->b->c);
         $this->assertEquals(4, $config->level1->d->e);
         
@@ -136,7 +136,7 @@ class FileTest extends TestCase {
         $config = FileAbstract::factory($file, 'level2');
         
         $this->assertEquals(2, $config->a, 'Failed to get level2 config');
-        $this->assertType('Nimbles\App\Config', $config->b);
+        $this->assertInstanceOf('Nimbles\App\Config', $config->b);
         $this->assertEquals(2, $config->b->c);
         $this->assertEquals(5, $config->d->e);
         $this->assertEquals(6, $config->d->f);
@@ -145,21 +145,21 @@ class FileTest extends TestCase {
             $config = FileAbstract::factory(null, null, $type);
             $this->fail('Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
+            $this->assertInstanceOf('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         }
         
         try {
             $config = FileAbstract::factory('', null, $type);
             $this->fail('Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
+            $this->assertInstanceOf('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         }
         
         try {
             $config = FileAbstract::factory('', null, null);
             $this->fail('Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
+            $this->assertInstanceOf('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
             $this->assertEquals('Cannot parse file extension from file', $ex->getMessage()); // as a different reason
         }
         
@@ -167,7 +167,7 @@ class FileTest extends TestCase {
             $config = FileAbstract::factory('foo', null, 'Foo');
             $this->fail('Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
+            $this->assertInstanceOf('Nimbles\App\Config\File\Exception\InvalidFile', $ex, 'Expected exception Nimbles\App\Config\File\Exception\InvalidFile');
             $this->assertEquals('No parser for found for type: Foo', $ex->getMessage()); // as a different reason
         }
     }

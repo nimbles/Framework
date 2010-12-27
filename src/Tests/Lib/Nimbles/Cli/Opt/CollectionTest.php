@@ -42,7 +42,7 @@ class CollectionTest extends TestCase {
      */
     public function testAbstract() {
         $collection = new Collection();
-        $this->assertType('\Nimbles\Core\ArrayObject', $collection);
+        $this->assertInstanceOf('\Nimbles\Core\ArrayObject', $collection);
     }
 
     /**
@@ -62,7 +62,7 @@ class CollectionTest extends TestCase {
         $this->assertSame(array('cee::', 'duh'), $collection->getAliasArray());
 
         $opt = $collection->c;
-        $this->assertType('Nimbles\Cli\Opt', $opt);
+        $this->assertInstanceOf('Nimbles\Cli\Opt', $opt);
         $this->assertSame($opt, $collection->cee);
     }
 }

@@ -39,13 +39,13 @@ trait Options {
         $this->assertHasMethod($instance, 'getOptions');
         $this->assertHasMethod($instance, 'setOptions');
         
-        $this->assertType(get_class($instance), $instance->setOptions(null));
+        $this->assertInstanceOf(get_class($instance), $instance->setOptions(null));
         
         try {
             $instance->setOptions('foo');
             $this->fail('Expected exception BadMethodCallException');
         } catch (\Exception $ex) {
-            $this->assertType('BadMethodCallException', $ex, 'Expected exception BadMethodCallException');
+            $this->assertInstanceOf('BadMethodCallException', $ex, 'Expected exception BadMethodCallException');
         }
         
         $this->assertNull($instance->getOption('foo'));
@@ -55,7 +55,7 @@ trait Options {
             $instance->getOption('foo');
             $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+            $this->assertInstanceOf('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
         
         unset($instance->options);
@@ -70,7 +70,7 @@ trait Options {
             $instance->setOption('foo', 'bar');
             $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+            $this->assertInstanceOf('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
         
         unset($instance->options);
@@ -81,7 +81,7 @@ trait Options {
             $instance->getOptions();
             $this->fail('Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         } catch (\Exception $ex) {
-            $this->assertType('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
+            $this->assertInstanceOf('Nimbles\Core\Options\Exception\InvalidInstance', $ex, 'Expected exception Nimbles\Core\Options\Exception\InvalidInstance');
         }
         
         unset($instance->options);
@@ -108,7 +108,7 @@ trait Options {
             );
             $this->fail('Expected exception Nimbles\Core\Options\Exception\MissingOption');
         }  catch (\Exception $ex) {
-            $this->assertType('Nimbles\Core\Options\Exception\MissingOption', $ex, 'Expected exception Nimbles\Core\Options\Exception\MissingOption');
+            $this->assertInstanceOf('Nimbles\Core\Options\Exception\MissingOption', $ex, 'Expected exception Nimbles\Core\Options\Exception\MissingOption');
         }
         
         unset($instance->options);

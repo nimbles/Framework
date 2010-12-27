@@ -64,7 +64,7 @@ class CollectionTest extends TestCase {
         $collection->connect('event1', array($mock, 'listen1'));
 
         $this->assertEquals(1, $collection->count());
-        $this->assertType('Nimbles\Core\Event', $collection['event1']);
+        $this->assertInstanceOf('Nimbles\Core\Event', $collection['event1']);
         $this->assertEquals('event1', $collection['event1']->getName());
         $this->assertEquals(1, $collection['event1']->count());
         $this->assertSame(array(array($mock, 'listen1')), $collection['event1']->getArrayCopy());
@@ -79,7 +79,7 @@ class CollectionTest extends TestCase {
 
         $this->assertEquals(2, $collection->count());
 
-        $this->assertType('Nimbles\Core\Event', $collection['event2']);
+        $this->assertInstanceOf('Nimbles\Core\Event', $collection['event2']);
         $this->assertEquals('event2', $collection['event2']->getName());
         $this->assertEquals(1, $collection['event2']->count());
         $this->assertSame(array(array($mock, 'listen3')), $collection['event2']->getArrayCopy());
@@ -94,7 +94,7 @@ class CollectionTest extends TestCase {
         $this->assertEquals(2, $collection['event2']->count());
         $this->assertSame(array(array($mock, 'listen3'), array($mockself, 'listen2')), $collection['event2']->getArrayCopy());
 
-        $this->assertType('Nimbles\Core\Event', $collection['event3']);
+        $this->assertInstanceOf('Nimbles\Core\Event', $collection['event3']);
         $this->assertEquals('event3', $collection['event3']->getName());
         $this->assertEquals(1, $collection['event3']->count());
         $this->assertSame(array(array($mockself, 'listen3')), $collection['event3']->getArrayCopy());
@@ -158,7 +158,7 @@ class CollectionTest extends TestCase {
         $event = Collection::factory($index, $value);
         
         if ($valid) {
-            $this->assertType('Nimbles\Core\Event', $event);
+            $this->assertInstanceOf('Nimbles\Core\Event', $event);
             $this->assertEquals($index, $event->getName());
         } else {
             $this->assertNull($event);

@@ -97,13 +97,13 @@ class PluginsTest extends TestCase {
             )
         ));
         
-        $this->assertType('Nimbles\Core\Plugin\Collection', $mock->getPlugin());
+        $this->assertInstanceOf('Nimbles\Core\Plugin\Collection', $mock->getPlugin());
         
-        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin()->foo);
-        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin('foo'));
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $mock->getPlugin()->foo);
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $mock->getPlugin('foo'));
         
-        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin()->bar);
-        $this->assertType('Nimbles\Core\Plugin', $mock->getPlugin('bar'));
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $mock->getPlugin()->bar);
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $mock->getPlugin('bar'));
         
         $this->assertEquals('foo', $mock->getPlugin()->foo->getName());
         $this->assertEquals('bar', $mock->getPlugin()->bar->getName());

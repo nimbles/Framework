@@ -72,7 +72,7 @@ class JarTest extends TestCase {
         ));
 
         $this->assertEquals('value', (string) $jar['test2']);
-        $this->assertType('Nimbles\Http\Cookie', $jar['test2']);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $jar['test2']);
 
         $this->setExpectedException('Nimbles\Http\Cookie\Exception\InvalidInstance');
         $jar = new Cookie\Jar(array(
