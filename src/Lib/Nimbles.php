@@ -15,7 +15,14 @@
  * @license    http://nimbl.es/license/mit MIT License
  */
 
-require_once 'Nimbles/Core/Loader.php';
+/*
+ * Added to support build mode 
+ */
+if (file_exists(realpath(dirname(__FILE__) . '/nimbles/core/loader.php'))) {
+    require_once 'nimbles/core/loader.php'; 
+} else {
+    require_once 'Nimbles/Core/Loader.php';
+}
 
 /**
  * @category   Nimbles

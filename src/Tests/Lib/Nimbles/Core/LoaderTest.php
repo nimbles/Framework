@@ -64,9 +64,12 @@ class LoaderTest extends TestCase {
 
         \Nimbles\Core\Loader::register();
         $this->assertSame($includepaths, explode(PATH_SEPARATOR, get_include_path()));
-        $autoload = array('Nimbles\Core\Loader', 'autoload');
-        $registered = array_reverse(spl_autoload_functions());
-        
+        if (function_exists('spl_autoload_case_sensitive')) {
+            $autoload = 'spl_autoload';
+        } else {
+            $autoload = array('Nimbles\Core\Loader', 'autoload');
+        }
+        $registered = spl_autoload_functions();
         $this->assertContains($autoload, $registered);
     }
 
@@ -76,7 +79,13 @@ class LoaderTest extends TestCase {
      */
     public function testFileExists() {
         $this->assertTrue(\Nimbles\Core\Loader::fileExists(__FILE__));
-        $this->assertTrue(\Nimbles\Core\Loader::fileExists('Nimbles.php'));
+        
+        if (!\Nimbles\Core\Loader::fileExists('Nimbles.php')) {
+            $this->assertTrue(\Nimbles\Core\Loader::fileExists('nimbles.php'));
+        } else {
+            $this->assertTrue(\Nimbles\Core\Loader::fileExists('Nimbles.php'));
+        }
+        
         $this->assertFalse(\Nimbles\Core\Loader::fileExists(dirname(__FILE__) . PATH_SEPARATOR . 'Foo.php'));
     }
 
@@ -84,7 +93,7 @@ class LoaderTest extends TestCase {
      * Tests autoloading classes
      * @return void
      */
-    public function testAutoload() {        
+    public function testAutoload() {
         \Nimbles\Core\Loader::autoload('Nimbles');
         $this->assertTrue(class_exists('Nimbles', false));
 

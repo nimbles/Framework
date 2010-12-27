@@ -61,19 +61,26 @@ class Builder {
      * @var bool
      */
     protected $_useTraits;
+    
+    /**
+     * Directory of files which should be built in lower case
+     * @var bool
+     */
+    protected $_lowerCase;
 
     /**
      * Class construct
      * @return void
      */
     public function __construct() {
-        $options = function_exists('get_declared_traits') ? getopt('s:d:t:qu') : getopt('s:d:t:q');
-
+        $options = function_exists('get_declared_traits') ? getopt('s:d:t:qu') : getopt('s:d:t:ql:');
+        
         $this->_source = realpath(array_key_exists('s', $options) ? $options['s'] : './src');
-        $this->_dest = realpath(array_key_exists('d', $options) ? $options['d'] : './build/lib');
-        $this->_traitPath = realpath(array_key_exists('t', $options) ? $options['t'] : $this->_source . '/lib');
+        $this->_dest = realpath(array_key_exists('d', $options) ? $options['d'] : './build/dest/Lib');
+        $this->_traitPath = realpath(array_key_exists('t', $options) ? $options['t'] : $this->_source . '/Lib');
         $this->_quiet = array_key_exists('q', $options) ? true : false;
         $this->_useTraits = array_key_exists('u', $options) ? true : false;
+        $this->_lowerCase = array_key_exists('l', $options) ? realpath($options['l']) : null;
     }
 
     /**
@@ -93,9 +100,14 @@ class Builder {
      * @return void
      */
     public function copyFile($file) {
-        $path = $this->_dest . $file;
-        if (!is_file($this->_source . $file)) {
+        if (!is_file($srcFile = $this->_source . $file)) {
             return;
+        }
+       
+        if ((null !== $this->_lowerCase) && (substr($srcFile, 0, strlen($this->_lowerCase)) === $this->_lowerCase)) {
+            $path = $this->_dest . strtolower($file);
+        } else {
+            $path = $this->_dest . $file;
         }
 
         if (!$this->_quiet) {
