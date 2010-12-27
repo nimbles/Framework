@@ -41,7 +41,7 @@ class HeaderTest extends TestCase {
      */
     public function testConstruct() {
         $header = new \Nimbles\Http\Header();
-        $this->assertType('\Nimbles\Core\Mixin\MixinAbstract', $header);
+        $this->assertInstanceOf('\Nimbles\Core\Mixin\MixinAbstract', $header);
     }
 
     /**
@@ -101,7 +101,7 @@ class HeaderTest extends TestCase {
         $this->assertEquals('Accept: text/plain', (string) $header);
 
         $header->setValue('text/xml', true);
-        $this->assertType('array', $header->getValue());
+        $this->assertInternalType('array', $header->getValue());
         $this->assertContains('text/plain', $header->getValue());
         $this->assertContains('text/xml', $header->getValue());
         $this->assertEquals('Accept: text/plain, text/xml', (string) $header);

@@ -50,7 +50,7 @@ class MockTest extends TestCase {
             )
         ));
 
-        $this->assertType('array', $writer->getEntries());
+        $this->assertInstanceOf('array', $writer->getEntries());
     }
 
     /**

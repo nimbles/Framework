@@ -62,14 +62,14 @@ class DefinitionTest extends TestCase {
             'class' => 'Tests\Lib\Nimbles\Core\Container\ContainerMock'
         ));
         
-        $this->assertType('array', $definition->getParameters());
+        $this->assertInternalType('array', $definition->getParameters());
         
         $definition->setParameters(array('param1' => 1));
-        $this->assertType('array', $definition->getParameters());
+        $this->assertInternalType('array', $definition->getParameters());
         $this->assertSame(array('param1' => 1), $definition->getParameters());
         
         $definition->setParameters(new \ArrayObject(array('param1' => 1)));
-        $this->assertType('array', $definition->getParameters());
+        $this->assertInternalType('array', $definition->getParameters());
         $this->assertSame(array('param1' => 1), $definition->getParameters());
         
         $this->setExpectedException('Nimbles\Core\Container\Exception\InvalidParameters');
@@ -92,12 +92,12 @@ class DefinitionTest extends TestCase {
         $this->assertSame($options['shared'], $definition->isShared());
         
         $instance = $definition->getInstance();
-        $this->assertType($options['class'], $instance);
+        $this->assertInstanceOf($options['class'], $instance);
         
         $count = call_user_func(array($options['class'], 'getInstanceCount'));
         
         $instance = $definition(); // check that definition is invokable
-        $this->assertType($options['class'], $instance);
+        $this->assertInstanceOf($options['class'], $instance);
         $this->assertSame($options['parameters'], $instance->getParameters());
         
         $newCount = call_user_func(array($options['class'], 'getInstanceCount'));

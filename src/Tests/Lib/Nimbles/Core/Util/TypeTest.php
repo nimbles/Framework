@@ -64,7 +64,11 @@ class TypeTest extends TestCase {
      * @dataProvider typeProvider
      */
     public function testGetValidator($type, $validatorType) {
-        $this->assertType($validatorType, Type::getTypeValidator($type));
+        if (class_exists($validatorType)) {
+            $this->assertInstanceOf($validatorType, Type::getTypeValidator($type));
+        } else {
+            $this->assertInternalType($validatorType, Type::getTypeValidator($type));   
+        }
     }
     
     /**

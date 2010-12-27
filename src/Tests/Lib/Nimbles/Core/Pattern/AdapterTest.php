@@ -67,7 +67,7 @@ class AdapterTest extends TestCase {
         $adapter = $instance->getAdapter();
         
         if (null !== $options['type']) {
-            $this->assertType($options['type'], $adapter);
+            $this->assertInstanceOf($options['type'], $adapter);
         }
         
         if (method_exists($adapter, 'getParameters')) {

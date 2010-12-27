@@ -41,6 +41,6 @@ class ResponseTest extends TestCase {
      */
     public function testAbstract() {
         $response = new \Nimbles\Https\Response();
-        $this->assertType('Nimbles\Http\Response', $response);
+        $this->assertInstanceOf('Nimbles\Http\Response', $response);
     }
 }

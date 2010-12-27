@@ -41,7 +41,7 @@ class ResponseTest extends TestCase {
      */
     public function testAbstract() {
         $response = new \Nimbles\Http\Response();
-        $this->assertType('\Nimbles\Core\Response\ResponseAbstract', $response);
+        $this->assertInstanceOf('\Nimbles\Core\Response\ResponseAbstract', $response);
     }
 
     /**
@@ -51,17 +51,17 @@ class ResponseTest extends TestCase {
     public function testHeaders() {
         $response = new \Nimbles\Http\Response();
 
-        $this->assertType('Nimbles\Http\Header\Collection', $response->getHeader());
+        $this->assertInstanceOf('Nimbles\Http\Header\Collection', $response->getHeader());
         $response->setHeader('Content-Type', 'text/plain');
         $this->assertTrue($response->getHeader()->offsetExists('Content-Type'));
 
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('Content-Type'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('Content-Type'));
         $this->assertEquals('Content-Type: text/plain', (string) $response->getHeader('Content-Type'));
 
-        $this->assertType('\Nimbles\Http\Header', $response->header->getHeader('Content-Type'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->header->getHeader('Content-Type'));
         $this->assertEquals('Content-Type: text/plain', (string) $response->header->getHeader('Content-Type'));
 
-        $this->assertType('\Nimbles\Http\Header', $response->header->{'Content-Type'});
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->header->{'Content-Type'});
         $this->assertEquals('Content-Type: text/plain', (string) $response->header->{'Content-Type'});
 
         $this->assertNull($response->getHeader('Content-Length'));
@@ -80,11 +80,11 @@ class ResponseTest extends TestCase {
         $this->assertTrue($response->getHeader()->offsetExists('Pragma'));
         $this->assertTrue($response->getHeader()->offsetExists('WWW-Authenticate'));
 
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('Allow'));
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('Content-Length'));
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('Content-Location'));
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('Pragma'));
-        $this->assertType('\Nimbles\Http\Header', $response->getHeader('WWW-Authenticate'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('Allow'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('Content-Length'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('Content-Location'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('Pragma'));
+        $this->assertInstanceOf('\Nimbles\Http\Header', $response->getHeader('WWW-Authenticate'));
     }
 
     /**
@@ -94,21 +94,21 @@ class ResponseTest extends TestCase {
     public function testStatus() {
         $response = new \Nimbles\Http\Response();
 
-        $this->assertType('\Nimbles\Http\Status', $response->getStatus());
+        $this->assertInstanceOf('\Nimbles\Http\Status', $response->getStatus());
         $this->assertEquals(\Nimbles\Http\Status::STATUS_OK, $response->getStatus()->getStatus());
 
         $response->setStatus(\Nimbles\Http\Status::STATUS_FORBIDDEN);
-        $this->assertType('\Nimbles\Http\Status', $response->getStatus());
+        $this->assertInstanceOf('\Nimbles\Http\Status', $response->getStatus());
         $this->assertEquals(\Nimbles\Http\Status::STATUS_FORBIDDEN, $response->getStatus()->getStatus());
 
         $response->setStatus(new \Nimbles\Http\Status(array('status' => 'Request Entity Too Large')));
-        $this->assertType('\Nimbles\Http\Status', $response->getStatus());
+        $this->assertInstanceOf('\Nimbles\Http\Status', $response->getStatus());
         $this->assertEquals(\Nimbles\Http\Status::STATUS_REQUEST_ENTITY_TOO_LARGE, $response->getStatus()->getStatus());
 
         $response = new \Nimbles\Http\Response(array(
             'status' => \Nimbles\Http\Status::STATUS_NOT_FOUND
         ));
-        $this->assertType('\Nimbles\Http\Status', $response->getStatus());
+        $this->assertInstanceOf('\Nimbles\Http\Status', $response->getStatus());
         $this->assertEquals(\Nimbles\Http\Status::STATUS_NOT_FOUND, $response->getStatus()->getStatus());
     }
 
@@ -131,7 +131,7 @@ class ResponseTest extends TestCase {
     public function testCookie() {
         $response = new \Nimbles\Http\Response();
 
-        $this->assertType('\Nimbles\Http\Cookie\Jar', $response->getCookie());
+        $this->assertInstanceOf('\Nimbles\Http\Cookie\Jar', $response->getCookie());
 
         $response->setCookie('test1', 'value1');
         $response->setCookie(new \Nimbles\Http\Cookie(array(
@@ -148,15 +148,15 @@ class ResponseTest extends TestCase {
         $cookie2 = $response->getCookie('test2');
         $cookie3 = $response->getCookie('test3');
 
-        $this->assertType('Nimbles\Http\Cookie', $cookie1);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $cookie1);
         $this->assertEquals('value1', $cookie1->getValue());
         $this->assertEquals(0, $cookie1->getExpires());
 
-        $this->assertType('Nimbles\Http\Cookie', $cookie2);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $cookie2);
         $this->assertEquals('value2', $cookie2->getValue());
         $this->assertEquals(200, $cookie2->getExpires());
 
-        $this->assertType('Nimbles\Http\Cookie', $cookie3);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $cookie3);
         $this->assertEquals('value3', $cookie3->getValue());
         $this->assertEquals(0, $cookie3->getExpires());
 
@@ -174,14 +174,14 @@ class ResponseTest extends TestCase {
         $session = $this->createSession();
         $response->setSession($session);
 
-        $this->assertType('Nimbles\Http\Session', $response->getSession());
+        $this->assertInstanceOf('Nimbles\Http\Session', $response->getSession());
         static::$_session = array(
             'test1' => 'abc',
             'test2' => 123
         );
 
-        $this->assertType('Nimbles\Http\Session', $response->getSession());
-        $this->assertType('Nimbles\Http\Session', $response->session);
+        $this->assertInstanceOf('Nimbles\Http\Session', $response->getSession());
+        $this->assertInstanceOf('Nimbles\Http\Session', $response->session);
 
         $this->assertEquals('abc', $response->getSession('test1'));
         $this->assertEquals('abc', $response->session->test1);

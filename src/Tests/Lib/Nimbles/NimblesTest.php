@@ -30,8 +30,8 @@ class NimblesTest extends \Nimbles\Core\TestCase {
      * @return void
      */
     public function testGetInstance() {
-        $this->assertType('\Nimbles', \Nimbles::getInstance());
+        $this->assertInstanceOf('\Nimbles', \Nimbles::getInstance());
         \Nimbles::setInstance();
-        $this->assertType('\Nimbles', \Nimbles::getInstance());
+        $this->assertInstanceOf('\Nimbles', \Nimbles::getInstance());
     }
 }

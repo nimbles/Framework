@@ -48,7 +48,7 @@ class ContainerTest extends TestCase {
     public function testContainerDefaults() {
         $container = new Container();
         
-        $this->assertType('Nimbles\Core\Collection', $container);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $container);
         
         $this->assertEquals('Nimbles\Core\Container\Definition', $container->getType());
         $this->assertEquals(Container::INDEX_ASSOCIATIVE, $container->getIndexType());
@@ -83,7 +83,7 @@ class ContainerTest extends TestCase {
         $definition = Container::factory('foo', $value);
                 
         if ($valid) {
-            $this->assertType('Nimbles\Core\Container\Definition', $definition);
+            $this->assertInstanceOf('Nimbles\Core\Container\Definition', $definition);
             $this->assertEquals('foo', $definition->getId());
         } else {
             $this->assertNull($definition);
@@ -108,16 +108,16 @@ class ContainerTest extends TestCase {
             )
         );
         
-        $this->assertType('Nimbles\Core\Container\Definition', $container->foo);
-        $this->assertType('Nimbles\Core\Container\Definition', $container->bar);
-        $this->assertType('Nimbles\Core\Container\Definition', $container->baz);
+        $this->assertInstanceOf('Nimbles\Core\Container\Definition', $container->foo);
+        $this->assertInstanceOf('Nimbles\Core\Container\Definition', $container->bar);
+        $this->assertInstanceOf('Nimbles\Core\Container\Definition', $container->baz);
         
         $container->quz = 'Tests\Lib\Nimbles\Core\Container\ContainerMock';
-        $this->assertType('Nimbles\Core\Container\Definition', $container->quz);
+        $this->assertInstanceOf('Nimbles\Core\Container\Definition', $container->quz);
         
         
         $instance = $container->foo->getInstance();
-        $this->assertType('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
+        $this->assertInstanceOf('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
         
         /*
          * due a limitation in php, this cannot be done
@@ -126,7 +126,7 @@ class ContainerTest extends TestCase {
                 
         $definition = $container->foo;
         $instance = $definition();
-        $this->assertType('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
+        $this->assertInstanceOf('Tests\Lib\Nimbles\Core\Container\ContainerMock', $instance);
     }
     
     /**

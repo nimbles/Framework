@@ -43,7 +43,7 @@ class CollectionTest extends TestCase {
      */
     public function testAbstract() {
         $collection = new Collection();
-        $this->assertType('Nimbles\Core\Collection', $collection);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $collection);
         $this->assertEquals(Collection::INDEX_ASSOCIATIVE, $collection->getIndexType());
     }
     
@@ -77,9 +77,9 @@ class CollectionTest extends TestCase {
             'baz' => new Plugin()
         ));
         
-        $this->assertType('Nimbles\Core\Plugin', $collection->foo);
-        $this->assertType('Nimbles\Core\Plugin', $collection->bar);
-        $this->assertType('Nimbles\Core\Plugin', $collection->baz);
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $collection->foo);
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $collection->bar);
+        $this->assertInstanceOf('Nimbles\Core\Plugin', $collection->baz);
         
         $this->setExpectedException('Nimbles\Core\Collection\Exception\ReadOnly');
         $collection['test'] = new Plugin();
@@ -96,7 +96,7 @@ class CollectionTest extends TestCase {
     public function testFactory($index, $value, $expectedType) {
         $plugin = Collection::factory($index, $value);
         if (null !== $expectedType) {
-            $this->assertType($expectedType, $plugin);
+            $this->assertInstanceOf($expectedType, $plugin);
         } else {
             $this->assertNull($plugin);
         }

@@ -42,7 +42,7 @@ class LogTest extends TestCase {
      */
     public function testGetInstance() {
         $instance = Log::getInstance();
-        $this->assertType('\Nimbles\Core\Log', $instance);
+        $this->assertInstanceOf('\Nimbles\Core\Log', $instance);
     }
 
     /**

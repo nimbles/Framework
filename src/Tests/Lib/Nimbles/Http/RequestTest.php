@@ -41,7 +41,7 @@ class RequestTest extends TestCase {
      */
     public function testConstruct() {
         $request = $this->createRequest();
-        $this->assertType('Nimbles\Core\Request\RequestAbstract', $request);
+        $this->assertInstanceOf('Nimbles\Core\Request\RequestAbstract', $request);
     }
 
     /**
@@ -56,8 +56,8 @@ class RequestTest extends TestCase {
 
         $request = $this->createRequest();
 
-        $this->assertType('Nimbles\Core\Collection', $request->getQuery());
-        $this->assertType('Nimbles\Core\Collection', $request->query);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->getQuery());
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->query);
 
         $this->assertEquals('bar', $request->getQuery('foo'));
         $this->assertEquals('bar', $request->query->foo);
@@ -80,8 +80,8 @@ class RequestTest extends TestCase {
 
         $request = $this->createRequest();
 
-        $this->assertType('Nimbles\Core\Collection', $request->getPost());
-        $this->assertType('Nimbles\Core\Collection', $request->post);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->getPost());
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->post);
 
         $this->assertEquals('bar', $request->getPost('foo'));
         $this->assertEquals('bar', $request->post->foo);
@@ -104,8 +104,8 @@ class RequestTest extends TestCase {
 
         $request = $this->createRequest();
 
-        $this->assertType('Nimbles\Core\Collection', $request->getServer());
-        $this->assertType('Nimbles\Core\Collection', $request->server);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->getServer());
+        $this->assertInstanceOf('Nimbles\Core\Collection', $request->server);
 
         $this->assertEquals('bar', $request->getServer('foo'));
         $this->assertEquals('bar', $request->server->foo);
@@ -130,8 +130,8 @@ class RequestTest extends TestCase {
         $request = $this->createRequest();
 
 
-        $this->assertType('Nimbles\Http\Session', $request->getSession());
-        $this->assertType('Nimbles\Http\Session', $request->session);
+        $this->assertInstanceOf('Nimbles\Http\Session', $request->getSession());
+        $this->assertInstanceOf('Nimbles\Http\Session', $request->session);
 
         $this->assertEquals('abc', $request->getSession('test1'));
         $this->assertEquals('abc', $request->session->read('test1'));
@@ -216,16 +216,16 @@ class RequestTest extends TestCase {
         );
         $request = $this->createRequest();
 
-        $this->assertType('Nimbles\Http\Header\Collection', $request->getHeader());
-        $this->assertType('Nimbles\Http\Header\Collection', $request->header);
+        $this->assertInstanceOf('Nimbles\Http\Header\Collection', $request->getHeader());
+        $this->assertInstanceOf('Nimbles\Http\Header\Collection', $request->header);
 
-        $this->assertType('Nimbles\Http\Header', $request->getHeader($name));
+        $this->assertInstanceOf('Nimbles\Http\Header', $request->getHeader($name));
         $this->assertEquals($name . ': ' . $value, (string) $request->getHeader($name));
 
-        $this->assertType('Nimbles\Http\Header', $request->header->getHeader($name));
+        $this->assertInstanceOf('Nimbles\Http\Header', $request->header->getHeader($name));
         $this->assertEquals($name . ': ' . $value, (string) $request->header->getHeader($name));
 
-        $this->assertType('Nimbles\Http\Header', $request->header->$name);
+        $this->assertInstanceOf('Nimbles\Http\Header', $request->header->$name);
         $this->assertEquals($name . ': ' . $value, (string) $request->header->$name);
     }
 
@@ -239,12 +239,12 @@ class RequestTest extends TestCase {
         );
 
         $request = $this->createRequest();
-        $this->assertType('Nimbles\Http\Cookie\Jar', $request->getCookie());
-        $this->assertType('Nimbles\Http\Cookie\Jar', $request->cookie);
+        $this->assertInstanceOf('Nimbles\Http\Cookie\Jar', $request->getCookie());
+        $this->assertInstanceOf('Nimbles\Http\Cookie\Jar', $request->cookie);
 
-        $this->assertType('Nimbles\Http\Cookie', $request->getCookie('hello'));
-        $this->assertType('Nimbles\Http\Cookie', $request->cookie->getCookie('hello'));
-        $this->assertType('Nimbles\Http\Cookie', $request->cookie->hello);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $request->getCookie('hello'));
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $request->cookie->getCookie('hello'));
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $request->cookie->hello);
 
         $this->assertEquals('world', $request->getCookie('hello')->getValue());
         $this->assertEquals('world', $request->cookie->getCookie('hello')->getValue());

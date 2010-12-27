@@ -131,7 +131,7 @@ class ClientTest extends TestCase {
 
     public function testDefaultAdapter() {
         $client = new Client();
-        $this->assertType('\Nimbles\Http\Client\Adapter\Curl', $client->getDefaultAdapter());
+        $this->assertInstanceOf('\Nimbles\Http\Client\Adapter\Curl', $client->getDefaultAdapter());
     }
 
     /**
@@ -200,10 +200,10 @@ class ClientTest extends TestCase {
         );
 
         $response = $client->request($request);
-        $this->assertType('Nimbles\Http\Cookie\Jar', $response->getCookie());
+        $this->assertInstanceOf('Nimbles\Http\Cookie\Jar', $response->getCookie());
         $responseCookieJar = $response->getCookie()->getArrayCopy();
         $this->assertArrayHasKey('Name', $responseCookieJar);
-        $this->assertType('Nimbles\Http\Cookie', $responseCookieJar['Name']);
+        $this->assertInstanceOf('Nimbles\Http\Cookie', $responseCookieJar['Name']);
         $this->assertEquals('Value', $responseCookieJar['Name']->getValue());
         $this->assertEquals('localhost', $responseCookieJar['Name']->getDomain());
         $this->assertEquals('/', $responseCookieJar['Name']->getPath());

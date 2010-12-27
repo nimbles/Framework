@@ -54,8 +54,8 @@ class ConfigurableTest extends TestCase {
      */
     public function testGetConfig() {
         $configMock = new ConfigurableMock();
-        
-        $this->assertType('Nimbles\App\Config', $configMock->getConfig());
+                
+        $this->assertInstanceOf('Nimbles\App\Config', $configMock->getConfig());
         
         $configMock->getConfig()->foo = 'bar';
         $this->assertEquals('bar', $configMock->getConfig()->foo);

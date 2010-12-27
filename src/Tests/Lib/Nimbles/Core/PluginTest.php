@@ -41,7 +41,7 @@ class PluginTest extends TestCase {
      */
     public function testAbstract() {
         $plugin = new Plugin();
-        $this->assertType('Nimbles\Core\Collection', $plugin);
+        $this->assertInstanceOf('Nimbles\Core\Collection', $plugin);
         $this->assertEquals(Plugin::INDEX_ASSOCIATIVE, $plugin->getIndexType());
     }
     
