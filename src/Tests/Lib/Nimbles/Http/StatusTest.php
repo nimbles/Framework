@@ -49,10 +49,11 @@ class StatusTest extends TestCase {
      * Tests that creating a status from a given code produces the corresponding header
      * @param int    $code
      * @param string $expectedHeader
+     * @param string $statusClass
      * @return void
      * @dataProvider codeProvider
      */
-    public function testConstruct($code, $description) {
+    public function testConstruct($code, $description, $statusClass) {
         // create by code
         $status = new Status(array('status' => $code));
 
@@ -62,33 +63,13 @@ class StatusTest extends TestCase {
 
         $methods = array(
             'isInformation' => false,
-            'isSuccessful' => false,
+            'isSuccessful'  => false,
             'isRedirection' => false,
             'isClientError' => false,
             'isServerError' => false
         );
 
-        switch (true) {
-            case (1 === floor($code / 100)) :
-                $methods['isInformation'] = true;
-                break;
-
-            case (2 === floor($code / 100)) :
-                $methods['isSuccessful'] = true;
-                break;
-
-            case (3 === floor($code / 100)) :
-                $methods['isRedirection'] = true;
-                break;
-
-            case (4 === floor($code / 100)) :
-                $methods['isClientError'] = true;
-                break;
-
-            case (5 === floor($code / 100)) :
-                $methods['isServerError'] = true;
-                break;
-        }
+        $methods['is' . ucfirst($statusClass)] = true;
 
         foreach($methods as $method => $expected) {
             $this->assertEquals($expected, $status->$method());
@@ -132,11 +113,11 @@ class StatusTest extends TestCase {
      */
     public function codeProvider() {
         return array(
-            array(100, 'Continue'),
-            array(203, 'Non-Authoritative Information'),
-            array(301, 'Moved Permanently'),
-            array(415, 'Unsupported Media Type'),
-            array(505, 'HTTP Version Not Supported'),
+            array(100, 'Continue',                      'information'),
+            array(203, 'Non-Authoritative Information', 'successful'),
+            array(301, 'Moved Permanently',             'redirection'),
+            array(415, 'Unsupported Media Type',        'clientError'),
+            array(505, 'HTTP Version Not Supported',    'serverError'),
         );
     }
 }
