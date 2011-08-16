@@ -40,7 +40,10 @@
 	<!-- generate jdepend report -->
 	<target name="pdepend" depends="compile">
 		<exec dir="${basedir}" executable="pdepend" failonerror="true">
-			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml ${basedir}/build/dest" />
+			<arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml"/>
+            <arg line="--jdepend-chart=${basedir}/build/logs/dependencies.svg"/>
+            <arg line="--overview-pyramid=${basedir}/build/logs/overview-pyramid.svg"/>
+            <arg line="${basedir}/build/dest" />
 		</exec>
 	</target>
 
