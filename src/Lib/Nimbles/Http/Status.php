@@ -209,43 +209,52 @@ class Status extends MixinAbstract {
     }
 
     /**
-     * Indicates that the status informational
+     * Get the class of status message
+     *
+     * @return int
+     */
+    public function getStatusClass() {
+        return intval(floor($this->_status / 100));
+    }
+
+    /**
+     * Indicates that the status is informational
      * @return bool
      */
     public function isInformation() {
-        return floor($this->_status / 100) === 1;
+        return (1 === $this->getStatusClass());
     }
 
     /**
-     * Indicates that the status successful
+     * Indicates that the status is successful
      * @return bool
      */
     public function isSuccessful() {
-        return floor($this->_status / 100) === 2;
+        return (2 === $this->getStatusClass());
     }
 
     /**
-     * Indicates that the status redirection
+     * Indicates that the status is a redirect
      * @return bool
      */
     public function isRedirection() {
-        return floor($this->_status / 100) === 3;
+        return (3 === $this->getStatusClass());
     }
 
     /**
-     * Indicates that the status client error
+     * Indicates that the status is a client error
      * @return bool
      */
     public function isClientError() {
-        return floor($this->_status / 100) === 4;
+        return (4 === $this->getStatusClass());
     }
 
     /**
-     * Indicates that the status server error
+     * Indicates that the status is a server error
      * @return bool
      */
     public function isServerError() {
-        return floor($this->_status / 100) === 4;
+        return (5 === $this->getStatusClass());
     }
 
     /**

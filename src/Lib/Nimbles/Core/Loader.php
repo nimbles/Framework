@@ -78,16 +78,6 @@ class Loader {
      * @return bool
      */
     public static function fileExists($file) {
-        if (false !== realpath($file)) {
-            return true;
-        }
-
-        $include_paths = explode(PATH_SEPARATOR, get_include_path());
-        foreach ($include_paths as $include_path) {
-            if (false !== realpath($include_path . '/' . $file)) {
-                return true;
-            }
-        }
-        return false;
+        return false !== stream_resolve_include_path($file);
     }
 }
